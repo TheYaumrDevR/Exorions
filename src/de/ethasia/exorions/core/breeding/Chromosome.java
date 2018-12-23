@@ -77,9 +77,63 @@ public class Chromosome {
     
     public Chromosome createClone() {
         Chromosome clone = new Chromosome.Builder()
+            .setMaximumHealthAllele(maximumHealthAllele.createClone())
+            .setAttackAllele(attackAllele.createClone())
+            .setDefenseAllele(defenseAllele.createClone())
+            .setSpecialAttackAllele(specialAttackAllele.createClone())
+            .setSpecialDefenseAllele(specialDefenseAllele.createClone())
+            .setSwiftnessAllele(swiftnessAllele.createClone())
+            .setAccuracyAllele(accuracyAllele.createClone())
+            .setEvasivenessAllele(evasivenessAllele.createClone())
+            .setCriticalHitAvoidanceAllele(criticalHitAvoidanceAllele.createClone())
+            .setCriticalHitFrequencyAllele(criticalHitFrequencyAllele.createClone())
             .build();
         
         return clone;
+    }
+    
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+        
+        if (!(other instanceof Chromosome)) {
+            return false;
+        }
+        
+        return equals((Chromosome)other);
+    }
+    
+    @Override
+    public int hashCode() {
+        return maximumHealthAllele.hashCode()
+            + attackAllele.hashCode()
+            + defenseAllele.hashCode()
+            + specialAttackAllele.hashCode()
+            + specialDefenseAllele.hashCode()
+            + swiftnessAllele.hashCode()
+            + accuracyAllele.hashCode()
+            + evasivenessAllele.hashCode()
+            + criticalHitAvoidanceAllele.hashCode()
+            + criticalHitFrequencyAllele.hashCode();
+    }
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Helper Methods">
+    
+    private boolean equals(Chromosome other) {
+        return other.maximumHealthAllele.equals(this.maximumHealthAllele)
+            && other.attackAllele.equals(this.attackAllele)
+            && other.defenseAllele.equals(this.defenseAllele)
+            && other.specialAttackAllele.equals(this.specialAttackAllele)
+            && other.specialDefenseAllele.equals(this.specialDefenseAllele)
+            && other.swiftnessAllele.equals(this.swiftnessAllele)
+            && other.accuracyAllele.equals(this.accuracyAllele)
+            && other.evasivenessAllele.equals(this.evasivenessAllele)
+            && other.criticalHitAvoidanceAllele.equals(this.criticalHitAvoidanceAllele)
+            && other.criticalHitFrequencyAllele.equals(this.criticalHitFrequencyAllele);
     }
     
     //</editor-fold>

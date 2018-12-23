@@ -20,8 +20,8 @@ public class ChromosomePairTest {
             .setMaternalChromosome(maternalChromosome)
             .build();
         
-        assertThat(product.getPaternalChromosome(), is(equalTo(paternalChromosome)));
-        assertThat(product.getMaternalChromosome(), is(equalTo(maternalChromosome)));
+        assertThat(product.getPaternalChromosome(), is(sameInstance(paternalChromosome)));
+        assertThat(product.getMaternalChromosome(), is(sameInstance(maternalChromosome)));
     }
     
     @Test(expected = NotAllPropertiesAreSetException.class)
@@ -54,7 +54,7 @@ public class ChromosomePairTest {
         
         ChromosomePair clone = product.cloneWithCrossover();
         
-        assertThat(clone.getMaternalChromosome(), is(not(equalTo(maternalChromosome))));
-        assertThat(clone.getPaternalChromosome(), is(not(equalTo(paternalChromosome))));
+        assertThat(clone.getMaternalChromosome(), is(not(sameInstance(maternalChromosome))));
+        assertThat(clone.getPaternalChromosome(), is(not(sameInstance(paternalChromosome))));
     }
 }

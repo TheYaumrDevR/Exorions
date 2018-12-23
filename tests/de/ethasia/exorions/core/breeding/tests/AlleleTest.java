@@ -45,8 +45,21 @@ public class AlleleTest {
         
         Allele clone = testCandidate.createClone();
         
-        assertThat(clone, is(not(equalTo(testCandidate))));
+        assertThat(clone, is(not(sameInstance(testCandidate))));
         assertThat(clone.getStatModifier(), is(equalTo(testCandidate.getStatModifier())));
         assertThat(clone.isDominant(), is(testCandidate.isDominant()));
+    }
+    
+    @Test
+    public void testEquals_allelesWithEqualValuesAreEqual() {
+        Allele testCandidate = new Allele.Builder()
+            .setStatModifier(0)
+            .setIsDominant(false)
+            .build();  
+        
+        Allele clone = testCandidate.createClone();
+        
+        assertThat(clone, is(equalTo(testCandidate)));
+        assertThat(clone.hashCode(), is(equalTo(testCandidate.hashCode())));
     }
 }

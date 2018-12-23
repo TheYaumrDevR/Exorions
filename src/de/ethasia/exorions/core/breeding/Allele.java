@@ -38,6 +38,34 @@ public class Allele {
         return clone;
     }
     
+    @Override
+    public boolean equals(Object other) {
+        if (null == other) {
+            return false;
+        }
+        
+        if (!(other instanceof Allele)) {
+            return false;
+        }
+        
+        return equals((Allele)other);
+    }
+    
+    @Override
+    public int hashCode() {
+        short dominantOffset = isDominant ? (short)256 : (short)128;
+        
+        return statModifier + dominantOffset;
+    }
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Private Methods">
+    
+    private boolean equals(Allele other) {
+        return other.isDominant == this.isDominant && other.statModifier == this.statModifier;
+    }
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Builder">

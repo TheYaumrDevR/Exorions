@@ -117,7 +117,7 @@ public class ChromosomeTest {
             .setIsDominant(true)
             .build();
         
-        Chromosome product = new Chromosome.Builder()
+        Chromosome testCandidate = new Chromosome.Builder()
             .setMaximumHealthAllele(alleleMaxHealth)
             .setAttackAllele(alleleAttack)
             .setDefenseAllele(alleleDefense)
@@ -130,8 +130,11 @@ public class ChromosomeTest {
             .setCriticalHitFrequencyAllele(alleleCriticalHitFrequency)
             .build();    
         
-        Chromosome clone = product.createClone();
+        Chromosome clone = testCandidate.createClone();
         
         assertThat(clone, is(notNullValue()));
+        assertThat(clone, is(not(sameInstance(testCandidate))));
+        assertThat(clone, is(equalTo(testCandidate)));
+        assertThat(clone.hashCode(), is(equalTo(testCandidate.hashCode())));
     }
 }
