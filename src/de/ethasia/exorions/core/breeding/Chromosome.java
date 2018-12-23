@@ -1,5 +1,7 @@
 package de.ethasia.exorions.core.breeding;
 
+import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
+
 public class Chromosome {
     
     //<editor-fold defaultstate="collapsed" desc="Properties">
@@ -76,18 +78,24 @@ public class Chromosome {
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
     public Chromosome createClone() {
-        Chromosome clone = new Chromosome.Builder()
-            .setMaximumHealthAllele(maximumHealthAllele.createClone())
-            .setAttackAllele(attackAllele.createClone())
-            .setDefenseAllele(defenseAllele.createClone())
-            .setSpecialAttackAllele(specialAttackAllele.createClone())
-            .setSpecialDefenseAllele(specialDefenseAllele.createClone())
-            .setSwiftnessAllele(swiftnessAllele.createClone())
-            .setAccuracyAllele(accuracyAllele.createClone())
-            .setEvasivenessAllele(evasivenessAllele.createClone())
-            .setCriticalHitAvoidanceAllele(criticalHitAvoidanceAllele.createClone())
-            .setCriticalHitFrequencyAllele(criticalHitFrequencyAllele.createClone())
-            .build();
+        Chromosome clone = null;
+        
+        try {
+            clone = new Chromosome.Builder()
+                .setMaximumHealthAllele(maximumHealthAllele.createClone())
+                .setAttackAllele(attackAllele.createClone())
+                .setDefenseAllele(defenseAllele.createClone())
+                .setSpecialAttackAllele(specialAttackAllele.createClone())
+                .setSpecialDefenseAllele(specialDefenseAllele.createClone())
+                .setSwiftnessAllele(swiftnessAllele.createClone())
+                .setAccuracyAllele(accuracyAllele.createClone())
+                .setEvasivenessAllele(evasivenessAllele.createClone())
+                .setCriticalHitAvoidanceAllele(criticalHitAvoidanceAllele.createClone())
+                .setCriticalHitFrequencyAllele(criticalHitFrequencyAllele.createClone())
+                .build(); 
+            
+            return clone;
+        } catch (NotAllPropertiesAreSetException ex) {}
         
         return clone;
     }
@@ -203,7 +211,21 @@ public class Chromosome {
             return this;
         }
         
-        public Chromosome build() {
+        public Chromosome build() throws NotAllPropertiesAreSetException {
+            if (null == maximumHealthAllele
+                || null == attackAllele 
+                || null == defenseAllele
+                || null == specialAttackAllele
+                || null == specialDefenseAllele
+                || null == swiftnessAllele
+                || null == accuracyAllele
+                || null == evasivenessAllele
+                || null == criticalHitAvoidanceAllele
+                || null == criticalHitFrequencyAllele) 
+            {
+                throw new NotAllPropertiesAreSetException();
+            }
+            
             return new Chromosome(this);
         }
     }

@@ -1,5 +1,6 @@
 package de.ethasia.exorions.core.breeding.tests;
 
+import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.breeding.Allele;
 import de.ethasia.exorions.core.breeding.Chromosome;
 
@@ -8,16 +9,9 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
 public class ChromosomeTest {
-
-    @Test
-    public void testBuilderBuild_emptyChromosomeIsCreated_isNotNull() {
-        Chromosome product = new Chromosome.Builder().build();
-        
-        assertThat(product, is(notNullValue()));
-    }
     
     @Test
-    public void testBuilderBuild_setAllelesOnAllStats_allelesAreInProduct() {
+    public void testBuilderBuild_setAllelesOnAllStats_allelesAreInProduct() throws NotAllPropertiesAreSetException {
         Allele alleleMaxHealth = new Allele.Builder()
             .setStatModifier(1)
             .build();    
@@ -75,7 +69,7 @@ public class ChromosomeTest {
     }
     
     @Test
-    public void testCreateClone_clonedChromosomeIsDifferentButHasSameAlleleProperties() {
+    public void testCreateClone_clonedChromosomeIsDifferentButHasSameAlleleProperties() throws NotAllPropertiesAreSetException {
         Allele alleleMaxHealth = new Allele.Builder()
             .setStatModifier(0)
             .setIsDominant(true)
@@ -136,5 +130,10 @@ public class ChromosomeTest {
         assertThat(clone, is(not(sameInstance(testCandidate))));
         assertThat(clone, is(equalTo(testCandidate)));
         assertThat(clone.hashCode(), is(equalTo(testCandidate.hashCode())));
+    }
+    
+    @Test(expected = NotAllPropertiesAreSetException.class)
+    public void testBuilderBuild_throwsExceptionIfAlleleIsNotSet() throws NotAllPropertiesAreSetException {
+        Chromosome testCandidate = new Chromosome.Builder().build();
     }
 }

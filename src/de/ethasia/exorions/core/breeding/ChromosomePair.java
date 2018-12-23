@@ -30,8 +30,8 @@ public class ChromosomePair {
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
     public ChromosomePair cloneWithCrossover() {
-        Chromosome clonedMaternalChromosome = new Chromosome.Builder().build();
-        Chromosome clonedPaternalChromosome = new Chromosome.Builder().build();
+        Chromosome clonedMaternalChromosome = maternalChromosome.createClone();
+        Chromosome clonedPaternalChromosome = paternalChromosome.createClone();
         ChromosomePair clonedPair = null;
         
         try {
