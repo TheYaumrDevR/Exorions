@@ -12,8 +12,8 @@ public class ChromosomePairTest {
     
     @Test
     public void testBuilderBuild_setChromosomes_theyAreInProduct() throws NotAllPropertiesAreSetException {
-        Chromosome paternalChromosome = new Chromosome.Builder().build();
-        Chromosome maternalChromosome = new Chromosome.Builder().build();
+        Chromosome paternalChromosome = new Chromosome.Builder().setRandomizeUndefinedAlleles().build();
+        Chromosome maternalChromosome = new Chromosome.Builder().setRandomizeUndefinedAlleles().build();
         
         ChromosomePair product = new ChromosomePair.Builder()
             .setPaternalChromosome(paternalChromosome)
@@ -26,7 +26,7 @@ public class ChromosomePairTest {
     
     @Test(expected = NotAllPropertiesAreSetException.class)
     public void testBuilderBuild_doNotSetPaternalChromosome_throwsException() throws NotAllPropertiesAreSetException {
-        Chromosome maternalChromosome = new Chromosome.Builder().build();
+        Chromosome maternalChromosome = new Chromosome.Builder().setRandomizeUndefinedAlleles().build();
         
         ChromosomePair product = new ChromosomePair.Builder()
             .setMaternalChromosome(maternalChromosome)
@@ -35,7 +35,7 @@ public class ChromosomePairTest {
     
     @Test(expected = NotAllPropertiesAreSetException.class)
     public void testBuilderBuild_doNotSetMaternalChromosome_throwsException() throws NotAllPropertiesAreSetException {
-        Chromosome paternalChromosome = new Chromosome.Builder().build();
+        Chromosome paternalChromosome = new Chromosome.Builder().setRandomizeUndefinedAlleles().build();
         
         ChromosomePair product = new ChromosomePair.Builder()
             .setPaternalChromosome(paternalChromosome)
@@ -44,8 +44,8 @@ public class ChromosomePairTest {
     
     @Test
     public void testCloneWithCrossover_createdClonesContainNewChromosomes() throws NotAllPropertiesAreSetException {
-        Chromosome paternalChromosome = new Chromosome.Builder().build();
-        Chromosome maternalChromosome = new Chromosome.Builder().build();
+        Chromosome paternalChromosome = new Chromosome.Builder().setRandomizeUndefinedAlleles().build();
+        Chromosome maternalChromosome = new Chromosome.Builder().setRandomizeUndefinedAlleles().build();
         
         ChromosomePair product = new ChromosomePair.Builder()
             .setPaternalChromosome(paternalChromosome)
@@ -56,5 +56,7 @@ public class ChromosomePairTest {
         
         assertThat(clone.getMaternalChromosome(), is(not(sameInstance(maternalChromosome))));
         assertThat(clone.getPaternalChromosome(), is(not(sameInstance(paternalChromosome))));
+        assertThat(clone.getMaternalChromosome(), is(not(equalTo(maternalChromosome))));
+        assertThat(clone.getPaternalChromosome(), is(not(equalTo(paternalChromosome))));
     }
 }

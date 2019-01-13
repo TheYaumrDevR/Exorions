@@ -161,6 +161,8 @@ public class Chromosome {
         private Allele criticalHitAvoidanceAllele;
         private Allele criticalHitFrequencyAllele;
         
+        private boolean randomizeUndefinedAlleles;
+        
         public Builder setMaximumHealthAllele(Allele value) {
             maximumHealthAllele = value;
             return this;
@@ -211,7 +213,64 @@ public class Chromosome {
             return this;
         }
         
+        public Builder setRandomizeUndefinedAlleles() {
+            randomizeUndefinedAlleles = true;
+            return this;
+        }
+        
         public Chromosome build() throws NotAllPropertiesAreSetException {
+            if (randomizeUndefinedAlleles) {
+                createRandomizedAllelesForNullAlleles();
+            } else {
+                throwExceptionIfAnyAlleleIsNull();
+            }
+            
+            return new Chromosome(this);
+        }
+        
+        private void createRandomizedAllelesForNullAlleles() {
+            if (null == maximumHealthAllele) {
+                maximumHealthAllele = new Allele.Builder().build();
+            }
+            
+            if (null == attackAllele) {
+                attackAllele = new Allele.Builder().build();
+            } 
+            
+            if (null == defenseAllele) {
+                defenseAllele = new Allele.Builder().build();
+            }  
+            
+            if (null == specialAttackAllele) {
+                specialAttackAllele = new Allele.Builder().build();
+            }
+            
+            if (null == specialDefenseAllele) {
+                specialDefenseAllele = new Allele.Builder().build();
+            }
+            
+            if (null == swiftnessAllele) {
+                swiftnessAllele = new Allele.Builder().build();
+            }
+            
+            if (null == accuracyAllele) {
+                accuracyAllele = new Allele.Builder().build();
+            }
+            
+            if (null == evasivenessAllele) {
+                evasivenessAllele = new Allele.Builder().build();
+            }
+            
+            if (null == criticalHitAvoidanceAllele) {
+                criticalHitAvoidanceAllele = new Allele.Builder().build();
+            }
+            
+            if (null == criticalHitFrequencyAllele) {
+                criticalHitFrequencyAllele = new Allele.Builder().build();
+            }
+        }
+        
+        private void throwExceptionIfAnyAlleleIsNull() throws NotAllPropertiesAreSetException {
             if (null == maximumHealthAllele
                 || null == attackAllele 
                 || null == defenseAllele
@@ -224,9 +283,7 @@ public class Chromosome {
                 || null == criticalHitFrequencyAllele) 
             {
                 throw new NotAllPropertiesAreSetException();
-            }
-            
-            return new Chromosome(this);
+            }            
         }
     }
     

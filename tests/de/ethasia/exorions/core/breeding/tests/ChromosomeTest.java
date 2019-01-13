@@ -136,4 +136,11 @@ public class ChromosomeTest {
     public void testBuilderBuild_throwsExceptionIfAlleleIsNotSet() throws NotAllPropertiesAreSetException {
         Chromosome testCandidate = new Chromosome.Builder().build();
     }
+    
+    @Test
+    public void testBuilderBuild_randomizeUndefinedAllelesIsSet_undefinedAllelesAreCreated() throws NotAllPropertiesAreSetException {
+        Chromosome testCandidate = new Chromosome.Builder()
+            .setRandomizeUndefinedAlleles()
+            .build();
+    }
 }
