@@ -1,5 +1,8 @@
 package de.ethasia.exorions.core.breeding;
 
+import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
+import de.ethasia.exorions.core.interfaces.RandomNumberGenerator;
+
 public class Allele {
     
     //<editor-fold defaultstate="collapsed" desc="Properties">
@@ -87,6 +90,33 @@ public class Allele {
         
         public Allele build() {
             return new Allele(this);
+        }
+    }
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Random Builder">
+    
+    public static class Random {
+        
+        private final RandomNumberGenerator rng;
+        private int maximumModifierValue;
+        
+        public Random() {
+            rng = CoreClassesFactory.getInstance().getRandomNumberGeneratorSingletonInstance();
+            maximumModifierValue = 1;
+        }
+        
+        public Random setMaximumModifierValueTo(int max) {
+            maximumModifierValue = max;
+            return this;
+        }
+        
+        public Allele build() {
+            int statModifier = rng.createRandomIntegerBetweenAnd(-maximumModifierValue, maximumModifierValue);
+            boolean isDominant = rng.createRandomBoolean();
+            
+            return new Allele(statModifier, isDominant);
         }
     }
     

@@ -1,4 +1,4 @@
-package de.ethasia.exorions.core;
+package de.ethasia.exorions.core.interfaces;
 
 public interface RandomNumberGenerator {
     

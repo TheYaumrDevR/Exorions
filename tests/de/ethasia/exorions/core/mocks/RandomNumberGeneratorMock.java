@@ -1,6 +1,6 @@
 package de.ethasia.exorions.core.mocks;
 
-import de.ethasia.exorions.core.RandomNumberGenerator;
+import de.ethasia.exorions.core.interfaces.RandomNumberGenerator;
 
 public class RandomNumberGeneratorMock implements RandomNumberGenerator {
     
@@ -77,6 +77,15 @@ public class RandomNumberGeneratorMock implements RandomNumberGenerator {
         
         return result;
     }    
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Methods">
+    
+    public void reset() {
+        indexOfNextBool = 0;
+        indexOfNextInt = 0;
+    }
     
     //</editor-fold>
 }
