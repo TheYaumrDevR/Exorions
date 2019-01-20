@@ -162,6 +162,7 @@ public class Chromosome {
         private Allele criticalHitFrequencyAllele;
         
         private boolean randomizeUndefinedAlleles;
+        private int alleleRandomizationMinMaxValue = 1;
         
         public Builder setMaximumHealthAllele(Allele value) {
             maximumHealthAllele = value;
@@ -213,8 +214,13 @@ public class Chromosome {
             return this;
         }
         
-        public Builder setRandomizeUndefinedAlleles() {
+        public Builder randomizeUndefinedAlleles() {
             randomizeUndefinedAlleles = true;
+            return this;
+        }
+        
+        public Builder withRange(int minMax) {
+            alleleRandomizationMinMaxValue = minMax;
             return this;
         }
         
@@ -230,43 +236,63 @@ public class Chromosome {
         
         private void createRandomizedAllelesForNullAlleles() {
             if (null == maximumHealthAllele) {
-                maximumHealthAllele = new Allele.Builder().build();
+                maximumHealthAllele = new Allele.Random()
+                    .setMaximumModifierValueTo(alleleRandomizationMinMaxValue)
+                    .build();
             }
             
             if (null == attackAllele) {
-                attackAllele = new Allele.Builder().build();
+                attackAllele = new Allele.Random()
+                    .setMaximumModifierValueTo(alleleRandomizationMinMaxValue)
+                    .build();
             } 
             
             if (null == defenseAllele) {
-                defenseAllele = new Allele.Builder().build();
+                defenseAllele = new Allele.Random()
+                    .setMaximumModifierValueTo(alleleRandomizationMinMaxValue)
+                    .build();
             }  
             
             if (null == specialAttackAllele) {
-                specialAttackAllele = new Allele.Builder().build();
+                specialAttackAllele = new Allele.Random()
+                    .setMaximumModifierValueTo(alleleRandomizationMinMaxValue)
+                    .build();
             }
             
             if (null == specialDefenseAllele) {
-                specialDefenseAllele = new Allele.Builder().build();
+                specialDefenseAllele = new Allele.Random()
+                    .setMaximumModifierValueTo(alleleRandomizationMinMaxValue)
+                    .build();
             }
             
             if (null == swiftnessAllele) {
-                swiftnessAllele = new Allele.Builder().build();
+                swiftnessAllele = new Allele.Random()
+                    .setMaximumModifierValueTo(alleleRandomizationMinMaxValue)
+                    .build();
             }
             
             if (null == accuracyAllele) {
-                accuracyAllele = new Allele.Builder().build();
+                accuracyAllele = new Allele.Random()
+                    .setMaximumModifierValueTo(alleleRandomizationMinMaxValue)
+                    .build();
             }
             
             if (null == evasivenessAllele) {
-                evasivenessAllele = new Allele.Builder().build();
+                evasivenessAllele = new Allele.Random()
+                    .setMaximumModifierValueTo(alleleRandomizationMinMaxValue)
+                    .build();
             }
             
             if (null == criticalHitAvoidanceAllele) {
-                criticalHitAvoidanceAllele = new Allele.Builder().build();
+                criticalHitAvoidanceAllele = new Allele.Random()
+                    .setMaximumModifierValueTo(alleleRandomizationMinMaxValue)
+                    .build();
             }
             
             if (null == criticalHitFrequencyAllele) {
-                criticalHitFrequencyAllele = new Allele.Builder().build();
+                criticalHitFrequencyAllele = new Allele.Random()
+                    .setMaximumModifierValueTo(alleleRandomizationMinMaxValue)
+                    .build();
             }
         }
         

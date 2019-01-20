@@ -3,12 +3,30 @@ package de.ethasia.exorions.core.breeding.tests;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.breeding.Allele;
 import de.ethasia.exorions.core.breeding.Chromosome;
+import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
+import de.ethasia.exorions.core.mocks.MockCoreClassesFactory;
+import de.ethasia.exorions.core.mocks.RandomNumberGeneratorMock;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
 public class ChromosomeTest {
+    
+    @BeforeClass
+    public static void initDependencies() {
+        CoreClassesFactory.setInstance(new MockCoreClassesFactory());
+    }
+    
+    @Before
+    public void resetSharedStates() {
+        MockCoreClassesFactory mockClassesFactory = new MockCoreClassesFactory();
+        RandomNumberGeneratorMock rngMock = (RandomNumberGeneratorMock)mockClassesFactory.getRandomNumberGeneratorSingletonInstance();
+        rngMock.reset();
+    }
     
     @Test
     public void testBuilderBuild_setAllelesOnAllStats_allelesAreInProduct() throws NotAllPropertiesAreSetException {
@@ -138,9 +156,151 @@ public class ChromosomeTest {
     }
     
     @Test
-    public void testBuilderBuild_randomizeUndefinedAllelesIsSet_undefinedAllelesAreCreated() throws NotAllPropertiesAreSetException {
+    public void testBuilderBuild_randomizeUndefinedAllelesIsSet_allelesAreSetToSpecifiedRandomSequence() throws NotAllPropertiesAreSetException {
+        RandomNumberGeneratorMock rngMock = (RandomNumberGeneratorMock)(new MockCoreClassesFactory().getRandomNumberGeneratorSingletonInstance());
+        rngMock.setBooleanSequenceToUse(new boolean[] {false, true, false, false, true, true, true, true, false, false});
+        rngMock.setIntegerSequenceToUse(new int[] {0, 0, -1, -1, 1, 0, 0, -1, -1, 0});
+       
         Chromosome testCandidate = new Chromosome.Builder()
-            .setRandomizeUndefinedAlleles()
+            .randomizeUndefinedAlleles()
             .build();
+        
+        Chromosome expected = createExpectedChromosomeForRandomlyCreatedAlleleInRandomCreationTest();
+        assertThat(expected, is(equalTo(testCandidate)));
     }
+    
+    @Test
+    public void testBuilderBuild_statRangeForRandomizationIsSet_allelesHaveGivenStatRange() throws NotAllPropertiesAreSetException {
+        RandomNumberGeneratorMock rngMock = (RandomNumberGeneratorMock)(new MockCoreClassesFactory().getRandomNumberGeneratorSingletonInstance());
+        rngMock.setBooleanSequenceToUse(new boolean[] {false, true, false, false, true, true, true, true, false, false});
+        rngMock.setIntegerSequenceToUse(new int[] {0, 0, -2, -2, 2, 0, 0, -1, -1, 0});
+       
+        Chromosome testCandidate = new Chromosome.Builder()
+            .randomizeUndefinedAlleles()
+            .withRange(2)
+            .build();
+        
+        Chromosome expected = this.createExpectedChromosomeForRandomlyCreatedAlleleInRandomCreationWithRangeTest();
+        assertThat(expected, is(equalTo(testCandidate)));
+    }    
+    
+    //<editor-fold defaultstate="collapsed" desc="Helper Methods">
+    
+    private Chromosome createExpectedChromosomeForRandomlyCreatedAlleleInRandomCreationTest() throws NotAllPropertiesAreSetException {
+        Allele alleleMaxHealth = new Allele.Builder()
+            .setStatModifier(0)
+            .setIsDominant(false)
+            .build();    
+        Allele alleleAttack = new Allele.Builder()
+            .setStatModifier(0)
+            .setIsDominant(true)
+            .build();
+        Allele alleleDefense = new Allele.Builder()
+            .setStatModifier(-1)
+            .setIsDominant(false)
+            .build();
+        Allele alleleSpecialAttack = new Allele.Builder()
+            .setStatModifier(-1)
+            .setIsDominant(false)
+            .build();
+        Allele alleleSpecialDefense = new Allele.Builder()
+            .setStatModifier(1)
+            .setIsDominant(true)
+            .build();
+        Allele alleleSwiftness = new Allele.Builder()
+            .setStatModifier(0)
+            .setIsDominant(true)
+            .build();
+        Allele alleleAccuracy = new Allele.Builder()
+            .setStatModifier(0)
+            .setIsDominant(true)
+            .build();
+        Allele alleleEvasiveness = new Allele.Builder()
+            .setStatModifier(-1)
+            .setIsDominant(true)
+            .build();
+        Allele alleleCriticalHitAvoidance = new Allele.Builder()
+            .setStatModifier(-1)
+            .setIsDominant(false)
+            .build();
+        Allele alleleCriticalHitFrequency = new Allele.Builder()
+            .setStatModifier(0)
+            .setIsDominant(false)
+            .build();
+        
+        Chromosome result = new Chromosome.Builder()
+            .setMaximumHealthAllele(alleleMaxHealth)
+            .setAttackAllele(alleleAttack)
+            .setDefenseAllele(alleleDefense)
+            .setSpecialAttackAllele(alleleSpecialAttack)
+            .setSpecialDefenseAllele(alleleSpecialDefense)
+            .setSwiftnessAllele(alleleSwiftness)
+            .setAccuracyAllele(alleleAccuracy)
+            .setEvasivenessAllele(alleleEvasiveness)
+            .setCriticalHitAvoidanceAllele(alleleCriticalHitAvoidance)
+            .setCriticalHitFrequencyAllele(alleleCriticalHitFrequency)
+            .build();  
+        
+        return result;
+    }
+    
+    private Chromosome createExpectedChromosomeForRandomlyCreatedAlleleInRandomCreationWithRangeTest() throws NotAllPropertiesAreSetException {
+        Allele alleleMaxHealth = new Allele.Builder()
+            .setStatModifier(0)
+            .setIsDominant(false)
+            .build();    
+        Allele alleleAttack = new Allele.Builder()
+            .setStatModifier(0)
+            .setIsDominant(true)
+            .build();
+        Allele alleleDefense = new Allele.Builder()
+            .setStatModifier(-2)
+            .setIsDominant(false)
+            .build();
+        Allele alleleSpecialAttack = new Allele.Builder()
+            .setStatModifier(-2)
+            .setIsDominant(false)
+            .build();
+        Allele alleleSpecialDefense = new Allele.Builder()
+            .setStatModifier(2)
+            .setIsDominant(true)
+            .build();
+        Allele alleleSwiftness = new Allele.Builder()
+            .setStatModifier(0)
+            .setIsDominant(true)
+            .build();
+        Allele alleleAccuracy = new Allele.Builder()
+            .setStatModifier(0)
+            .setIsDominant(true)
+            .build();
+        Allele alleleEvasiveness = new Allele.Builder()
+            .setStatModifier(-1)
+            .setIsDominant(true)
+            .build();
+        Allele alleleCriticalHitAvoidance = new Allele.Builder()
+            .setStatModifier(-1)
+            .setIsDominant(false)
+            .build();
+        Allele alleleCriticalHitFrequency = new Allele.Builder()
+            .setStatModifier(0)
+            .setIsDominant(false)
+            .build();
+        
+        Chromosome result = new Chromosome.Builder()
+            .setMaximumHealthAllele(alleleMaxHealth)
+            .setAttackAllele(alleleAttack)
+            .setDefenseAllele(alleleDefense)
+            .setSpecialAttackAllele(alleleSpecialAttack)
+            .setSpecialDefenseAllele(alleleSpecialDefense)
+            .setSwiftnessAllele(alleleSwiftness)
+            .setAccuracyAllele(alleleAccuracy)
+            .setEvasivenessAllele(alleleEvasiveness)
+            .setCriticalHitAvoidanceAllele(alleleCriticalHitAvoidance)
+            .setCriticalHitFrequencyAllele(alleleCriticalHitFrequency)
+            .build();  
+        
+        return result;
+    }    
+    
+    //</editor-fold>
 }
