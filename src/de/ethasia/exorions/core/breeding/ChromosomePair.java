@@ -3,6 +3,8 @@ package de.ethasia.exorions.core.breeding;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
 import de.ethasia.exorions.core.interfaces.RandomNumberGenerator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ChromosomePair {
     
@@ -25,6 +27,11 @@ public class ChromosomePair {
     private ChromosomePair(Builder builder) {
         paternalChromosome = builder.paternalChromosome;
         maternalChromosome = builder.maternalChromosome;
+    }
+    
+    private ChromosomePair(Random random) {
+        maternalChromosome = random.maternalChromosome;
+        paternalChromosome = random.paternalChromosome;
     }
     
     //</editor-fold>
@@ -192,6 +199,25 @@ public class ChromosomePair {
             if (null == paternalChromosome || null == maternalChromosome) {
                 throw new NotAllPropertiesAreSetException();
             }
+            
+            return new ChromosomePair(this);
+        }
+    }
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Random">
+    
+    public static class Random {
+        
+        private Chromosome maternalChromosome;
+        private Chromosome paternalChromosome;
+        
+        public ChromosomePair build() {
+            try {
+                maternalChromosome = new Chromosome.Builder().randomizeUndefinedAlleles().build();
+                paternalChromosome = new Chromosome.Builder().randomizeUndefinedAlleles().build();
+            } catch (NotAllPropertiesAreSetException ex) {}
             
             return new ChromosomePair(this);
         }

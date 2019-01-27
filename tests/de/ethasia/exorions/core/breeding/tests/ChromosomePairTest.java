@@ -22,8 +22,8 @@ public class ChromosomePairTest {
         CoreClassesFactory.setInstance(new MockCoreClassesFactory());
         
         RandomNumberGeneratorMock rngMock = (RandomNumberGeneratorMock)(new MockCoreClassesFactory().getRandomNumberGeneratorSingletonInstance());
-        rngMock.setBooleanSequenceToUse(new boolean[] {false, true, false, false, true, true, true, true, false, false});
-        rngMock.setIntegerSequenceToUse(new int[] {0, 0, -1, -1, 1, 0, 0, -1, -1, 0, 1, -1, 1, 1, -1}); 
+        rngMock.setBooleanSequenceToUse(new boolean[] {false, true, false, false, true, true, true, true, false, false, true, true, false, false, true, false, true, false, true, true, false, false, false, true, true, true});
+        rngMock.setIntegerSequenceToUse(new int[] {0, 0, -1, -1, 1, 0, 0, -1, -1, 0, 1, -1, 1, 1, -1, -1, 1, 0, -1, 1, 0, 1, 0, 0, 1, 0, 1}); 
     }
     
     @Before
@@ -103,6 +103,18 @@ public class ChromosomePairTest {
         
         assertThat(testCandidate.getMaternalChromosome(), is(equalTo(expected.getMaternalChromosome())));
         assertThat(testCandidate.getPaternalChromosome(), is(equalTo(expected.getPaternalChromosome())));
+    }
+    
+    @Test
+    public void testRandomBuilder_rngIsCalledExpectedAmountOfTimes() {
+        RandomNumberGeneratorMock rngMock = (RandomNumberGeneratorMock)(new MockCoreClassesFactory().getRandomNumberGeneratorSingletonInstance());
+        rngMock.reset();
+        
+        ChromosomePair product = new ChromosomePair.Random().build();
+        
+        assertThat(product, is(notNullValue()));
+        assertThat(rngMock.getCallCount("createRandomIntegerBetweenAnd"), is(20));
+        assertThat(rngMock.getCallCount("createRandomBoolean"), is(20));
     }
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">

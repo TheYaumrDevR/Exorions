@@ -1,6 +1,8 @@
 package de.ethasia.exorions.core.mocks;
 
 import de.ethasia.exorions.core.interfaces.RandomNumberGenerator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RandomNumberGeneratorMock implements RandomNumberGenerator {
     
@@ -8,6 +10,7 @@ public class RandomNumberGeneratorMock implements RandomNumberGenerator {
     
     private int indexOfNextInt;
     private int indexOfNextBool;
+    private Map<String, Integer> methodNameByCallCount;
     
     //</editor-fold>
     
@@ -30,6 +33,7 @@ public class RandomNumberGeneratorMock implements RandomNumberGenerator {
     public RandomNumberGeneratorMock() {
         indexOfNextInt = 0;
         indexOfNextBool = 0;
+        methodNameByCallCount = new HashMap<>();
     }
     
     //</editor-fold>
@@ -38,6 +42,8 @@ public class RandomNumberGeneratorMock implements RandomNumberGenerator {
     
     @Override
     public boolean createRandomBoolean() {
+        incrementCallCountForMethodName("createRandomBoolean");
+        
         if (0 == booleanSequenceToUse.length) {
             return false;
         }
@@ -56,14 +62,17 @@ public class RandomNumberGeneratorMock implements RandomNumberGenerator {
     }
 
     @Override
-    public int createRandomIntegerBetweenAnd(int lowerBound, int upperBound) {
+    public int createRandomIntegerBetweenAnd(int lowerBound, int upperBound) {        
         if (0 == integerSequenceToUse.length) {
+            incrementCallCountForMethodName("createRandomIntegerBetweenAnd");
             return 0;
         }
         
         int result;
         
         if (indexOfNextInt < integerSequenceToUse.length) {
+            incrementCallCountForMethodName("createRandomIntegerBetweenAnd");
+            
             result = integerSequenceToUse[indexOfNextInt];
             indexOfNextInt++;
         } else {
@@ -85,6 +94,28 @@ public class RandomNumberGeneratorMock implements RandomNumberGenerator {
     public void reset() {
         indexOfNextBool = 0;
         indexOfNextInt = 0;
+        methodNameByCallCount.clear();
+    }
+    
+    public int getCallCount(String methodName) {
+        if (null == methodNameByCallCount.get(methodName)) {
+            return 0;
+        }
+        
+        return methodNameByCallCount.get(methodName);
+    }
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Helper Methods">
+    
+    private void incrementCallCountForMethodName(String methodName) {
+        if (null != methodNameByCallCount.get(methodName)) {
+            int currentCallCount = methodNameByCallCount.get(methodName);
+            methodNameByCallCount.put(methodName, currentCallCount + 1);
+        } else {
+            methodNameByCallCount.put(methodName, 1);
+        }
     }
     
     //</editor-fold>
