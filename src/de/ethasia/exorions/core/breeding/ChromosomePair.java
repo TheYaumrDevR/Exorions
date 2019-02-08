@@ -3,8 +3,6 @@ package de.ethasia.exorions.core.breeding;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
 import de.ethasia.exorions.core.interfaces.RandomNumberGenerator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ChromosomePair {
     

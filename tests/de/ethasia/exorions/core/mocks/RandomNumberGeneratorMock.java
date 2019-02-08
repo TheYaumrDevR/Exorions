@@ -42,15 +42,16 @@ public class RandomNumberGeneratorMock implements RandomNumberGenerator {
     
     @Override
     public boolean createRandomBoolean() {
-        incrementCallCountForMethodName("createRandomBoolean");
-        
         if (0 == booleanSequenceToUse.length) {
+            incrementCallCountForMethodName("createRandomBoolean");
             return false;
         }
         
         boolean result;
         
         if (indexOfNextBool < booleanSequenceToUse.length) {
+            incrementCallCountForMethodName("createRandomBoolean");
+            
             result = booleanSequenceToUse[indexOfNextBool];
             indexOfNextBool++;
         } else {
