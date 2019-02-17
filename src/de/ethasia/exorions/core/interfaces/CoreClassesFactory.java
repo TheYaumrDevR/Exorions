@@ -22,6 +22,7 @@ public abstract class CoreClassesFactory {
     //<editor-fold defaultstate="collapsed" desc="Factory Methods">
     
     public abstract RandomNumberGenerator getRandomNumberGeneratorSingletonInstance();
+    public abstract AllelePairGeneValueCalculator getAllelePairGeneValueCalculatorSingletonInstance();
     
     //</editor-fold>
 }

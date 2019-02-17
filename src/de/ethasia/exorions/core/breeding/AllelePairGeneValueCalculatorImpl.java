@@ -1,9 +1,12 @@
 package de.ethasia.exorions.core.breeding;
 
-public class AllelePairGeneValueCalculator {
+import de.ethasia.exorions.core.interfaces.AllelePairGeneValueCalculator;
+
+public class AllelePairGeneValueCalculatorImpl implements AllelePairGeneValueCalculator {
     
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
+    @Override
     public int calculateCombinedGeneValue(Allele firstStatAllele, Allele secondStatAllele) {
         if (firstStatAllele.isDominant() && !secondStatAllele.isDominant()) {
             return firstStatAllele.getStatModifier();

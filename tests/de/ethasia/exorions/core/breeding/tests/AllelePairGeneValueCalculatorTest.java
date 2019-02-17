@@ -1,7 +1,7 @@
 package de.ethasia.exorions.core.breeding.tests;
 
 import de.ethasia.exorions.core.breeding.Allele;
-import de.ethasia.exorions.core.breeding.AllelePairGeneValueCalculator;
+import de.ethasia.exorions.core.breeding.AllelePairGeneValueCalculatorImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -11,7 +11,7 @@ public class AllelePairGeneValueCalculatorTest {
 
     @Test
     public void testCalculateCombinedGeneValue_bothAreDominantAndHaveSameValue_sameValueIsReturned() {
-        AllelePairGeneValueCalculator testCandidate = new AllelePairGeneValueCalculator();
+        AllelePairGeneValueCalculatorImpl testCandidate = new AllelePairGeneValueCalculatorImpl();
         
         Allele firstAllele = new Allele.Builder()
             .setIsDominant(true)
@@ -30,7 +30,7 @@ public class AllelePairGeneValueCalculatorTest {
     
     @Test
     public void testCalculateCombinedGeneValue_onlyOneIsDominant_dominantValueIsReturned() {
-        AllelePairGeneValueCalculator testCandidate = new AllelePairGeneValueCalculator();
+        AllelePairGeneValueCalculatorImpl testCandidate = new AllelePairGeneValueCalculatorImpl();
         
         Allele firstAllele = new Allele.Builder()
             .setIsDominant(false)
@@ -49,7 +49,7 @@ public class AllelePairGeneValueCalculatorTest {
     
     @Test
     public void testCalculateCombinedGeneValue_bothAreRecessiveAndDiffer_roundedAverageIsReturned() {
-        AllelePairGeneValueCalculator testCandidate = new AllelePairGeneValueCalculator();
+        AllelePairGeneValueCalculatorImpl testCandidate = new AllelePairGeneValueCalculatorImpl();
         
         Allele firstAllele = new Allele.Builder()
             .setIsDominant(false)
@@ -68,7 +68,7 @@ public class AllelePairGeneValueCalculatorTest {
     
     @Test
     public void testCalculateCombinedGeneValue_bothAreDominantAndDiffer_roundedAverageIsReturned() {
-        AllelePairGeneValueCalculator testCandidate = new AllelePairGeneValueCalculator();
+        AllelePairGeneValueCalculatorImpl testCandidate = new AllelePairGeneValueCalculatorImpl();
         
         Allele firstAllele = new Allele.Builder()
             .setIsDominant(false)
