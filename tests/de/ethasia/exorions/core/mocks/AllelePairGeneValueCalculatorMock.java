@@ -1,6 +1,7 @@
 package de.ethasia.exorions.core.mocks;
 
 import de.ethasia.exorions.core.breeding.Allele;
+import de.ethasia.exorions.core.breeding.AllelePairGeneValueCalculatorImpl;
 import de.ethasia.exorions.core.interfaces.AllelePairGeneValueCalculator;
 
 public class AllelePairGeneValueCalculatorMock extends MockWithMethodCallCounting implements AllelePairGeneValueCalculator {
@@ -8,6 +9,6 @@ public class AllelePairGeneValueCalculatorMock extends MockWithMethodCallCountin
     @Override
     public int calculateCombinedGeneValue(Allele firstStatAllele, Allele secondStatAllele) {
         this.incrementCallCountForMethodName("calculateCombinedGeneValue");
-        return 0;
+        return new AllelePairGeneValueCalculatorImpl().calculateCombinedGeneValue(firstStatAllele, secondStatAllele);
     }
 }

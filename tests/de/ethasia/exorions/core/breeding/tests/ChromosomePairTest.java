@@ -2,9 +2,12 @@ package de.ethasia.exorions.core.breeding.tests;
 
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.breeding.Allele;
+import de.ethasia.exorions.core.breeding.AllelePairGeneValueCalculatorImpl;
 import de.ethasia.exorions.core.breeding.Chromosome;
 import de.ethasia.exorions.core.breeding.ChromosomePair;
+import de.ethasia.exorions.core.interfaces.AllelePairGeneValueCalculator;
 import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
+import de.ethasia.exorions.core.mocks.AllelePairGeneValueCalculatorMock;
 import de.ethasia.exorions.core.mocks.MockCoreClassesFactory;
 import de.ethasia.exorions.core.mocks.RandomNumberGeneratorMock;
 
@@ -116,6 +119,156 @@ public class ChromosomePairTest {
         assertThat(rngMock.getCallCount("createRandomIntegerBetweenAnd"), is(20));
         assertThat(rngMock.getCallCount("createRandomBoolean"), is(20));
     }
+    
+    @Test
+    public void testCalculateMaximumHealthGeneValue_allelePairGeneValueCalculatorIsCalled() {
+        AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
+        AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
+        gvCalculatorMock.reset();
+        
+        ChromosomePair testCandidate = new ChromosomePair.Random().build();
+        int result = testCandidate.getMaximumHealthGeneValue();
+        int expected = gvCalculator.calculateCombinedGeneValue(testCandidate.getMaternalChromosome().getMaximumHealthAllele(), 
+            testCandidate.getPaternalChromosome().getMaximumHealthAllele());
+        
+        assertThat(gvCalculatorMock.getCallCount("calculateCombinedGeneValue"), is(1));
+        assertThat(result, is(equalTo(expected)));
+    }
+    
+    @Test
+    public void testCalculateAttackGeneValue_allelePairGeneValueCalculatorIsCalled() {
+        AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
+        AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
+        gvCalculatorMock.reset();
+        
+        ChromosomePair testCandidate = new ChromosomePair.Random().build();
+        int result = testCandidate.getAttackGeneValue();
+        int expected = gvCalculator.calculateCombinedGeneValue(testCandidate.getMaternalChromosome().getAttackAllele(), 
+            testCandidate.getPaternalChromosome().getAttackAllele());
+        
+        assertThat(gvCalculatorMock.getCallCount("calculateCombinedGeneValue"), is(1));
+        assertThat(result, is(equalTo(expected)));
+    }
+    
+    @Test
+    public void testCalculateDefenseGeneValue_allelePairGeneValueCalculatorIsCalled() {
+        AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
+        AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
+        gvCalculatorMock.reset();
+        
+        ChromosomePair testCandidate = new ChromosomePair.Random().build();
+        int result = testCandidate.getDefenseGeneValue();
+        int expected = gvCalculator.calculateCombinedGeneValue(testCandidate.getMaternalChromosome().getDefenseAllele(), 
+            testCandidate.getPaternalChromosome().getDefenseAllele());
+        
+        assertThat(gvCalculatorMock.getCallCount("calculateCombinedGeneValue"), is(1));
+        assertThat(result, is(equalTo(expected)));
+    }   
+    
+    @Test
+    public void testCalculateSpecialAttackGeneValue_allelePairGeneValueCalculatorIsCalled() {
+        AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
+        AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
+        gvCalculatorMock.reset();
+        
+        ChromosomePair testCandidate = new ChromosomePair.Random().build();
+        int result = testCandidate.getSpecialAttackGeneValue();
+        int expected = gvCalculator.calculateCombinedGeneValue(testCandidate.getMaternalChromosome().getSpecialAttackAllele(), 
+            testCandidate.getPaternalChromosome().getSpecialAttackAllele());
+        
+        assertThat(gvCalculatorMock.getCallCount("calculateCombinedGeneValue"), is(1));
+        assertThat(result, is(equalTo(expected)));
+    }    
+    
+    @Test
+    public void testCalculateSpecialDefenseGeneValue_allelePairGeneValueCalculatorIsCalled() {
+        AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
+        AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
+        gvCalculatorMock.reset();
+        
+        ChromosomePair testCandidate = new ChromosomePair.Random().build();
+        int result = testCandidate.getSpecialDefenseGeneValue();
+        int expected = gvCalculator.calculateCombinedGeneValue(testCandidate.getMaternalChromosome().getSpecialDefenseAllele(), 
+            testCandidate.getPaternalChromosome().getSpecialDefenseAllele());
+        
+        assertThat(gvCalculatorMock.getCallCount("calculateCombinedGeneValue"), is(1));
+        assertThat(result, is(equalTo(expected)));
+    } 
+    
+    @Test
+    public void testCalculateAccuracyGeneValue_allelePairGeneValueCalculatorIsCalled() {
+        AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
+        AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
+        gvCalculatorMock.reset();
+        
+        ChromosomePair testCandidate = new ChromosomePair.Random().build();
+        int result = testCandidate.getAccuracyGeneValue();
+        int expected = gvCalculator.calculateCombinedGeneValue(testCandidate.getMaternalChromosome().getAccuracyAllele(), 
+            testCandidate.getPaternalChromosome().getAccuracyAllele());
+        
+        assertThat(gvCalculatorMock.getCallCount("calculateCombinedGeneValue"), is(1));
+        assertThat(result, is(equalTo(expected)));
+    } 
+    
+    @Test
+    public void testCalculateEvasivenessGeneValue_allelePairGeneValueCalculatorIsCalled() {
+        AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
+        AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
+        gvCalculatorMock.reset();
+        
+        ChromosomePair testCandidate = new ChromosomePair.Random().build();
+        int result = testCandidate.getEvasivenessGeneValue();
+        int expected = gvCalculator.calculateCombinedGeneValue(testCandidate.getMaternalChromosome().getEvasivenessAllele(), 
+            testCandidate.getPaternalChromosome().getEvasivenessAllele());
+        
+        assertThat(gvCalculatorMock.getCallCount("calculateCombinedGeneValue"), is(1));
+        assertThat(result, is(equalTo(expected)));
+    }   
+    
+    @Test
+    public void testCalculateCriticalHitFrequencyGeneValue_allelePairGeneValueCalculatorIsCalled() {
+        AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
+        AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
+        gvCalculatorMock.reset();
+        
+        ChromosomePair testCandidate = new ChromosomePair.Random().build();
+        int result = testCandidate.getCriticalHitFrequencyGeneValue();
+        int expected = gvCalculator.calculateCombinedGeneValue(testCandidate.getMaternalChromosome().getCriticalHitFrequencyAllele(), 
+            testCandidate.getPaternalChromosome().getCriticalHitFrequencyAllele());
+        
+        assertThat(gvCalculatorMock.getCallCount("calculateCombinedGeneValue"), is(1));
+        assertThat(result, is(equalTo(expected)));
+    } 
+    
+    @Test
+    public void testCalculateCriticalHitAvoidanceGeneValue_allelePairGeneValueCalculatorIsCalled() {
+        AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
+        AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
+        gvCalculatorMock.reset();
+        
+        ChromosomePair testCandidate = new ChromosomePair.Random().build();
+        int result = testCandidate.getCriticalHitAvoidanceGeneValue();
+        int expected = gvCalculator.calculateCombinedGeneValue(testCandidate.getMaternalChromosome().getCriticalHitAvoidanceAllele(), 
+            testCandidate.getPaternalChromosome().getCriticalHitAvoidanceAllele());
+        
+        assertThat(gvCalculatorMock.getCallCount("calculateCombinedGeneValue"), is(1));
+        assertThat(result, is(equalTo(expected)));
+    }     
+    
+    @Test
+    public void testCalculateSwiftnessGeneValue_allelePairGeneValueCalculatorIsCalled() {
+        AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
+        AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
+        gvCalculatorMock.reset();
+        
+        ChromosomePair testCandidate = new ChromosomePair.Random().build();
+        int result = testCandidate.getSwiftnessGeneValue();
+        int expected = gvCalculator.calculateCombinedGeneValue(testCandidate.getMaternalChromosome().getSwiftnessAllele(), 
+            testCandidate.getPaternalChromosome().getSwiftnessAllele());
+        
+        assertThat(gvCalculatorMock.getCallCount("calculateCombinedGeneValue"), is(1));
+        assertThat(result, is(equalTo(expected)));
+    }    
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     

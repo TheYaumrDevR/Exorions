@@ -1,6 +1,7 @@
 package de.ethasia.exorions.core.breeding;
 
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.core.interfaces.AllelePairGeneValueCalculator;
 import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
 import de.ethasia.exorions.core.interfaces.RandomNumberGenerator;
 
@@ -53,6 +54,76 @@ public class ChromosomePair {
         }
         
         return clonedPair;
+    }
+    
+    public int getMaximumHealthGeneValue() {
+        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
+        
+        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getMaximumHealthAllele(), 
+            paternalChromosome.getMaximumHealthAllele());
+    }
+    
+    public int getAttackGeneValue() {
+        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
+        
+        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getAttackAllele(), 
+            paternalChromosome.getAttackAllele());
+    }
+    
+    public int getDefenseGeneValue() {
+        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
+        
+        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getDefenseAllele(), 
+            paternalChromosome.getDefenseAllele());
+    }
+    
+    public int getSpecialAttackGeneValue() {
+        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
+        
+        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getSpecialAttackAllele(), 
+            paternalChromosome.getSpecialAttackAllele());
+    }
+    
+    public int getSpecialDefenseGeneValue() {
+        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
+        
+        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getSpecialDefenseAllele(), 
+            paternalChromosome.getSpecialDefenseAllele());
+    }   
+    
+    public int getAccuracyGeneValue() {
+        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
+        
+        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getAccuracyAllele(), 
+            paternalChromosome.getAccuracyAllele());
+    }
+    
+    public int getEvasivenessGeneValue() {
+        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
+        
+        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getEvasivenessAllele(), 
+            paternalChromosome.getEvasivenessAllele());
+    }
+    
+    public int getCriticalHitFrequencyGeneValue() {
+        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
+        
+        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getCriticalHitFrequencyAllele(), 
+            paternalChromosome.getCriticalHitFrequencyAllele());
+    }
+    
+    public int getCriticalHitAvoidanceGeneValue() {
+        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
+        
+        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getCriticalHitAvoidanceAllele(), 
+            paternalChromosome.getCriticalHitAvoidanceAllele());
+    }
+    
+    public int getSwiftnessGeneValue() {
+        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
+        
+        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getSwiftnessAllele(), 
+            paternalChromosome.getSwiftnessAllele());        
     }
     
     //</editor-fold>
