@@ -121,7 +121,7 @@ public class ChromosomePairTest {
     }
     
     @Test
-    public void testCalculateMaximumHealthGeneValue_allelePairGeneValueCalculatorIsCalled() {
+    public void testGetMaximumHealthGeneValue_allelePairGeneValueCalculatorIsCalled() {
         AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
         AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
         gvCalculatorMock.reset();
@@ -136,7 +136,7 @@ public class ChromosomePairTest {
     }
     
     @Test
-    public void testCalculateAttackGeneValue_allelePairGeneValueCalculatorIsCalled() {
+    public void testGetAttackGeneValue_allelePairGeneValueCalculatorIsCalled() {
         AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
         AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
         gvCalculatorMock.reset();
@@ -151,7 +151,7 @@ public class ChromosomePairTest {
     }
     
     @Test
-    public void testCalculateDefenseGeneValue_allelePairGeneValueCalculatorIsCalled() {
+    public void testGetDefenseGeneValue_allelePairGeneValueCalculatorIsCalled() {
         AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
         AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
         gvCalculatorMock.reset();
@@ -166,7 +166,7 @@ public class ChromosomePairTest {
     }   
     
     @Test
-    public void testCalculateSpecialAttackGeneValue_allelePairGeneValueCalculatorIsCalled() {
+    public void testGetSpecialAttackGeneValue_allelePairGeneValueCalculatorIsCalled() {
         AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
         AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
         gvCalculatorMock.reset();
@@ -181,7 +181,7 @@ public class ChromosomePairTest {
     }    
     
     @Test
-    public void testCalculateSpecialDefenseGeneValue_allelePairGeneValueCalculatorIsCalled() {
+    public void testGetSpecialDefenseGeneValue_allelePairGeneValueCalculatorIsCalled() {
         AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
         AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
         gvCalculatorMock.reset();
@@ -196,7 +196,7 @@ public class ChromosomePairTest {
     } 
     
     @Test
-    public void testCalculateAccuracyGeneValue_allelePairGeneValueCalculatorIsCalled() {
+    public void testGetAccuracyGeneValue_allelePairGeneValueCalculatorIsCalled() {
         AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
         AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
         gvCalculatorMock.reset();
@@ -211,7 +211,7 @@ public class ChromosomePairTest {
     } 
     
     @Test
-    public void testCalculateEvasivenessGeneValue_allelePairGeneValueCalculatorIsCalled() {
+    public void testGetEvasivenessGeneValue_allelePairGeneValueCalculatorIsCalled() {
         AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
         AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
         gvCalculatorMock.reset();
@@ -226,7 +226,7 @@ public class ChromosomePairTest {
     }   
     
     @Test
-    public void testCalculateCriticalHitFrequencyGeneValue_allelePairGeneValueCalculatorIsCalled() {
+    public void testGetCriticalHitFrequencyGeneValue_allelePairGeneValueCalculatorIsCalled() {
         AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
         AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
         gvCalculatorMock.reset();
@@ -241,7 +241,7 @@ public class ChromosomePairTest {
     } 
     
     @Test
-    public void testCalculateCriticalHitAvoidanceGeneValue_allelePairGeneValueCalculatorIsCalled() {
+    public void testGetCriticalHitAvoidanceGeneValue_allelePairGeneValueCalculatorIsCalled() {
         AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
         AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
         gvCalculatorMock.reset();
@@ -256,7 +256,7 @@ public class ChromosomePairTest {
     }     
     
     @Test
-    public void testCalculateSwiftnessGeneValue_allelePairGeneValueCalculatorIsCalled() {
+    public void testGetSwiftnessGeneValue_allelePairGeneValueCalculatorIsCalled() {
         AllelePairGeneValueCalculatorMock gvCalculatorMock = (AllelePairGeneValueCalculatorMock)(new MockCoreClassesFactory().getAllelePairGeneValueCalculatorSingletonInstance());
         AllelePairGeneValueCalculator gvCalculator = new AllelePairGeneValueCalculatorImpl();
         gvCalculatorMock.reset();

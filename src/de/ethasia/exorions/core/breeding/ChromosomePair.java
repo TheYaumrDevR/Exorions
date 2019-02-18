@@ -57,73 +57,53 @@ public class ChromosomePair {
     }
     
     public int getMaximumHealthGeneValue() {
-        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
-        
-        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getMaximumHealthAllele(), 
+        return calculateGeneValueForAlleles(maternalChromosome.getMaximumHealthAllele(), 
             paternalChromosome.getMaximumHealthAllele());
     }
     
     public int getAttackGeneValue() {
-        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
-        
-        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getAttackAllele(), 
+        return calculateGeneValueForAlleles(maternalChromosome.getAttackAllele(), 
             paternalChromosome.getAttackAllele());
     }
     
     public int getDefenseGeneValue() {
-        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
-        
-        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getDefenseAllele(), 
+        return calculateGeneValueForAlleles(maternalChromosome.getDefenseAllele(), 
             paternalChromosome.getDefenseAllele());
     }
     
     public int getSpecialAttackGeneValue() {
-        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
-        
-        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getSpecialAttackAllele(), 
+        return calculateGeneValueForAlleles(maternalChromosome.getSpecialAttackAllele(), 
             paternalChromosome.getSpecialAttackAllele());
     }
     
     public int getSpecialDefenseGeneValue() {
-        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
-        
-        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getSpecialDefenseAllele(), 
+        return calculateGeneValueForAlleles(maternalChromosome.getSpecialDefenseAllele(), 
             paternalChromosome.getSpecialDefenseAllele());
     }   
     
     public int getAccuracyGeneValue() {
-        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
-        
-        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getAccuracyAllele(), 
+        return calculateGeneValueForAlleles(maternalChromosome.getAccuracyAllele(), 
             paternalChromosome.getAccuracyAllele());
     }
     
     public int getEvasivenessGeneValue() {
-        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
-        
-        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getEvasivenessAllele(), 
+        return calculateGeneValueForAlleles(maternalChromosome.getEvasivenessAllele(), 
             paternalChromosome.getEvasivenessAllele());
     }
     
     public int getCriticalHitFrequencyGeneValue() {
-        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
-        
-        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getCriticalHitFrequencyAllele(), 
+        return calculateGeneValueForAlleles(maternalChromosome.getCriticalHitFrequencyAllele(), 
             paternalChromosome.getCriticalHitFrequencyAllele());
     }
     
     public int getCriticalHitAvoidanceGeneValue() {
-        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
-        
-        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getCriticalHitAvoidanceAllele(), 
+        return calculateGeneValueForAlleles(maternalChromosome.getCriticalHitAvoidanceAllele(), 
             paternalChromosome.getCriticalHitAvoidanceAllele());
     }
     
-    public int getSwiftnessGeneValue() {
-        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
-        
-        return gvCalculator.calculateCombinedGeneValue(maternalChromosome.getSwiftnessAllele(), 
-            paternalChromosome.getSwiftnessAllele());        
+    public int getSwiftnessGeneValue() {        
+        return calculateGeneValueForAlleles(maternalChromosome.getSwiftnessAllele(), 
+            paternalChromosome.getSwiftnessAllele());
     }
     
     //</editor-fold>
@@ -242,6 +222,13 @@ public class ChromosomePair {
         }
         
         return new Allele[] {maternalAllele, paternalAllele};
+    }
+    
+    private int calculateGeneValueForAlleles(Allele maternalAllele, Allele paternalAllele) {
+        AllelePairGeneValueCalculator gvCalculator = CoreClassesFactory.getInstance().getAllelePairGeneValueCalculatorSingletonInstance();
+        
+        return gvCalculator.calculateCombinedGeneValue(maternalAllele, 
+            paternalAllele);
     }
     
     //</editor-fold>
