@@ -23,6 +23,11 @@ public class ExorionSpecies {
         return new HashSet<>(fulfilledAbilityLearningRequirements);
     }
     
+    private final ExorionSpeciesBaseStatsAtMaximumLevel baseStats;
+    public ExorionSpeciesBaseStatsAtMaximumLevel getSpeciesBaseStats() {
+        return baseStats;
+    }
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Constructors">
@@ -30,6 +35,7 @@ public class ExorionSpecies {
     private ExorionSpecies(Builder builder) {
         name = builder.name;
         fulfilledAbilityLearningRequirements = builder.fulfilledAbilityLearningRequirements;
+        baseStats = builder.speciesBaseStats;
     }
     
     //</editor-fold>
@@ -40,6 +46,7 @@ public class ExorionSpecies {
         
         private String name;
         private final Set<AbilityLearningRequirements> fulfilledAbilityLearningRequirements;
+        private ExorionSpeciesBaseStatsAtMaximumLevel speciesBaseStats;
         
         public Builder() {
             fulfilledAbilityLearningRequirements = new HashSet<>();
@@ -52,6 +59,11 @@ public class ExorionSpecies {
         
         public Builder setFulfilledLearningRequirements(AbilityLearningRequirements value) {
             fulfilledAbilityLearningRequirements.add(value);
+            return this;
+        }
+        
+        public Builder setSpeciesBaseStats(ExorionSpeciesBaseStatsAtMaximumLevel value) {
+            speciesBaseStats = value;
             return this;
         }
         
