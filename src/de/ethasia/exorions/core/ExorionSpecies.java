@@ -68,6 +68,10 @@ public class ExorionSpecies {
         }
         
         public ExorionSpecies build() {
+            if (null == speciesBaseStats) {
+                throw new RuntimeException("Cannot create an ExorionSpecies without base stats!");
+            }
+            
             return new ExorionSpecies(this);
         }
     }

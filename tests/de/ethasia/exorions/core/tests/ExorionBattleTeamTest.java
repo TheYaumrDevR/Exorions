@@ -3,6 +3,7 @@ package de.ethasia.exorions.core.tests;
 import de.ethasia.exorions.core.BattleTeamIsFullException;
 import de.ethasia.exorions.core.ExorionBattleTeam;
 import de.ethasia.exorions.core.ExorionSpecies;
+import de.ethasia.exorions.core.ExorionSpeciesBaseStatsAtMaximumLevel;
 import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
 import org.junit.After;
@@ -36,7 +37,7 @@ public class ExorionBattleTeamTest {
     public void testAddExorion_slotsAreEmpty_exorionIsAddedOnFirstSlot() throws BattleTeamIsFullException, NotAllPropertiesAreSetException {
         ExorionBattleTeam testCandidate = new ExorionBattleTeam();
         
-        ExorionSpecies species = new ExorionSpecies.Builder().build();
+        ExorionSpecies species = createExorionSpecies();
         
         IndividualExorion addedExorion = new IndividualExorion.Builder()
             .setSpecies(species)
@@ -52,7 +53,7 @@ public class ExorionBattleTeamTest {
     public void testAddExorion_slotsAreEmptyTwoAreAdded_exorionIsAddedOnFirstAndSecondSlot() throws BattleTeamIsFullException, NotAllPropertiesAreSetException {
         ExorionBattleTeam testCandidate = new ExorionBattleTeam();
         
-        ExorionSpecies species = new ExorionSpecies.Builder().build();
+        ExorionSpecies species = createExorionSpecies();;
         
         IndividualExorion addedExorionOne = new IndividualExorion.Builder().setSpecies(species).build();
         IndividualExorion addedExorionTwo = new IndividualExorion.Builder().setSpecies(species).build();
@@ -69,7 +70,7 @@ public class ExorionBattleTeamTest {
     public void testAddExorion_slotsAreEmptyFiveAreAdded_exorionIsAddedOnFirstFiveSlots() throws BattleTeamIsFullException, NotAllPropertiesAreSetException {
         ExorionBattleTeam testCandidate = new ExorionBattleTeam();
         
-        ExorionSpecies species = new ExorionSpecies.Builder().build();
+        ExorionSpecies species = createExorionSpecies();;
         
         IndividualExorion addedExorionOne = new IndividualExorion.Builder().setSpecies(species).build();
         IndividualExorion addedExorionTwo = new IndividualExorion.Builder().setSpecies(species).build();
@@ -98,7 +99,7 @@ public class ExorionBattleTeamTest {
     public void testAddExorion_slotsAreEmptySixAreAdded_throwsTeamFullException() throws BattleTeamIsFullException, NotAllPropertiesAreSetException {
         ExorionBattleTeam testCandidate = new ExorionBattleTeam();
         
-        ExorionSpecies species = new ExorionSpecies.Builder().build();
+        ExorionSpecies species = createExorionSpecies();;
         
         IndividualExorion addedExorionOne = new IndividualExorion.Builder().setSpecies(species).build();
         IndividualExorion addedExorionTwo = new IndividualExorion.Builder().setSpecies(species).build();
@@ -113,5 +114,30 @@ public class ExorionBattleTeamTest {
         testCandidate.addExorion(addedExorionFour);
         testCandidate.addExorion(addedExorionFive);
         testCandidate.addExorion(addedExorionSix);
-    }    
+    } 
+    
+    //<editor-fold defaultstate="collapsed" desc="Helper Methods">
+    
+    private ExorionSpecies createExorionSpecies() {
+        ExorionSpeciesBaseStatsAtMaximumLevel baseStats = new ExorionSpeciesBaseStatsAtMaximumLevel.Builder()
+            .setMaximumHealthBaseStat(50)
+            .setAttackBaseStat(49)
+            .setDefenseBaseStat(48)
+            .setSpecialAttackBaseStat(47)
+            .setSpecialDefenseBaseStat(46)
+            .setAccuracyBaseStat(45)
+            .setEvasivenessBaseStat(44)
+            .setCriticalHitFrequencyBaseStat(43)
+            .setCriticalHitAvoidanceBaseStat(42)
+            .setSwiftnessBaseStat(41)
+            .build(); 
+        
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(baseStats)
+            .build();
+        
+        return species;
+    }
+    
+    //</editor-fold>
 }

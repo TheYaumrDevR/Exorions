@@ -3,6 +3,7 @@ package de.ethasia.exorions.core.tests;
 import de.ethasia.exorions.core.AbilityLearningRequirements;
 import de.ethasia.exorions.core.BattleAbility;
 import de.ethasia.exorions.core.ExorionSpecies;
+import de.ethasia.exorions.core.ExorionSpeciesBaseStatsAtMaximumLevel;
 import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.IndividualExorionBaseStats;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
@@ -15,7 +16,9 @@ public class IndividualExorionTest {
     
     @Test
     public void testBuilderBuild_speciesIsSet_speciesIsContainedInProduct() throws NotAllPropertiesAreSetException {
-        ExorionSpecies species = new ExorionSpecies.Builder().build();
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorion())
+            .build();
         IndividualExorion product = new IndividualExorion.Builder()
             .setSpecies(species)
             .build();
@@ -27,7 +30,9 @@ public class IndividualExorionTest {
 
     @Test
     public void testCanLearnAbility_abilityWithoutRequirements_canLearn() throws NotAllPropertiesAreSetException {
-        ExorionSpecies species = new ExorionSpecies.Builder().build();
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorion())
+            .build();
         
         IndividualExorion testCandidate = new IndividualExorion.Builder()
             .setSpecies(species)
@@ -43,7 +48,9 @@ public class IndividualExorionTest {
     
     @Test
     public void testCanLearnAbility_abilityWithOneRequirement_cannotLearnBecauseExorionHasNoTail() throws NotAllPropertiesAreSetException {
-        ExorionSpecies species = new ExorionSpecies.Builder().build();
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorion())
+            .build();
         
         IndividualExorion testCandidate = new IndividualExorion.Builder()
             .setSpecies(species)
@@ -62,6 +69,7 @@ public class IndividualExorionTest {
     public void testCanLearnAbility_abilityWithOneRequirement_canLearnBecauseExorionHasRequirements() throws NotAllPropertiesAreSetException {
         ExorionSpecies species = new ExorionSpecies.Builder()
             .setFulfilledLearningRequirements(AbilityLearningRequirements.NEEDLES)
+            .setSpeciesBaseStats(createBaseStatsForExorion())
             .build();
         
         IndividualExorion testCandidate = new IndividualExorion.Builder()
@@ -80,6 +88,7 @@ public class IndividualExorionTest {
     @Test
     public void testCanLearnAbility_abilityWithTwoRequirements_cannotLearnBecauseOneIsNotSatisfied() throws NotAllPropertiesAreSetException {
         ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorion())
             .setFulfilledLearningRequirements(AbilityLearningRequirements.TAIL)
             .build();        
         
@@ -100,6 +109,7 @@ public class IndividualExorionTest {
     @Test
     public void testCanLearnAbility_abilityWithTwoRequirements_canLearnBothAreSatisfied() throws NotAllPropertiesAreSetException {
         ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorion())
             .setFulfilledLearningRequirements(AbilityLearningRequirements.TAIL)
             .setFulfilledLearningRequirements(AbilityLearningRequirements.CLAWS)
             .build();          
@@ -121,6 +131,7 @@ public class IndividualExorionTest {
     @Test
     public void testCanLearnAbility_abilityWithTwoRequirements_canLearnWhenMoreAreSatisfied() throws NotAllPropertiesAreSetException {
         ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorion())
             .setFulfilledLearningRequirements(AbilityLearningRequirements.TAIL)
             .setFulfilledLearningRequirements(AbilityLearningRequirements.TEETH)
             .setFulfilledLearningRequirements(AbilityLearningRequirements.TENTACLES)    
@@ -145,6 +156,7 @@ public class IndividualExorionTest {
         ExorionSpecies species = new ExorionSpecies.Builder()
             .setFulfilledLearningRequirements(AbilityLearningRequirements.HARD_BODY)
             .setFulfilledLearningRequirements(AbilityLearningRequirements.LOCOMOTION)   
+            .setSpeciesBaseStats(createBaseStatsForExorion())
             .build();        
         
         IndividualExorion testCandidate = new IndividualExorion.Builder()
@@ -163,7 +175,9 @@ public class IndividualExorionTest {
     
     @Test
     public void testBuilderBuild_baseStatsAreSet_createdExorionContainsStats() throws NotAllPropertiesAreSetException {
-        ExorionSpecies species = new ExorionSpecies.Builder().build();
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorion())
+            .build();
         
         IndividualExorionBaseStats baseStats = new IndividualExorionBaseStats.Builder()
             .build();
@@ -181,4 +195,23 @@ public class IndividualExorionTest {
         IndividualExorion testCandidate = new IndividualExorion.Builder()
             .build();        
     }
+    
+    //<editor-fold defaultstate="collapsed" desc="Helper Methods">
+    
+    private ExorionSpeciesBaseStatsAtMaximumLevel createBaseStatsForExorion() {
+        return new ExorionSpeciesBaseStatsAtMaximumLevel.Builder()
+            .setMaximumHealthBaseStat(50)
+            .setAttackBaseStat(49)
+            .setDefenseBaseStat(48)
+            .setSpecialAttackBaseStat(47)
+            .setSpecialDefenseBaseStat(46)
+            .setAccuracyBaseStat(45)
+            .setEvasivenessBaseStat(44)
+            .setCriticalHitFrequencyBaseStat(43)
+            .setCriticalHitAvoidanceBaseStat(42)
+            .setSwiftnessBaseStat(41)
+            .build();        
+    }    
+    
+    //</editor-fold>
 }

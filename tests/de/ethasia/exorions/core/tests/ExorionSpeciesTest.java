@@ -10,32 +10,29 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
 public class ExorionSpeciesTest {
-
-    @Test
-    public void testBuilderBuild_nothingIsSet_emptySpeciesIsCreated() {
-        ExorionSpecies.Builder testCandidate = new ExorionSpecies.Builder();
-        
-        ExorionSpecies product = testCandidate.build();
-        
-        assertThat(product, is(notNullValue()));
-    }
     
     @Test
     public void testBuilderBuild_exorionNameIsSet_nameIsContainedInProduct() {
+        ExorionSpeciesBaseStatsAtMaximumLevel speciesBaseStats = createBaseStatsForExorion();
         ExorionSpecies.Builder testCandidate = new ExorionSpecies.Builder();
         
-        ExorionSpecies product = testCandidate.setName("Fookachu").build();
+        ExorionSpecies product = testCandidate
+            .setName("Fookachu")
+            .setSpeciesBaseStats(speciesBaseStats)
+            .build();
         
         assertThat(product.getName(), is(equalTo("Fookachu")));
     }
     
     @Test
     public void testBuilderBuild_learningRequirementsAreSet_theyAreContainedInProduct() {
+        ExorionSpeciesBaseStatsAtMaximumLevel speciesBaseStats = createBaseStatsForExorion();
         ExorionSpecies.Builder testCandidate = new ExorionSpecies.Builder();
         
         ExorionSpecies product = testCandidate
             .setFulfilledLearningRequirements(AbilityLearningRequirements.TAIL)
             .setFulfilledLearningRequirements(AbilityLearningRequirements.LOCOMOTION)
+            .setSpeciesBaseStats(speciesBaseStats)
             .build();
         Set<AbilityLearningRequirements> fulfilledLearningRequirements = product.getFulfilledLearningRequirements();
         
@@ -44,7 +41,29 @@ public class ExorionSpeciesTest {
     
     @Test
     public void testBuilderBuild_baseStatsAreSet_theyAreContainedInProduct() {
-        ExorionSpeciesBaseStatsAtMaximumLevel speciesBaseStats = new ExorionSpeciesBaseStatsAtMaximumLevel.Builder()
+        ExorionSpeciesBaseStatsAtMaximumLevel speciesBaseStats = createBaseStatsForExorion();
+        ExorionSpecies.Builder testCandidate = new ExorionSpecies.Builder();
+        
+        ExorionSpecies product = testCandidate
+            .setSpeciesBaseStats(speciesBaseStats)
+            .build();
+        
+        assertThat(product.getSpeciesBaseStats(), is(notNullValue()));
+        assertThat(product.getSpeciesBaseStats(), is(equalTo(speciesBaseStats)));
+    }
+    
+    @Test(expected = RuntimeException.class)
+    public void testBuilderBuild_baseStatsAreNotSet_throwsException() {
+        ExorionSpecies.Builder testCandidate = new ExorionSpecies.Builder();
+        
+        ExorionSpecies product = testCandidate
+            .build();        
+    }
+    
+    //<editor-fold defaultstate="collapsed" desc="Helpers">
+    
+    private ExorionSpeciesBaseStatsAtMaximumLevel createBaseStatsForExorion() {
+        return new ExorionSpeciesBaseStatsAtMaximumLevel.Builder()
             .setMaximumHealthBaseStat(50)
             .setAttackBaseStat(49)
             .setDefenseBaseStat(48)
@@ -55,15 +74,8 @@ public class ExorionSpeciesTest {
             .setCriticalHitFrequencyBaseStat(43)
             .setCriticalHitAvoidanceBaseStat(42)
             .setSwiftnessBaseStat(41)
-            .build();
-        
-        ExorionSpecies.Builder testCandidate = new ExorionSpecies.Builder();
-        
-        ExorionSpecies product = testCandidate
-            .setSpeciesBaseStats(speciesBaseStats)
-            .build();
-        
-        assertThat(product.getSpeciesBaseStats(), is(notNullValue()));
-        assertThat(product.getSpeciesBaseStats(), is(equalTo(speciesBaseStats)));
+            .build();        
     }
+    
+    //</editor-fold>
 }
