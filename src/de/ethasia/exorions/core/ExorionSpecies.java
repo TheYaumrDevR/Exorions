@@ -5,6 +5,12 @@ import java.util.Set;
 
 public class ExorionSpecies {
     
+    //<editor-fold defaultstate="collapsed" desc="Constants">
+    
+    public static final int MAXIMUM_LEVEL = 50;
+    
+    //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Properties">
     
     private final String name;
