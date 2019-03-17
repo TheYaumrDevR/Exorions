@@ -264,6 +264,50 @@ public class IndividualExorionTest {
             .build(); 
 
         testCandidate.levelUpBy(25);
+    }   
+    
+    @Test
+    public void testIsMaximumLevel_levelIsMaximum_returnsTrue() throws NotAllPropertiesAreSetException {
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorion())
+            .build();
+        
+        IndividualExorion testCandidate = new IndividualExorion.Builder()
+            .setSpecies(species)
+            .setLevel(50)
+            .build(); 
+        
+        assertThat(testCandidate.isMaximumLevel(), is(true));
+    }
+    
+    @Test
+    public void testIsMaximumLevel_levelIsNotMaximum_returnsFalse() throws NotAllPropertiesAreSetException {
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorion())
+            .build();
+        
+        IndividualExorion testCandidate = new IndividualExorion.Builder()
+            .setSpecies(species)
+            .setLevel(25)
+            .build(); 
+        
+        assertThat(testCandidate.isMaximumLevel(), is(false));
+    } 
+    
+    @Test
+    public void testIsMaximumLevel_levelsUpToFifty_returnsTrue() throws NotAllPropertiesAreSetException {
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorion())
+            .build();
+        
+        IndividualExorion testCandidate = new IndividualExorion.Builder()
+            .setSpecies(species)
+            .setLevel(49)
+            .build(); 
+
+        testCandidate.levelUpBy(1);
+        
+        assertThat(testCandidate.isMaximumLevel(), is(true));
     }    
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">

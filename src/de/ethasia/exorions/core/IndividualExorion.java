@@ -50,6 +50,10 @@ public class IndividualExorion {
         level += value;
     }
     
+    public boolean isMaximumLevel() {
+        return level == ExorionSpecies.MAXIMUM_LEVEL;
+    }
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Builder">
