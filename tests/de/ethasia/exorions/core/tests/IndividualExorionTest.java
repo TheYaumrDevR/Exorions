@@ -196,6 +196,76 @@ public class IndividualExorionTest {
             .build();        
     }
     
+    @Test
+    public void testBuilderBuild_noLevelIsSet_defaultsToOne() throws NotAllPropertiesAreSetException {
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorion())
+            .build();
+        
+        IndividualExorion testCandidate = new IndividualExorion.Builder()
+            .setSpecies(species)
+            .build();        
+        
+        assertThat(testCandidate.getLevel(), is(equalTo(1)));
+    }
+    
+    @Test
+    public void testLevelUpBy_levelsUpByFive_endLevelIsFiveHigher() throws NotAllPropertiesAreSetException {
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorion())
+            .build();
+        
+        IndividualExorion testCandidate = new IndividualExorion.Builder()
+            .setSpecies(species)
+            .build(); 
+
+        testCandidate.levelUpBy(5);
+        
+        assertThat(testCandidate.getLevel(), is(equalTo(6)));
+    }
+    
+    @Test
+    public void testBuilderBuild_levelIsSetToFifty_productIsLevelFifty() throws NotAllPropertiesAreSetException {
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorion())
+            .build();
+        
+        IndividualExorion testCandidate = new IndividualExorion.Builder()
+            .setSpecies(species)
+            .setLevel(50)
+            .build(); 
+        
+        assertThat(testCandidate.getLevel(), is(equalTo(50)));
+    }
+    
+    @Test(expected = RuntimeException.class)
+    public void testLevelUpBy_levelOverMaximum_throwsException() throws NotAllPropertiesAreSetException {
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorion())
+            .build();
+        
+        IndividualExorion testCandidate = new IndividualExorion.Builder()
+            .setSpecies(species)
+            .setLevel(50)
+            .build(); 
+
+        testCandidate.levelUpBy(1);
+    }   
+    
+    @Test(expected = RuntimeException.class)
+    public void testLevelUpBy_levelIsThirtyOverlevelsByFive_throwsException() throws NotAllPropertiesAreSetException {
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorion())
+            .build();
+        
+        IndividualExorion testCandidate = new IndividualExorion.Builder()
+            .setSpecies(species)
+            .setLevel(30)
+            .build(); 
+
+        testCandidate.levelUpBy(25);
+    }    
+    
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
     private ExorionSpeciesBaseStatsAtMaximumLevel createBaseStatsForExorion() {

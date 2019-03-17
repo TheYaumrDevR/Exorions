@@ -6,6 +6,7 @@ public class IndividualExorion {
     
     private final IndividualExorionBaseStats baseStats;
     private final ExorionSpecies species;
+    private int level;
     
     //</editor-fold>
     
@@ -14,6 +15,7 @@ public class IndividualExorion {
     private IndividualExorion(Builder builder) {
         baseStats = builder.baseStats;
         species = builder.species;
+        level = builder.level;
     }
     
     //</editor-fold>
@@ -28,12 +30,24 @@ public class IndividualExorion {
         return species;
     }
     
+    public int getLevel() {
+        return level;
+    }    
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
     public boolean canLearnAbility(BattleAbility ability) {
         return species.getFulfilledLearningRequirements().containsAll(ability.getLearningRequirements());
+    }
+    
+    public void levelUpBy(int value) {
+        if (level + value > ExorionSpecies.MAXIMUM_LEVEL) {
+            throw new RuntimeException("Cannot level an Exorion over the maximum level.");
+        }
+        
+        level += value;
     }
     
     //</editor-fold>
@@ -44,6 +58,11 @@ public class IndividualExorion {
         
         private IndividualExorionBaseStats baseStats;
         private ExorionSpecies species;
+        private int level;
+        
+        public Builder() {
+            level = 1;
+        }
         
         public Builder setSpecies(ExorionSpecies value) {
             species = value;
@@ -52,6 +71,11 @@ public class IndividualExorion {
         
         public Builder setBaseStats(IndividualExorionBaseStats value) {
             baseStats = value;
+            return this;
+        }
+        
+        public Builder setLevel(int value) {
+            level = value;
             return this;
         }
         
