@@ -1,11 +1,14 @@
 package de.ethasia.exorions.core;
 
+import de.ethasia.exorions.core.breeding.Genome;
+
 public class IndividualExorion {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
     private final IndividualExorionBaseStats baseStats;
     private final ExorionSpecies species;
+    private final Genome genome;
     private int level;
     
     //</editor-fold>
@@ -15,6 +18,7 @@ public class IndividualExorion {
     private IndividualExorion(Builder builder) {
         baseStats = builder.baseStats;
         species = builder.species;
+        genome = builder.genome;
         level = builder.level;
     }
     
@@ -32,7 +36,11 @@ public class IndividualExorion {
     
     public int getLevel() {
         return level;
-    }    
+    }  
+    
+    public Genome getGenome() {
+        return genome;
+    }
     
     //</editor-fold>
     
@@ -62,6 +70,7 @@ public class IndividualExorion {
         
         private IndividualExorionBaseStats baseStats;
         private ExorionSpecies species;
+        private Genome genome;
         private int level;
         
         public Builder() {
@@ -80,6 +89,11 @@ public class IndividualExorion {
         
         public Builder setLevel(int value) {
             level = value;
+            return this;
+        }
+        
+        public Builder setGenome(Genome value) {
+            genome = value;
             return this;
         }
         

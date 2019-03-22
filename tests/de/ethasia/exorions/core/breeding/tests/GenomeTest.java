@@ -1,18 +1,19 @@
 package de.ethasia.exorions.core.breeding.tests;
 
 import de.ethasia.exorions.core.breeding.ChromosomePair;
-import de.ethasia.exorions.core.breeding.ChromosomeSet;
+import de.ethasia.exorions.core.breeding.Genome;
 import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
 import de.ethasia.exorions.core.mocks.MockCoreClassesFactory;
 import de.ethasia.exorions.core.mocks.RandomNumberGeneratorMock;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ChromosomeSetTest {
+public class GenomeTest {
     
     @BeforeClass
     public static void initDependencies() {
@@ -31,7 +32,7 @@ public class ChromosomeSetTest {
     @Test
     public void testRandomBuilder_createsRandomChromosomeSetByCallingRng() {   
         RandomNumberGeneratorMock rngMock = (RandomNumberGeneratorMock)(new MockCoreClassesFactory().getRandomNumberGeneratorSingletonInstance());
-        ChromosomeSet product = new ChromosomeSet.Random().build();
+        Genome product = new Genome.Random().build();
         
         int allelesPerChromosomePair = 20;
         int chromosomePairs = 25;
@@ -44,7 +45,7 @@ public class ChromosomeSetTest {
     
     @Test
     public void testGetChromosomePair_fromRandomlyCreatedSet_pairsAreReturned() {
-        ChromosomeSet product = new ChromosomeSet.Random().build();
+        Genome product = new Genome.Random().build();
         
         assertThat(product.getChromosomePairOne(), is(ChromosomePair.class));
         assertThat(product.getChromosomePairTwo(), is(ChromosomePair.class));
@@ -79,10 +80,10 @@ public class ChromosomeSetTest {
     
     @Test
     public void testGetMaximumHealthTotalGeneValue_isEqualToSumOfGeneValuesOfChromosomePairs() {
-        ChromosomeSet testCandidate = new ChromosomeSet.Random().build();
+        Genome testCandidate = new Genome.Random().build();
         
         int actual = testCandidate.getMaximumHealthTotalGeneValue();
-        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromChromosomeSet(testCandidate);
+        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromGenome(testCandidate);
         
         int expected = 0;
         for (ChromosomePair chromosomePair : chromosomePairs) {
@@ -94,10 +95,10 @@ public class ChromosomeSetTest {
     
     @Test
     public void testGetAttackTotalGeneValue_isEqualToSumOfGeneValuesOfChromosomePairs() {
-        ChromosomeSet testCandidate = new ChromosomeSet.Random().build();
+        Genome testCandidate = new Genome.Random().build();
         
         int actual = testCandidate.getAttackTotalGeneValue();
-        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromChromosomeSet(testCandidate);
+        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromGenome(testCandidate);
         
         int expected = 0;
         for (ChromosomePair chromosomePair : chromosomePairs) {
@@ -109,10 +110,10 @@ public class ChromosomeSetTest {
     
     @Test
     public void testGetDefenseTotalGeneValue_isEqualToSumOfGeneValuesOfChromosomePairs() {
-        ChromosomeSet testCandidate = new ChromosomeSet.Random().build();
+        Genome testCandidate = new Genome.Random().build();
         
         int actual = testCandidate.getDefenseTotalGeneValue();
-        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromChromosomeSet(testCandidate);
+        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromGenome(testCandidate);
         
         int expected = 0;
         for (ChromosomePair chromosomePair : chromosomePairs) {
@@ -124,10 +125,10 @@ public class ChromosomeSetTest {
 
     @Test
     public void testGetSpecialAttackTotalGeneValue_isEqualToSumOfGeneValuesOfChromosomePairs() {
-        ChromosomeSet testCandidate = new ChromosomeSet.Random().build();
+        Genome testCandidate = new Genome.Random().build();
         
         int actual = testCandidate.getSpecialAttackTotalGeneValue();
-        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromChromosomeSet(testCandidate);
+        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromGenome(testCandidate);
         
         int expected = 0;
         for (ChromosomePair chromosomePair : chromosomePairs) {
@@ -139,10 +140,10 @@ public class ChromosomeSetTest {
     
     @Test
     public void testGetSpecialDefenseTotalGeneValue_isEqualToSumOfGeneValuesOfChromosomePairs() {
-        ChromosomeSet testCandidate = new ChromosomeSet.Random().build();
+        Genome testCandidate = new Genome.Random().build();
         
         int actual = testCandidate.getSpecialDefenseTotalGeneValue();
-        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromChromosomeSet(testCandidate);
+        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromGenome(testCandidate);
         
         int expected = 0;
         for (ChromosomePair chromosomePair : chromosomePairs) {
@@ -154,10 +155,10 @@ public class ChromosomeSetTest {
     
     @Test
     public void testGetAccuracyTotalGeneValue_isEqualToSumOfGeneValuesOfChromosomePairs() {
-        ChromosomeSet testCandidate = new ChromosomeSet.Random().build();
+        Genome testCandidate = new Genome.Random().build();
         
         int actual = testCandidate.getAccuracyTotalGeneValue();
-        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromChromosomeSet(testCandidate);
+        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromGenome(testCandidate);
         
         int expected = 0;
         for (ChromosomePair chromosomePair : chromosomePairs) {
@@ -169,10 +170,10 @@ public class ChromosomeSetTest {
     
     @Test
     public void testGetEvasivenessTotalGeneValue_isEqualToSumOfGeneValuesOfChromosomePairs() {
-        ChromosomeSet testCandidate = new ChromosomeSet.Random().build();
+        Genome testCandidate = new Genome.Random().build();
         
         int actual = testCandidate.getEvasivenessTotalGeneValue();
-        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromChromosomeSet(testCandidate);
+        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromGenome(testCandidate);
         
         int expected = 0;
         for (ChromosomePair chromosomePair : chromosomePairs) {
@@ -184,10 +185,10 @@ public class ChromosomeSetTest {
     
     @Test
     public void testGetCriticalHitFrequencyTotalGeneValue_isEqualToSumOfGeneValuesOfChromosomePairs() {
-        ChromosomeSet testCandidate = new ChromosomeSet.Random().build();
+        Genome testCandidate = new Genome.Random().build();
         
         int actual = testCandidate.getCriticalHitFrequencyTotalGeneValue();
-        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromChromosomeSet(testCandidate);
+        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromGenome(testCandidate);
         
         int expected = 0;
         for (ChromosomePair chromosomePair : chromosomePairs) {
@@ -199,10 +200,10 @@ public class ChromosomeSetTest {
     
     @Test
     public void testGetCriticalHitAvoidanceTotalGeneValue_isEqualToSumOfGeneValuesOfChromosomePairs() {
-        ChromosomeSet testCandidate = new ChromosomeSet.Random().build();
+        Genome testCandidate = new Genome.Random().build();
         
         int actual = testCandidate.getCriticalHitAvoidanceTotalGeneValue();
-        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromChromosomeSet(testCandidate);
+        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromGenome(testCandidate);
         
         int expected = 0;
         for (ChromosomePair chromosomePair : chromosomePairs) {
@@ -214,10 +215,10 @@ public class ChromosomeSetTest {
     
     @Test
     public void testGetSwiftnessTotalGeneValue_isEqualToSumOfGeneValuesOfChromosomePairs() {
-        ChromosomeSet testCandidate = new ChromosomeSet.Random().build();
+        Genome testCandidate = new Genome.Random().build();
         
         int actual = testCandidate.getSwiftnessTotalGeneValue();
-        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromChromosomeSet(testCandidate);
+        ChromosomePair[] chromosomePairs = getAllChromosomePairsFromGenome(testCandidate);
         
         int expected = 0;
         for (ChromosomePair chromosomePair : chromosomePairs) {
@@ -229,7 +230,7 @@ public class ChromosomeSetTest {
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
-    private ChromosomePair[] getAllChromosomePairsFromChromosomeSet(ChromosomeSet source) {
+    private ChromosomePair[] getAllChromosomePairsFromGenome(Genome source) {
         ChromosomePair[] result = new ChromosomePair[25];
         
         result[0] = source.getChromosomePairOne();

@@ -1,6 +1,6 @@
 package de.ethasia.exorions.core.breeding;
 
-public class ChromosomeSet {
+public class Genome {
     
     //<editor-fold defaultstate="collapsed" desc="Getters">
     
@@ -133,7 +133,7 @@ public class ChromosomeSet {
     
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     
-    private ChromosomeSet(Random builder) {
+    private Genome(Random builder) {
         chromosomePairOne = builder.chromosomePairOne;
         chromosomePairTwo = builder.chromosomePairTwo;
         chromosomePairThree = builder.chromosomePairThree;
@@ -355,7 +355,7 @@ public class ChromosomeSet {
         private ChromosomePair chromosomePairTwentyfour;
         private ChromosomePair chromosomePairTwentyfive;
         
-        public ChromosomeSet build() {
+        public Genome build() {
             chromosomePairOne = new ChromosomePair.Random().build();
             chromosomePairTwo = new ChromosomePair.Random().build();
             chromosomePairThree = new ChromosomePair.Random().build();
@@ -386,7 +386,7 @@ public class ChromosomeSet {
             chromosomePairTwentyfour = new ChromosomePair.Random().build();
             chromosomePairTwentyfive = new ChromosomePair.Random().build();
             
-            return new ChromosomeSet(this);
+            return new Genome(this);
         }
     }
     

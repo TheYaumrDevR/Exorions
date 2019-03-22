@@ -7,6 +7,9 @@ import de.ethasia.exorions.core.ExorionSpeciesBaseStatsAtMaximumLevel;
 import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.IndividualExorionBaseStats;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.core.breeding.Genome;
+import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
+import de.ethasia.exorions.core.interfaces.RealCoreClassesFactory;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -308,6 +311,24 @@ public class IndividualExorionTest {
         testCandidate.levelUpBy(1);
         
         assertThat(testCandidate.isMaximumLevel(), is(true));
+    }    
+    
+    @Test
+    public void testBuilderBuild_genomeIsSet_productContainsSameGenome() throws NotAllPropertiesAreSetException {
+        CoreClassesFactory.setInstance(new RealCoreClassesFactory());
+        
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorion())
+            .build();
+        
+        Genome genome = new Genome.Random().build();
+        
+        IndividualExorion testCandidate = new IndividualExorion.Builder()
+            .setSpecies(species)
+            .setGenome(genome)
+            .build(); 
+        
+        assertThat(testCandidate.getGenome(), is(genome));
     }    
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
