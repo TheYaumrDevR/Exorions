@@ -7,6 +7,7 @@ import de.ethasia.exorions.core.ExorionSpeciesBaseStatsAtMaximumLevel;
 import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.IndividualExorionBaseStats;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.core.OutOfLevelBoundsException;
 import de.ethasia.exorions.core.breeding.Genome;
 import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
 import de.ethasia.exorions.core.interfaces.RealCoreClassesFactory;
@@ -241,7 +242,7 @@ public class IndividualExorionTest {
         assertThat(testCandidate.getLevel(), is(equalTo(50)));
     }
     
-    @Test(expected = RuntimeException.class)
+    @Test(expected = OutOfLevelBoundsException.class)
     public void testLevelUpBy_levelOverMaximum_throwsException() throws NotAllPropertiesAreSetException {
         ExorionSpecies species = new ExorionSpecies.Builder()
             .setSpeciesBaseStats(createBaseStatsForExorion())
@@ -255,7 +256,7 @@ public class IndividualExorionTest {
         testCandidate.levelUpBy(1);
     }   
     
-    @Test(expected = RuntimeException.class)
+    @Test(expected = OutOfLevelBoundsException.class)
     public void testLevelUpBy_levelIsThirtyOverlevelsByFive_throwsException() throws NotAllPropertiesAreSetException {
         ExorionSpecies species = new ExorionSpecies.Builder()
             .setSpeciesBaseStats(createBaseStatsForExorion())

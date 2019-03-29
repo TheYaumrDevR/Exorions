@@ -56,7 +56,7 @@ public class IndividualExorion {
     
     public void levelUpBy(int value) {
         if (level + value > ExorionSpecies.MAXIMUM_LEVEL) {
-            throw new RuntimeException("Cannot level an Exorion over the maximum level.");
+            throw new OutOfLevelBoundsException();
         }
         
         level += value;
