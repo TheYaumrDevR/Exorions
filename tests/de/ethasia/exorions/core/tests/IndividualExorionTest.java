@@ -329,7 +329,36 @@ public class IndividualExorionTest {
             .build(); 
         
         assertThat(testCandidate.getGenome(), is(genome));
-    }    
+    } 
+    
+    @Test
+    public void testLevelUpBy_levelUoIsSuccessful_baseStatsAreCalculatedBasedOnSpeciesStatsAndNewLevel() throws NotAllPropertiesAreSetException {
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorionWithAllValuesSetTo(50))
+            .build();
+        
+        IndividualExorionBaseStats individualBaseStats = new IndividualExorionBaseStats.Builder()
+            .build();
+        
+        IndividualExorion testCandidate = new IndividualExorion.Builder()
+            .setSpecies(species)
+            .setBaseStats(individualBaseStats)
+            .setLevel(30)
+            .build(); 
+
+        testCandidate.levelUpBy(1);
+        
+        assertThat(testCandidate.getBaseStats().getMaximumHealthPoints(), is(equalTo(31)));
+        assertThat(testCandidate.getBaseStats().getAttackValue(), is(equalTo(31)));
+        assertThat(testCandidate.getBaseStats().getDefenseValue(), is(equalTo(31)));
+        assertThat(testCandidate.getBaseStats().getSpecialAttackValue(), is(equalTo(31)));
+        assertThat(testCandidate.getBaseStats().getSpecialDefenseValue(), is(equalTo(31)));
+        assertThat(testCandidate.getBaseStats().getAccuracy(), is(equalTo(31)));
+        assertThat(testCandidate.getBaseStats().getEvasiveness(), is(equalTo(31)));
+        assertThat(testCandidate.getBaseStats().getCriticalHitFrequency(), is(equalTo(31)));
+        assertThat(testCandidate.getBaseStats().getCriticalHitAvoidance(), is(equalTo(31)));
+        assertThat(testCandidate.getBaseStats().getSwiftness(), is(equalTo(31)));
+    }      
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
@@ -345,6 +374,21 @@ public class IndividualExorionTest {
             .setCriticalHitFrequencyBaseStat(43)
             .setCriticalHitAvoidanceBaseStat(42)
             .setSwiftnessBaseStat(41)
+            .build();        
+    } 
+    
+    private ExorionSpeciesBaseStatsAtMaximumLevel createBaseStatsForExorionWithAllValuesSetTo(int statValues) {
+        return new ExorionSpeciesBaseStatsAtMaximumLevel.Builder()
+            .setMaximumHealthBaseStat(statValues)
+            .setAttackBaseStat(statValues)
+            .setDefenseBaseStat(statValues)
+            .setSpecialAttackBaseStat(statValues)
+            .setSpecialDefenseBaseStat(statValues)
+            .setAccuracyBaseStat(statValues)
+            .setEvasivenessBaseStat(statValues)
+            .setCriticalHitFrequencyBaseStat(statValues)
+            .setCriticalHitAvoidanceBaseStat(statValues)
+            .setSwiftnessBaseStat(statValues)
             .build();        
     }    
     
