@@ -43,4 +43,52 @@ public class BattleCalculatorTest {
         
         assertThat(result, is(equalTo(3)));
     }     
+    
+    @Test
+    public void testCalculateGeneValueStatIncreaseFactor_gvIsZero_factorIsOneQuarter() {
+        BattleCalculator testCandidate = new BattleCalculator();
+        
+        double result = testCandidate.calculateGeneValueStatIncreaseFactor(0);
+        
+        assertThat(result, is(equalTo(0.25)));
+    }
+    
+    @Test
+    public void testCalculateGeneValueStatIncreaseFactor_gvIs25_factorIsOneHalf() {
+        BattleCalculator testCandidate = new BattleCalculator();
+        
+        double result = testCandidate.calculateGeneValueStatIncreaseFactor(25);
+        
+        assertThat(result, is(equalTo(0.5)));
+    } 
+    
+    @Test
+    public void testCalculateGeneValueStatIncreaseFactor_gvIs50_factorIsOne() {
+        BattleCalculator testCandidate = new BattleCalculator();
+        
+        double result = testCandidate.calculateGeneValueStatIncreaseFactor(50);
+        
+        assertThat(result, is(equalTo(1.0)));
+    } 
+
+    @Test
+    public void testCalculateGeneValueStatIncreaseFactor_gvIs12_factorIsCircaOneThird() {
+        BattleCalculator testCandidate = new BattleCalculator();
+        
+        double result = testCandidate.calculateGeneValueStatIncreaseFactor(12);
+        
+        assertEquals(0.348, result, 0.001);
+    }   
+    
+    @Test
+    public void testCalculateGenomeAdjustedStat_baseStatAndFactorGiven_baseStatIsIncreasedByItsMultipliedValue() {
+        BattleCalculator testCandidate = new BattleCalculator();
+        
+        int baseStat = 50;
+        double factor = 0.5;
+        
+        int result = testCandidate.calculateGenomeAdjustedStat(50, 0.5);
+        
+        assertThat(result, is(equalTo(75)));
+    }
 }

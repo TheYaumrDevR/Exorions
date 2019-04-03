@@ -333,7 +333,7 @@ public class IndividualExorionTest {
     } 
     
     @Test
-    public void testLevelUpBy_levelUoIsSuccessful_baseStatsAreCalculatedBasedOnSpeciesStatsAndNewLevel() throws NotAllPropertiesAreSetException {
+    public void testLevelUpBy_levelUoIsSuccessful_baseStatsAreCalculatedBasedOnSpeciesStatsAndGenomeAndNewLevel() throws NotAllPropertiesAreSetException {
         ExorionSpecies species = new ExorionSpecies.Builder()
             .setSpeciesBaseStats(createBaseStatsForExorionWithAllValuesSetTo(50))
             .build();
