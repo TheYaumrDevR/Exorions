@@ -73,34 +73,34 @@ public class IndividualExorion {
     
     private void adjustBaseStats() {
         int maximumHealthSpeciesBaseValue = species.getSpeciesBaseStats().getMaximumHealthBaseStat();
-        int maximumHealthAtCurrentLevel = battleCalculator.calculateBaseStatForLevelFromStatAtMaximumLevel(level, maximumHealthSpeciesBaseValue);
+        int maximumHealthAtCurrentLevel = calculateStatValueForCurrentLevelAndGV(level, maximumHealthSpeciesBaseValue);
         
         int attackSpeciesBaseValue = species.getSpeciesBaseStats().getAttackBaseStat();
-        int attackValueAtCurrentLevel = battleCalculator.calculateBaseStatForLevelFromStatAtMaximumLevel(level, attackSpeciesBaseValue);        
+        int attackValueAtCurrentLevel = calculateStatValueForCurrentLevelAndGV(level, attackSpeciesBaseValue);        
         
         int defenseSpeciesBaseValue = species.getSpeciesBaseStats().getDefenseBaseStat();
-        int defenseValueAtCurrentLevel = battleCalculator.calculateBaseStatForLevelFromStatAtMaximumLevel(level, defenseSpeciesBaseValue);
+        int defenseValueAtCurrentLevel = calculateStatValueForCurrentLevelAndGV(level, defenseSpeciesBaseValue);
         
         int specialAttackSpeciesBaseValue = species.getSpeciesBaseStats().getSpecialAttackBaseStat();
-        int specialAttackValueAtCurrentLevel = battleCalculator.calculateBaseStatForLevelFromStatAtMaximumLevel(level, specialAttackSpeciesBaseValue);         
+        int specialAttackValueAtCurrentLevel = calculateStatValueForCurrentLevelAndGV(level, specialAttackSpeciesBaseValue);         
         
         int specialDefenseSpeciesBaseValue = species.getSpeciesBaseStats().getSpecialDefenseBaseStat();
-        int specialDefenseValueAtCurrentLevel = battleCalculator.calculateBaseStatForLevelFromStatAtMaximumLevel(level, specialDefenseSpeciesBaseValue);         
-        
+        int specialDefenseValueAtCurrentLevel = calculateStatValueForCurrentLevelAndGV(level, specialDefenseSpeciesBaseValue);        
+         
         int accuracySpeciesBaseValue = species.getSpeciesBaseStats().getAccuracyBaseStat();
-        int accuracyValueAtCurrentLevel = battleCalculator.calculateBaseStatForLevelFromStatAtMaximumLevel(level, accuracySpeciesBaseValue);          
+        int accuracyValueAtCurrentLevel = calculateStatValueForCurrentLevelAndGV(level, accuracySpeciesBaseValue);          
         
         int evasivenessSpeciesBaseValue = species.getSpeciesBaseStats().getEvasivenessBaseStat();
-        int evasivenessValueAtCurrentLevel = battleCalculator.calculateBaseStatForLevelFromStatAtMaximumLevel(level, evasivenessSpeciesBaseValue);         
+        int evasivenessValueAtCurrentLevel = calculateStatValueForCurrentLevelAndGV(level, evasivenessSpeciesBaseValue);         
         
         int criticalHitFrequencySpeciesBaseValue = species.getSpeciesBaseStats().getCriticalHitFrequencyBaseStat();
-        int criticalHitFrequencyAtCurrentLevel = battleCalculator.calculateBaseStatForLevelFromStatAtMaximumLevel(level, criticalHitFrequencySpeciesBaseValue);         
+        int criticalHitFrequencyAtCurrentLevel = calculateStatValueForCurrentLevelAndGV(level, criticalHitFrequencySpeciesBaseValue);         
         
         int criticalHitAvoidanceSpeciesBaseValue = species.getSpeciesBaseStats().getCriticalHitAvoidanceBaseStat();
-        int criticalHitAvoidanceAtCurrentLevel = battleCalculator.calculateBaseStatForLevelFromStatAtMaximumLevel(level, criticalHitAvoidanceSpeciesBaseValue);         
+        int criticalHitAvoidanceAtCurrentLevel = calculateStatValueForCurrentLevelAndGV(level, criticalHitAvoidanceSpeciesBaseValue);         
         
         int swiftnessSpeciesBaseValue = species.getSpeciesBaseStats().getSwiftnessBaseStat();
-        int swiftnessAtCurrentLevel = battleCalculator.calculateBaseStatForLevelFromStatAtMaximumLevel(level, swiftnessSpeciesBaseValue);          
+        int swiftnessAtCurrentLevel = calculateStatValueForCurrentLevelAndGV(level, swiftnessSpeciesBaseValue);          
         
         this.baseStats = new IndividualExorionBaseStats.Builder()
             .setMaximumHealthPoints(maximumHealthAtCurrentLevel)
@@ -114,6 +114,13 @@ public class IndividualExorion {
             .setCriticalHitAvoidance(criticalHitAvoidanceAtCurrentLevel)
             .setSwiftness(swiftnessAtCurrentLevel)
             .build();
+    }
+    
+    private int calculateStatValueForCurrentLevelAndGV(int level, int baseValueAtMaxLevel) {
+        int statAtCurrentLevel = battleCalculator.calculateBaseStatForLevelFromStatAtMaximumLevel(level, baseValueAtMaxLevel);
+        double geneValueStatIncreaseFactor = battleCalculator.calculateGeneValueStatIncreaseFactor(genome.getMaximumHealthTotalGeneValue());
+        
+        return battleCalculator.calculateGenomeAdjustedStat(statAtCurrentLevel, geneValueStatIncreaseFactor);        
     }
     
     //</editor-fold>

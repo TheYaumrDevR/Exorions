@@ -133,7 +133,7 @@ public class Genome {
     
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     
-    private Genome(Random builder) {
+    protected Genome(Random builder) {
         chromosomePairOne = builder.chromosomePairOne;
         chromosomePairTwo = builder.chromosomePairTwo;
         chromosomePairThree = builder.chromosomePairThree;

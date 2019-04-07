@@ -8,6 +8,7 @@ import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.IndividualExorionBaseStats;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.OutOfLevelBoundsException;
+import de.ethasia.exorions.core.RandomNumberGeneratorImpl;
 import de.ethasia.exorions.core.breeding.Genome;
 import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
 import de.ethasia.exorions.core.interfaces.RealCoreClassesFactory;
@@ -221,6 +222,7 @@ public class IndividualExorionTest {
         
         IndividualExorion testCandidate = new IndividualExorion.Builder()
             .setSpecies(species)
+            .setGenome(createMockGenomeWithFixedValueSetTo(25))
             .build(); 
 
         testCandidate.levelUpBy(5);
@@ -307,6 +309,7 @@ public class IndividualExorionTest {
         IndividualExorion testCandidate = new IndividualExorion.Builder()
             .setSpecies(species)
             .setLevel(49)
+            .setGenome(createMockGenomeWithFixedValueSetTo(25))
             .build(); 
 
         testCandidate.levelUpBy(1);
@@ -345,20 +348,21 @@ public class IndividualExorionTest {
             .setSpecies(species)
             .setBaseStats(individualBaseStats)
             .setLevel(30)
+            .setGenome(createMockGenomeWithFixedValueSetTo(25))
             .build(); 
 
         testCandidate.levelUpBy(1);
         
-        assertThat(testCandidate.getBaseStats().getMaximumHealthPoints(), is(equalTo(31)));
-        assertThat(testCandidate.getBaseStats().getAttackValue(), is(equalTo(31)));
-        assertThat(testCandidate.getBaseStats().getDefenseValue(), is(equalTo(31)));
-        assertThat(testCandidate.getBaseStats().getSpecialAttackValue(), is(equalTo(31)));
-        assertThat(testCandidate.getBaseStats().getSpecialDefenseValue(), is(equalTo(31)));
-        assertThat(testCandidate.getBaseStats().getAccuracy(), is(equalTo(31)));
-        assertThat(testCandidate.getBaseStats().getEvasiveness(), is(equalTo(31)));
-        assertThat(testCandidate.getBaseStats().getCriticalHitFrequency(), is(equalTo(31)));
-        assertThat(testCandidate.getBaseStats().getCriticalHitAvoidance(), is(equalTo(31)));
-        assertThat(testCandidate.getBaseStats().getSwiftness(), is(equalTo(31)));
+        assertThat(testCandidate.getBaseStats().getMaximumHealthPoints(), is(equalTo(47)));
+        assertThat(testCandidate.getBaseStats().getAttackValue(), is(equalTo(47)));
+        assertThat(testCandidate.getBaseStats().getDefenseValue(), is(equalTo(47)));
+        assertThat(testCandidate.getBaseStats().getSpecialAttackValue(), is(equalTo(47)));
+        assertThat(testCandidate.getBaseStats().getSpecialDefenseValue(), is(equalTo(47)));
+        assertThat(testCandidate.getBaseStats().getAccuracy(), is(equalTo(47)));
+        assertThat(testCandidate.getBaseStats().getEvasiveness(), is(equalTo(47)));
+        assertThat(testCandidate.getBaseStats().getCriticalHitFrequency(), is(equalTo(47)));
+        assertThat(testCandidate.getBaseStats().getCriticalHitAvoidance(), is(equalTo(47)));
+        assertThat(testCandidate.getBaseStats().getSwiftness(), is(equalTo(47)));
     }      
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
@@ -391,7 +395,71 @@ public class IndividualExorionTest {
             .setCriticalHitAvoidanceBaseStat(statValues)
             .setSwiftnessBaseStat(statValues)
             .build();        
-    }    
+    } 
+    
+    private Genome createMockGenomeWithFixedValueSetTo(int geneValue) {
+        return new MockGenome(geneValue);
+    }
     
     //</editor-fold>
+    
+    private class MockGenome extends Genome {
+        
+        private final int fixedGeneValue;
+        
+        public MockGenome(int fixedGeneValue) {
+            super(new Genome.Random());
+            this.fixedGeneValue = fixedGeneValue;
+        }
+        
+        @Override
+        public int getMaximumHealthTotalGeneValue() {
+            return fixedGeneValue;
+        }
+    
+        @Override
+        public int getAttackTotalGeneValue() {
+            return fixedGeneValue;
+        }    
+    
+        @Override
+        public int getDefenseTotalGeneValue() {
+            return fixedGeneValue;
+        }
+    
+        @Override
+        public int getSpecialAttackTotalGeneValue() {
+            return fixedGeneValue;
+        }
+    
+        @Override
+        public int getSpecialDefenseTotalGeneValue() {
+            return fixedGeneValue;
+        }   
+    
+        @Override
+        public int getAccuracyTotalGeneValue() {
+            return fixedGeneValue;
+        }
+
+        @Override
+        public int getEvasivenessTotalGeneValue() {
+            return fixedGeneValue;
+        }  
+    
+        @Override
+        public int getCriticalHitFrequencyTotalGeneValue() {
+            return fixedGeneValue;
+        } 
+
+        @Override
+        public int getCriticalHitAvoidanceTotalGeneValue() {
+            return fixedGeneValue;
+        }    
+    
+        @Override
+        public int getSwiftnessTotalGeneValue() {
+            return fixedGeneValue;
+        }
+    }
 }
