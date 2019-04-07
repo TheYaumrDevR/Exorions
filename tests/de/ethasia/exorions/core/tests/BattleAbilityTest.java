@@ -90,5 +90,38 @@ public class BattleAbilityTest {
             AbilityLearningRequirements.TENTACLES,
             AbilityLearningRequirements.CLAWS,
             AbilityLearningRequirements.NEEDLES));
-    }     
+    } 
+
+    @Test
+    public void testBattleAbilityBuilderBuild_delayMultiplierIsSet_valueIsInProduct() {
+        BattleAbility.Builder testCandidate = new BattleAbility.Builder();
+        
+        BattleAbility product = testCandidate
+            .setDelayMultiplier(1.0f)
+            .build();
+        
+        assertThat(product.getDelayMultiplier(), is(equalTo(1.0f)));
+    }
+    
+    @Test
+    public void testBattleAbilityBuilderBuild_setName_nameIsInProduct() {
+        BattleAbility.Builder testCandidate = new BattleAbility.Builder();
+        
+        BattleAbility product = testCandidate
+            .setName("Foosh")
+            .build();
+        
+       assertThat(product.getName(), is(equalTo("Foosh")));
+    }
+    
+    @Test
+    public void testBattleAbilityBuilderBuild_setRequiredPowerPointsForStageTwo_requiredPowerPointsAreInProduct() {
+        BattleAbility.Builder testCandidate = new BattleAbility.Builder();
+        
+        BattleAbility product = testCandidate
+            .setRequiredPowerPointsForStageTwo(2)
+            .build();     
+        
+        assertThat(product.getRequiredPowerPointsForStageTwo(), is(equalTo(2)));
+    }
 }
