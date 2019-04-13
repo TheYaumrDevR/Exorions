@@ -1,7 +1,7 @@
 package de.ethasia.exorions.core.tests;
 
 import de.ethasia.exorions.core.AbilityLearningRequirements;
-import de.ethasia.exorions.core.BattleAbility;
+import de.ethasia.exorions.core.BattleAbilityBase;
 import de.ethasia.exorions.core.ExorionSpecies;
 import de.ethasia.exorions.core.ExorionSpeciesBaseStatsAtMaximumLevel;
 import de.ethasia.exorions.core.IndividualExorion;
@@ -43,8 +43,8 @@ public class IndividualExorionTest {
             .setSpecies(species)
             .build();
         
-        BattleAbility.Builder battleAbilityBuilder = new BattleAbility.Builder();
-        BattleAbility abilityToLearn = battleAbilityBuilder.build();
+        BattleAbilityBase.Builder battleAbilityBuilder = new BattleAbilityBase.Builder();
+        BattleAbilityBase abilityToLearn = battleAbilityBuilder.build();
         
         boolean result = testCandidate.canLearnAbility(abilityToLearn);
         
@@ -61,7 +61,7 @@ public class IndividualExorionTest {
             .setSpecies(species)
             .build();
         
-        BattleAbility abilityToLearn = new BattleAbility.Builder()
+        BattleAbilityBase abilityToLearn = new BattleAbilityBase.Builder()
             .setLearningRequirements(AbilityLearningRequirements.TAIL)
             .build();
         
@@ -81,7 +81,7 @@ public class IndividualExorionTest {
             .setSpecies(species)
             .build();
         
-        BattleAbility abilityToLearn = new BattleAbility.Builder()
+        BattleAbilityBase abilityToLearn = new BattleAbilityBase.Builder()
             .setLearningRequirements(AbilityLearningRequirements.NEEDLES)
             .build();
         
@@ -101,7 +101,7 @@ public class IndividualExorionTest {
             .setSpecies(species)
             .build();
         
-        BattleAbility abilityToLearn = new BattleAbility.Builder()
+        BattleAbilityBase abilityToLearn = new BattleAbilityBase.Builder()
             .setLearningRequirements(AbilityLearningRequirements.CLAWS)
             .setLearningRequirements(AbilityLearningRequirements.TAIL)
             .build();
@@ -123,7 +123,7 @@ public class IndividualExorionTest {
             .setSpecies(species)
             .build();
         
-        BattleAbility abilityToLearn = new BattleAbility.Builder()
+        BattleAbilityBase abilityToLearn = new BattleAbilityBase.Builder()
             .setLearningRequirements(AbilityLearningRequirements.CLAWS)
             .setLearningRequirements(AbilityLearningRequirements.TAIL)
             .build();
@@ -146,7 +146,7 @@ public class IndividualExorionTest {
             .setSpecies(species)
             .build();
         
-        BattleAbility abilityToLearn = new BattleAbility.Builder()
+        BattleAbilityBase abilityToLearn = new BattleAbilityBase.Builder()
             .setLearningRequirements(AbilityLearningRequirements.TAIL)
             .setLearningRequirements(AbilityLearningRequirements.TENTACLES)
             .build();
@@ -168,7 +168,7 @@ public class IndividualExorionTest {
             .setSpecies(species)
             .build();
         
-        BattleAbility abilityToLearn = new BattleAbility.Builder()
+        BattleAbilityBase abilityToLearn = new BattleAbilityBase.Builder()
             .setLearningRequirements(AbilityLearningRequirements.TAIL)
             .setLearningRequirements(AbilityLearningRequirements.TENTACLES)
             .build();

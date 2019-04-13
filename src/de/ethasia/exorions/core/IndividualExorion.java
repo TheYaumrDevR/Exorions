@@ -50,7 +50,7 @@ public class IndividualExorion {
     
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
-    public boolean canLearnAbility(BattleAbility ability) {
+    public boolean canLearnAbility(BattleAbilityBase ability) {
         return species.getFulfilledLearningRequirements().containsAll(ability.getLearningRequirements());
     }
     

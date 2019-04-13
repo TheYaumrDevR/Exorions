@@ -1,38 +1,38 @@
 package de.ethasia.exorions.core.tests;
 
 import de.ethasia.exorions.core.AbilityLearningRequirements;
-import de.ethasia.exorions.core.BattleAbility;
+import de.ethasia.exorions.core.BattleAbilityBase;
 import de.ethasia.exorions.core.DamageTypes;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
-public class BattleAbilityTest {
+public class BattleAbilityBaseTest {
 
     @Test
     public void testBattleAbilityBuilderBuild_nothingIsSet_createdAbilityNotNull() {
-        BattleAbility.Builder testCandidate = new BattleAbility.Builder();
+        BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();
         
-        BattleAbility product = testCandidate.build();
+        BattleAbilityBase product = testCandidate.build();
         
         assertThat(product, is(notNullValue()));
     }
     
     @Test
     public void testBattleAbilityBuilderBuild_nothingIsSet_damageTypesAreEmpty() {
-        BattleAbility.Builder testCandidate = new BattleAbility.Builder();
+        BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();
         
-        BattleAbility product = testCandidate.build();
+        BattleAbilityBase product = testCandidate.build();
         
         assertThat(product.getDamageTypes().size(), is(0));
     }    
     
     @Test
     public void testBattleAbilityBuilderBuild_oneDamageTypeIsSet_damageTypeIsInProduct() {
-        BattleAbility.Builder testCandidate = new BattleAbility.Builder();
+        BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();
         
-        BattleAbility product = testCandidate.setDamageType(DamageTypes.GROUND)
+        BattleAbilityBase product = testCandidate.setDamageType(DamageTypes.GROUND)
             .build();
         
         assertThat(product.getDamageTypes().size(), is(1));
@@ -41,9 +41,9 @@ public class BattleAbilityTest {
 
     @Test
     public void testBattleAbilityBuilderBuild_threeDamageTypesAreSet_damageTypesAreInProduct() {
-        BattleAbility.Builder testCandidate = new BattleAbility.Builder();
+        BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();
         
-        BattleAbility product = testCandidate
+        BattleAbilityBase product = testCandidate
             .setDamageType(DamageTypes.INFECTION)
             .setDamageType(DamageTypes.SQUASH)
             .setDamageType(DamageTypes.WIND)
@@ -55,18 +55,18 @@ public class BattleAbilityTest {
     
     @Test
     public void testBattleAbilityBuilderBuild_noLearningRequirementsAreSet_learningRequirementsAreEmpty() {
-        BattleAbility.Builder testCandidate = new BattleAbility.Builder();
+        BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();
         
-        BattleAbility product = testCandidate.build();
+        BattleAbilityBase product = testCandidate.build();
         
         assertThat(product.getLearningRequirements().size(), is(0));
     }  
     
     @Test
     public void testBattleAbilityBuilderBuild_oneLearningAbilityIsSet_learningAbilityIsInProduct() {
-        BattleAbility.Builder testCandidate = new BattleAbility.Builder();
+        BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();
         
-        BattleAbility product = testCandidate
+        BattleAbilityBase product = testCandidate
             .setLearningRequirements(AbilityLearningRequirements.TAIL)
             .build();
         
@@ -76,9 +76,9 @@ public class BattleAbilityTest {
     
     @Test
     public void testBattleAbilityBuilderBuild_fourLearningRequirementsAreSet_requirementsAreInProduct() {
-        BattleAbility.Builder testCandidate = new BattleAbility.Builder();
+        BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();
         
-        BattleAbility product = testCandidate
+        BattleAbilityBase product = testCandidate
             .setLearningRequirements(AbilityLearningRequirements.LOCOMOTION)
             .setLearningRequirements(AbilityLearningRequirements.TENTACLES)
             .setLearningRequirements(AbilityLearningRequirements.CLAWS)
@@ -94,9 +94,9 @@ public class BattleAbilityTest {
 
     @Test
     public void testBattleAbilityBuilderBuild_delayMultiplierIsSet_valueIsInProduct() {
-        BattleAbility.Builder testCandidate = new BattleAbility.Builder();
+        BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();
         
-        BattleAbility product = testCandidate
+        BattleAbilityBase product = testCandidate
             .setDelayMultiplier(1.0f)
             .build();
         
@@ -105,9 +105,9 @@ public class BattleAbilityTest {
     
     @Test
     public void testBattleAbilityBuilderBuild_setName_nameIsInProduct() {
-        BattleAbility.Builder testCandidate = new BattleAbility.Builder();
+        BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();
         
-        BattleAbility product = testCandidate
+        BattleAbilityBase product = testCandidate
             .setName("Foosh")
             .build();
         
@@ -116,9 +116,9 @@ public class BattleAbilityTest {
     
     @Test
     public void testBattleAbilityBuilderBuild_setRequiredPowerPointsForStageTwo_requiredPowerPointsAreInProduct() {
-        BattleAbility.Builder testCandidate = new BattleAbility.Builder();
+        BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();
         
-        BattleAbility product = testCandidate
+        BattleAbilityBase product = testCandidate
             .setRequiredPowerPointsForStageTwo(2)
             .build();     
         
