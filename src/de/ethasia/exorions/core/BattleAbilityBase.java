@@ -51,6 +51,13 @@ public class BattleAbilityBase extends BattleAbility {
     
     //</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Methods">
+    
+    @Override
+    public void use(IndividualExorion attacker, IndividualExorion defender) {}    
+    
+    //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Builder">
     
     public static class Builder {

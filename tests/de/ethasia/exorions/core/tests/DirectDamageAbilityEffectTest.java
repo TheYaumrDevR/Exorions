@@ -145,6 +145,23 @@ public class DirectDamageAbilityEffectTest {
         testCandidate.use(attacker, defender);
         
         assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(32)));
+    }   
+    
+    @Test
+    public void testUse_decoratedAbilityIsDamageAbility_damageIsDoneTwice() throws NotAllPropertiesAreSetException {
+        DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
+        DirectDamageAbilityEffect decorated = new DirectDamageAbilityEffect();
+        IndividualExorion attacker = createIndividualExorionForTesting();
+        IndividualExorion defender = createIndividualExorionForTesting();
+        
+        BattleAbilityBase decoratedAbility = new BattleAbilityBase.Builder()
+            .build();
+        decorated.decorate(decoratedAbility);
+        testCandidate.decorate(decorated);
+        
+        testCandidate.use(attacker, defender);
+        
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(1)));
     }    
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">

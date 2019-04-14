@@ -57,8 +57,11 @@ public class DirectDamageAbilityEffect extends BattleAbilityEffect {
         throw new BattleAbilityEffectMustDecorateBattleAbilityException();
     }
     
+    @Override
     public void use(IndividualExorion attacker, IndividualExorion defender) {
         if (null != decoratedAbility) {
+            decoratedAbility.use(attacker, defender);
+            
             int attack = attacker.getBaseStats().getAttackValue();
             int defense = defender.getBaseStats().getDefenseValue();
             
