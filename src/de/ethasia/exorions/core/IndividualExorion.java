@@ -67,6 +67,11 @@ public class IndividualExorion {
         return level == ExorionSpecies.MAXIMUM_LEVEL;
     }
     
+    public void takeDamage(int amount) {
+        int newHealthPoints = baseStats.getCurrentHealthPoints() - amount;
+        baseStats.setCurrentHealthPoints(newHealthPoints);
+    }
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">

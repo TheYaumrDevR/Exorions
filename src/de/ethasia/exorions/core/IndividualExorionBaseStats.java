@@ -4,6 +4,7 @@ public class IndividualExorionBaseStats {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
+    private int currentHealthPoints;
     private final int maximumHealthPoints;
     private final int attackValue;
     private final int specialAttackValue;
@@ -30,11 +31,23 @@ public class IndividualExorionBaseStats {
         accuracy = builder.accuracy;
         criticalHitAvoidance = builder.criticalHitAvoidance;
         criticalHitFrequency = builder.criticalHitFrequency;
+        currentHealthPoints = maximumHealthPoints;
     }
     
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Properties">
+    
+    public int getCurrentHealthPoints() {
+        return currentHealthPoints;
+    }
+    public void setCurrentHealthPoints(int value) {
+        if (value < 0) {
+            value = 0;
+        }
+        
+        currentHealthPoints = value;
+    }
     
     public int getMaximumHealthPoints() {
         return maximumHealthPoints;

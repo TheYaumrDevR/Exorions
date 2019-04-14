@@ -4,12 +4,17 @@ import de.ethasia.exorions.core.AbilityLearningRequirements;
 import de.ethasia.exorions.core.BattleAbilityBase;
 import de.ethasia.exorions.core.BattleAbilityEffectMustDecorateBattleAbilityException;
 import de.ethasia.exorions.core.DamageTypes;
+import de.ethasia.exorions.core.DirectDamageAbilityEffect;
+import de.ethasia.exorions.core.ExorionSpecies;
+import de.ethasia.exorions.core.IndividualExorion;
+import de.ethasia.exorions.core.IndividualExorionBaseStats;
+import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.core.mocks.MockGenome;
+
+import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
-
-import de.ethasia.exorions.core.DirectDamageAbilityEffect;
-import java.util.Set;
 
 public class DirectDamageAbilityEffectTest {
     
@@ -117,4 +122,52 @@ public class DirectDamageAbilityEffectTest {
         int powerPointsRequiredForStageTwo = testCandidate.getRequiredPowerPointsForStageTwo();       
         assertThat(powerPointsRequiredForStageTwo, is(equalTo(2)));
     }     
+    
+    @Test(expected = BattleAbilityEffectMustDecorateBattleAbilityException.class)
+    public void testUse_decoratedAbilityIsNotSet_throwsException() throws NotAllPropertiesAreSetException {
+        DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
+        IndividualExorion attacker = createIndividualExorionForTesting();
+        IndividualExorion defender = createIndividualExorionForTesting();
+        
+        testCandidate.use(attacker, defender);
+    }
+    
+    @Test
+    public void testUse_decoratedAbilityIsSet_damageIsDoneToDefender() throws NotAllPropertiesAreSetException {
+        DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
+        IndividualExorion attacker = createIndividualExorionForTesting();
+        IndividualExorion defender = createIndividualExorionForTesting();
+        
+        BattleAbilityBase decoratedAbility = new BattleAbilityBase.Builder()
+            .build();
+        testCandidate.decorate(decoratedAbility);
+        
+        testCandidate.use(attacker, defender);
+        
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(32)));
+    }    
+    
+    //<editor-fold defaultstate="collapsed" desc="Helper Methods">
+    
+    private IndividualExorion createIndividualExorionForTesting() throws NotAllPropertiesAreSetException {
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(IndividualExorionTest.createBaseStatsForExorionWithAllValuesSetTo(50))
+            .build();
+        
+        IndividualExorionBaseStats individualBaseStats = new IndividualExorionBaseStats.Builder()
+            .build();
+        
+        IndividualExorion result = new IndividualExorion.Builder()
+            .setSpecies(species)
+            .setBaseStats(individualBaseStats)
+            .setGenome(new MockGenome(0))
+            .setLevel(49)
+            .build(); 
+
+        result.levelUpBy(1);
+        
+        return result;
+    }
+    
+    //</editor-fold>
 }

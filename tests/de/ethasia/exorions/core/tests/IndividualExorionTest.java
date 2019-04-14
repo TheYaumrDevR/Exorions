@@ -8,10 +8,10 @@ import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.IndividualExorionBaseStats;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.OutOfLevelBoundsException;
-import de.ethasia.exorions.core.RandomNumberGeneratorImpl;
 import de.ethasia.exorions.core.breeding.Genome;
 import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
 import de.ethasia.exorions.core.interfaces.RealCoreClassesFactory;
+import de.ethasia.exorions.core.mocks.MockGenome;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -336,7 +336,7 @@ public class IndividualExorionTest {
     } 
     
     @Test
-    public void testLevelUpBy_levelUoIsSuccessful_baseStatsAreCalculatedBasedOnSpeciesStatsAndGenomeAndNewLevel() throws NotAllPropertiesAreSetException {
+    public void testLevelUpBy_levelUpIsSuccessful_baseStatsAreCalculatedBasedOnSpeciesStatsAndGenomeAndNewLevel() throws NotAllPropertiesAreSetException {
         ExorionSpecies species = new ExorionSpecies.Builder()
             .setSpeciesBaseStats(createBaseStatsForExorionWithAllValuesSetTo(50))
             .build();
@@ -363,7 +363,50 @@ public class IndividualExorionTest {
         assertThat(testCandidate.getBaseStats().getCriticalHitFrequency(), is(equalTo(47)));
         assertThat(testCandidate.getBaseStats().getCriticalHitAvoidance(), is(equalTo(47)));
         assertThat(testCandidate.getBaseStats().getSwiftness(), is(equalTo(47)));
-    }      
+    } 
+    
+    @Test
+    public void testLevelUpBy_levelUpIsSuccessful_currentHealthPointsAreEqualToMaximumHealthPoints() throws NotAllPropertiesAreSetException {
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorionWithAllValuesSetTo(50))
+            .build();
+        
+        IndividualExorionBaseStats individualBaseStats = new IndividualExorionBaseStats.Builder()
+            .build();
+        
+        IndividualExorion testCandidate = new IndividualExorion.Builder()
+            .setSpecies(species)
+            .setBaseStats(individualBaseStats)
+            .setLevel(30)
+            .setGenome(createMockGenomeWithFixedValueSetTo(25))
+            .build(); 
+
+        testCandidate.levelUpBy(1);
+        
+        assertThat(testCandidate.getBaseStats().getCurrentHealthPoints(), is(equalTo(47)));
+    }    
+    
+    @Test
+    public void testTakeDamage_damageIsLessThanCurrentHealth_currentHealthIsLoweredByDamage() throws NotAllPropertiesAreSetException {
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorionWithAllValuesSetTo(50))
+            .build();
+        
+        IndividualExorionBaseStats individualBaseStats = new IndividualExorionBaseStats.Builder()
+            .build();
+        
+        IndividualExorion testCandidate = new IndividualExorion.Builder()
+            .setSpecies(species)
+            .setBaseStats(individualBaseStats)
+            .setLevel(30)
+            .setGenome(createMockGenomeWithFixedValueSetTo(25))
+            .build(); 
+
+        testCandidate.levelUpBy(1);
+        testCandidate.takeDamage(20);
+        
+        assertThat(testCandidate.getBaseStats().getCurrentHealthPoints(), is(equalTo(27)));
+    }     
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
@@ -382,7 +425,7 @@ public class IndividualExorionTest {
             .build();        
     } 
     
-    private ExorionSpeciesBaseStatsAtMaximumLevel createBaseStatsForExorionWithAllValuesSetTo(int statValues) {
+    public static ExorionSpeciesBaseStatsAtMaximumLevel createBaseStatsForExorionWithAllValuesSetTo(int statValues) {
         return new ExorionSpeciesBaseStatsAtMaximumLevel.Builder()
             .setMaximumHealthBaseStat(statValues)
             .setAttackBaseStat(statValues)
@@ -402,64 +445,4 @@ public class IndividualExorionTest {
     }
     
     //</editor-fold>
-    
-    private class MockGenome extends Genome {
-        
-        private final int fixedGeneValue;
-        
-        public MockGenome(int fixedGeneValue) {
-            super(new Genome.Random());
-            this.fixedGeneValue = fixedGeneValue;
-        }
-        
-        @Override
-        public int getMaximumHealthTotalGeneValue() {
-            return fixedGeneValue;
-        }
-    
-        @Override
-        public int getAttackTotalGeneValue() {
-            return fixedGeneValue;
-        }    
-    
-        @Override
-        public int getDefenseTotalGeneValue() {
-            return fixedGeneValue;
-        }
-    
-        @Override
-        public int getSpecialAttackTotalGeneValue() {
-            return fixedGeneValue;
-        }
-    
-        @Override
-        public int getSpecialDefenseTotalGeneValue() {
-            return fixedGeneValue;
-        }   
-    
-        @Override
-        public int getAccuracyTotalGeneValue() {
-            return fixedGeneValue;
-        }
-
-        @Override
-        public int getEvasivenessTotalGeneValue() {
-            return fixedGeneValue;
-        }  
-    
-        @Override
-        public int getCriticalHitFrequencyTotalGeneValue() {
-            return fixedGeneValue;
-        } 
-
-        @Override
-        public int getCriticalHitAvoidanceTotalGeneValue() {
-            return fixedGeneValue;
-        }    
-    
-        @Override
-        public int getSwiftnessTotalGeneValue() {
-            return fixedGeneValue;
-        }
-    }
 }
