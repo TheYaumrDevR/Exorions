@@ -1,6 +1,5 @@
 package de.ethasia.exorions.core;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class DirectDamageAbilityEffect extends BattleAbilityEffect {
@@ -19,27 +18,43 @@ public class DirectDamageAbilityEffect extends BattleAbilityEffect {
             return decoratedAbility.getName();
         }
         
-        return "";
+        throw new BattleAbilityEffectMustDecorateBattleAbilityException();
     }
     
     @Override
     public Set<DamageTypes> getDamageTypes() {
-        return new HashSet<>();
+        if (null != decoratedAbility) {
+            return decoratedAbility.getDamageTypes();
+        }
+        
+        throw new BattleAbilityEffectMustDecorateBattleAbilityException();
     }
     
     @Override
     public Set<AbilityLearningRequirements> getLearningRequirements() {
-        return new HashSet<>();
+        if (null != decoratedAbility) {
+            return decoratedAbility.getLearningRequirements();
+        }
+        
+        throw new BattleAbilityEffectMustDecorateBattleAbilityException();
     }
     
     @Override
     public float getDelayMultiplier() {
-        return 1.0f;
+        if (null != decoratedAbility) {
+            return decoratedAbility.getDelayMultiplier();
+        }        
+        
+        throw new BattleAbilityEffectMustDecorateBattleAbilityException();
     }
     
     @Override
     public int getRequiredPowerPointsForStageTwo() {
-        return 0;
+        if (null != decoratedAbility) {
+            return decoratedAbility.getRequiredPowerPointsForStageTwo();
+        }         
+        
+        throw new BattleAbilityEffectMustDecorateBattleAbilityException();
     }
     
     //</editor-fold>
