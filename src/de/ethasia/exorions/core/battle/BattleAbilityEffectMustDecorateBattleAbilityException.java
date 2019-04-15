@@ -1,4 +1,4 @@
-package de.ethasia.exorions.core;
+package de.ethasia.exorions.core.battle;
 
 public class BattleAbilityEffectMustDecorateBattleAbilityException extends RuntimeException {
     

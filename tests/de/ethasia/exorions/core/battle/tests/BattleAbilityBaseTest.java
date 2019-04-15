@@ -1,7 +1,7 @@
-package de.ethasia.exorions.core.tests;
+package de.ethasia.exorions.core.battle.tests;
 
 import de.ethasia.exorions.core.AbilityLearningRequirements;
-import de.ethasia.exorions.core.BattleAbilityBase;
+import de.ethasia.exorions.core.battle.BattleAbilityBase;
 import de.ethasia.exorions.core.DamageTypes;
 
 import org.junit.Test;

@@ -1,15 +1,16 @@
-package de.ethasia.exorions.core.tests;
+package de.ethasia.exorions.core.battle.tests;
 
 import de.ethasia.exorions.core.AbilityLearningRequirements;
-import de.ethasia.exorions.core.BattleAbilityBase;
-import de.ethasia.exorions.core.BattleAbilityEffectMustDecorateBattleAbilityException;
+import de.ethasia.exorions.core.battle.BattleAbilityBase;
+import de.ethasia.exorions.core.battle.BattleAbilityEffectMustDecorateBattleAbilityException;
 import de.ethasia.exorions.core.DamageTypes;
-import de.ethasia.exorions.core.DirectDamageAbilityEffect;
+import de.ethasia.exorions.core.battle.DirectDamageAbilityEffect;
 import de.ethasia.exorions.core.ExorionSpecies;
 import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.IndividualExorionBaseStats;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.mocks.MockGenome;
+import de.ethasia.exorions.core.tests.IndividualExorionTest;
 
 import java.util.Set;
 import org.junit.Test;

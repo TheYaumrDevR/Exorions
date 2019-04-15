@@ -1,5 +1,6 @@
 package de.ethasia.exorions.core;
 
+import de.ethasia.exorions.core.battle.BattleAbilityBase;
 import de.ethasia.exorions.core.breeding.Genome;
 
 public class IndividualExorion {

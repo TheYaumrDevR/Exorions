@@ -1,7 +1,7 @@
 package de.ethasia.exorions.core.tests;
 
 import de.ethasia.exorions.core.AbilityLearningRequirements;
-import de.ethasia.exorions.core.BattleAbilityBase;
+import de.ethasia.exorions.core.battle.BattleAbilityBase;
 import de.ethasia.exorions.core.ExorionSpecies;
 import de.ethasia.exorions.core.ExorionSpeciesBaseStatsAtMaximumLevel;
 import de.ethasia.exorions.core.IndividualExorion;
