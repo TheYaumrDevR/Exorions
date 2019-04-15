@@ -6,6 +6,7 @@ public class FastMath {
     
     private static final long MASK_EXTRACT_EXPONENT_FROM_DOUBLE_BITS = 0x7ff0000000000000L;
     private static final long MASK_EXTRACT_SIGNIFICAND_FROM_DOUBLE_BITS = 0x000fffffffffffffL;
+    private static final long MASK_IMPLICIT_HIGH_BIT_FOR_DOUBLE_NORMALIZED = 0x0010000000000000L;
     
     //</editor-fold>
     
@@ -35,7 +36,7 @@ public class FastMath {
         if (exponentRawExponent > 1085) {
             return calculatePowerForLargeIntegralValueOrSpecialValueExponent(exponent, baseRawExponent, baseRawSignificand, exponentRawExponent, exponentRawSignificand);
         } else {
-            return calculatePowerForNormalExponent(exponentRawExponent);
+            return calculatePowerForNormalExponent(base, exponent, exponentRawExponent, exponentRawSignificand);
         }
     }    
     
@@ -71,17 +72,57 @@ public class FastMath {
         return +0.0;
     }
     
-    private static double calculatePowerForNormalExponent(int exponentRawExponent) {
-        if (exponentRawExponent >= 1023) {
-            calculatePowerWithPossibleIntegralValueNormalNumberExponent();
-        } else {
-            
-        }    
+    private static double calculatePowerForNormalExponent(double base, 
+            double exponent, 
+            int exponentRawExponent, 
+            long exponentRawSignificand) {
         
-        return 0.0;
+        if (exponentRawExponent >= 1023) {
+            return calculatePowerIfExponentIsIntegralNormalNumber(base, exponent, exponentRawExponent, exponentRawSignificand);
+        } else {
+            return calculatePowerForNonIntegralExponent();
+        }    
     }    
     
-    private static double calculatePowerWithPossibleIntegralValueNormalNumberExponent() {
+    private static double calculatePowerIfExponentIsIntegralNormalNumber(double base, 
+            double exponent, 
+            int exponentRawExponent, 
+            long exponentRawSignificand) {
+        
+        final long exponentFullSignificand = MASK_IMPLICIT_HIGH_BIT_FOR_DOUBLE_NORMALIZED | exponentRawSignificand;
+        
+        if (exponentRawExponent < 1075) {
+            return calculatePowerForNormalNumberWithNegativeShiftAndPossibleFractionalPart(base, exponent, exponentRawExponent, exponentFullSignificand);
+        } else {
+            return calculatePowerForNormalIntegralNumberWithPositiveShift(base, exponent, exponentRawExponent, exponentFullSignificand);
+        }
+    }
+    
+    private static double calculatePowerForNormalNumberWithNegativeShiftAndPossibleFractionalPart(double base, 
+            double exponent, 
+            int exponentRawExponent, 
+            long exponentFullSignificand) {
+        
+        final long integralMask = (-1L) << (1075 - exponentRawExponent);
+        
+        if ((exponentFullSignificand & integralMask) == exponentFullSignificand) {
+            final long exponentRecursive = exponentFullSignificand >> (1075 - exponentRawExponent);
+            return FastMath.pow(base, (exponent < 0) ? -exponentRecursive : exponentRecursive);
+        } else {
+            return calculatePowerForNonIntegralExponent();
+        }
+    }
+    
+    private static double calculatePowerForNormalIntegralNumberWithPositiveShift(double base, 
+            double exponent, 
+            int exponentRawExponent, 
+            long exponentFullSignificand) {
+        
+        final long exponentRecursive = exponentFullSignificand << (exponentRawExponent - 1075);
+        return FastMath.pow(base, (exponent < 0) ? -exponentRecursive : exponentRecursive);
+    }
+    
+    private static double calculatePowerForNonIntegralExponent() {
         return 0.0;
     }
     
