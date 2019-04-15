@@ -20,7 +20,10 @@ public class ExorionBattleTeam {
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     
     public ExorionBattleTeam() {
-        teamMembers = new ArrayList<>();
+        teamMembers = new ArrayList<>(MAXIMUM_TEAM_SIZE);
+        for (int i = 0; i < MAXIMUM_TEAM_SIZE; i++) {
+            teamMembers.add(i, null);
+        }
     }
     
     //</editor-fold>
@@ -28,8 +31,20 @@ public class ExorionBattleTeam {
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
     public void addExorion(IndividualExorion exorion) throws BattleTeamIsFullException {
-        throwExceptionIfTeamIsFull();
-        teamMembers.add(exorion);
+        int nextFreeSlotIndex = getNextFreeSlotIndex();
+        throwExceptionIfTeamIsFull(nextFreeSlotIndex);
+        teamMembers.add(nextFreeSlotIndex, exorion);
+    }
+    
+    public IndividualExorion replaceExorionAtWith(int slotIndex, IndividualExorion exorion) {
+        if (slotIndex >= MAXIMUM_TEAM_SIZE) {
+            throw new IndexOutOfBoundsException("Exorions can only be added on the first five slots of the team.");
+        }
+        
+        IndividualExorion removed = teamMembers.remove(slotIndex);
+        
+        teamMembers.add(slotIndex, exorion);
+        return removed;
     }
     
     public IndividualExorion getExorionOnSlot(int slotIndex) {
@@ -40,8 +55,18 @@ public class ExorionBattleTeam {
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
-    private void throwExceptionIfTeamIsFull() throws BattleTeamIsFullException {
-        if (teamMembers.size() >= MAXIMUM_TEAM_SIZE) {
+    private int getNextFreeSlotIndex() {
+        for (int i = 0; i < MAXIMUM_TEAM_SIZE; i++) {
+            if (teamMembers.get(i) == null) {
+                return i;
+            }
+        }        
+        
+        return 5;
+    }
+    
+    private void throwExceptionIfTeamIsFull(int nextFreeSlotIndex) throws BattleTeamIsFullException {
+        if (nextFreeSlotIndex >= MAXIMUM_TEAM_SIZE) {
             throw new BattleTeamIsFullException();
         }        
     }

@@ -116,6 +116,59 @@ public class ExorionBattleTeamTest {
         testCandidate.addExorion(addedExorionSix);
     } 
     
+    @Test
+    public void testReplaceExorionAtWith_slotIsValid_exorionIsAddedToSlotAndOldOneIsRemoved() throws NotAllPropertiesAreSetException, BattleTeamIsFullException {
+        ExorionBattleTeam testCandidate = new ExorionBattleTeam();
+        
+        ExorionSpecies species = createExorionSpecies();
+        
+        IndividualExorion addedExorionOne = new IndividualExorion.Builder().setSpecies(species).build();
+        IndividualExorion addedExorionTwo = new IndividualExorion.Builder().setSpecies(species).build();
+        testCandidate.addExorion(addedExorionOne);
+        testCandidate.replaceExorionAtWith(0, addedExorionTwo);
+        
+        IndividualExorion firstExorionInTeam = testCandidate.getExorionOnSlot(0);   
+        assertThat(firstExorionInTeam, is(equalTo(addedExorionTwo)));
+    }
+    
+    @Test
+    public void testReplaceExorionAtWith_slotIsValid_exorionIsAddedToSlotAndOldOneIsReturned() throws NotAllPropertiesAreSetException, BattleTeamIsFullException {
+        ExorionBattleTeam testCandidate = new ExorionBattleTeam();
+        
+        ExorionSpecies species = createExorionSpecies();
+        
+        IndividualExorion addedExorionOne = new IndividualExorion.Builder().setSpecies(species).build();
+        IndividualExorion addedExorionTwo = new IndividualExorion.Builder().setSpecies(species).build();
+        testCandidate.addExorion(addedExorionOne);
+        IndividualExorion removedExorion = testCandidate.replaceExorionAtWith(0, addedExorionTwo);
+          
+        assertThat(removedExorion, is(equalTo(addedExorionOne)));
+    }    
+    
+    @Test
+    public void testReplaceExorionAtWith_slotIsValidAndWasNotUsedBefore_noExorionIsRemoved() throws NotAllPropertiesAreSetException, BattleTeamIsFullException {
+        ExorionBattleTeam testCandidate = new ExorionBattleTeam();
+        
+        ExorionSpecies species = createExorionSpecies();
+        
+        IndividualExorion addedExorion = new IndividualExorion.Builder().setSpecies(species).build();
+        IndividualExorion removedExorion = testCandidate.replaceExorionAtWith(4, addedExorion);
+        IndividualExorion exorionAtSlotFour = testCandidate.getExorionOnSlot(4); 
+          
+        assertThat(removedExorion, is(nullValue()));
+        assertThat(exorionAtSlotFour, is(equalTo(addedExorion)));
+    }    
+    
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testReplaceExorionAtWith_slotIndexInvalid_throwsException() throws NotAllPropertiesAreSetException, BattleTeamIsFullException {
+        ExorionBattleTeam testCandidate = new ExorionBattleTeam();
+        
+        ExorionSpecies species = createExorionSpecies();
+        
+        IndividualExorion addedExorion = new IndividualExorion.Builder().setSpecies(species).build();
+        testCandidate.replaceExorionAtWith(6, addedExorion);
+    }     
+    
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
     private ExorionSpecies createExorionSpecies() {
