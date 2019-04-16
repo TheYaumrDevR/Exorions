@@ -51,6 +51,12 @@ public class ExorionBattleTeam {
         return teamMembers.get(slotIndex);
     }
     
+    public boolean allExorionAreFainted() {
+        return teamMembers.stream().anyMatch(
+            (teamMember) -> (teamMember != null && teamMember.isFainted())
+        );
+    }
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">

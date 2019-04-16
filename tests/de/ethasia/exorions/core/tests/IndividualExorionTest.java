@@ -406,7 +406,50 @@ public class IndividualExorionTest {
         testCandidate.takeDamage(20);
         
         assertThat(testCandidate.getBaseStats().getCurrentHealthPoints(), is(equalTo(27)));
+    } 
+
+    @Test
+    public void testIsFainted_healthIsFull_returnsFalse() throws NotAllPropertiesAreSetException {
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorionWithAllValuesSetTo(50))
+            .build();
+        
+        IndividualExorionBaseStats individualBaseStats = new IndividualExorionBaseStats.Builder()
+            .build();
+        
+        IndividualExorion testCandidate = new IndividualExorion.Builder()
+            .setSpecies(species)
+            .setBaseStats(individualBaseStats)
+            .setLevel(49)
+            .setGenome(createMockGenomeWithFixedValueSetTo(25))
+            .build(); 
+
+        testCandidate.levelUpBy(1);
+        
+        assertThat(testCandidate.isFainted(), is(false));
     }     
+    
+    @Test
+    public void testIsFainted_healthIsZero_returnsTrue() throws NotAllPropertiesAreSetException {
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setSpeciesBaseStats(createBaseStatsForExorionWithAllValuesSetTo(50))
+            .build();
+        
+        IndividualExorionBaseStats individualBaseStats = new IndividualExorionBaseStats.Builder()
+            .build();
+        
+        IndividualExorion testCandidate = new IndividualExorion.Builder()
+            .setSpecies(species)
+            .setBaseStats(individualBaseStats)
+            .setLevel(49)
+            .setGenome(createMockGenomeWithFixedValueSetTo(25))
+            .build(); 
+
+        testCandidate.levelUpBy(1);
+        testCandidate.takeDamage(200);
+        
+        assertThat(testCandidate.isFainted(), is(true));
+    }    
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     

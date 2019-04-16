@@ -73,6 +73,10 @@ public class IndividualExorion {
         baseStats.setCurrentHealthPoints(newHealthPoints);
     }
     
+    public boolean isFainted() {
+        return baseStats.getCurrentHealthPoints() == 0;
+    }
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
