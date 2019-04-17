@@ -449,7 +449,7 @@ public class IndividualExorionTest {
         testCandidate.takeDamage(200);
         
         assertThat(testCandidate.isFainted(), is(true));
-    }    
+    }
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
