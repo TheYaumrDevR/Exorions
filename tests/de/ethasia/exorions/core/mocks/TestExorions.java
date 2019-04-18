@@ -8,53 +8,22 @@ import java.util.Map;
 import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.IndividualExorionBaseStats;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
+
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class TestExorions {
     
-    private static Map<Integer, IndividualExorion> exorionsById;
+    private static Map<Integer, ExorionSpecies> exorionsById;
     
     static {
-        exorionsById = new HashMap<>();
-        
-        try {        
-            fillMapWithMockExorion();
-        } catch (NotAllPropertiesAreSetException ex) {
-            Logger.getLogger(TestExorions.class.getName()).log(Level.SEVERE, "Could not create dictionary of mock Exorion.", ex);
-        }
+        exorionsById = new HashMap<>();     
+        fillMapWithMockExorion();
     }
     
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
-    public static IndividualExorion findExorionById(int id) {
-        return exorionsById.get(id);
-    }
-    
-    //</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Helper Methods">
-    
-    private static void fillMapWithMockExorion() throws NotAllPropertiesAreSetException {
-        ExorionSpeciesBaseStatsAtMaximumLevel baseState = new ExorionSpeciesBaseStatsAtMaximumLevel.Builder()
-            .setAccuracyBaseStat(50)
-            .setAttackBaseStat(50)
-            .setCriticalHitAvoidanceBaseStat(50)
-            .setCriticalHitFrequencyBaseStat(50)
-            .setDefenseBaseStat(60)
-            .setEvasivenessBaseStat(50)
-            .setMaximumHealthBaseStat(54)
-            .setSpecialAttackBaseStat(50)
-            .setSpecialDefenseBaseStat(50)
-            .setSwiftnessBaseStat(70)
-            .build();
-        
-        ExorionSpecies species = new ExorionSpecies.Builder()
-            .setName("Chomper")
-            .setFulfilledLearningRequirements(AbilityLearningRequirements.TEETH)
-            .setSpeciesBaseStats(baseState)
-            .build();
+    public static IndividualExorion findExorionById(int id) throws NotAllPropertiesAreSetException {
+        ExorionSpecies species = exorionsById.get(id);
         
         IndividualExorionBaseStats individualStats = new IndividualExorionBaseStats.Builder()
             .setAccuracy(0)
@@ -76,9 +45,59 @@ public class TestExorions {
             .setSpecies(species)
             .build();
         
-        exorion.levelUpBy(50);
+        exorion.levelUpBy(50);    
         
-        exorionsById.put(0, exorion);        
+        return exorion;
+    }
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Helper Methods">
+    
+    private static void fillMapWithMockExorion() {
+        ExorionSpeciesBaseStatsAtMaximumLevel baseState = new ExorionSpeciesBaseStatsAtMaximumLevel.Builder()
+            .setAccuracyBaseStat(50)
+            .setAttackBaseStat(50)
+            .setCriticalHitAvoidanceBaseStat(50)
+            .setCriticalHitFrequencyBaseStat(50)
+            .setDefenseBaseStat(60)
+            .setEvasivenessBaseStat(50)
+            .setMaximumHealthBaseStat(54)
+            .setSpecialAttackBaseStat(50)
+            .setSpecialDefenseBaseStat(50)
+            .setSwiftnessBaseStat(70)
+            .build();
+        
+        ExorionSpecies species = new ExorionSpecies.Builder()
+            .setName("Chomper")
+            .setFulfilledLearningRequirements(AbilityLearningRequirements.TEETH)
+            .setFulfilledLearningRequirements(AbilityLearningRequirements.LOCOMOTION)
+            .setSpeciesBaseStats(baseState)
+            .build();
+        
+        exorionsById.put(0, species);    
+        
+        baseState = new ExorionSpeciesBaseStatsAtMaximumLevel.Builder()
+            .setAccuracyBaseStat(50)
+            .setAttackBaseStat(60)
+            .setCriticalHitAvoidanceBaseStat(50)
+            .setCriticalHitFrequencyBaseStat(50)
+            .setDefenseBaseStat(70)
+            .setEvasivenessBaseStat(50)
+            .setMaximumHealthBaseStat(58)
+            .setSpecialAttackBaseStat(50)
+            .setSpecialDefenseBaseStat(50)
+            .setSwiftnessBaseStat(50)
+            .build();
+        
+        species = new ExorionSpecies.Builder()
+            .setName("Boned Ram")
+            .setFulfilledLearningRequirements(AbilityLearningRequirements.LOCOMOTION)
+            .setFulfilledLearningRequirements(AbilityLearningRequirements.HORNS)
+            .setSpeciesBaseStats(baseState)
+            .build();        
+        
+        exorionsById.put(1, species); 
     }    
     
     //</editor-fold>

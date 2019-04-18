@@ -7,7 +7,7 @@ public class ExorionBattleTeam {
     
     //<editor-fold defaultstate="collapsed" desc="Constants">
     
-    private static final int MAXIMUM_TEAM_SIZE = 5;
+    public static final int MAXIMUM_TEAM_SIZE = 5;
     
     //</editor-fold>
     
@@ -51,9 +51,22 @@ public class ExorionBattleTeam {
         return teamMembers.get(slotIndex);
     }
     
+    public IndividualExorion getFirstExorion() {
+        return teamMembers.stream().filter(
+                (teamMember) -> (teamMember != null)
+        ).findFirst()
+        .orElse(null);
+    }
+    
     public boolean allExorionAreFainted() {
         return teamMembers.stream().anyMatch(
             (teamMember) -> (teamMember != null && teamMember.isFainted())
+        );
+    }
+    
+    public boolean isEmpty() {
+        return teamMembers.stream().allMatch(
+            (teamMember) -> (teamMember == null)
         );
     }
     

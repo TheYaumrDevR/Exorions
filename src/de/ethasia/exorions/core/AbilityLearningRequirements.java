@@ -7,5 +7,6 @@ public enum AbilityLearningRequirements {
     NEEDLES,
     TAIL,
     CLAWS,
-    TEETH
+    TEETH,
+    HORNS
 }

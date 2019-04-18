@@ -214,6 +214,37 @@ public class ExorionBattleTeamTest {
         addedExorionTwo.takeDamage(200);
         
         assertThat(testCandidate.allExorionAreFainted(), is(equalTo(true)));
+    } 
+
+    @Test
+    public void testGetFirstExorionInTeam_firstExorionIsOnSlotThree_exorionIsReturned() throws NotAllPropertiesAreSetException {
+        ExorionBattleTeam testCandidate = new ExorionBattleTeam();
+        
+        ExorionSpecies species = createExorionSpecies();
+        
+        IndividualExorion addedExorion = new IndividualExorion.Builder().setSpecies(species).build();
+        testCandidate.replaceExorionAtWith(4, addedExorion); 
+          
+        assertThat(testCandidate.getFirstExorion(), is(equalTo(addedExorion)));
+    } 
+    
+    @Test
+    public void testIsEmpty_noExorionAreSet_returnsTrue() {
+        ExorionBattleTeam testCandidate = new ExorionBattleTeam(); 
+          
+        assertThat(testCandidate.isEmpty(), is(true));
+    } 
+    
+    @Test
+    public void testisEmpty_exorionIsSet_returnsFalse() throws NotAllPropertiesAreSetException {
+        ExorionBattleTeam testCandidate = new ExorionBattleTeam(); 
+          
+        ExorionSpecies species = createExorionSpecies();
+        
+        IndividualExorion addedExorion = new IndividualExorion.Builder().setSpecies(species).build();
+        testCandidate.replaceExorionAtWith(3, addedExorion);         
+        
+        assertThat(testCandidate.isEmpty(), is(false));
     }     
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
