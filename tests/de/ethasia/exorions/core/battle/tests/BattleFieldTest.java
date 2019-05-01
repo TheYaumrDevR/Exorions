@@ -48,7 +48,7 @@ public class BattleFieldTest {
     }    
     
     @Test
-    public void testStartBattle_differentTeamsAreSetWithEqualExorion_teamTwoMoves() throws BattleTeamIsFullException, NotAllPropertiesAreSetException {
+    public void testStartBattle_differentTeamsAreSetWithEqualExorion_teamOneMoves() throws BattleTeamIsFullException, NotAllPropertiesAreSetException {
         BattleField testCandidate = new BattleField();
         ExorionBattleTeam teamOne = new ExorionBattleTeam();
         ExorionBattleTeam teamTwo = new ExorionBattleTeam();
@@ -85,5 +85,5 @@ public class BattleFieldTest {
         testCandidate.startBattle();
         
         assertThat(testCandidate.teamOneHasToMove(), is(equalTo(false)));
-    }     
+    }
 }
