@@ -9,6 +9,7 @@ import de.ethasia.exorions.core.IndividualExorionBaseStats;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.OutOfLevelBoundsException;
 import de.ethasia.exorions.core.battle.BattleAbility;
+import de.ethasia.exorions.core.battle.DirectDamageAbilityEffect;
 import de.ethasia.exorions.core.battle.RequirementsToLearnAbilityAreNotFulfilledException;
 import de.ethasia.exorions.core.breeding.Genome;
 import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
@@ -536,6 +537,72 @@ public class IndividualExorionTest {
             .build();
         
         testCandidate.learnAbilityOnSlotThree(ability);
+    }   
+    
+    @Test
+    public void testUseSlotOneAbility_directDamageAbility_damageIsDealt() throws NotAllPropertiesAreSetException {
+        IndividualExorion testCandidate = TestExorions.findExorionById(0);
+        IndividualExorion defender = TestExorions.findExorionById(1);
+        IndividualExorion defenderCopy = TestExorions.findExorionById(1);
+        
+        DirectDamageAbilityEffect directDamageEffect = new DirectDamageAbilityEffect();
+        BattleAbilityBase ability = new BattleAbilityBase.Builder()
+            .setName("Foosh")
+            .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .build();
+        directDamageEffect.decorate(ability);
+        
+        testCandidate.learnAbilityOnSlotOne(directDamageEffect);
+        testCandidate.useSlotOneAbility(defender);
+        
+        directDamageEffect.use(testCandidate, defenderCopy);
+        int expectedDefenderHealth = defenderCopy.getBaseStats().getCurrentHealthPoints();
+        
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(expectedDefenderHealth)));
+    } 
+    
+    @Test
+    public void testUseSlotTwoAbility_directDamageAbility_damageIsDealt() throws NotAllPropertiesAreSetException {
+        IndividualExorion testCandidate = TestExorions.findExorionById(0);
+        IndividualExorion defender = TestExorions.findExorionById(1);
+        IndividualExorion defenderCopy = TestExorions.findExorionById(1);
+        
+        DirectDamageAbilityEffect directDamageEffect = new DirectDamageAbilityEffect();
+        BattleAbilityBase ability = new BattleAbilityBase.Builder()
+            .setName("Foosh")
+            .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .build();
+        directDamageEffect.decorate(ability);
+        
+        testCandidate.learnAbilityOnSlotTwo(directDamageEffect);
+        testCandidate.useSlotTwoAbility(defender);
+        
+        directDamageEffect.use(testCandidate, defenderCopy);
+        int expectedDefenderHealth = defenderCopy.getBaseStats().getCurrentHealthPoints();
+        
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(expectedDefenderHealth)));
+    } 
+    
+    @Test
+    public void testUseSlotThreeAbility_directDamageAbility_damageIsDealt() throws NotAllPropertiesAreSetException {
+        IndividualExorion testCandidate = TestExorions.findExorionById(0);
+        IndividualExorion defender = TestExorions.findExorionById(1);
+        IndividualExorion defenderCopy = TestExorions.findExorionById(1);
+        
+        DirectDamageAbilityEffect directDamageEffect = new DirectDamageAbilityEffect();
+        BattleAbilityBase ability = new BattleAbilityBase.Builder()
+            .setName("Foosh")
+            .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .build();
+        directDamageEffect.decorate(ability);
+        
+        testCandidate.learnAbilityOnSlotThree(directDamageEffect);
+        testCandidate.useSlotThreeAbility(defender);
+        
+        directDamageEffect.use(testCandidate, defenderCopy);
+        int expectedDefenderHealth = defenderCopy.getBaseStats().getCurrentHealthPoints();
+        
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(expectedDefenderHealth)));
     }    
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">

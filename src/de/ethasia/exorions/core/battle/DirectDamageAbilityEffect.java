@@ -3,9 +3,6 @@ package de.ethasia.exorions.core.battle;
 import de.ethasia.exorions.core.AbilityLearningRequirements;
 import de.ethasia.exorions.core.DamageTypes;
 import de.ethasia.exorions.core.IndividualExorion;
-import de.ethasia.exorions.core.battle.BattleAbilityEffectMustDecorateBattleAbilityException;
-import de.ethasia.exorions.core.battle.BattleAbilityEffect;
-import de.ethasia.exorions.core.battle.BattleAbility;
 import java.util.Set;
 
 public class DirectDamageAbilityEffect extends BattleAbilityEffect {

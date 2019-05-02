@@ -118,6 +118,18 @@ public class IndividualExorion {
         abilityOnSlotThree = ability;
     }
     
+    public void useSlotOneAbility(IndividualExorion target) {
+        abilityOnSlotOne.use(this, target);
+    }
+    
+    public void useSlotTwoAbility(IndividualExorion target) {
+        abilityOnSlotTwo.use(this, target);
+    }
+    
+    public void useSlotThreeAbility(IndividualExorion target) {
+        abilityOnSlotThree.use(this, target);
+    }
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
