@@ -8,10 +8,13 @@ import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.IndividualExorionBaseStats;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.OutOfLevelBoundsException;
+import de.ethasia.exorions.core.battle.BattleAbility;
+import de.ethasia.exorions.core.battle.RequirementsToLearnAbilityAreNotFulfilledException;
 import de.ethasia.exorions.core.breeding.Genome;
 import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
 import de.ethasia.exorions.core.interfaces.RealCoreClassesFactory;
 import de.ethasia.exorions.core.mocks.MockGenome;
+import de.ethasia.exorions.core.mocks.TestExorions;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -450,6 +453,90 @@ public class IndividualExorionTest {
         
         assertThat(testCandidate.isFainted(), is(true));
     }
+    
+    @Test
+    public void testLearnAbilityOnSlotOne_canLearnAbility_abilityInSlotOneIsSet() throws NotAllPropertiesAreSetException {
+        IndividualExorion testCandidate = TestExorions.findExorionById(0);
+        BattleAbilityBase ability = new BattleAbilityBase.Builder()
+            .setName("Foosh")
+            .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .build();
+        
+        testCandidate.learnAbilityOnSlotOne(ability);
+        
+        BattleAbility abilityOnSlotOne = testCandidate.getAbilityOnSlotOne();
+        
+        assertThat(abilityOnSlotOne, is(equalTo(ability)));
+        assertThat(testCandidate.getAbilityOnSlotTwo(), is(equalTo(null)));
+        assertThat(testCandidate.getAbilityOnSlotThree(), is(equalTo(null)));
+    }
+    
+    @Test
+    public void testLearnAbilityOnSlotTwo_canLearnAbility_abilityInSlotTwoIsSet() throws NotAllPropertiesAreSetException {
+        IndividualExorion testCandidate = TestExorions.findExorionById(0);
+        BattleAbilityBase ability = new BattleAbilityBase.Builder()
+            .setName("Foosh")
+            .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .build();
+        
+        testCandidate.learnAbilityOnSlotTwo(ability);
+        
+        BattleAbility abilityOnSlotTwo = testCandidate.getAbilityOnSlotTwo();
+        
+        assertThat(abilityOnSlotTwo, is(equalTo(ability)));
+        assertThat(testCandidate.getAbilityOnSlotOne(), is(equalTo(null)));
+        assertThat(testCandidate.getAbilityOnSlotThree(), is(equalTo(null)));
+    } 
+    
+    @Test
+    public void testLearnAbilityOnSlotThree_canLearnAbility_abilityInSlotThreeIsSet() throws NotAllPropertiesAreSetException {
+        IndividualExorion testCandidate = TestExorions.findExorionById(0);
+        BattleAbilityBase ability = new BattleAbilityBase.Builder()
+            .setName("Foosh")
+            .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .build();
+        
+        testCandidate.learnAbilityOnSlotThree(ability);
+        
+        BattleAbility abilityOnSlotThree = testCandidate.getAbilityOnSlotThree();
+        
+        assertThat(abilityOnSlotThree, is(equalTo(ability)));
+        assertThat(testCandidate.getAbilityOnSlotOne(), is(equalTo(null)));
+        assertThat(testCandidate.getAbilityOnSlotTwo(), is(equalTo(null)));
+    } 
+
+    @Test(expected = RequirementsToLearnAbilityAreNotFulfilledException.class)
+    public void testLearnAbilityOnSlotOne_canNotLearnAbility_throwsException() throws NotAllPropertiesAreSetException {
+        IndividualExorion testCandidate = TestExorions.findExorionById(0);
+        BattleAbilityBase ability = new BattleAbilityBase.Builder()
+            .setName("Foosh")
+            .setLearningRequirements(AbilityLearningRequirements.HARD_BODY)
+            .build();
+        
+        testCandidate.learnAbilityOnSlotOne(ability);
+    }    
+    
+    @Test(expected = RequirementsToLearnAbilityAreNotFulfilledException.class)
+    public void testLearnAbilityOnSlotTwo_canNotLearnAbility_throwsException() throws NotAllPropertiesAreSetException {
+        IndividualExorion testCandidate = TestExorions.findExorionById(0);
+        BattleAbilityBase ability = new BattleAbilityBase.Builder()
+            .setName("Foosh")
+            .setLearningRequirements(AbilityLearningRequirements.HARD_BODY)
+            .build();
+        
+        testCandidate.learnAbilityOnSlotTwo(ability);
+    }
+    
+    @Test(expected = RequirementsToLearnAbilityAreNotFulfilledException.class)
+    public void testLearnAbilityOnSlotThree_canNotLearnAbility_throwsException() throws NotAllPropertiesAreSetException {
+        IndividualExorion testCandidate = TestExorions.findExorionById(0);
+        BattleAbilityBase ability = new BattleAbilityBase.Builder()
+            .setName("Foosh")
+            .setLearningRequirements(AbilityLearningRequirements.HARD_BODY)
+            .build();
+        
+        testCandidate.learnAbilityOnSlotThree(ability);
+    }    
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     

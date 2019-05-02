@@ -1,6 +1,7 @@
 package de.ethasia.exorions.core;
 
-import de.ethasia.exorions.core.battle.BattleAbilityBase;
+import de.ethasia.exorions.core.battle.BattleAbility;
+import de.ethasia.exorions.core.battle.RequirementsToLearnAbilityAreNotFulfilledException;
 import de.ethasia.exorions.core.breeding.Genome;
 
 public class IndividualExorion {
@@ -11,6 +12,10 @@ public class IndividualExorion {
     private final ExorionSpecies species;
     private final Genome genome;
     private int level;
+    
+    private BattleAbility abilityOnSlotOne;
+    private BattleAbility abilityOnSlotTwo;
+    private BattleAbility abilityOnSlotThree;
     
     private final BattleCalculator battleCalculator;
     
@@ -47,11 +52,23 @@ public class IndividualExorion {
         return genome;
     }
     
+    public BattleAbility getAbilityOnSlotOne() {
+        return abilityOnSlotOne;
+    }
+    
+    public BattleAbility getAbilityOnSlotTwo() {
+        return abilityOnSlotTwo;
+    }
+    
+    public BattleAbility getAbilityOnSlotThree() {
+        return abilityOnSlotThree;
+    }
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
-    public boolean canLearnAbility(BattleAbilityBase ability) {
+    public boolean canLearnAbility(BattleAbility ability) {
         return species.getFulfilledLearningRequirements().containsAll(ability.getLearningRequirements());
     }
     
@@ -75,6 +92,30 @@ public class IndividualExorion {
     
     public boolean isFainted() {
         return baseStats.getCurrentHealthPoints() == 0;
+    }
+    
+    public void learnAbilityOnSlotOne(BattleAbility ability) {
+        if (!canLearnAbility(ability)) {
+            throw new RequirementsToLearnAbilityAreNotFulfilledException();
+        }
+        
+        abilityOnSlotOne = ability;
+    }
+    
+    public void learnAbilityOnSlotTwo(BattleAbility ability) {
+        if (!canLearnAbility(ability)) {
+            throw new RequirementsToLearnAbilityAreNotFulfilledException();
+        }        
+        
+        abilityOnSlotTwo = ability;
+    }
+    
+    public void learnAbilityOnSlotThree(BattleAbility ability) {
+        if (!canLearnAbility(ability)) {
+            throw new RequirementsToLearnAbilityAreNotFulfilledException();
+        }         
+        
+        abilityOnSlotThree = ability;
     }
     
     //</editor-fold>

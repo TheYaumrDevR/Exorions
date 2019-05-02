@@ -2,6 +2,7 @@ package de.ethasia.exorions.core.battle.tests;
 
 import de.ethasia.exorions.core.BattleTeamIsFullException;
 import de.ethasia.exorions.core.ExorionBattleTeam;
+import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.battle.BattleCanOnlyStartWithTwoDifferentNonEmptyTeamsException;
 import de.ethasia.exorions.core.battle.BattleField;
@@ -86,4 +87,59 @@ public class BattleFieldTest {
         
         assertThat(testCandidate.teamOneHasToMove(), is(equalTo(false)));
     }
+    
+    @Test
+    public void testGetCurrentExorionOfFirstTeam_firstTeamHasExorionOnSlotOne_thatExorionIsReturned() throws NotAllPropertiesAreSetException, BattleTeamIsFullException {
+        BattleField testCandidate = new BattleField();
+        ExorionBattleTeam teamOne = new ExorionBattleTeam();
+        ExorionBattleTeam teamTwo = new ExorionBattleTeam();
+        
+        IndividualExorion firstExorionOfFirstTeam = TestExorions.findExorionById(1);
+        teamOne.addExorion(firstExorionOfFirstTeam);
+        teamTwo.addExorion(TestExorions.findExorionById(0));
+        
+        testCandidate.setTeamOne(teamOne);
+        testCandidate.setTeamTwo(teamTwo);
+        
+        testCandidate.startBattle();
+
+        assertThat(testCandidate.getCurrentExorionOfFirstTeam(), is(equalTo(firstExorionOfFirstTeam)));
+    }
+    
+    @Test
+    public void testGetCurrentExorionOfSecondTeam_secondTeamHasExorionOnSlotTwo_thatExorionIsReturned() throws NotAllPropertiesAreSetException, BattleTeamIsFullException {
+        BattleField testCandidate = new BattleField();
+        ExorionBattleTeam teamOne = new ExorionBattleTeam();
+        ExorionBattleTeam teamTwo = new ExorionBattleTeam();
+        
+        IndividualExorion firstExorionOfFirstTeam = TestExorions.findExorionById(1);
+        IndividualExorion firstExorionOfSecondTeam = TestExorions.findExorionById(0);
+        teamOne.addExorion(firstExorionOfFirstTeam);
+        teamTwo.replaceExorionAtWith(1, firstExorionOfSecondTeam);
+        
+        testCandidate.setTeamOne(teamOne);
+        testCandidate.setTeamTwo(teamTwo);
+        
+        testCandidate.startBattle();
+
+        assertThat(testCandidate.getCurrentExorionOfSecondTeam(), is(equalTo(firstExorionOfSecondTeam)));
+    }    
+    
+    @Test
+    public void testGetCurrentExorionOfFirstTeam_firstTeamHasExorionOnSlotThree_thatExorionIsReturned() throws NotAllPropertiesAreSetException, BattleTeamIsFullException {
+        BattleField testCandidate = new BattleField();
+        ExorionBattleTeam teamOne = new ExorionBattleTeam();
+        ExorionBattleTeam teamTwo = new ExorionBattleTeam();
+        
+        IndividualExorion firstExorionOfFirstTeam = TestExorions.findExorionById(1);
+        teamOne.replaceExorionAtWith(2, firstExorionOfFirstTeam);
+        teamTwo.addExorion(TestExorions.findExorionById(0));
+        
+        testCandidate.setTeamOne(teamOne);
+        testCandidate.setTeamTwo(teamTwo);
+        
+        testCandidate.startBattle();
+
+        assertThat(testCandidate.getCurrentExorionOfFirstTeam(), is(equalTo(firstExorionOfFirstTeam)));
+    }    
 }

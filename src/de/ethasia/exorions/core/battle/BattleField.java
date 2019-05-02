@@ -22,6 +22,14 @@ public class BattleField {
     
     public void setTeamTwo(ExorionBattleTeam value) {
         teamTwo = value;
+    } 
+    
+    public IndividualExorion getCurrentExorionOfFirstTeam() {
+        return teamOne.getFirstExorion();
+    }
+    
+    public IndividualExorion getCurrentExorionOfSecondTeam() {
+        return teamTwo.getFirstExorion();
     }    
     
     public void startBattle() {

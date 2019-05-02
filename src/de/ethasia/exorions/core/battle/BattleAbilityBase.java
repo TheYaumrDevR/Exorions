@@ -3,7 +3,6 @@ package de.ethasia.exorions.core.battle;
 import de.ethasia.exorions.core.AbilityLearningRequirements;
 import de.ethasia.exorions.core.DamageTypes;
 import de.ethasia.exorions.core.IndividualExorion;
-import de.ethasia.exorions.core.battle.BattleAbility;
 import java.util.HashSet;
 import java.util.Set;
 
