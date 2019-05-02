@@ -603,6 +603,39 @@ public class IndividualExorionTest {
         int expectedDefenderHealth = defenderCopy.getBaseStats().getCurrentHealthPoints();
         
         assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(expectedDefenderHealth)));
+    }  
+    
+    @Test
+    public void testUseSlotOneAbility_noAbilityIsSet_nothingHappens() throws NotAllPropertiesAreSetException {
+        IndividualExorion testCandidate = TestExorions.findExorionById(0);
+        IndividualExorion defender = TestExorions.findExorionById(1);
+        
+        int expectedDefenderHealth = defender.getBaseStats().getCurrentHealthPoints();
+        testCandidate.useSlotOneAbility(defender);
+        
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(expectedDefenderHealth)));
+    } 
+    
+    @Test
+    public void testUseSlotTwoAbility_noAbilityIsSet_nothingHappens() throws NotAllPropertiesAreSetException {
+        IndividualExorion testCandidate = TestExorions.findExorionById(0);
+        IndividualExorion defender = TestExorions.findExorionById(1);
+        
+        int expectedDefenderHealth = defender.getBaseStats().getCurrentHealthPoints();
+        testCandidate.useSlotTwoAbility(defender);
+        
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(expectedDefenderHealth)));
+    }
+    
+    @Test
+    public void testUseSlotThreeAbility_noAbilityIsSet_nothingHappens() throws NotAllPropertiesAreSetException {
+        IndividualExorion testCandidate = TestExorions.findExorionById(0);
+        IndividualExorion defender = TestExorions.findExorionById(1);
+        
+        int expectedDefenderHealth = defender.getBaseStats().getCurrentHealthPoints();
+        testCandidate.useSlotThreeAbility(defender);
+        
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(expectedDefenderHealth)));
     }    
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">

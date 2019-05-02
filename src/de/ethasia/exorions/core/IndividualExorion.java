@@ -119,15 +119,21 @@ public class IndividualExorion {
     }
     
     public void useSlotOneAbility(IndividualExorion target) {
-        abilityOnSlotOne.use(this, target);
+        if (null != abilityOnSlotOne) {
+            abilityOnSlotOne.use(this, target);
+        }        
     }
     
     public void useSlotTwoAbility(IndividualExorion target) {
-        abilityOnSlotTwo.use(this, target);
+        if (null != abilityOnSlotTwo) {
+            abilityOnSlotTwo.use(this, target);
+        }
     }
     
     public void useSlotThreeAbility(IndividualExorion target) {
-        abilityOnSlotThree.use(this, target);
+        if (null != abilityOnSlotThree) {
+            abilityOnSlotThree.use(this, target);
+        }
     }
     
     //</editor-fold>
