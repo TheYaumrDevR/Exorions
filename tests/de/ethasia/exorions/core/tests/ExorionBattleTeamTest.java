@@ -1,5 +1,6 @@
 package de.ethasia.exorions.core.tests;
 
+import de.ethasia.exorions.core.AbilityLearningRequirements;
 import de.ethasia.exorions.core.BattleTeamIsFullException;
 import de.ethasia.exorions.core.ExorionBattleTeam;
 import de.ethasia.exorions.core.ExorionSpecies;
@@ -7,7 +8,10 @@ import de.ethasia.exorions.core.ExorionSpeciesBaseStatsAtMaximumLevel;
 import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.IndividualExorionBaseStats;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.core.battle.BattleAbilityBase;
+import de.ethasia.exorions.core.battle.DirectDamageAbilityEffect;
 import de.ethasia.exorions.core.mocks.MockGenome;
+import de.ethasia.exorions.core.mocks.TestExorions;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -236,7 +240,7 @@ public class ExorionBattleTeamTest {
     } 
     
     @Test
-    public void testisEmpty_exorionIsSet_returnsFalse() throws NotAllPropertiesAreSetException {
+    public void testIsEmpty_exorionIsSet_returnsFalse() throws NotAllPropertiesAreSetException {
         ExorionBattleTeam testCandidate = new ExorionBattleTeam(); 
           
         ExorionSpecies species = createExorionSpecies();
@@ -245,6 +249,70 @@ public class ExorionBattleTeamTest {
         testCandidate.replaceExorionAtWith(3, addedExorion);         
         
         assertThat(testCandidate.isEmpty(), is(false));
+    }     
+    
+    @Test
+    public void testAllExorionHaveAbilities_teamMembersHaveNoAbilities_returnsFalse() throws NotAllPropertiesAreSetException, BattleTeamIsFullException {
+        ExorionBattleTeam testCandidate = new ExorionBattleTeam();
+        
+        IndividualExorion exorionOne = TestExorions.findExorionById(0);
+        IndividualExorion exorionTwo = TestExorions.findExorionById(1);
+        
+        testCandidate.addExorion(exorionOne);
+        testCandidate.addExorion(exorionTwo);
+        
+        assertThat(testCandidate.allExorionHaveAbilities(), is(equalTo(false)));
+    }
+    
+    @Test
+    public void testAllExorionHaveAbilities_teamMembersHaveAbilities_returnsTrue() throws NotAllPropertiesAreSetException, BattleTeamIsFullException {
+        ExorionBattleTeam testCandidate = new ExorionBattleTeam();
+        
+        IndividualExorion exorionOne = TestExorions.findExorionById(0);
+        IndividualExorion exorionTwo = TestExorions.findExorionById(1);
+        
+        DirectDamageAbilityEffect directDamageEffect = new DirectDamageAbilityEffect();
+        BattleAbilityBase ability = new BattleAbilityBase.Builder()
+            .setName("Foosh")
+            .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .build();
+        directDamageEffect.decorate(ability);
+        
+        BattleAbilityBase abilityTwo = new BattleAbilityBase.Builder()
+            .setName("Foosh")
+            .setLearningRequirements(AbilityLearningRequirements.HORNS)
+            .build();
+        directDamageEffect.decorate(ability);    
+        
+        exorionOne.learnAbilityOnSlotOne(ability);
+        exorionTwo.learnAbilityOnSlotThree(abilityTwo);
+        
+        testCandidate.addExorion(exorionOne);
+        testCandidate.addExorion(exorionTwo);
+        
+        assertThat(testCandidate.allExorionHaveAbilities(), is(equalTo(true)));
+    }  
+    
+    @Test
+    public void testAllExorionHaveAbilities_oneTeamMemberDoesNotHaveAbilities_returnsFalse() throws NotAllPropertiesAreSetException, BattleTeamIsFullException {
+        ExorionBattleTeam testCandidate = new ExorionBattleTeam();
+        
+        IndividualExorion exorionOne = TestExorions.findExorionById(0);
+        IndividualExorion exorionTwo = TestExorions.findExorionById(1);
+        
+        DirectDamageAbilityEffect directDamageEffect = new DirectDamageAbilityEffect();
+        BattleAbilityBase ability = new BattleAbilityBase.Builder()
+            .setName("Foosh")
+            .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .build();
+        directDamageEffect.decorate(ability);  
+        
+        exorionOne.learnAbilityOnSlotOne(ability);
+        
+        testCandidate.replaceExorionAtWith(2, exorionOne);
+        testCandidate.replaceExorionAtWith(4, exorionTwo);
+        
+        assertThat(testCandidate.allExorionHaveAbilities(), is(equalTo(false)));
     }     
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">

@@ -70,6 +70,14 @@ public class ExorionBattleTeam {
         );
     }
     
+    public boolean allExorionHaveAbilities() {
+        return teamMembers.stream().filter(
+            (teamMember) -> (teamMember != null)
+        ).allMatch(
+            (teamMember) -> (teamMember.hasAtLeastOneAbility())
+        );
+    }
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
