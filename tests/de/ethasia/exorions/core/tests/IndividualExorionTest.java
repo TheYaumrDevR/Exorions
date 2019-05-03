@@ -638,6 +638,33 @@ public class IndividualExorionTest {
         assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(expectedDefenderHealth)));
     }    
     
+    @Test
+    public void testHasAtLeastOneAbility_noAbilityIsSet_returnsFalse() throws NotAllPropertiesAreSetException {
+        IndividualExorion testCandidate = TestExorions.findExorionById(1);
+        
+        boolean result = testCandidate.hasAtLeastOneAbility();
+        
+        assertThat(result, is(equalTo(false)));
+    }
+    
+    @Test
+    public void testHasAtLeastOneAbility_oneAbilityIsSet_returnsTrue() throws NotAllPropertiesAreSetException {
+        IndividualExorion testCandidate = TestExorions.findExorionById(0);
+        
+        DirectDamageAbilityEffect directDamageEffect = new DirectDamageAbilityEffect();
+        BattleAbilityBase ability = new BattleAbilityBase.Builder()
+            .setName("Foosh")
+            .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .build();
+        directDamageEffect.decorate(ability);
+        
+        testCandidate.learnAbilityOnSlotThree(directDamageEffect);
+        
+        boolean result = testCandidate.hasAtLeastOneAbility();
+        
+        assertThat(result, is(equalTo(true)));
+    }    
+    
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
     private ExorionSpeciesBaseStatsAtMaximumLevel createBaseStatsForExorion() {

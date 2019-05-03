@@ -136,6 +136,12 @@ public class IndividualExorion {
         }
     }
     
+    public boolean hasAtLeastOneAbility() {
+        return null != abilityOnSlotOne 
+            || null != abilityOnSlotTwo 
+            || null != abilityOnSlotThree;
+    }
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
