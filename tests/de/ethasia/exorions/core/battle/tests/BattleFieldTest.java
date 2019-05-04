@@ -241,13 +241,28 @@ public class BattleFieldTest {
         ExorionBattleTeam teamOne = new ExorionBattleTeam();
         ExorionBattleTeam teamTwo = new ExorionBattleTeam();
         
+        IndividualExorion teamTwoExorionOne = TestExorions.findExorionById(0);
+        IndividualExorion teamTwoExorionTwo = TestExorions.findExorionById(0);
+        IndividualExorion teamTwoExorionThree = TestExorions.findExorionById(0); 
+        
+        DirectDamageAbilityEffect directDamageEffect = new DirectDamageAbilityEffect();
+        BattleAbilityBase ability = new BattleAbilityBase.Builder()
+            .setName("Foosh")
+            .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .build();
+        directDamageEffect.decorate(ability); 
+        
+        teamTwoExorionOne.learnAbilityOnSlotOne(directDamageEffect);
+        teamTwoExorionTwo.learnAbilityOnSlotOne(directDamageEffect);
+        teamTwoExorionThree.learnAbilityOnSlotOne(directDamageEffect);
+        
         teamOne.addExorion(TestExorions.findExorionById(0));
         teamOne.addExorion(TestExorions.findExorionById(0));
         teamOne.addExorion(TestExorions.findExorionById(0));
         
-        teamTwo.addExorion(TestExorions.findExorionById(0));
-        teamTwo.addExorion(TestExorions.findExorionById(0));
-        teamTwo.addExorion(TestExorions.findExorionById(0));
+        teamTwo.addExorion(teamTwoExorionOne);
+        teamTwo.addExorion(teamTwoExorionTwo);
+        teamTwo.addExorion(teamTwoExorionThree);
         
         testCandidate.setTeamOne(teamOne);
         testCandidate.setTeamTwo(teamTwo);
