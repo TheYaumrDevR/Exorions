@@ -34,7 +34,7 @@ public class BattleField {
     
     public void startBattle() {
         if (!battleCanStart()) {
-            throw new BattleCanOnlyStartWithTwoDifferentNonEmptyTeamsException();
+            throw new BattleCannotStartBecauseRequirementsAreNotMetException();
         }
         
         determineWhichTeamMovesNext();
@@ -53,7 +53,9 @@ public class BattleField {
             && null != teamTwo 
             && teamOne != teamTwo 
             && !teamOne.isEmpty()
-            && !teamTwo.isEmpty();
+            && !teamTwo.isEmpty()
+            && teamOne.allExorionHaveAbilities()
+            && teamTwo.allExorionHaveAbilities();
     }
     
     private void determineWhichTeamMovesNext() {
