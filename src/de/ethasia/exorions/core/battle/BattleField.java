@@ -44,6 +44,10 @@ public class BattleField {
         return teamToMoveNext == teamOne;
     }
     
+    public TeamIdentifiers getTeamForWhichInputIsAwaited() {
+        return TeamIdentifiers.BOTH_TEAMS;
+    }
+    
     //</editor-fold>    
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">

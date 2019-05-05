@@ -9,6 +9,7 @@ import de.ethasia.exorions.core.battle.BattleAbilityBase;
 import de.ethasia.exorions.core.battle.BattleCannotStartBecauseRequirementsAreNotMetException;
 import de.ethasia.exorions.core.battle.BattleField;
 import de.ethasia.exorions.core.battle.DirectDamageAbilityEffect;
+import de.ethasia.exorions.core.battle.TeamIdentifiers;
 import de.ethasia.exorions.core.mocks.TestExorions;
 
 import org.junit.Test;
@@ -269,4 +270,41 @@ public class BattleFieldTest {
         
         testCandidate.startBattle();
     } 
+    
+    @Test
+    public void testGetTeamForWhichInputIsAwaited_battleHasJustStarted_bothTeamsNeedToEnterInput() throws NotAllPropertiesAreSetException, BattleTeamIsFullException {
+        BattleField testCandidate = new BattleField();
+        ExorionBattleTeam teamOne = new ExorionBattleTeam();
+        ExorionBattleTeam teamTwo = new ExorionBattleTeam(); 
+        
+        IndividualExorion teamOneExorionOne = TestExorions.findExorionById(0);
+        IndividualExorion teamTwoExorionOne = TestExorions.findExorionById(1);   
+        
+        DirectDamageAbilityEffect bite = new DirectDamageAbilityEffect();
+        BattleAbilityBase biteBase = new BattleAbilityBase.Builder()
+            .setName("Bite")
+            .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .build();
+        bite.decorate(biteBase); 
+        teamOneExorionOne.learnAbilityOnSlotOne(bite);
+        
+        DirectDamageAbilityEffect ram = new DirectDamageAbilityEffect();
+        BattleAbilityBase ramBase = new BattleAbilityBase.Builder()
+            .setName("Ram")
+            .setLearningRequirements(AbilityLearningRequirements.HORNS)
+            .build();
+        ram.decorate(ramBase); 
+        teamTwoExorionOne.learnAbilityOnSlotOne(ram);
+        
+        teamOne.addExorion(teamOneExorionOne);
+        teamTwo.addExorion(teamTwoExorionOne);
+        
+        testCandidate.setTeamOne(teamOne);
+        testCandidate.setTeamTwo(teamTwo);
+        
+        testCandidate.startBattle();
+        
+        TeamIdentifiers inputIsAwaitedFor = testCandidate.getTeamForWhichInputIsAwaited();
+        assertThat(inputIsAwaitedFor, is(equalTo(TeamIdentifiers.BOTH_TEAMS)));
+    }
 }
