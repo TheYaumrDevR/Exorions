@@ -10,7 +10,18 @@ public class BattleField {
     ExorionBattleTeam teamOne;
     ExorionBattleTeam teamTwo;
     
+    private boolean battleIsInProgress;
+    
     ExorionBattleTeam teamToMoveNext;
+    TeamIdentifiers teamWhichWon;
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
+    
+    public BattleField() {
+        teamWhichWon = TeamIdentifiers.NONE;
+    }
     
     //</editor-fold>
 
@@ -37,6 +48,7 @@ public class BattleField {
             throw new BattleCannotStartBecauseRequirementsAreNotMetException();
         }
         
+        battleIsInProgress = true;
         determineWhichTeamMovesNext();
     }  
     
@@ -44,8 +56,50 @@ public class BattleField {
         return teamToMoveNext == teamOne;
     }
     
+    public boolean hasBattleEnded() {
+        return teamOne.allExorionAreFainted() || teamTwo.allExorionAreFainted();
+    }
+    
+    public TeamIdentifiers getWinningTeam() {
+        return teamWhichWon;
+    }
+    
     public TeamIdentifiers getTeamForWhichInputIsAwaited() {
         return TeamIdentifiers.BOTH_TEAMS;
+    }
+    
+    public void useAbilityOfCurrentTeamOneExorion(BattleFieldAbilityIdentifiers abilityIdentifier) {
+        if (!battleIsInProgress) {
+            throw new NoBattleInProgressException();
+        }
+        
+        switch (abilityIdentifier) {
+            case NORMAL_ABILITY_ONE:
+                teamOne.getFirstExorion().useSlotOneAbility(teamTwo.getFirstExorion());
+                break;
+        }
+        
+        if (hasBattleEnded()) {
+            battleIsInProgress = false;
+            teamWhichWon = TeamIdentifiers.TEAM_ONE;
+        }
+    }
+    
+    public void useAbilityOfCurrentTeamTwoExorion(BattleFieldAbilityIdentifiers abilityIdentifier) {
+        if (!battleIsInProgress) {
+            throw new NoBattleInProgressException();
+        }
+        
+        switch (abilityIdentifier) {
+            case NORMAL_ABILITY_ONE:
+                teamTwo.getFirstExorion().useSlotOneAbility(teamOne.getFirstExorion());
+                break;
+        }     
+        
+        if (hasBattleEnded()) {
+            battleIsInProgress = false;
+            teamWhichWon = TeamIdentifiers.TEAM_TWO;
+        }
     }
     
     //</editor-fold>    
