@@ -8,6 +8,8 @@ import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.battle.BattleAbilityBase;
 import de.ethasia.exorions.core.battle.BattleCannotStartBecauseRequirementsAreNotMetException;
 import de.ethasia.exorions.core.battle.BattleField;
+import de.ethasia.exorions.core.battle.BattleFieldAbilityIdentifiers;
+import de.ethasia.exorions.core.battle.NoBattleInProgressException;
 import de.ethasia.exorions.core.battle.DirectDamageAbilityEffect;
 import de.ethasia.exorions.core.battle.TeamIdentifiers;
 import de.ethasia.exorions.core.mocks.TestExorions;
@@ -307,4 +309,124 @@ public class BattleFieldTest {
         TeamIdentifiers inputIsAwaitedFor = testCandidate.getTeamForWhichInputIsAwaited();
         assertThat(inputIsAwaitedFor, is(equalTo(TeamIdentifiers.BOTH_TEAMS)));
     }
+    
+    @Test
+    public void testSimulatedBattleWithSlotOneAttacks_teamsPerformOffensiveAbilitiesInSuccession_firstTeamFaintsFirst() throws BattleTeamIsFullException, NotAllPropertiesAreSetException {
+        BattleField testCandidate = new BattleField();
+        ExorionBattleTeam teamOne = new ExorionBattleTeam();
+        ExorionBattleTeam teamTwo = new ExorionBattleTeam(); 
+        
+        IndividualExorion teamOneExorionOne = createExorionWithBite();
+        IndividualExorion teamTwoExorionOne = createExorionWithRam();
+        
+        IndividualExorion referenceExorionOne = createExorionWithBite();
+        IndividualExorion referenceExorionTwo = createExorionWithRam();
+        
+        teamOne.addExorion(teamOneExorionOne);
+        teamTwo.addExorion(teamTwoExorionOne);
+        
+        testCandidate.setTeamOne(teamOne);
+        testCandidate.setTeamTwo(teamTwo);
+        
+        testCandidate.startBattle();        
+        
+        testCandidate.useAbilityOfCurrentTeamOneExorion(BattleFieldAbilityIdentifiers.NORMAL_ABILITY_ONE);
+        testCandidate.useAbilityOfCurrentTeamTwoExorion(BattleFieldAbilityIdentifiers.NORMAL_ABILITY_ONE);
+        
+        referenceExorionOne.useSlotOneAbility(referenceExorionTwo);
+        referenceExorionTwo.useSlotOneAbility(referenceExorionOne);
+        
+        assertThat(teamOneExorionOne.getBaseStats().getCurrentHealthPoints(), is(equalTo(referenceExorionOne.getBaseStats().getCurrentHealthPoints())));
+        assertThat(teamTwoExorionOne.getBaseStats().getCurrentHealthPoints(), is(equalTo(referenceExorionTwo.getBaseStats().getCurrentHealthPoints())));
+        
+        testCandidate.useAbilityOfCurrentTeamOneExorion(BattleFieldAbilityIdentifiers.NORMAL_ABILITY_ONE);
+        assertThat(testCandidate.hasBattleEnded(), is(false));
+        assertThat(testCandidate.getWinningTeam(), is(TeamIdentifiers.NONE));
+        
+        testCandidate.useAbilityOfCurrentTeamTwoExorion(BattleFieldAbilityIdentifiers.NORMAL_ABILITY_ONE); 
+        assertThat(testCandidate.hasBattleEnded(), is(true));
+        assertThat(testCandidate.getWinningTeam(), is(TeamIdentifiers.TEAM_TWO));
+        
+        referenceExorionOne.useSlotOneAbility(referenceExorionTwo);
+        referenceExorionTwo.useSlotOneAbility(referenceExorionOne);
+        
+        assertThat(teamOneExorionOne.getBaseStats().getCurrentHealthPoints(), is(equalTo(referenceExorionOne.getBaseStats().getCurrentHealthPoints())));
+        assertThat(teamTwoExorionOne.getBaseStats().getCurrentHealthPoints(), is(equalTo(referenceExorionTwo.getBaseStats().getCurrentHealthPoints()))); 
+    }
+    
+    @Test(expected = NoBattleInProgressException.class)
+    public void testUseAbility_callAfterBattleHasEnded_throwsException() throws BattleTeamIsFullException, NotAllPropertiesAreSetException {
+        BattleField testCandidate = new BattleField();
+        ExorionBattleTeam teamOne = new ExorionBattleTeam();
+        ExorionBattleTeam teamTwo = new ExorionBattleTeam(); 
+        
+        IndividualExorion teamOneExorionOne = createExorionWithBite();
+        IndividualExorion teamTwoExorionOne = createExorionWithRam();
+        
+        teamOne.addExorion(teamOneExorionOne);
+        teamTwo.addExorion(teamTwoExorionOne);
+        
+        testCandidate.setTeamOne(teamOne);
+        testCandidate.setTeamTwo(teamTwo);
+        
+        testCandidate.startBattle(); 
+        
+        testCandidate.useAbilityOfCurrentTeamOneExorion(BattleFieldAbilityIdentifiers.NORMAL_ABILITY_ONE);
+        testCandidate.useAbilityOfCurrentTeamTwoExorion(BattleFieldAbilityIdentifiers.NORMAL_ABILITY_ONE);
+        
+        testCandidate.useAbilityOfCurrentTeamOneExorion(BattleFieldAbilityIdentifiers.NORMAL_ABILITY_ONE);
+        testCandidate.useAbilityOfCurrentTeamTwoExorion(BattleFieldAbilityIdentifiers.NORMAL_ABILITY_ONE);
+        
+        testCandidate.useAbilityOfCurrentTeamOneExorion(BattleFieldAbilityIdentifiers.NORMAL_ABILITY_ONE);
+    }
+    
+    @Test(expected = NoBattleInProgressException.class)
+    public void testUseAbility_battleHasNotStarted_throwsException() throws NotAllPropertiesAreSetException, BattleTeamIsFullException {
+        BattleField testCandidate = new BattleField();
+        ExorionBattleTeam teamOne = new ExorionBattleTeam();
+        ExorionBattleTeam teamTwo = new ExorionBattleTeam(); 
+        
+        IndividualExorion teamOneExorionOne = createExorionWithBite();
+        IndividualExorion teamTwoExorionOne = createExorionWithRam();
+        
+        teamOne.addExorion(teamOneExorionOne);
+        teamTwo.addExorion(teamTwoExorionOne);
+        
+        testCandidate.setTeamOne(teamOne);
+        testCandidate.setTeamTwo(teamTwo);   
+        
+        testCandidate.useAbilityOfCurrentTeamOneExorion(BattleFieldAbilityIdentifiers.NORMAL_ABILITY_ONE);
+    }
+    
+    //<editor-fold defaultstate="collapsed" desc="Helper Methods">
+    
+    private IndividualExorion createExorionWithBite() throws NotAllPropertiesAreSetException {
+        IndividualExorion result = TestExorions.findExorionById(0);
+        
+        DirectDamageAbilityEffect bite = new DirectDamageAbilityEffect();
+        BattleAbilityBase biteBase = new BattleAbilityBase.Builder()
+            .setName("Bite")
+            .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .build();
+        bite.decorate(biteBase); 
+        result.learnAbilityOnSlotOne(bite);
+
+        return result;
+    } 
+    
+    private IndividualExorion createExorionWithRam() throws NotAllPropertiesAreSetException {
+        IndividualExorion result = TestExorions.findExorionById(1); 
+        
+        DirectDamageAbilityEffect ram = new DirectDamageAbilityEffect();
+        BattleAbilityBase ramBase = new BattleAbilityBase.Builder()
+            .setName("Ram")
+            .setLearningRequirements(AbilityLearningRequirements.HORNS)
+            .build();
+        ram.decorate(ramBase); 
+        result.learnAbilityOnSlotOne(ram);        
+        
+        return result;
+    }
+    
+    //</editor-fold>
 }
