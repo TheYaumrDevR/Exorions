@@ -2,13 +2,13 @@ package de.ethasia.exorions.core.battle.tests;
 
 import de.ethasia.exorions.core.AbilityLearningRequirements;
 import de.ethasia.exorions.core.battle.BattleAbilityBase;
-import de.ethasia.exorions.core.battle.BattleAbilityEffectMustDecorateBattleAbilityException;
 import de.ethasia.exorions.core.DamageTypes;
 import de.ethasia.exorions.core.battle.DirectDamageAbilityEffect;
 import de.ethasia.exorions.core.ExorionSpecies;
 import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.IndividualExorionBaseStats;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.core.general.DecoratorMustDecorateSomethingException;
 import de.ethasia.exorions.core.mocks.MockGenome;
 import de.ethasia.exorions.core.tests.IndividualExorionTest;
 
@@ -19,35 +19,35 @@ import static org.hamcrest.CoreMatchers.*;
 
 public class DirectDamageAbilityEffectTest {
     
-    @Test(expected = BattleAbilityEffectMustDecorateBattleAbilityException.class)
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
     public void testGetName_doesNotDecorateAnything_throwsException() {
         DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
         
         String name = testCandidate.getName();
     }
     
-    @Test(expected = BattleAbilityEffectMustDecorateBattleAbilityException.class)
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
     public void testGetDamageTypes_doesNotDecorateAnything_throwsException() {
         DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
         
         Set<DamageTypes> damageTypes = testCandidate.getDamageTypes();
     }
     
-    @Test(expected = BattleAbilityEffectMustDecorateBattleAbilityException.class)
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
     public void testGetLearningRequirements_doesNotDecorateAnything_throwsException() {
         DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
         
         Set<AbilityLearningRequirements> learningRequirements = testCandidate.getLearningRequirements();          
     }   
     
-    @Test(expected = BattleAbilityEffectMustDecorateBattleAbilityException.class)
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
     public void testGetDelayMultiplier_doesNotDecorateAnything_throwsException() {
         DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
         
         float delayMultiplier = testCandidate.getDelayMultiplier();      
     } 
 
-    @Test(expected = BattleAbilityEffectMustDecorateBattleAbilityException.class)
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
     public void testGetRequiredPowerPointsForStageTwo_doesNotDecorateAnything_throwsException() {
         DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
         
@@ -124,7 +124,7 @@ public class DirectDamageAbilityEffectTest {
         assertThat(powerPointsRequiredForStageTwo, is(equalTo(2)));
     }     
     
-    @Test(expected = BattleAbilityEffectMustDecorateBattleAbilityException.class)
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
     public void testUse_decoratedAbilityIsNotSet_throwsException() throws NotAllPropertiesAreSetException {
         DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
         IndividualExorion attacker = createIndividualExorionForTesting();

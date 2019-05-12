@@ -3,6 +3,8 @@ package de.ethasia.exorions.core.battle;
 import de.ethasia.exorions.core.AbilityLearningRequirements;
 import de.ethasia.exorions.core.DamageTypes;
 import de.ethasia.exorions.core.IndividualExorion;
+import de.ethasia.exorions.core.general.DecoratorMustDecorateSomethingException;
+
 import java.util.Set;
 
 public class DirectDamageAbilityEffect extends BattleAbilityEffect {
@@ -21,7 +23,7 @@ public class DirectDamageAbilityEffect extends BattleAbilityEffect {
             return decoratedAbility.getName();
         }
         
-        throw new BattleAbilityEffectMustDecorateBattleAbilityException();
+        throw new DecoratorMustDecorateSomethingException();
     }
     
     @Override
@@ -30,7 +32,7 @@ public class DirectDamageAbilityEffect extends BattleAbilityEffect {
             return decoratedAbility.getDamageTypes();
         }
         
-        throw new BattleAbilityEffectMustDecorateBattleAbilityException();
+        throw new DecoratorMustDecorateSomethingException();
     }
     
     @Override
@@ -39,7 +41,7 @@ public class DirectDamageAbilityEffect extends BattleAbilityEffect {
             return decoratedAbility.getLearningRequirements();
         }
         
-        throw new BattleAbilityEffectMustDecorateBattleAbilityException();
+        throw new DecoratorMustDecorateSomethingException();
     }
     
     @Override
@@ -48,7 +50,7 @@ public class DirectDamageAbilityEffect extends BattleAbilityEffect {
             return decoratedAbility.getDelayMultiplier();
         }        
         
-        throw new BattleAbilityEffectMustDecorateBattleAbilityException();
+        throw new DecoratorMustDecorateSomethingException();
     }
     
     @Override
@@ -57,7 +59,7 @@ public class DirectDamageAbilityEffect extends BattleAbilityEffect {
             return decoratedAbility.getRequiredPowerPointsForStageTwo();
         }         
         
-        throw new BattleAbilityEffectMustDecorateBattleAbilityException();
+        throw new DecoratorMustDecorateSomethingException();
     }
     
     @Override
@@ -71,7 +73,7 @@ public class DirectDamageAbilityEffect extends BattleAbilityEffect {
             int damage = attack * attack / (attack + defense);
             defender.takeDamage(damage);
         } else {
-            throw new BattleAbilityEffectMustDecorateBattleAbilityException();    
+            throw new DecoratorMustDecorateSomethingException();    
         }
     }
     
