@@ -1,10 +1,11 @@
 package de.ethasia.exorions.core;
 
 import de.ethasia.exorions.core.battle.BattleAbility;
+import de.ethasia.exorions.core.battle.BattleModifiedIndividualExorion;
 import de.ethasia.exorions.core.battle.RequirementsToLearnAbilityAreNotFulfilledException;
 import de.ethasia.exorions.core.breeding.Genome;
 
-public class IndividualExorion {
+public class IndividualExorion extends BattleModifiedIndividualExorion {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
@@ -63,6 +64,11 @@ public class IndividualExorion {
     public BattleAbility getAbilityOnSlotThree() {
         return abilityOnSlotThree;
     }
+    
+    @Override
+    public int getModifiedAccuracy() {
+        return baseStats.getAccuracy();
+    }    
     
     //</editor-fold>
     
