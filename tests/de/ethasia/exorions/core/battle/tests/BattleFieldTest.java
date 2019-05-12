@@ -354,6 +354,50 @@ public class BattleFieldTest {
         assertThat(teamTwoExorionOne.getBaseStats().getCurrentHealthPoints(), is(equalTo(referenceExorionTwo.getBaseStats().getCurrentHealthPoints()))); 
     }
     
+    @Test
+    public void testSimulatedBattleWithSlotTwoAttacks_teamsPerformOffensiveAbilitiesInSuccession_firstTeamFaintsFirst() throws BattleTeamIsFullException, NotAllPropertiesAreSetException {
+        BattleField testCandidate = new BattleField();
+        ExorionBattleTeam teamOne = new ExorionBattleTeam();
+        ExorionBattleTeam teamTwo = new ExorionBattleTeam(); 
+        
+        IndividualExorion teamOneExorionOne = createExorionWithBite();
+        IndividualExorion teamTwoExorionOne = createExorionWithRam();
+        
+        IndividualExorion referenceExorionOne = createExorionWithBite();
+        IndividualExorion referenceExorionTwo = createExorionWithRam();
+        
+        teamOne.addExorion(teamOneExorionOne);
+        teamTwo.addExorion(teamTwoExorionOne);
+        
+        testCandidate.setTeamOne(teamOne);
+        testCandidate.setTeamTwo(teamTwo);
+        
+        testCandidate.startBattle();        
+        
+        testCandidate.useAbilityOfCurrentTeamOneExorion(BattleFieldAbilityIdentifiers.NORMAL_ABILITY_TWO);
+        testCandidate.useAbilityOfCurrentTeamTwoExorion(BattleFieldAbilityIdentifiers.NORMAL_ABILITY_TWO);
+        
+        referenceExorionOne.useSlotTwoAbility(referenceExorionTwo);
+        referenceExorionTwo.useSlotTwoAbility(referenceExorionOne);
+        
+        assertThat(teamOneExorionOne.getBaseStats().getCurrentHealthPoints(), is(equalTo(referenceExorionOne.getBaseStats().getCurrentHealthPoints())));
+        assertThat(teamTwoExorionOne.getBaseStats().getCurrentHealthPoints(), is(equalTo(referenceExorionTwo.getBaseStats().getCurrentHealthPoints())));
+        
+        testCandidate.useAbilityOfCurrentTeamOneExorion(BattleFieldAbilityIdentifiers.NORMAL_ABILITY_TWO);
+        assertThat(testCandidate.hasBattleEnded(), is(false));
+        assertThat(testCandidate.getWinningTeam(), is(TeamIdentifiers.NONE));
+        
+        testCandidate.useAbilityOfCurrentTeamTwoExorion(BattleFieldAbilityIdentifiers.NORMAL_ABILITY_TWO); 
+        assertThat(testCandidate.hasBattleEnded(), is(true));
+        assertThat(testCandidate.getWinningTeam(), is(TeamIdentifiers.TEAM_TWO));
+        
+        referenceExorionOne.useSlotTwoAbility(referenceExorionTwo);
+        referenceExorionTwo.useSlotTwoAbility(referenceExorionOne);
+        
+        assertThat(teamOneExorionOne.getBaseStats().getCurrentHealthPoints(), is(equalTo(referenceExorionOne.getBaseStats().getCurrentHealthPoints())));
+        assertThat(teamTwoExorionOne.getBaseStats().getCurrentHealthPoints(), is(equalTo(referenceExorionTwo.getBaseStats().getCurrentHealthPoints()))); 
+    }    
+    
     @Test(expected = NoBattleInProgressException.class)
     public void testUseAbility_callAfterBattleHasEnded_throwsException() throws BattleTeamIsFullException, NotAllPropertiesAreSetException {
         BattleField testCandidate = new BattleField();
@@ -410,6 +454,8 @@ public class BattleFieldTest {
             .build();
         bite.decorate(biteBase); 
         result.learnAbilityOnSlotOne(bite);
+        result.learnAbilityOnSlotTwo(bite);
+        result.learnAbilityOnSlotThree(bite);
 
         return result;
     } 
@@ -423,7 +469,9 @@ public class BattleFieldTest {
             .setLearningRequirements(AbilityLearningRequirements.HORNS)
             .build();
         ram.decorate(ramBase); 
-        result.learnAbilityOnSlotOne(ram);        
+        result.learnAbilityOnSlotOne(ram);
+        result.learnAbilityOnSlotTwo(ram);
+        result.learnAbilityOnSlotThree(ram);
         
         return result;
     }
