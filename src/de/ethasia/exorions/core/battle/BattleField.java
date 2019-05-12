@@ -80,6 +80,9 @@ public class BattleField {
             case NORMAL_ABILITY_TWO:
                 teamOne.getFirstExorion().useSlotTwoAbility(teamTwo.getFirstExorion());
                 break;
+            case NORMAL_ABILITY_THREE:
+                teamOne.getFirstExorion().useSlotThreeAbility(teamTwo.getFirstExorion());
+                break;
         }
         
         if (hasBattleEnded()) {
@@ -99,6 +102,9 @@ public class BattleField {
                 break;
             case NORMAL_ABILITY_TWO:
                 teamTwo.getFirstExorion().useSlotTwoAbility(teamOne.getFirstExorion());
+                break;
+            case NORMAL_ABILITY_THREE:
+                teamTwo.getFirstExorion().useSlotThreeAbility(teamOne.getFirstExorion());
                 break;
         }     
         

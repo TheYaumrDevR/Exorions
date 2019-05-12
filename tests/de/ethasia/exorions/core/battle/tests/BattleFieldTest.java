@@ -396,6 +396,50 @@ public class BattleFieldTest {
         
         assertThat(teamOneExorionOne.getBaseStats().getCurrentHealthPoints(), is(equalTo(referenceExorionOne.getBaseStats().getCurrentHealthPoints())));
         assertThat(teamTwoExorionOne.getBaseStats().getCurrentHealthPoints(), is(equalTo(referenceExorionTwo.getBaseStats().getCurrentHealthPoints()))); 
+    }   
+    
+    @Test
+    public void testSimulatedBattleWithSlotThreeAttacks_teamsPerformOffensiveAbilitiesInSuccession_firstTeamFaintsFirst() throws BattleTeamIsFullException, NotAllPropertiesAreSetException {
+        BattleField testCandidate = new BattleField();
+        ExorionBattleTeam teamOne = new ExorionBattleTeam();
+        ExorionBattleTeam teamTwo = new ExorionBattleTeam(); 
+        
+        IndividualExorion teamOneExorionOne = createExorionWithBite();
+        IndividualExorion teamTwoExorionOne = createExorionWithRam();
+        
+        IndividualExorion referenceExorionOne = createExorionWithBite();
+        IndividualExorion referenceExorionTwo = createExorionWithRam();
+        
+        teamOne.addExorion(teamOneExorionOne);
+        teamTwo.addExorion(teamTwoExorionOne);
+        
+        testCandidate.setTeamOne(teamOne);
+        testCandidate.setTeamTwo(teamTwo);
+        
+        testCandidate.startBattle();        
+        
+        testCandidate.useAbilityOfCurrentTeamOneExorion(BattleFieldAbilityIdentifiers.NORMAL_ABILITY_THREE);
+        testCandidate.useAbilityOfCurrentTeamTwoExorion(BattleFieldAbilityIdentifiers.NORMAL_ABILITY_THREE);
+        
+        referenceExorionOne.useSlotThreeAbility(referenceExorionTwo);
+        referenceExorionTwo.useSlotThreeAbility(referenceExorionOne);
+        
+        assertThat(teamOneExorionOne.getBaseStats().getCurrentHealthPoints(), is(equalTo(referenceExorionOne.getBaseStats().getCurrentHealthPoints())));
+        assertThat(teamTwoExorionOne.getBaseStats().getCurrentHealthPoints(), is(equalTo(referenceExorionTwo.getBaseStats().getCurrentHealthPoints())));
+        
+        testCandidate.useAbilityOfCurrentTeamOneExorion(BattleFieldAbilityIdentifiers.NORMAL_ABILITY_THREE);
+        assertThat(testCandidate.hasBattleEnded(), is(false));
+        assertThat(testCandidate.getWinningTeam(), is(TeamIdentifiers.NONE));
+        
+        testCandidate.useAbilityOfCurrentTeamTwoExorion(BattleFieldAbilityIdentifiers.NORMAL_ABILITY_THREE); 
+        assertThat(testCandidate.hasBattleEnded(), is(true));
+        assertThat(testCandidate.getWinningTeam(), is(TeamIdentifiers.TEAM_TWO));
+        
+        referenceExorionOne.useSlotThreeAbility(referenceExorionTwo);
+        referenceExorionTwo.useSlotThreeAbility(referenceExorionOne);
+        
+        assertThat(teamOneExorionOne.getBaseStats().getCurrentHealthPoints(), is(equalTo(referenceExorionOne.getBaseStats().getCurrentHealthPoints())));
+        assertThat(teamTwoExorionOne.getBaseStats().getCurrentHealthPoints(), is(equalTo(referenceExorionTwo.getBaseStats().getCurrentHealthPoints()))); 
     }    
     
     @Test(expected = NoBattleInProgressException.class)
