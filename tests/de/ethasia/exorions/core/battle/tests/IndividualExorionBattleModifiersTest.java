@@ -2,6 +2,7 @@ package de.ethasia.exorions.core.battle.tests;
 
 import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.core.battle.Poison;
 import de.ethasia.exorions.core.battle.Stagger;
 import de.ethasia.exorions.core.general.DecoratorMustDecorateSomethingException;
 import de.ethasia.exorions.core.mocks.TestExorions;
@@ -27,5 +28,17 @@ public class IndividualExorionBattleModifiersTest {
         Stagger testCandidate = new Stagger();
         
         testCandidate.getModifiedAccuracy();
+    }
+    
+    @Test 
+    public void testPoisonTick_ticksOnce_exorionLosesHealth() throws NotAllPropertiesAreSetException {
+        Poison testCandidate = new Poison();
+        IndividualExorion victim = TestExorions.findExorionById(0); 
+        IndividualExorion attacker = TestExorions.findExorionById(1);
+        testCandidate.applyTo(victim);
+        testCandidate.setAttackerBaseStats(attacker.getBaseStats());
+        
+        testCandidate.tick(testCandidate);
+        assertThat(victim.getBaseStats().getCurrentHealthPoints(), is(equalTo(62)));
     }
 }

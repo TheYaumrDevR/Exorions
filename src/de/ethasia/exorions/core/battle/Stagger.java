@@ -1,16 +1,26 @@
 package de.ethasia.exorions.core.battle;
 
+import de.ethasia.exorions.core.IndividualExorionBaseStats;
 import de.ethasia.exorions.core.general.DecoratorMustDecorateSomethingException;
 
 public class Stagger extends IndividualExorionBattleModifier {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
-    BattleModifiedIndividualExorion modifiedExorion;
+    private BattleModifiedIndividualExorion modifiedExorion;
     
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Overrides">
+    
+    @Override
+    public void takeDamage(int amount) {
+        if (null == modifiedExorion) {
+            throw new DecoratorMustDecorateSomethingException();
+        }
+        
+        modifiedExorion.takeDamage(amount);
+    }
     
     @Override
     public int getModifiedAccuracy() {
@@ -24,9 +34,28 @@ public class Stagger extends IndividualExorionBattleModifier {
         return accuracy - reduceBy;
     }
     
+    @Override 
+    public int getModifiedSpecialDefense() {
+        if (null == modifiedExorion) {
+            throw new DecoratorMustDecorateSomethingException();
+        }   
+        
+        return modifiedExorion.getModifiedSpecialDefense();
+    }
+    
     @Override
     public void applyTo(BattleModifiedIndividualExorion target) {
         modifiedExorion = target;
+    }    
+    
+    @Override
+    public void tick(IndividualExorionBattleModifier root) {
+        
+    }
+    
+    @Override
+    public void setAttackerBaseStats(IndividualExorionBaseStats value) {
+        
     }    
     
     //</editor-fold>

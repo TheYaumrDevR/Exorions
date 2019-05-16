@@ -1,6 +1,7 @@
 package de.ethasia.exorions.core.battle;
 
 import de.ethasia.exorions.core.AbilityLearningRequirements;
+import de.ethasia.exorions.core.BattleCalculator;
 import de.ethasia.exorions.core.DamageTypes;
 import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.general.DecoratorMustDecorateSomethingException;
@@ -11,7 +12,16 @@ public class DirectDamageAbilityEffect extends BattleAbilityEffect {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
-    BattleAbility decoratedAbility;
+    private BattleAbility decoratedAbility;
+    private final BattleCalculator battleCalculator;
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
+    
+    public DirectDamageAbilityEffect() {
+        battleCalculator = new BattleCalculator();
+    }
     
     //</editor-fold>
     
@@ -70,7 +80,7 @@ public class DirectDamageAbilityEffect extends BattleAbilityEffect {
             int attack = attacker.getBaseStats().getAttackValue();
             int defense = defender.getBaseStats().getDefenseValue();
             
-            int damage = attack * attack / (attack + defense);
+            int damage = battleCalculator.calculateDamageFromAttackAndDefense(attack, defense);
             defender.takeDamage(damage);
         } else {
             throw new DecoratorMustDecorateSomethingException();    

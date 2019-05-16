@@ -87,8 +87,17 @@ public class BattleCalculatorTest {
         int baseStat = 50;
         double factor = 0.5;
         
-        int result = testCandidate.calculateGenomeAdjustedStat(50, 0.5);
+        int result = testCandidate.calculateGenomeAdjustedStat(baseStat, factor);
         
         assertThat(result, is(equalTo(75)));
+    }
+    
+    @Test
+    public void testCalculateDamageFromAttackAndDefense_expectedDamageIsCalculated() {
+        BattleCalculator testCandidate = new BattleCalculator();
+        
+        int calculatedDamage = testCandidate.calculateDamageFromAttackAndDefense(68, 68);
+        
+        assertThat(calculatedDamage, is(equalTo(34)));
     }
 }

@@ -17,4 +17,8 @@ public class BattleCalculator {
         
         return baseStat + addedStat;
     }
+    
+    public int calculateDamageFromAttackAndDefense(int attack, int defense) {
+        return attack * attack / (attack + defense);
+    }
 }
