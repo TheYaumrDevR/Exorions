@@ -25,6 +25,11 @@ public class Poison extends IndividualExorionBattleModifier {
     //<editor-fold defaultstate="collapsed" desc="Overrides">
     
     @Override
+    protected int getAmountOfTicks() {
+        return 2;
+    }    
+    
+    @Override
     public void applyTo(BattleModifiedIndividualExorion target) {
         decoratedExorion = target;
     }
@@ -58,12 +63,18 @@ public class Poison extends IndividualExorionBattleModifier {
     
     @Override
     public void tick(IndividualExorionBattleModifier defender) {
+        if (!this.isActive()) {
+            return;
+        }
+        
         int specialAttack = attackerBaseStats.getSpecialAttackValue();
         int specialDefense = defender.getModifiedSpecialDefense();
         
         int specialAttackReduced = Math.round(specialAttack / 3.f);
         int damage = battleCalculator.calculateDamageFromAttackAndDefense(specialAttackReduced, specialDefense);
         decoratedExorion.takeDamage(damage);
+        
+        super.tick(defender);
     }
     
     @Override

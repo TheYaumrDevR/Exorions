@@ -14,6 +14,11 @@ public class Stagger extends IndividualExorionBattleModifier {
     //<editor-fold defaultstate="collapsed" desc="Overrides">
     
     @Override
+    protected int getAmountOfTicks() {
+        return 2;
+    }
+    
+    @Override
     public void takeDamage(int amount) {
         if (null == modifiedExorion) {
             throw new DecoratorMustDecorateSomethingException();
@@ -26,6 +31,10 @@ public class Stagger extends IndividualExorionBattleModifier {
     public int getModifiedAccuracy() {
         if (null == modifiedExorion) {
             throw new DecoratorMustDecorateSomethingException();
+        }
+        
+        if (!this.isActive()) {
+            return modifiedExorion.getModifiedAccuracy();
         }
         
         int accuracy = modifiedExorion.getModifiedAccuracy();
@@ -50,7 +59,7 @@ public class Stagger extends IndividualExorionBattleModifier {
     
     @Override
     public void tick(IndividualExorionBattleModifier root) {
-        
+        super.tick(root);
     }
     
     @Override
