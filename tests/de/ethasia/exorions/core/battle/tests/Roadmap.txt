@@ -1,0 +1,15 @@
+BattleUC
+
+startBattle
+teamOneHasToMove -> ask for user input
+else -> ask for CPU input
+
+getExorionOnField
+getDelayList
+getEnergyLevel
+
+Arena
+-----
+
+Master Biochemist: Turns random Allele dominant or increases value by one.
+Master Trapper: Gives our capturing Crystalis (including master ball).

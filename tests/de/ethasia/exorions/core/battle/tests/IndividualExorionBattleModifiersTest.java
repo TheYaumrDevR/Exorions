@@ -39,6 +39,6 @@ public class IndividualExorionBattleModifiersTest {
         testCandidate.setAttackerBaseStats(attacker.getBaseStats());
         
         testCandidate.tick(testCandidate);
-        assertThat(victim.getBaseStats().getCurrentHealthPoints(), is(equalTo(62)));
+        assertThat(victim.getBaseStats().getCurrentHealthPoints(), is(equalTo(63)));
     }
 }

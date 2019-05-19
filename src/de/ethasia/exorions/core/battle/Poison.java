@@ -61,7 +61,7 @@ public class Poison extends IndividualExorionBattleModifier {
         int specialAttack = attackerBaseStats.getSpecialAttackValue();
         int specialDefense = defender.getModifiedSpecialDefense();
         
-        int specialAttackReduced = specialAttack / 5;
+        int specialAttackReduced = Math.round(specialAttack / 3.f);
         int damage = battleCalculator.calculateDamageFromAttackAndDefense(specialAttackReduced, specialDefense);
         decoratedExorion.takeDamage(damage);
     }
