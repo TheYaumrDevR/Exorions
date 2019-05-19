@@ -8,8 +8,10 @@ getExorionOnField
 getDelayList
 getEnergyLevel
 
-Arena
------
+Roadmap
+-------
 
-Master Biochemist: Turns random Allele dominant or increases value by one.
-Master Trapper: Gives our capturing Crystalis (including master ball).
+- Make sure that debuff system does not apply same debuff twice, instead refreshes it
+- Give debuffs / buffs active / inactive flag
+- Make buffs / debuffs inactive after certain ticks
+- Add Bleeding debuff: This one stacks and refreshes all active bleeding debuffs

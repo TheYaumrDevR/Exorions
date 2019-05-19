@@ -1,9 +1,0 @@
-BattleUC
-
-startBattle
-teamOneHasToMove -> ask for user input
-else -> ask for CPU input
-
-getExorionOnField
-getDelayList
-getEnergyLevel
