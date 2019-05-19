@@ -21,6 +21,15 @@ public class Poison extends IndividualExorionBattleModifier {
     }
     
     //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Getters / Setters">
+    
+    @Override
+    public void setAttackerBaseStats(IndividualExorionBaseStats value) {
+        attackerBaseStats = value;
+    }    
+    
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Overrides">
     
@@ -63,6 +72,10 @@ public class Poison extends IndividualExorionBattleModifier {
     
     @Override
     public void tick(IndividualExorionBattleModifier defender) {
+        if (null == decoratedExorion) {
+            throw new DecoratorMustDecorateSomethingException();
+        }         
+        
         if (!this.isActive()) {
             return;
         }
@@ -75,11 +88,6 @@ public class Poison extends IndividualExorionBattleModifier {
         decoratedExorion.takeDamage(damage);
         
         super.tick(defender);
-    }
-    
-    @Override
-    public void setAttackerBaseStats(IndividualExorionBaseStats value) {
-        attackerBaseStats = value;
     }
     
     //</editor-fold>

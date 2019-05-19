@@ -54,12 +54,37 @@ public class IndividualExorionBattleModifiersTest {
         assertThat(testCandidate.getModifiedAccuracy(), is(equalTo(63)));        
     }
     
+    @Test 
+    public void testStaggerTakeDamage_fiveDamageIsSet_decoratedTakesFiveDamage() throws NotAllPropertiesAreSetException {
+        Stagger testCandidate = new Stagger();
+        IndividualExorion victim = TestExorions.findExorionById(0);
+        testCandidate.applyTo(victim);
+        
+        testCandidate.takeDamage(5);
+        
+        assertThat(victim.getBaseStats().getCurrentHealthPoints(), is(equalTo(63)));
+    }
+    
     @Test(expected = DecoratorMustDecorateSomethingException.class)
     public void testStaggerGetModifiedAccuracy_decoratesNothing_throwsException() {
         Stagger testCandidate = new Stagger();
         
         testCandidate.getModifiedAccuracy();
     }
+    
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testStaggerGetModifiedSpecialDefense_decoratesNothing_throwsException() {
+        Stagger testCandidate = new Stagger();
+        
+        testCandidate.getModifiedSpecialDefense();
+    }
+
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testStaggerTakeDamage_decoratesNothing_throwsException() {
+        Stagger testCandidate = new Stagger();
+        
+        testCandidate.takeDamage(5);
+    }    
     
     @Test 
     public void testPoisonTick_ticksOnce_exorionLosesHealth() throws NotAllPropertiesAreSetException {
@@ -72,6 +97,45 @@ public class IndividualExorionBattleModifiersTest {
         testCandidate.tick(testCandidate);
         assertThat(victim.getBaseStats().getCurrentHealthPoints(), is(equalTo(63)));
     }
+    
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testPoisonTick_decoratesNothing_throwsException() {
+        Poison testCandidate = new Poison();
+        
+        testCandidate.tick(testCandidate);
+    }  
+    
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testPoisonGetModifiedAccuracy_decoratesNothing_throwsException() {
+        Poison testCandidate = new Poison();
+        
+        testCandidate.getModifiedAccuracy();
+    } 
+
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testPoisonGetModifiedSpecialDefense_decoratesNothing_throwsException() {
+        Poison testCandidate = new Poison();
+        
+        testCandidate.getModifiedSpecialDefense();
+    }     
+    
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testPoisonTakeDamage_decoratesNothing_throwsException() {
+        Poison testCandidate = new Poison();
+        
+        testCandidate.takeDamage(7);
+    }   
+    
+    @Test
+    public void testPoisonTakeDamage_damageIsFive_decoratedExorionHasFiveLessHealth() throws NotAllPropertiesAreSetException {
+        Poison testCandidate = new Poison();
+        IndividualExorion victim = TestExorions.findExorionById(0);
+        
+        testCandidate.applyTo(victim);
+        testCandidate.takeDamage(5);
+        
+        assertThat(victim.getBaseStats().getCurrentHealthPoints(), is(equalTo(63)));
+    }     
     
     @Test
     public void testPoisonTick_ticksTwice_getsInactivated() throws NotAllPropertiesAreSetException {

@@ -12,6 +12,4 @@ Roadmap
 -------
 
 - Make sure that debuff system does not apply same debuff twice, instead refreshes it
-- Give debuffs / buffs active / inactive flag
-- Make buffs / debuffs inactive after certain ticks
 - Add Bleeding debuff: This one stacks and refreshes all active bleeding debuffs
