@@ -2,6 +2,7 @@ package de.ethasia.exorions.core.battle.tests;
 
 import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.core.battle.Bleed;
 import de.ethasia.exorions.core.battle.Poison;
 import de.ethasia.exorions.core.battle.Stagger;
 import de.ethasia.exorions.core.general.DecoratorMustDecorateSomethingException;
@@ -138,7 +139,13 @@ public class IndividualExorionBattleModifiersTest {
         Poison testCandidate = new Poison();
         
         testCandidate.getModifiedSpecialDefense();
-    }     
+    } 
+
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testPoisonGetModifiedAttackPower_decoratesNothing_throwsException() {
+        Poison testCandidate = new Poison();
+        testCandidate.getModifiedAttackPower();
+    }
     
     @Test(expected = DecoratorMustDecorateSomethingException.class)
     public void testPoisonTakeDamage_decoratesNothing_throwsException() {
@@ -209,5 +216,17 @@ public class IndividualExorionBattleModifiersTest {
         
         secondPoison.applyTo(testCandidate);
         assertThat(testCandidate.isActive(), is(equalTo(true)));
+    }
+    
+    @Test
+    public void testBleedSetAttackPower_bleedTicks_damageIsTakenBasedOnAttackPower() throws NotAllPropertiesAreSetException {
+        Bleed testCandidate = new Bleed();
+        
+        IndividualExorion victim = TestExorions.findExorionById(0);
+        IndividualExorion attacker = TestExorions.findExorionById(1);        
+        
+        testCandidate.applyTo(victim);
+        
+        testCandidate.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
     }
 }

@@ -37,6 +37,11 @@ public class Stagger extends IndividualExorionBattleModifier {
         return accuracy - reduceBy;
     }
     
+    @Override
+    public int getModifiedAttackPower() {
+        return modifiedExorion.getModifiedAttackPower();
+    }
+    
     @Override 
     public int getModifiedSpecialDefense() {
         if (null == modifiedExorion) {

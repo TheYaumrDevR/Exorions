@@ -56,6 +56,15 @@ public class Poison extends IndividualExorionBattleModifier {
     }
     
     @Override
+    public int getModifiedAttackPower() {
+        if (null == modifiedExorion) {
+            throw new DecoratorMustDecorateSomethingException();
+        }
+        
+        return modifiedExorion.getModifiedAttackPower();
+    }
+    
+    @Override
     public int getModifiedSpecialDefense() {
         if (null == modifiedExorion) {
             throw new DecoratorMustDecorateSomethingException();
