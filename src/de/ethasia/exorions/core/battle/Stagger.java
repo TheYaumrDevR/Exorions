@@ -5,12 +5,6 @@ import de.ethasia.exorions.core.general.DecoratorMustDecorateSomethingException;
 
 public class Stagger extends IndividualExorionBattleModifier {
     
-    //<editor-fold defaultstate="collapsed" desc="Fields">
-    
-    private BattleModifiedIndividualExorion modifiedExorion;
-    
-    //</editor-fold>
-    
     //<editor-fold defaultstate="collapsed" desc="Overrides">
     
     @Override
@@ -51,11 +45,6 @@ public class Stagger extends IndividualExorionBattleModifier {
         
         return modifiedExorion.getModifiedSpecialDefense();
     }
-    
-    @Override
-    public void applyTo(BattleModifiedIndividualExorion target) {
-        modifiedExorion = target;
-    }    
     
     @Override
     public void tick(IndividualExorionBattleModifier root) {

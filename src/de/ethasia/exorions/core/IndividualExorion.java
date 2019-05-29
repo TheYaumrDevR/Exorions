@@ -2,6 +2,7 @@ package de.ethasia.exorions.core;
 
 import de.ethasia.exorions.core.battle.BattleAbility;
 import de.ethasia.exorions.core.battle.BattleModifiedIndividualExorion;
+import de.ethasia.exorions.core.battle.IndividualExorionBattleModifier;
 import de.ethasia.exorions.core.battle.RequirementsToLearnAbilityAreNotFulfilledException;
 import de.ethasia.exorions.core.breeding.Genome;
 
@@ -96,9 +97,18 @@ public class IndividualExorion extends BattleModifiedIndividualExorion {
         return level == ExorionSpecies.MAXIMUM_LEVEL;
     }
     
+    @Override
     public void takeDamage(int amount) {
         int newHealthPoints = baseStats.getCurrentHealthPoints() - amount;
         baseStats.setCurrentHealthPoints(newHealthPoints);
+    }
+    
+    @Override
+    public void tick(IndividualExorionBattleModifier root) {}
+    
+    @Override
+    protected boolean reapplyModifierOfType(Class type) {
+        return false;
     }
     
     public boolean isFainted() {

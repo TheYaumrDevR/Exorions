@@ -11,5 +11,4 @@ getEnergyLevel
 Roadmap
 -------
 
-- Make sure that debuff system does not apply same debuff twice, instead refreshes it
 - Add Bleeding debuff: This one stacks and refreshes all active bleeding debuffs

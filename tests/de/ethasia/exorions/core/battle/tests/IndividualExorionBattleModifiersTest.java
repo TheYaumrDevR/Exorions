@@ -84,7 +84,28 @@ public class IndividualExorionBattleModifiersTest {
         Stagger testCandidate = new Stagger();
         
         testCandidate.takeDamage(5);
-    }    
+    } 
+    
+    @Test
+    public void testStaggerApplyTo_staggerIsAlreadyPresentButInactive_getsReactivated() throws NotAllPropertiesAreSetException {
+        Stagger testCandidate = new Stagger();
+        Stagger secondStagger = new Stagger();
+        Poison firstDecorator = new Poison();
+        IndividualExorion victim = TestExorions.findExorionById(0); 
+        IndividualExorion attacker = TestExorions.findExorionById(1);
+        
+        testCandidate.applyTo(victim);
+        firstDecorator.applyTo(testCandidate);
+        firstDecorator.setAttackerBaseStats(attacker.getBaseStats());
+        
+        firstDecorator.tick(firstDecorator);
+        firstDecorator.tick(firstDecorator);
+        
+        assertThat(testCandidate.isActive(), is(equalTo(false)));
+        
+        secondStagger.applyTo(firstDecorator);
+        assertThat(testCandidate.isActive(), is(equalTo(true)));
+    }
     
     @Test 
     public void testPoisonTick_ticksOnce_exorionLosesHealth() throws NotAllPropertiesAreSetException {
@@ -169,5 +190,24 @@ public class IndividualExorionBattleModifiersTest {
         testCandidate.tick(testCandidate);
         
         assertThat(victim.getBaseStats().getCurrentHealthPoints(), is(equalTo(58)));
+    }
+    
+    @Test
+    public void testPoisonApplyTo_poisonIsAlreadyPresentButInactive_getsReactivated() throws NotAllPropertiesAreSetException {
+        Poison testCandidate = new Poison();
+        Poison secondPoison = new Poison();
+        IndividualExorion victim = TestExorions.findExorionById(0);
+        IndividualExorion attacker = TestExorions.findExorionById(1);
+        
+        testCandidate.applyTo(victim);
+        testCandidate.setAttackerBaseStats(attacker.getBaseStats());   
+        
+        testCandidate.tick(testCandidate);
+        testCandidate.tick(testCandidate);
+
+        assertThat(testCandidate.isActive(), is(equalTo(false)));
+        
+        secondPoison.applyTo(testCandidate);
+        assertThat(testCandidate.isActive(), is(equalTo(true)));
     }
 }

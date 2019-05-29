@@ -9,7 +9,6 @@ public class Poison extends IndividualExorionBattleModifier {
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
     private IndividualExorionBaseStats attackerBaseStats;
-    private BattleModifiedIndividualExorion decoratedExorion;
     private final BattleCalculator battleCalculator;
     
     //</editor-fold>
@@ -36,43 +35,38 @@ public class Poison extends IndividualExorionBattleModifier {
     @Override
     protected int getAmountOfTicks() {
         return 2;
-    }    
-    
-    @Override
-    public void applyTo(BattleModifiedIndividualExorion target) {
-        decoratedExorion = target;
     }
     
     @Override
     public void takeDamage(int amount) {
-        if (null == decoratedExorion) {
+        if (null == modifiedExorion) {
             throw new DecoratorMustDecorateSomethingException();
         }    
         
-        decoratedExorion.takeDamage(amount);
+        modifiedExorion.takeDamage(amount);
     }
 
     @Override
     public int getModifiedAccuracy() {
-        if (null == decoratedExorion) {
+        if (null == modifiedExorion) {
             throw new DecoratorMustDecorateSomethingException();
         }   
         
-        return decoratedExorion.getModifiedAccuracy();
+        return modifiedExorion.getModifiedAccuracy();
     }
     
     @Override
     public int getModifiedSpecialDefense() {
-        if (null == decoratedExorion) {
+        if (null == modifiedExorion) {
             throw new DecoratorMustDecorateSomethingException();
         }   
         
-        return decoratedExorion.getModifiedSpecialDefense();
+        return modifiedExorion.getModifiedSpecialDefense();
     }    
     
     @Override
     public void tick(IndividualExorionBattleModifier defender) {
-        if (null == decoratedExorion) {
+        if (null == modifiedExorion) {
             throw new DecoratorMustDecorateSomethingException();
         }         
         
@@ -85,9 +79,10 @@ public class Poison extends IndividualExorionBattleModifier {
         
         int specialAttackReduced = Math.round(specialAttack / 3.f);
         int damage = battleCalculator.calculateDamageFromAttackAndDefense(specialAttackReduced, specialDefense);
-        decoratedExorion.takeDamage(damage);
+        modifiedExorion.takeDamage(damage);
         
         super.tick(defender);
+        modifiedExorion.tick(defender);
     }
     
     //</editor-fold>
