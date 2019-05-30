@@ -383,4 +383,30 @@ public class IndividualExorionBattleModifiersTest {
         
         assertThat(victim.getBaseStats().getCurrentHealthPoints(), is(equalTo(expectedHealthAfterTick)));        
     }    
+    
+    @Test
+    public void testBleedAndPoisonTick_tickOnce_bothDoDamage() throws NotAllPropertiesAreSetException {
+        Bleed testCandidate = new Bleed();
+        Poison poison = new Poison();
+        
+        IndividualExorion victim = TestExorions.findExorionById(0);
+        IndividualExorion attacker = TestExorions.findExorionById(1);   
+        
+        poison.setAttackerBaseStats(attacker.getBaseStats());
+        poison.applyTo(victim);
+        testCandidate.applyTo(poison);
+        testCandidate.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
+        testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());  
+        
+        BattleCalculator battleCalculator = new BattleCalculator();
+        int bleedAttackPower = Math.round(attacker.getBaseStats().getAttackValue() / 3.f);
+        int poisonAttackPower = Math.round(attacker.getBaseStats().getSpecialAttackValue() / 3.f);
+        int expectedBleedTickDamage = battleCalculator.calculateDamageFromAttackAndDefense(bleedAttackPower, victim.getBaseStats().getDefenseValue());
+        int expectedPoisonTickDamage = battleCalculator.calculateDamageFromAttackAndDefense(poisonAttackPower, victim.getBaseStats().getSpecialDefenseValue());
+        int expectedHealthAfterTick = victim.getBaseStats().getMaximumHealthPoints() - expectedBleedTickDamage - expectedPoisonTickDamage;           
+        
+        testCandidate.tick(testCandidate);   
+        
+        assertThat(victim.getBaseStats().getCurrentHealthPoints(), is(equalTo(expectedHealthAfterTick)));        
+    }
 }

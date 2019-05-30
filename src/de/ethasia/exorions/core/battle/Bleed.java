@@ -45,6 +45,7 @@ public class Bleed extends IndividualExorionBattleModifier {
         modifiedExorion.takeDamage(damage);        
         
         super.tick(root);
+        modifiedExorion.tick(root);
     }    
 
     @Override
