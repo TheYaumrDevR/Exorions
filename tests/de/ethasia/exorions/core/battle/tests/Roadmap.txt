@@ -12,3 +12,4 @@ Roadmap
 -------
 
 - Add Bleeding debuff: This one stacks and refreshes all active bleeding debuffs
+- Add unit tests to all debuffs for all the getModified methods to test the working case

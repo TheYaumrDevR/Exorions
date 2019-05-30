@@ -94,6 +94,15 @@ public class IndividualExorionBattleModifiersTest {
         
         testCandidate.getModifiedSpecialDefense();
     }
+    
+    @Test
+    public void testStaggerGetModifiedDefense_decoratesExorion_defenseComesFromExorion() throws NotAllPropertiesAreSetException {
+        Stagger testCandidate = new Stagger();
+        IndividualExorion victim = TestExorions.findExorionById(1);
+        testCandidate.applyTo(victim);
+        
+        assertThat(victim.getModifiedDefense(), is(equalTo(testCandidate.getModifiedDefense())));
+    }
 
     @Test(expected = DecoratorMustDecorateSomethingException.class)
     public void testStaggerTakeDamage_decoratesNothing_throwsException() {
@@ -175,6 +184,15 @@ public class IndividualExorionBattleModifiersTest {
         
         testCandidate.takeDamage(7);
     }   
+    
+    @Test
+    public void testPoisonGetModifiedDefense_decoratesExorion_defenseComesFromExorion() throws NotAllPropertiesAreSetException {
+        Poison testCandidate = new Poison();
+        IndividualExorion victim = TestExorions.findExorionById(1);
+        testCandidate.applyTo(victim);
+        
+        assertThat(victim.getModifiedDefense(), is(equalTo(testCandidate.getModifiedDefense())));
+    }
     
     @Test
     public void testPoisonTakeDamage_damageIsFive_decoratedExorionHasFiveLessHealth() throws NotAllPropertiesAreSetException {
@@ -273,6 +291,15 @@ public class IndividualExorionBattleModifiersTest {
         Bleed testCandidate = new Bleed();
         testCandidate.takeDamage(1);
     }
+    
+    @Test
+    public void testBleedGetModifiedDefense_decoratesExorion_defenseComesFromExorion() throws NotAllPropertiesAreSetException {
+        Bleed testCandidate = new Bleed();
+        IndividualExorion victim = TestExorions.findExorionById(1);
+        testCandidate.applyTo(victim);
+        
+        assertThat(victim.getModifiedDefense(), is(equalTo(testCandidate.getModifiedDefense())));
+    }    
     
     @Test
     public void testBleedTakeDamage_exorionIsDebuffed_exorionTakesDamage() throws NotAllPropertiesAreSetException {

@@ -62,7 +62,7 @@ public class Bleed extends IndividualExorionBattleModifier {
     @Override
     public int getModifiedDefense() {
         throwExceptionIfNothingIsDecorated();
-        return 0;
+        return modifiedExorion.getModifiedDefense();
     }
 
     @Override
