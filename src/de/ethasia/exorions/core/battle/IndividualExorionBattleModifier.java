@@ -1,6 +1,7 @@
 package de.ethasia.exorions.core.battle;
 
 import de.ethasia.exorions.core.IndividualExorionBaseStats;
+import de.ethasia.exorions.core.general.DecoratorMustDecorateSomethingException;
 
 public abstract class IndividualExorionBattleModifier extends BattleModifiedIndividualExorion {
     
@@ -39,5 +40,11 @@ public abstract class IndividualExorionBattleModifier extends BattleModifiedIndi
         }
         
         return modifiedExorion.reapplyModifierOfType(type);
-    }    
+    }   
+    
+    protected void throwExceptionIfNothingIsDecorated() {
+        if (null == modifiedExorion) {
+            throw new DecoratorMustDecorateSomethingException();
+        }        
+    }
 }

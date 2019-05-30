@@ -1,7 +1,6 @@
 package de.ethasia.exorions.core.battle;
 
 import de.ethasia.exorions.core.IndividualExorionBaseStats;
-import de.ethasia.exorions.core.general.DecoratorMustDecorateSomethingException;
 
 public class Stagger extends IndividualExorionBattleModifier {
     
@@ -14,18 +13,13 @@ public class Stagger extends IndividualExorionBattleModifier {
     
     @Override
     public void takeDamage(int amount) {
-        if (null == modifiedExorion) {
-            throw new DecoratorMustDecorateSomethingException();
-        }
-        
+        throwExceptionIfNothingIsDecorated();
         modifiedExorion.takeDamage(amount);
     }
     
     @Override
     public int getModifiedAccuracy() {
-        if (null == modifiedExorion) {
-            throw new DecoratorMustDecorateSomethingException();
-        }
+        throwExceptionIfNothingIsDecorated();
         
         if (!this.isActive()) {
             return modifiedExorion.getModifiedAccuracy();
@@ -39,15 +33,19 @@ public class Stagger extends IndividualExorionBattleModifier {
     
     @Override
     public int getModifiedAttackPower() {
+        throwExceptionIfNothingIsDecorated();
         return modifiedExorion.getModifiedAttackPower();
+    }
+    
+    @Override
+    public int getModifiedDefense() {
+        throwExceptionIfNothingIsDecorated();
+        return 0;
     }
     
     @Override 
     public int getModifiedSpecialDefense() {
-        if (null == modifiedExorion) {
-            throw new DecoratorMustDecorateSomethingException();
-        }   
-        
+        throwExceptionIfNothingIsDecorated();
         return modifiedExorion.getModifiedSpecialDefense();
     }
     

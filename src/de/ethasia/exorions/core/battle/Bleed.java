@@ -1,8 +1,25 @@
 package de.ethasia.exorions.core.battle;
 
+import de.ethasia.exorions.core.BattleCalculator;
 import de.ethasia.exorions.core.IndividualExorionBaseStats;
 
 public class Bleed extends IndividualExorionBattleModifier {
+    
+    //<editor-fold defaultstate="collapsed" desc="Fields">
+    
+    private final BattleCalculator battleCalculator;
+    private int attackPowerToBaseDamageOn;
+    private int defenseToBaseDamageOn;
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
+    
+    public Bleed() {
+        battleCalculator = new BattleCalculator();
+    }
+    
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Overrides">
     
@@ -14,23 +31,43 @@ public class Bleed extends IndividualExorionBattleModifier {
     @Override
     public void setAttackerBaseStats(IndividualExorionBaseStats value) {
     }
+    
+    @Override
+    public void tick(IndividualExorionBattleModifier root) {
+        throwExceptionIfNothingIsDecorated();
+        
+        int bleedAttackPower = Math.round(attackPowerToBaseDamageOn / 3.f);
+        int damage = battleCalculator.calculateDamageFromAttackAndDefense(bleedAttackPower, defenseToBaseDamageOn);
+        modifiedExorion.takeDamage(damage);        
+    }    
 
     @Override
     public void takeDamage(int amount) {
+        throwExceptionIfNothingIsDecorated();
+        modifiedExorion.takeDamage(amount);
     }
 
     @Override
     public int getModifiedAccuracy() {
+        throwExceptionIfNothingIsDecorated();
         return modifiedExorion.getModifiedAccuracy();
     }
     
     @Override
     public int getModifiedAttackPower() {
+        throwExceptionIfNothingIsDecorated();
         return modifiedExorion.getModifiedAttackPower();
+    }
+    
+    @Override
+    public int getModifiedDefense() {
+        throwExceptionIfNothingIsDecorated();
+        return 0;
     }
 
     @Override
     public int getModifiedSpecialDefense() {
+        throwExceptionIfNothingIsDecorated();
         return modifiedExorion.getModifiedSpecialDefense();
     }    
     
@@ -39,7 +76,11 @@ public class Bleed extends IndividualExorionBattleModifier {
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
     public void setAttackPowerToBaseDamageOn(int attackOrSpecialAttackValue) {
-        
+        attackPowerToBaseDamageOn = attackOrSpecialAttackValue;
+    }
+    
+    public void setDefenseValueToBaseDamageOn(int defenseValue) {
+        defenseToBaseDamageOn = defenseValue;
     }
     
     //</editor-fold>

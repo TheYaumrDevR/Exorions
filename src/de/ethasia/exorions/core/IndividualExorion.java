@@ -77,6 +77,11 @@ public class IndividualExorion extends BattleModifiedIndividualExorion {
     }
     
     @Override
+    public int getModifiedDefense() {
+        return baseStats.getDefenseValue();
+    }
+    
+    @Override
     public int getModifiedSpecialDefense() {
         return baseStats.getSpecialDefenseValue();
     }     

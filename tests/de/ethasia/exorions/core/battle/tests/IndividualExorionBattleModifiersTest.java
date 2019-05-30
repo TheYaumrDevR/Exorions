@@ -1,5 +1,6 @@
 package de.ethasia.exorions.core.battle.tests;
 
+import de.ethasia.exorions.core.BattleCalculator;
 import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.battle.Bleed;
@@ -74,6 +75,20 @@ public class IndividualExorionBattleModifiersTest {
     }
     
     @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testStaggerGetModifiedAttackPower_decoratesNothing_throwsException() {
+        Stagger testCandidate = new Stagger();
+        
+        testCandidate.getModifiedAttackPower();
+    } 
+    
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testStaggerGetModifiedDefense_decoratesNothing_throwsException() {
+        Stagger testCandidate = new Stagger();
+        
+        testCandidate.getModifiedDefense();
+    }    
+    
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
     public void testStaggerGetModifiedSpecialDefense_decoratesNothing_throwsException() {
         Stagger testCandidate = new Stagger();
         
@@ -133,6 +148,13 @@ public class IndividualExorionBattleModifiersTest {
         
         testCandidate.getModifiedAccuracy();
     } 
+    
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testPoisonGetModifiedDefense_decoratesNothing_throwsException() {
+        Poison testCandidate = new Poison();
+        
+        testCandidate.getModifiedDefense();
+    }
 
     @Test(expected = DecoratorMustDecorateSomethingException.class)
     public void testPoisonGetModifiedSpecialDefense_decoratesNothing_throwsException() {
@@ -218,6 +240,51 @@ public class IndividualExorionBattleModifiersTest {
         assertThat(testCandidate.isActive(), is(equalTo(true)));
     }
     
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testBleedGetModifiedAccuracy_decoratesNothing_throwsException() {
+        Bleed testCandidate = new Bleed();
+        
+        testCandidate.getModifiedAccuracy();
+    }
+    
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testBleedGetModifiedAttackPower_decoratesNothing_throwsException() {
+        Bleed testCandidate = new Bleed();
+        
+        testCandidate.getModifiedAttackPower();
+    }  
+    
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testBleedGetModifiedDefense_decoratesNothing_throwsException() {
+        Bleed testCandidate = new Bleed();
+        
+        testCandidate.getModifiedDefense();
+    }     
+    
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testBleedGetModifiedSpecialDefense_decoratesNothing_throwsException() {
+        Bleed testCandidate = new Bleed();
+        
+        testCandidate.getModifiedSpecialDefense();
+    }
+    
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testBleedTakeDamage_nothingIsDecorated_throwsException() {
+        Bleed testCandidate = new Bleed();
+        testCandidate.takeDamage(1);
+    }
+    
+    @Test
+    public void testBleedTakeDamage_exorionIsDebuffed_exorionTakesDamage() throws NotAllPropertiesAreSetException {
+        Bleed testCandidate = new Bleed();
+        IndividualExorion victim = TestExorions.findExorionById(1);
+        testCandidate.applyTo(victim);
+        
+        testCandidate.takeDamage(2);
+        
+        assertThat(victim.getBaseStats().getCurrentHealthPoints(), is(equalTo(71)));
+    }
+    
     @Test
     public void testBleedSetAttackPower_bleedTicks_damageIsTakenBasedOnAttackPower() throws NotAllPropertiesAreSetException {
         Bleed testCandidate = new Bleed();
@@ -226,7 +293,22 @@ public class IndividualExorionBattleModifiersTest {
         IndividualExorion attacker = TestExorions.findExorionById(1);        
         
         testCandidate.applyTo(victim);
-        
         testCandidate.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
+        testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());
+        
+        BattleCalculator battleCalculator = new BattleCalculator();
+        int bleedAttackPower = Math.round(attacker.getBaseStats().getAttackValue() / 3.f);
+        int expectedTickDamage = battleCalculator.calculateDamageFromAttackAndDefense(bleedAttackPower, victim.getBaseStats().getDefenseValue());
+        int expectedHealthAfterTick = victim.getBaseStats().getMaximumHealthPoints() - expectedTickDamage;
+        
+        testCandidate.tick(testCandidate);
+        
+        assertThat(victim.getBaseStats().getCurrentHealthPoints(), is(equalTo(expectedHealthAfterTick)));
+    }
+    
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testBleedTick_decoratesNothing_throwsException() {
+        Bleed testCandidate = new Bleed();
+        testCandidate.tick(testCandidate);
     }
 }
