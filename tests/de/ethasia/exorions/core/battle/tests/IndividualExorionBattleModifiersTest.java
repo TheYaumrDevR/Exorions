@@ -338,4 +338,49 @@ public class IndividualExorionBattleModifiersTest {
         Bleed testCandidate = new Bleed();
         testCandidate.tick(testCandidate);
     }
+    
+    @Test
+    public void testBleedTick_ticksThrive_getsDeactivated() throws NotAllPropertiesAreSetException {
+        Bleed testCandidate = new Bleed();
+        
+        IndividualExorion victim = TestExorions.findExorionById(0);
+        IndividualExorion attacker = TestExorions.findExorionById(1);    
+        
+        testCandidate.applyTo(victim);
+        testCandidate.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
+        testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());
+
+        testCandidate.tick(testCandidate);
+        testCandidate.tick(testCandidate);
+        
+        assertThat(testCandidate.isActive(), is(equalTo(true)));
+        
+        testCandidate.tick(testCandidate);
+        
+        assertThat(testCandidate.isActive(), is(equalTo(false)));
+    }
+    
+    @Test
+    public void testBleedTick_ticksFourTimes_damageIsDoneThrice() throws NotAllPropertiesAreSetException {
+        Bleed testCandidate = new Bleed();
+        
+        IndividualExorion victim = TestExorions.findExorionById(0);
+        IndividualExorion attacker = TestExorions.findExorionById(1);    
+        
+        testCandidate.applyTo(victim);
+        testCandidate.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
+        testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());
+
+        BattleCalculator battleCalculator = new BattleCalculator();
+        int bleedAttackPower = Math.round(attacker.getBaseStats().getAttackValue() / 3.f);
+        int expectedTickDamage = battleCalculator.calculateDamageFromAttackAndDefense(bleedAttackPower, victim.getBaseStats().getDefenseValue());
+        int expectedHealthAfterTick = victim.getBaseStats().getMaximumHealthPoints() - 3 * expectedTickDamage;        
+        
+        testCandidate.tick(testCandidate);
+        testCandidate.tick(testCandidate);
+        testCandidate.tick(testCandidate);
+        testCandidate.tick(testCandidate);
+        
+        assertThat(victim.getBaseStats().getCurrentHealthPoints(), is(equalTo(expectedHealthAfterTick)));        
+    }    
 }

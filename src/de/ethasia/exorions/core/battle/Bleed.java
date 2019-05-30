@@ -36,9 +36,15 @@ public class Bleed extends IndividualExorionBattleModifier {
     public void tick(IndividualExorionBattleModifier root) {
         throwExceptionIfNothingIsDecorated();
         
+        if (!this.isActive()) {
+            return;
+        }        
+        
         int bleedAttackPower = Math.round(attackPowerToBaseDamageOn / 3.f);
         int damage = battleCalculator.calculateDamageFromAttackAndDefense(bleedAttackPower, defenseToBaseDamageOn);
         modifiedExorion.takeDamage(damage);        
+        
+        super.tick(root);
     }    
 
     @Override
