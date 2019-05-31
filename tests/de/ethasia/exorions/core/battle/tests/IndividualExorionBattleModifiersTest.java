@@ -480,4 +480,31 @@ public class IndividualExorionBattleModifiersTest {
         assertThat(bleedTwo.isActive(), is(equalTo(true)));
         assertThat(testCandidate.isActive(), is(equalTo(true)));   
     }
+    
+    @Test
+    public void testBleedApplyTo_inActiveBleedIsPresent_doesNotGetReapplied() throws NotAllPropertiesAreSetException {
+        Bleed bleedOne = new Bleed();
+        Bleed testCandidate = new Bleed();
+        
+        IndividualExorion victim = TestExorions.findExorionById(0);
+        IndividualExorion attacker = TestExorions.findExorionById(1);     
+        
+        bleedOne.applyTo(victim);    
+        
+        bleedOne.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
+        bleedOne.setDefenseValueToBaseDamageOn(victim.getModifiedDefense()); 
+        
+        testCandidate.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
+        testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());     
+        
+        bleedOne.tick(bleedOne);   
+        bleedOne.tick(bleedOne); 
+        bleedOne.tick(bleedOne); 
+        
+        assertThat(bleedOne.isActive(), is(equalTo(false))); 
+        
+        testCandidate.applyTo(bleedOne); 
+        
+        assertThat(bleedOne.isActive(), is(equalTo(false))); 
+    }
 }
