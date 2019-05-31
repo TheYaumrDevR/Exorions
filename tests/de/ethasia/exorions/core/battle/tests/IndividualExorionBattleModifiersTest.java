@@ -324,7 +324,7 @@ public class IndividualExorionBattleModifiersTest {
         testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());
         
         BattleCalculator battleCalculator = new BattleCalculator();
-        int bleedAttackPower = Math.round(attacker.getBaseStats().getAttackValue() / 3.f);
+        int bleedAttackPower = Math.round(attacker.getBaseStats().getAttackValue() / 4.f);
         int expectedTickDamage = battleCalculator.calculateDamageFromAttackAndDefense(bleedAttackPower, victim.getBaseStats().getDefenseValue());
         int expectedHealthAfterTick = victim.getBaseStats().getMaximumHealthPoints() - expectedTickDamage;
         
@@ -372,7 +372,7 @@ public class IndividualExorionBattleModifiersTest {
         testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());
 
         BattleCalculator battleCalculator = new BattleCalculator();
-        int bleedAttackPower = Math.round(attacker.getBaseStats().getAttackValue() / 3.f);
+        int bleedAttackPower = Math.round(attacker.getBaseStats().getAttackValue() / 4.f);
         int expectedTickDamage = battleCalculator.calculateDamageFromAttackAndDefense(bleedAttackPower, victim.getBaseStats().getDefenseValue());
         int expectedHealthAfterTick = victim.getBaseStats().getMaximumHealthPoints() - 3 * expectedTickDamage;        
         
@@ -399,7 +399,7 @@ public class IndividualExorionBattleModifiersTest {
         testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());  
         
         BattleCalculator battleCalculator = new BattleCalculator();
-        int bleedAttackPower = Math.round(attacker.getBaseStats().getAttackValue() / 3.f);
+        int bleedAttackPower = Math.round(attacker.getBaseStats().getAttackValue() / 4.f);
         int poisonAttackPower = Math.round(attacker.getBaseStats().getSpecialAttackValue() / 3.f);
         int expectedBleedTickDamage = battleCalculator.calculateDamageFromAttackAndDefense(bleedAttackPower, victim.getBaseStats().getDefenseValue());
         int expectedPoisonTickDamage = battleCalculator.calculateDamageFromAttackAndDefense(poisonAttackPower, victim.getBaseStats().getSpecialDefenseValue());
@@ -408,5 +408,40 @@ public class IndividualExorionBattleModifiersTest {
         testCandidate.tick(testCandidate);   
         
         assertThat(victim.getBaseStats().getCurrentHealthPoints(), is(equalTo(expectedHealthAfterTick)));        
+    }
+    
+    @Test
+    public void testBleedApplyTo_anotherBleedDebuffIsApplied_getsReapplied() throws NotAllPropertiesAreSetException {
+        Bleed bleedOne = new Bleed();
+        Bleed testCandidate = new Bleed();
+        Poison poison = new Poison();
+        
+        IndividualExorion victim = TestExorions.findExorionById(0);
+        IndividualExorion attacker = TestExorions.findExorionById(1);   
+        
+        poison.setAttackerBaseStats(attacker.getBaseStats());
+        bleedOne.applyTo(victim);
+        poison.applyTo(bleedOne);
+        
+        bleedOne.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
+        bleedOne.setDefenseValueToBaseDamageOn(victim.getModifiedDefense()); 
+        
+        testCandidate.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
+        testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());          
+
+        poison.tick(poison);
+        poison.tick(poison);
+        
+        assertThat(bleedOne.isActive(), is(equalTo(true)));
+        
+        testCandidate.applyTo(poison);
+        testCandidate.tick(testCandidate);
+        
+        assertThat(bleedOne.isActive(), is(equalTo(true)));  
+        
+        testCandidate.tick(testCandidate);
+        testCandidate.tick(testCandidate);
+        
+        assertThat(bleedOne.isActive(), is(equalTo(false)));
     }
 }

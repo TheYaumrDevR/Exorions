@@ -33,14 +33,21 @@ public class Bleed extends IndividualExorionBattleModifier {
     }
     
     @Override
+    public void applyTo(BattleModifiedIndividualExorion target) {
+        target.reapplyModifierOfType(this.getClass());
+        modifiedExorion = target;            
+    }
+    
+    @Override
     public void tick(IndividualExorionBattleModifier root) {
         throwExceptionIfNothingIsDecorated();
         
         if (!this.isActive()) {
+            modifiedExorion.tick(root);
             return;
         }        
         
-        int bleedAttackPower = Math.round(attackPowerToBaseDamageOn / 3.f);
+        int bleedAttackPower = Math.round(attackPowerToBaseDamageOn / 4.f);
         int damage = battleCalculator.calculateDamageFromAttackAndDefense(bleedAttackPower, defenseToBaseDamageOn);
         modifiedExorion.takeDamage(damage);        
         

@@ -71,6 +71,7 @@ public class Poison extends IndividualExorionBattleModifier {
         throwExceptionIfNothingIsDecorated();        
         
         if (!this.isActive()) {
+            modifiedExorion.tick(defender);
             return;
         }
         
