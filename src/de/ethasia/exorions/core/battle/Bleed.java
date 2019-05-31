@@ -39,6 +39,15 @@ public class Bleed extends IndividualExorionBattleModifier {
     }
     
     @Override
+    protected boolean reapplyModifierOfType(Class type) {
+        if (this.getClass() == type) {
+            ticksLeftTillInactivation = getAmountOfTicks();
+        }
+        
+        return modifiedExorion.reapplyModifierOfType(type);
+    }     
+    
+    @Override
     public void tick(IndividualExorionBattleModifier root) {
         throwExceptionIfNothingIsDecorated();
         
