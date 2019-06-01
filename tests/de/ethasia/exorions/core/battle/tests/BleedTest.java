@@ -5,6 +5,7 @@ import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.battle.Bleed;
 import de.ethasia.exorions.core.battle.Poison;
+import de.ethasia.exorions.core.battle.Stagger;
 import de.ethasia.exorions.core.general.DecoratorMustDecorateSomethingException;
 import de.ethasia.exorions.core.mocks.TestExorions;
 
@@ -14,12 +15,37 @@ import static org.hamcrest.CoreMatchers.*;
 
 public class BleedTest {
     
+    @Test
+    public void testGetModifiedAccuracy_decoratesStagger_accuracyIsTakenFromStagger() throws NotAllPropertiesAreSetException {
+        Bleed testCandidate = new Bleed();
+        Stagger stagger = new Stagger();
+        
+        IndividualExorion victim = TestExorions.findExorionById(1); 
+        stagger.applyTo(victim);
+        testCandidate.applyTo(stagger);
+        
+        assertThat(testCandidate.getModifiedAccuracy(), is(equalTo(50)));
+    }    
+    
     @Test(expected = DecoratorMustDecorateSomethingException.class)
     public void testGetModifiedAccuracy_decoratesNothing_throwsException() {
         Bleed testCandidate = new Bleed();
         
         testCandidate.getModifiedAccuracy();
-    }
+    }  
+    
+    @Test
+    public void testGetModifiedAttackPower_decoratesPoison_attackPowerComesFromVictim() throws NotAllPropertiesAreSetException {
+        Bleed testCandidate = new Bleed();
+        Poison poison = new Poison();
+        
+        IndividualExorion victim = TestExorions.findExorionById(0);
+        
+        poison.applyTo(victim);
+        testCandidate.applyTo(poison);
+        
+        assertThat(testCandidate.getModifiedAttackPower(), is(equalTo(victim.getModifiedAttackPower())));
+    }    
     
     @Test(expected = DecoratorMustDecorateSomethingException.class)
     public void testGetModifiedAttackPower_decoratesNothing_throwsException() {
@@ -33,7 +59,20 @@ public class BleedTest {
         Bleed testCandidate = new Bleed();
         
         testCandidate.getModifiedDefense();
-    }     
+    }  
+    
+    @Test
+    public void testGetModifiedSpecialDefense_decoratesPoison_specialDefenseComesFromVictim() throws NotAllPropertiesAreSetException {
+        Bleed testCandidate = new Bleed();
+        Poison poison = new Poison();
+        
+        IndividualExorion victim = TestExorions.findExorionById(0);
+        
+        poison.applyTo(victim);
+        testCandidate.applyTo(poison);
+        
+        assertThat(testCandidate.getModifiedSpecialDefense(), is(equalTo(victim.getModifiedSpecialDefense())));
+    }      
     
     @Test(expected = DecoratorMustDecorateSomethingException.class)
     public void testGetModifiedSpecialDefense_decoratesNothing_throwsException() {
