@@ -12,3 +12,4 @@ Roadmap
 -------
 
 - Add unit tests to all debuffs for all the getModified methods to test the working case
+- Refactor: Move common code of debuffs to super class
