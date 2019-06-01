@@ -67,7 +67,7 @@ public class Poison extends IndividualExorionBattleModifier {
     }    
     
     @Override
-    public void tick(IndividualExorionBattleModifier defender) {
+    public void tick(BattleModifiedIndividualExorion defender) {
         throwExceptionIfNothingIsDecorated();        
         
         if (!this.isActive()) {

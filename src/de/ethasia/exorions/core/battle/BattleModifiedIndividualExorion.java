@@ -7,6 +7,6 @@ public abstract class BattleModifiedIndividualExorion {
     public abstract int getModifiedAttackPower();
     public abstract int getModifiedDefense();
     public abstract int getModifiedSpecialDefense();
-    public abstract void tick(IndividualExorionBattleModifier root);
+    public abstract void tick(BattleModifiedIndividualExorion root);
     protected abstract boolean reapplyModifierOfType(Class type);
 }

@@ -2,7 +2,6 @@ package de.ethasia.exorions.core.battle;
 
 import de.ethasia.exorions.core.AbilityLearningRequirements;
 import de.ethasia.exorions.core.DamageTypes;
-import de.ethasia.exorions.core.IndividualExorion;
 import java.util.Set;
 
 public abstract class BattleAbility {
@@ -13,5 +12,5 @@ public abstract class BattleAbility {
     public abstract float getDelayMultiplier();
     public abstract int getRequiredPowerPointsForStageTwo();
     
-    public abstract void use(IndividualExorion attacker, IndividualExorion defender);
+    public abstract BattleModifiedIndividualExorion use(BattleModifiedIndividualExorion attacker, BattleModifiedIndividualExorion defender);
 }

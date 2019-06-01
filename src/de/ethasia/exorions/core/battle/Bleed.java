@@ -48,7 +48,7 @@ public class Bleed extends IndividualExorionBattleModifier {
     }     
     
     @Override
-    public void tick(IndividualExorionBattleModifier root) {
+    public void tick(BattleModifiedIndividualExorion root) {
         throwExceptionIfNothingIsDecorated();
         
         if (!this.isActive()) {

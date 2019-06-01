@@ -12,6 +12,10 @@ public abstract class IndividualExorionBattleModifier extends BattleModifiedIndi
         return ticksLeftTillInactivation > 0;
     }
     
+    public boolean isApplied() {
+        return null != modifiedExorion;
+    }
+    
     protected IndividualExorionBattleModifier() {
         ticksLeftTillInactivation = getAmountOfTicks();
     }
@@ -26,7 +30,7 @@ public abstract class IndividualExorionBattleModifier extends BattleModifiedIndi
     }    
     
     @Override
-    public void tick(IndividualExorionBattleModifier root) {
+    public void tick(BattleModifiedIndividualExorion root) {
         if (this.isActive()) {
             ticksLeftTillInactivation--;
         }

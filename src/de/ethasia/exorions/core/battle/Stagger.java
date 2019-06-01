@@ -50,7 +50,7 @@ public class Stagger extends IndividualExorionBattleModifier {
     }
     
     @Override
-    public void tick(IndividualExorionBattleModifier root) {
+    public void tick(BattleModifiedIndividualExorion root) {
         super.tick(root);
     }
     

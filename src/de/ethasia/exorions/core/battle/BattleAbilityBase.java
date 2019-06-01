@@ -2,7 +2,7 @@ package de.ethasia.exorions.core.battle;
 
 import de.ethasia.exorions.core.AbilityLearningRequirements;
 import de.ethasia.exorions.core.DamageTypes;
-import de.ethasia.exorions.core.IndividualExorion;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -57,7 +57,9 @@ public class BattleAbilityBase extends BattleAbility {
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
     @Override
-    public void use(IndividualExorion attacker, IndividualExorion defender) {}    
+    public BattleModifiedIndividualExorion use(BattleModifiedIndividualExorion attacker, BattleModifiedIndividualExorion defender) { 
+        return defender; 
+    }    
     
     //</editor-fold>
     

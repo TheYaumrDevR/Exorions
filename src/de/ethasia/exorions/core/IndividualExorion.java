@@ -114,7 +114,7 @@ public class IndividualExorion extends BattleModifiedIndividualExorion {
     }
     
     @Override
-    public void tick(IndividualExorionBattleModifier root) {}
+    public void tick(BattleModifiedIndividualExorion root) {}
     
     @Override
     protected boolean reapplyModifierOfType(Class type) {
