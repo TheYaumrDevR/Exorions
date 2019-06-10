@@ -163,7 +163,7 @@ public class DirectDamageAbilityEffectTest {
         testCandidate.use(attacker, defender);
         
         assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(1)));
-    }    
+    }
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
