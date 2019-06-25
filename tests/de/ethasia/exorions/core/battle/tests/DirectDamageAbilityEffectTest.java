@@ -165,6 +165,32 @@ public class DirectDamageAbilityEffectTest {
         assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(1)));
     }
     
+    @Test
+    public void testUseDecoratedAbilitiesOnly_decoratedAbilityIsDamageAbility_damageIsDoneOnce() throws NotAllPropertiesAreSetException {
+        DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
+        DirectDamageAbilityEffect decorated = new DirectDamageAbilityEffect();
+        IndividualExorion attacker = createIndividualExorionForTesting();
+        IndividualExorion defender = createIndividualExorionForTesting();
+        
+        BattleAbilityBase decoratedAbility = new BattleAbilityBase.Builder()
+            .build();
+        decorated.decorate(decoratedAbility);
+        testCandidate.decorate(decorated);  
+        
+        testCandidate.useDecoratedAbilitiesOnly(attacker, defender);
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(32)));
+    }
+    
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testUseDecoratedAbilitiesOnly_decoratesNothing_throwsException() throws NotAllPropertiesAreSetException {
+        DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
+        
+        IndividualExorion attacker = createIndividualExorionForTesting();
+        IndividualExorion defender = createIndividualExorionForTesting(); 
+        
+        testCandidate.useDecoratedAbilitiesOnly(attacker, defender);
+    }
+    
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
     private IndividualExorion createIndividualExorionForTesting() throws NotAllPropertiesAreSetException {
