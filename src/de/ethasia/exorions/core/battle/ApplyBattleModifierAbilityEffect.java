@@ -23,6 +23,8 @@ public class ApplyBattleModifierAbilityEffect extends BattleAbilityEffect {
     @Override
     public BattleModifiedIndividualExorion use(BattleModifiedIndividualExorion attacker, BattleModifiedIndividualExorion defender) {
         if (null != decoratedAbility) {
+            decoratedAbility.use(attacker, defender);
+            
             modifierToApply.applyTo(defender);
             
             if (modifierToApply.isApplied()) {
