@@ -57,4 +57,12 @@ public abstract class BattleAbilityEffect extends BattleAbility {
     public void decorate(BattleAbility battleAbility) {
         decoratedAbility = battleAbility;
     }
+    
+    public void useDecoratedAbilitiesOnly(BattleModifiedIndividualExorion attacker, BattleModifiedIndividualExorion defender) {
+        if (null != decoratedAbility) {
+            decoratedAbility.use(attacker, defender);
+        } else {
+            throw new DecoratorMustDecorateSomethingException();
+        }
+    }    
 }
