@@ -1,0 +1,30 @@
+Act 1
+-----
+
+Part 1
+------
+
+Starts: when first entering.
+
+Journal entry: "You have received a new message on the Holowatch. Go to the Suriver City townhall as instructed to proceed further."
+
+Holowatch message: "Dear Citizen, you have been chosen to become one of our Controllers. Please come to the Suriver City townhall to receive your equipment and instructions. Sincerely, The Suriver City Governor."
+
+Ends: At Surian military officer in townhall.
+
+With message: "Welcome Recruit. I will give out your equipment and instruct you in the basics so that you can start your new life as a controller. Listen closely, everything I will say is important."
+
+Part 2
+------
+
+Starts: After end of Part 1 at Surian military officer in townhall.
+
+Journal Entry: "You met the Surian military officer responsible for putting you on your way as a fresh controller. Talk to him to receive your equipment and basic training."
+
+Dialog Message: "Every controller needs an exorion. Because that is what a controller is: someone who controls Exorion, the wild creatures of this planet. You will mostly use them for self-defense but also for sparring battles. Please pick one."
+
+Trigger 1: Starter selection screen appears.
+
+Ends: At Surian military officer in townhall.
+
+With message: "Good, that will be the first exorion you will have under your control. Now here is your controller gauntlet and some controlling crystalis. You put these crystals into the gauntlet. Then you use the gauntlet to give instructions directly into the exorion's brain. This way you can make it fight for you. You will see that in action soon enough."

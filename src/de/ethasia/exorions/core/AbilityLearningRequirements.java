@@ -2,7 +2,7 @@ package de.ethasia.exorions.core;
 
 public enum AbilityLearningRequirements {
     LOCOMOTION,
-    HARD_BODY,
+    SKELETON,
     TENTACLES,
     NEEDLES,
     TAIL,

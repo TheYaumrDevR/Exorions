@@ -163,7 +163,7 @@ public class IndividualExorionTest {
     @Test
     public void testCanLearnAbility_abilityWithTwoRequirements_cannotLearnAsDifferentAreSatisfied() throws NotAllPropertiesAreSetException {
         ExorionSpecies species = new ExorionSpecies.Builder()
-            .setFulfilledLearningRequirements(AbilityLearningRequirements.HARD_BODY)
+            .setFulfilledLearningRequirements(AbilityLearningRequirements.SKELETON)
             .setFulfilledLearningRequirements(AbilityLearningRequirements.LOCOMOTION)   
             .setSpeciesBaseStats(createBaseStatsForExorion())
             .build();        
@@ -511,7 +511,7 @@ public class IndividualExorionTest {
         IndividualExorion testCandidate = TestExorions.findExorionById(0);
         BattleAbilityBase ability = new BattleAbilityBase.Builder()
             .setName("Foosh")
-            .setLearningRequirements(AbilityLearningRequirements.HARD_BODY)
+            .setLearningRequirements(AbilityLearningRequirements.SKELETON)
             .build();
         
         testCandidate.learnAbilityOnSlotOne(ability);
@@ -522,7 +522,7 @@ public class IndividualExorionTest {
         IndividualExorion testCandidate = TestExorions.findExorionById(0);
         BattleAbilityBase ability = new BattleAbilityBase.Builder()
             .setName("Foosh")
-            .setLearningRequirements(AbilityLearningRequirements.HARD_BODY)
+            .setLearningRequirements(AbilityLearningRequirements.SKELETON)
             .build();
         
         testCandidate.learnAbilityOnSlotTwo(ability);
@@ -533,7 +533,7 @@ public class IndividualExorionTest {
         IndividualExorion testCandidate = TestExorions.findExorionById(0);
         BattleAbilityBase ability = new BattleAbilityBase.Builder()
             .setName("Foosh")
-            .setLearningRequirements(AbilityLearningRequirements.HARD_BODY)
+            .setLearningRequirements(AbilityLearningRequirements.SKELETON)
             .build();
         
         testCandidate.learnAbilityOnSlotThree(ability);

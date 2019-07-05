@@ -24,7 +24,7 @@ public class DirectDamageAbilityEffect extends BattleAbilityEffect {
     @Override
     public BattleModifiedIndividualExorion use(BattleModifiedIndividualExorion attacker, BattleModifiedIndividualExorion defender) {
         if (null != decoratedAbility) {
-            decoratedAbility.use(attacker, defender);
+            BattleModifiedIndividualExorion modifiedDefender = decoratedAbility.use(attacker, defender);
             
             int attack = attacker.getModifiedAttackPower();
             int defense = defender.getModifiedDefense();
@@ -32,7 +32,7 @@ public class DirectDamageAbilityEffect extends BattleAbilityEffect {
             int damage = battleCalculator.calculateDamageFromAttackAndDefense(attack, defense);
             defender.takeDamage(damage);
             
-            return defender;
+            return modifiedDefender;
         } else {
             throw new DecoratorMustDecorateSomethingException();    
         }
