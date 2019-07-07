@@ -1,7 +1,5 @@
 package de.ethasia.exorions.core.battle;
 
-import de.ethasia.exorions.core.IndividualExorionBaseStats;
-
 public class Stagger extends IndividualExorionBattleModifier {
     
     //<editor-fold defaultstate="collapsed" desc="Overrides">
@@ -38,6 +36,12 @@ public class Stagger extends IndividualExorionBattleModifier {
     }
     
     @Override
+    public int getModifiedSpecialAttackPower() {
+        throwExceptionIfNothingIsDecorated();
+        return modifiedExorion.getModifiedSpecialAttackPower();
+    }    
+    
+    @Override
     public int getModifiedDefense() {
         throwExceptionIfNothingIsDecorated();
         return modifiedExorion.getModifiedDefense();
@@ -50,14 +54,9 @@ public class Stagger extends IndividualExorionBattleModifier {
     }
     
     @Override
-    public void tick(BattleModifiedIndividualExorion root) {
-        super.tick(root);
-    }
-    
-    @Override
-    public void setAttackerBaseStats(IndividualExorionBaseStats value) {
-        
-    }    
+    public void tick(BattleModifiedIndividualExorion attackerRoot, BattleModifiedIndividualExorion defenderRoot) {
+        super.tick(attackerRoot, defenderRoot);
+    }  
     
     //</editor-fold>
 }

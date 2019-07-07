@@ -39,9 +39,7 @@ public class ApplyBattleModifierAbilityEffectTest {
         testCandidate.decorate(decoratedAbility);
         
         IndividualExorion attacker = TestExorions.findExorionById(0);
-        IndividualExorion defender = TestExorions.findExorionById(1); 
-        
-        poison.setAttackerBaseStats(attacker.getBaseStats());       
+        IndividualExorion defender = TestExorions.findExorionById(1);     
         
         testCandidate.use(attacker, defender);
     }
@@ -57,14 +55,12 @@ public class ApplyBattleModifierAbilityEffectTest {
         testCandidate.decorate(decoratedAbility); 
         
         IndividualExorion attacker = TestExorions.findExorionById(0);
-        IndividualExorion defender = TestExorions.findExorionById(1);  
-        
-        poison.setAttackerBaseStats(attacker.getBaseStats());
+        IndividualExorion defender = TestExorions.findExorionById(1);
         
         BattleModifiedIndividualExorion modifiedTarget = testCandidate.use(attacker, defender);
         
         int defenderOldHP = defender.getBaseStats().getCurrentHealthPoints();
-        modifiedTarget.tick(modifiedTarget);
+        modifiedTarget.tick(attacker, modifiedTarget);
         int defenderNewHP = defender.getBaseStats().getCurrentHealthPoints();
         
         assertThat(modifiedTarget, is(sameInstance(poison)));
@@ -83,10 +79,7 @@ public class ApplyBattleModifierAbilityEffectTest {
         testCandidate.decorate(decoratedAbility); 
         
         IndividualExorion attacker = TestExorions.findExorionById(0);
-        IndividualExorion defender = TestExorions.findExorionById(1);  
-        
-        poison.setAttackerBaseStats(attacker.getBaseStats());
-        newPoison.setAttackerBaseStats(attacker.getBaseStats());
+        IndividualExorion defender = TestExorions.findExorionById(1);
         
         poison.applyTo(defender);
         
@@ -110,8 +103,6 @@ public class ApplyBattleModifierAbilityEffectTest {
         IndividualExorion attacker = TestExorions.findExorionById(0);
         IndividualExorion defender = TestExorions.findExorionById(1);  
         
-        poison.setAttackerBaseStats(attacker.getBaseStats());
-        
         BattleModifiedIndividualExorion modifiedTarget = testCandidate.use(attacker, defender);
         
         assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(47)));
@@ -130,10 +121,7 @@ public class ApplyBattleModifierAbilityEffectTest {
         testCandidate.decorate(decoratedAbility); 
         
         IndividualExorion attacker = TestExorions.findExorionById(0);
-        IndividualExorion defender = TestExorions.findExorionById(1);  
-        
-        poison.setAttackerBaseStats(attacker.getBaseStats());
-        newPoison.setAttackerBaseStats(attacker.getBaseStats());
+        IndividualExorion defender = TestExorions.findExorionById(1);
         
         poison.applyTo(defender);     
         

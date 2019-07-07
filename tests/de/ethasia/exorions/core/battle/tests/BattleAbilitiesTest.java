@@ -41,7 +41,7 @@ public class BattleAbilitiesTest {
     
     @Test
     public void testFindAbilityById_getsRamAndRngIsSetToNotApplyStagger_dealsDamageOnly() throws NotAllPropertiesAreSetException {
-        BattleAbility ram = BattleAbilities.findAbilityById(1);
+        BattleAbility ram = BattleAbilities.findAbilityById(0);
         
         IndividualExorion attacker = TestExorions.findExorionById(0);
         IndividualExorion defender = TestExorions.findExorionById(1);
@@ -62,7 +62,7 @@ public class BattleAbilitiesTest {
     
     @Test
     public void testFindAbilityById_getsRamAndRngIsSetToApplyStagger_dealsDamageAndAppliesStagger() throws NotAllPropertiesAreSetException {
-        BattleAbility ram = BattleAbilities.findAbilityById(1);
+        BattleAbility ram = BattleAbilities.findAbilityById(0);
         
         IndividualExorion attacker = TestExorions.findExorionById(0);
         IndividualExorion defender = TestExorions.findExorionById(1);
@@ -79,5 +79,47 @@ public class BattleAbilitiesTest {
         assertThat(ram.getRequiredPowerPointsForStageTwo(), is(equalTo(2)));
         assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(47)));
         assertThat(modifiedDefender.getModifiedAccuracy(), is(equalTo(50)));
+    }   
+    
+    @Test
+    public void testFindAbilityById_getsBiteAndRngIsNotSetToApplyPoison_dealsDamageOnly() throws NotAllPropertiesAreSetException {
+        BattleAbility bite = BattleAbilities.findAbilityById(1);
+        
+        IndividualExorion attacker = TestExorions.findExorionById(0);
+        IndividualExorion defender = TestExorions.findExorionById(1);
+        
+        RandomNumberGeneratorMock rngMock = (RandomNumberGeneratorMock)(new MockCoreClassesFactory().getRandomNumberGeneratorSingletonInstance());
+        rngMock.setIntegerSequenceToUse(new int[] {2004, 2000});         
+        
+        BattleModifiedIndividualExorion modifiedDefender = bite.use(attacker, defender);
+        modifiedDefender.tick(attacker, modifiedDefender);
+        
+        assertThat(bite.getName(), is(equalTo("Bite")));
+        assertThat(bite.getDamageTypes(), hasItems(DamageTypes.SQUEEZE, DamageTypes.RIP, DamageTypes.INFECTION));
+        assertThat(bite.getLearningRequirements(), hasItems(AbilityLearningRequirements.TEETH));
+        assertThat(bite.getDelayMultiplier(), is(equalTo(1.1f)));
+        assertThat(bite.getRequiredPowerPointsForStageTwo(), is(equalTo(2)));
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(47)));
+    }
+    
+    @Test
+    public void testFindAbilityById_getsBiteAndRngIsSetToApplyPoison_dealsDamageOnlyAndTicksPoisonDamage() throws NotAllPropertiesAreSetException {
+        BattleAbility bite = BattleAbilities.findAbilityById(1);
+        
+        IndividualExorion attacker = TestExorions.findExorionById(0);
+        IndividualExorion defender = TestExorions.findExorionById(1);
+        
+        RandomNumberGeneratorMock rngMock = (RandomNumberGeneratorMock)(new MockCoreClassesFactory().getRandomNumberGeneratorSingletonInstance());
+        rngMock.setIntegerSequenceToUse(new int[] {2000, 199});         
+        
+        BattleModifiedIndividualExorion modifiedDefender = bite.use(attacker, defender);
+        modifiedDefender.tick(attacker, modifiedDefender);
+        
+        assertThat(bite.getName(), is(equalTo("Bite")));
+        assertThat(bite.getDamageTypes(), hasItems(DamageTypes.SQUEEZE, DamageTypes.RIP, DamageTypes.INFECTION));
+        assertThat(bite.getLearningRequirements(), hasItems(AbilityLearningRequirements.TEETH));
+        assertThat(bite.getDelayMultiplier(), is(equalTo(1.1f)));
+        assertThat(bite.getRequiredPowerPointsForStageTwo(), is(equalTo(2)));
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(42)));
     }    
 }

@@ -21,7 +21,6 @@ public abstract class IndividualExorionBattleModifier extends BattleModifiedIndi
     }
     
     protected abstract int getAmountOfTicks();
-    public abstract void setAttackerBaseStats(IndividualExorionBaseStats value);
     
     public void applyTo(BattleModifiedIndividualExorion target) {
         if (!target.reapplyModifierOfType(this.getClass())) {
@@ -30,7 +29,7 @@ public abstract class IndividualExorionBattleModifier extends BattleModifiedIndi
     }    
     
     @Override
-    public void tick(BattleModifiedIndividualExorion root) {
+    public void tick(BattleModifiedIndividualExorion attackerRoot, BattleModifiedIndividualExorion defenderRoot) {
         if (this.isActive()) {
             ticksLeftTillInactivation--;
         }

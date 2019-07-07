@@ -66,9 +66,7 @@ public class AbilityEffectApplicationRandomizerTest {
         poisonApplier.decorate(decoratedAbility);   
         
         IndividualExorion source = TestExorions.findExorionById(1);
-        IndividualExorion target = TestExorions.findExorionById(0);         
-        
-        poison.setAttackerBaseStats(source.getBaseStats());
+        IndividualExorion target = TestExorions.findExorionById(0);
         
         RandomNumberGeneratorMock rngMock = (RandomNumberGeneratorMock)(new MockCoreClassesFactory().getRandomNumberGeneratorSingletonInstance());
         rngMock.setIntegerSequenceToUse(new int[] {1001, 1000});

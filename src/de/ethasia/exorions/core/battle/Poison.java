@@ -1,13 +1,11 @@
 package de.ethasia.exorions.core.battle;
 
 import de.ethasia.exorions.core.BattleCalculator;
-import de.ethasia.exorions.core.IndividualExorionBaseStats;
 
 public class Poison extends IndividualExorionBattleModifier {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
-    private IndividualExorionBaseStats attackerBaseStats;
     private final BattleCalculator battleCalculator;
     
     //</editor-fold>
@@ -17,15 +15,6 @@ public class Poison extends IndividualExorionBattleModifier {
     public Poison() {
         battleCalculator = new BattleCalculator();
     }
-    
-    //</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Getters / Setters">
-    
-    @Override
-    public void setAttackerBaseStats(IndividualExorionBaseStats value) {
-        attackerBaseStats = value;
-    }    
     
     //</editor-fold>
 
@@ -54,6 +43,12 @@ public class Poison extends IndividualExorionBattleModifier {
         return modifiedExorion.getModifiedAttackPower();
     }
     
+    @Override
+    public int getModifiedSpecialAttackPower() {
+        throwExceptionIfNothingIsDecorated();
+        return modifiedExorion.getModifiedSpecialAttackPower();
+    }     
+    
     @Override    
     public int getModifiedDefense() {
         throwExceptionIfNothingIsDecorated();
@@ -67,23 +62,23 @@ public class Poison extends IndividualExorionBattleModifier {
     }    
     
     @Override
-    public void tick(BattleModifiedIndividualExorion defender) {
+    public void tick(BattleModifiedIndividualExorion attackerRoot, BattleModifiedIndividualExorion defenderRoot) {
         throwExceptionIfNothingIsDecorated();        
         
         if (!this.isActive()) {
-            modifiedExorion.tick(defender);
+            modifiedExorion.tick(attackerRoot, defenderRoot);
             return;
         }
         
-        int specialAttack = attackerBaseStats.getSpecialAttackValue();
-        int specialDefense = defender.getModifiedSpecialDefense();
+        int specialAttack = attackerRoot.getModifiedSpecialAttackPower();
+        int specialDefense = defenderRoot.getModifiedSpecialDefense();
         
         int specialAttackReduced = Math.round(specialAttack / 3.f);
         int damage = battleCalculator.calculateDamageFromAttackAndDefense(specialAttackReduced, specialDefense);
         modifiedExorion.takeDamage(damage);
         
-        super.tick(defender);
-        modifiedExorion.tick(defender);
+        super.tick(attackerRoot, defenderRoot);
+        modifiedExorion.tick(attackerRoot, defenderRoot);
     }
     
     //</editor-fold>

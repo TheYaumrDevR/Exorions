@@ -1,7 +1,6 @@
 package de.ethasia.exorions.core.battle;
 
 import de.ethasia.exorions.core.BattleCalculator;
-import de.ethasia.exorions.core.IndividualExorionBaseStats;
 
 public class Bleed extends IndividualExorionBattleModifier {
     
@@ -27,10 +26,6 @@ public class Bleed extends IndividualExorionBattleModifier {
     protected int getAmountOfTicks() {
         return 3;
     }
-
-    @Override
-    public void setAttackerBaseStats(IndividualExorionBaseStats value) {
-    }
     
     @Override
     public void applyTo(BattleModifiedIndividualExorion target) {
@@ -48,11 +43,11 @@ public class Bleed extends IndividualExorionBattleModifier {
     }     
     
     @Override
-    public void tick(BattleModifiedIndividualExorion root) {
+    public void tick(BattleModifiedIndividualExorion attackerRoot, BattleModifiedIndividualExorion defenderRoot) {
         throwExceptionIfNothingIsDecorated();
         
         if (!this.isActive()) {
-            modifiedExorion.tick(root);
+            modifiedExorion.tick(attackerRoot, defenderRoot);
             return;
         }        
         
@@ -60,8 +55,8 @@ public class Bleed extends IndividualExorionBattleModifier {
         int damage = battleCalculator.calculateDamageFromAttackAndDefense(bleedAttackPower, defenseToBaseDamageOn);
         modifiedExorion.takeDamage(damage);        
         
-        super.tick(root);
-        modifiedExorion.tick(root);
+        super.tick(attackerRoot, defenderRoot);
+        modifiedExorion.tick(attackerRoot, defenderRoot);
     }    
 
     @Override
@@ -80,6 +75,12 @@ public class Bleed extends IndividualExorionBattleModifier {
     public int getModifiedAttackPower() {
         throwExceptionIfNothingIsDecorated();
         return modifiedExorion.getModifiedAttackPower();
+    }
+    
+    @Override
+    public int getModifiedSpecialAttackPower() {
+        throwExceptionIfNothingIsDecorated();
+        return modifiedExorion.getModifiedSpecialAttackPower();
     }
     
     @Override

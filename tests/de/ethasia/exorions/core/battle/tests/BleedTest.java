@@ -123,7 +123,7 @@ public class BleedTest {
         int expectedTickDamage = battleCalculator.calculateDamageFromAttackAndDefense(bleedAttackPower, victim.getBaseStats().getDefenseValue());
         int expectedHealthAfterTick = victim.getBaseStats().getMaximumHealthPoints() - expectedTickDamage;
         
-        testCandidate.tick(testCandidate);
+        testCandidate.tick(attacker, testCandidate);
         
         assertThat(victim.getBaseStats().getCurrentHealthPoints(), is(equalTo(expectedHealthAfterTick)));
     }
@@ -131,7 +131,7 @@ public class BleedTest {
     @Test(expected = DecoratorMustDecorateSomethingException.class)
     public void testTick_decoratesNothing_throwsException() {
         Bleed testCandidate = new Bleed();
-        testCandidate.tick(testCandidate);
+        testCandidate.tick(null, testCandidate);
     }
     
     @Test
@@ -145,12 +145,12 @@ public class BleedTest {
         testCandidate.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
         testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());
 
-        testCandidate.tick(testCandidate);
-        testCandidate.tick(testCandidate);
+        testCandidate.tick(attacker, testCandidate);
+        testCandidate.tick(attacker, testCandidate);
         
         assertThat(testCandidate.isActive(), is(equalTo(true)));
         
-        testCandidate.tick(testCandidate);
+        testCandidate.tick(attacker, testCandidate);
         
         assertThat(testCandidate.isActive(), is(equalTo(false)));
     }
@@ -171,10 +171,10 @@ public class BleedTest {
         int expectedTickDamage = battleCalculator.calculateDamageFromAttackAndDefense(bleedAttackPower, victim.getBaseStats().getDefenseValue());
         int expectedHealthAfterTick = victim.getBaseStats().getMaximumHealthPoints() - 3 * expectedTickDamage;        
         
-        testCandidate.tick(testCandidate);
-        testCandidate.tick(testCandidate);
-        testCandidate.tick(testCandidate);
-        testCandidate.tick(testCandidate);
+        testCandidate.tick(attacker, testCandidate);
+        testCandidate.tick(attacker, testCandidate);
+        testCandidate.tick(attacker, testCandidate);
+        testCandidate.tick(attacker, testCandidate);
         
         assertThat(victim.getBaseStats().getCurrentHealthPoints(), is(equalTo(expectedHealthAfterTick)));        
     }    
@@ -187,7 +187,6 @@ public class BleedTest {
         IndividualExorion victim = TestExorions.findExorionById(0);
         IndividualExorion attacker = TestExorions.findExorionById(1);   
         
-        poison.setAttackerBaseStats(attacker.getBaseStats());
         poison.applyTo(victim);
         testCandidate.applyTo(poison);
         testCandidate.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
@@ -200,7 +199,7 @@ public class BleedTest {
         int expectedPoisonTickDamage = battleCalculator.calculateDamageFromAttackAndDefense(poisonAttackPower, victim.getBaseStats().getSpecialDefenseValue());
         int expectedHealthAfterTick = victim.getBaseStats().getMaximumHealthPoints() - expectedBleedTickDamage - expectedPoisonTickDamage;           
         
-        testCandidate.tick(testCandidate);   
+        testCandidate.tick(attacker, testCandidate);   
         
         assertThat(victim.getBaseStats().getCurrentHealthPoints(), is(equalTo(expectedHealthAfterTick)));        
     }
@@ -214,7 +213,6 @@ public class BleedTest {
         IndividualExorion victim = TestExorions.findExorionById(0);
         IndividualExorion attacker = TestExorions.findExorionById(1);   
         
-        poison.setAttackerBaseStats(attacker.getBaseStats());
         bleedOne.applyTo(victim);
         poison.applyTo(bleedOne);
         
@@ -224,18 +222,18 @@ public class BleedTest {
         testCandidate.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
         testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());          
 
-        poison.tick(poison);
-        poison.tick(poison);
+        poison.tick(attacker, poison);
+        poison.tick(attacker, poison);
         
         assertThat(bleedOne.isActive(), is(equalTo(true)));
         
         testCandidate.applyTo(poison);
-        testCandidate.tick(testCandidate);
+        testCandidate.tick(attacker, testCandidate);
         
         assertThat(bleedOne.isActive(), is(equalTo(true)));  
         
-        testCandidate.tick(testCandidate);
-        testCandidate.tick(testCandidate);
+        testCandidate.tick(attacker, testCandidate);
+        testCandidate.tick(attacker, testCandidate);
         
         assertThat(bleedOne.isActive(), is(equalTo(false)));
     }
@@ -250,7 +248,6 @@ public class BleedTest {
         IndividualExorion victim = TestExorions.findExorionById(0);
         IndividualExorion attacker = TestExorions.findExorionById(1);    
         
-        poison.setAttackerBaseStats(attacker.getBaseStats());
         bleedOne.applyTo(victim);
         bleedTwo.applyTo(bleedOne);
         poison.applyTo(bleedTwo);
@@ -264,12 +261,12 @@ public class BleedTest {
         testCandidate.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
         testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());          
         
-        bleedTwo.tick(bleedTwo);
-        bleedTwo.tick(bleedTwo);
+        bleedTwo.tick(attacker, bleedTwo);
+        bleedTwo.tick(attacker, bleedTwo);
         
         testCandidate.applyTo(poison);
         
-        testCandidate.tick(testCandidate);
+        testCandidate.tick(attacker, testCandidate);
         
         assertThat(bleedOne.isActive(), is(equalTo(true)));   
         assertThat(bleedTwo.isActive(), is(equalTo(true)));
@@ -292,9 +289,9 @@ public class BleedTest {
         testCandidate.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
         testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());     
         
-        bleedOne.tick(bleedOne);   
-        bleedOne.tick(bleedOne); 
-        bleedOne.tick(bleedOne); 
+        bleedOne.tick(attacker, bleedOne);   
+        bleedOne.tick(attacker, bleedOne); 
+        bleedOne.tick(attacker, bleedOne); 
         
         assertThat(bleedOne.isActive(), is(equalTo(false))); 
         

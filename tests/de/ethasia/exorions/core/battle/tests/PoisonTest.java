@@ -20,9 +20,8 @@ public class PoisonTest {
         IndividualExorion victim = TestExorions.findExorionById(0); 
         IndividualExorion attacker = TestExorions.findExorionById(1);
         testCandidate.applyTo(victim);
-        testCandidate.setAttackerBaseStats(attacker.getBaseStats());
         
-        testCandidate.tick(testCandidate);
+        testCandidate.tick(attacker, testCandidate);
         assertThat(victim.getBaseStats().getCurrentHealthPoints(), is(equalTo(63)));
     }
     
@@ -30,7 +29,7 @@ public class PoisonTest {
     public void testTick_decoratesNothing_throwsException() {
         Poison testCandidate = new Poison();
         
-        testCandidate.tick(testCandidate);
+        testCandidate.tick(null, testCandidate);
     }  
     
     @Test
@@ -132,14 +131,13 @@ public class PoisonTest {
         IndividualExorion attacker = TestExorions.findExorionById(1);
         
         testCandidate.applyTo(victim);
-        testCandidate.setAttackerBaseStats(attacker.getBaseStats());
         
         assertThat(testCandidate.isActive(), is(true));
         
-        testCandidate.tick(testCandidate);
+        testCandidate.tick(attacker, testCandidate);
         assertThat(testCandidate.isActive(), is(true));
         
-        testCandidate.tick(testCandidate);
+        testCandidate.tick(attacker, testCandidate);
         assertThat(testCandidate.isActive(), is(false));        
     } 
     
@@ -149,12 +147,11 @@ public class PoisonTest {
         IndividualExorion victim = TestExorions.findExorionById(0);
         IndividualExorion attacker = TestExorions.findExorionById(1);
         
-        testCandidate.applyTo(victim);
-        testCandidate.setAttackerBaseStats(attacker.getBaseStats());   
+        testCandidate.applyTo(victim);  
         
-        testCandidate.tick(testCandidate);
-        testCandidate.tick(testCandidate);
-        testCandidate.tick(testCandidate);
+        testCandidate.tick(attacker, testCandidate);
+        testCandidate.tick(attacker, testCandidate);
+        testCandidate.tick(attacker, testCandidate);
         
         assertThat(victim.getBaseStats().getCurrentHealthPoints(), is(equalTo(58)));
     }
@@ -166,15 +163,14 @@ public class PoisonTest {
         IndividualExorion victim = TestExorions.findExorionById(0);
         IndividualExorion attacker = TestExorions.findExorionById(1);
         
-        testCandidate.applyTo(victim);
-        testCandidate.setAttackerBaseStats(attacker.getBaseStats());   
+        testCandidate.applyTo(victim); 
         
-        testCandidate.tick(testCandidate);
-        testCandidate.tick(testCandidate);
+        testCandidate.tick(attacker, testCandidate);
+        testCandidate.tick(attacker, testCandidate);
 
         assertThat(testCandidate.isActive(), is(equalTo(false)));
         
         secondPoison.applyTo(testCandidate);
         assertThat(testCandidate.isActive(), is(equalTo(true)));
-    }    
+    }   
 }

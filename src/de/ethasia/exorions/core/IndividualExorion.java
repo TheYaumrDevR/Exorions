@@ -76,6 +76,11 @@ public class IndividualExorion extends BattleModifiedIndividualExorion {
     }
     
     @Override
+    public int getModifiedSpecialAttackPower() {
+        return baseStats.getSpecialAttackValue();
+    }
+    
+    @Override
     public int getModifiedDefense() {
         return baseStats.getDefenseValue();
     }
@@ -113,7 +118,7 @@ public class IndividualExorion extends BattleModifiedIndividualExorion {
     }
     
     @Override
-    public void tick(BattleModifiedIndividualExorion root) {}
+    public void tick(BattleModifiedIndividualExorion attackerRoot, BattleModifiedIndividualExorion defenderRoot) {}
     
     @Override
     protected boolean reapplyModifierOfType(Class type) {

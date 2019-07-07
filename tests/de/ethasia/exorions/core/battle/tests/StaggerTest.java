@@ -33,10 +33,10 @@ public class StaggerTest {
         
         assertThat(testCandidate.isActive(), is(true));
         
-        testCandidate.tick(testCandidate);
+        testCandidate.tick(null, testCandidate);
         assertThat(testCandidate.isActive(), is(true));
         
-        testCandidate.tick(testCandidate);
+        testCandidate.tick(null, testCandidate);
         assertThat(testCandidate.isActive(), is(false));        
     }
     
@@ -48,10 +48,10 @@ public class StaggerTest {
         testCandidate.applyTo(victim);
         assertThat(testCandidate.getModifiedAccuracy(), is(equalTo(50)));
         
-        testCandidate.tick(testCandidate);
+        testCandidate.tick(null, testCandidate);
         assertThat(testCandidate.getModifiedAccuracy(), is(equalTo(50)));
         
-        testCandidate.tick(testCandidate);
+        testCandidate.tick(null, testCandidate);
         assertThat(testCandidate.getModifiedAccuracy(), is(equalTo(63)));        
     }
     
@@ -73,8 +73,6 @@ public class StaggerTest {
         
         IndividualExorion victim = TestExorions.findExorionById(0);
         IndividualExorion attacker = TestExorions.findExorionById(1);
-        
-        poison.setAttackerBaseStats(attacker.getBaseStats());
         
         poison.applyTo(victim);
         testCandidate.applyTo(poison);
@@ -163,10 +161,9 @@ public class StaggerTest {
         
         testCandidate.applyTo(victim);
         firstDecorator.applyTo(testCandidate);
-        firstDecorator.setAttackerBaseStats(attacker.getBaseStats());
         
-        firstDecorator.tick(firstDecorator);
-        firstDecorator.tick(firstDecorator);
+        firstDecorator.tick(attacker, firstDecorator);
+        firstDecorator.tick(attacker, firstDecorator);
         
         assertThat(testCandidate.isActive(), is(equalTo(false)));
         
