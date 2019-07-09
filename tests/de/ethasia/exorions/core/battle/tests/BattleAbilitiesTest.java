@@ -4,7 +4,7 @@ import de.ethasia.exorions.core.AbilityLearningRequirements;
 import de.ethasia.exorions.core.DamageTypes;
 import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
-import de.ethasia.exorions.core.battle.BattleAbilities;
+import de.ethasia.exorions.ioadapters.repositories.BattleAbilities;
 import de.ethasia.exorions.core.battle.BattleAbility;
 import de.ethasia.exorions.core.battle.BattleModifiedIndividualExorion;
 import de.ethasia.exorions.core.general.PersistedEntityNotFoundException;

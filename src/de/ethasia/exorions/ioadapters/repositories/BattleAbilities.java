@@ -1,7 +1,15 @@
-package de.ethasia.exorions.core.battle;
+package de.ethasia.exorions.ioadapters.repositories;
 
 import de.ethasia.exorions.core.AbilityLearningRequirements;
 import de.ethasia.exorions.core.DamageTypes;
+import de.ethasia.exorions.core.battle.AbilityEffectApplicationRandomizer;
+import de.ethasia.exorions.core.battle.ApplyBattleModifierAbilityEffect;
+import de.ethasia.exorions.core.battle.BattleAbility;
+import de.ethasia.exorions.core.battle.BattleAbilityBase;
+import de.ethasia.exorions.core.battle.Bleed;
+import de.ethasia.exorions.core.battle.DirectDamageAbilityEffect;
+import de.ethasia.exorions.core.battle.Poison;
+import de.ethasia.exorions.core.battle.Stagger;
 import de.ethasia.exorions.core.general.PersistedEntityNotFoundException;
 
 public class BattleAbilities {
