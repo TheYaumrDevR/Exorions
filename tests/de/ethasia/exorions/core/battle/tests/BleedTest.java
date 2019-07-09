@@ -115,7 +115,6 @@ public class BleedTest {
         IndividualExorion attacker = TestExorions.findExorionById(1);        
         
         testCandidate.applyTo(victim);
-        testCandidate.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
         testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());
         
         BattleCalculator battleCalculator = new BattleCalculator();
@@ -142,7 +141,6 @@ public class BleedTest {
         IndividualExorion attacker = TestExorions.findExorionById(1);    
         
         testCandidate.applyTo(victim);
-        testCandidate.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
         testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());
 
         testCandidate.tick(attacker, testCandidate);
@@ -163,7 +161,6 @@ public class BleedTest {
         IndividualExorion attacker = TestExorions.findExorionById(1);    
         
         testCandidate.applyTo(victim);
-        testCandidate.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
         testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());
 
         BattleCalculator battleCalculator = new BattleCalculator();
@@ -189,7 +186,6 @@ public class BleedTest {
         
         poison.applyTo(victim);
         testCandidate.applyTo(poison);
-        testCandidate.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
         testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());  
         
         BattleCalculator battleCalculator = new BattleCalculator();
@@ -216,10 +212,8 @@ public class BleedTest {
         bleedOne.applyTo(victim);
         poison.applyTo(bleedOne);
         
-        bleedOne.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
         bleedOne.setDefenseValueToBaseDamageOn(victim.getModifiedDefense()); 
         
-        testCandidate.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
         testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());          
 
         poison.tick(attacker, poison);
@@ -251,14 +245,11 @@ public class BleedTest {
         bleedOne.applyTo(victim);
         bleedTwo.applyTo(bleedOne);
         poison.applyTo(bleedTwo);
-        
-        bleedOne.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
+
         bleedOne.setDefenseValueToBaseDamageOn(victim.getModifiedDefense()); 
 
-        bleedTwo.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
         bleedTwo.setDefenseValueToBaseDamageOn(victim.getModifiedDefense()); 
         
-        testCandidate.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
         testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());          
         
         bleedTwo.tick(attacker, bleedTwo);
@@ -283,10 +274,8 @@ public class BleedTest {
         
         bleedOne.applyTo(victim);    
         
-        bleedOne.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
         bleedOne.setDefenseValueToBaseDamageOn(victim.getModifiedDefense()); 
         
-        testCandidate.setAttackPowerToBaseDamageOn(attacker.getModifiedAttackPower());
         testCandidate.setDefenseValueToBaseDamageOn(victim.getModifiedDefense());     
         
         bleedOne.tick(attacker, bleedOne);   

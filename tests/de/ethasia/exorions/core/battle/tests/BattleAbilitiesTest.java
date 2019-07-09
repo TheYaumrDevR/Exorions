@@ -103,7 +103,7 @@ public class BattleAbilitiesTest {
     }
     
     @Test
-    public void testFindAbilityById_getsBiteAndRngIsSetToApplyPoison_dealsDamageOnlyAndTicksPoisonDamage() throws NotAllPropertiesAreSetException {
+    public void testFindAbilityById_getsBiteAndRngIsSetToApplyPoison_dealsDamageAndTicksPoisonDamage() throws NotAllPropertiesAreSetException {
         BattleAbility bite = BattleAbilities.findAbilityById(1);
         
         IndividualExorion attacker = TestExorions.findExorionById(0);
@@ -115,11 +115,43 @@ public class BattleAbilitiesTest {
         BattleModifiedIndividualExorion modifiedDefender = bite.use(attacker, defender);
         modifiedDefender.tick(attacker, modifiedDefender);
         
-        assertThat(bite.getName(), is(equalTo("Bite")));
-        assertThat(bite.getDamageTypes(), hasItems(DamageTypes.SQUEEZE, DamageTypes.RIP, DamageTypes.INFECTION));
-        assertThat(bite.getLearningRequirements(), hasItems(AbilityLearningRequirements.TEETH));
-        assertThat(bite.getDelayMultiplier(), is(equalTo(1.1f)));
-        assertThat(bite.getRequiredPowerPointsForStageTwo(), is(equalTo(2)));
         assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(42)));
+    }    
+    
+    @Test
+    public void testFindAbilityById_getsClawSwipeAndRngIsSetToApplyBleed_dealsDirectAndBleedDamage() throws NotAllPropertiesAreSetException {
+        BattleAbility clawSwipe = BattleAbilities.findAbilityById(2);
+        
+        IndividualExorion attacker = TestExorions.findExorionById(0);
+        IndividualExorion defender = TestExorions.findExorionById(1);      
+        
+        RandomNumberGeneratorMock rngMock = (RandomNumberGeneratorMock)(new MockCoreClassesFactory().getRandomNumberGeneratorSingletonInstance());
+        rngMock.setIntegerSequenceToUse(new int[] {573, 199}); 
+        
+        BattleModifiedIndividualExorion modifiedDefender = clawSwipe.use(attacker, defender);
+        modifiedDefender.tick(attacker, modifiedDefender);
+        
+        assertThat(clawSwipe.getName(), is(equalTo("Claw Swipe")));
+        assertThat(clawSwipe.getDamageTypes(), hasItems(DamageTypes.CUT));
+        assertThat(clawSwipe.getLearningRequirements(), hasItems(AbilityLearningRequirements.CLAWS));
+        assertThat(clawSwipe.getDelayMultiplier(), is(equalTo(1.0f)));
+        assertThat(clawSwipe.getRequiredPowerPointsForStageTwo(), is(equalTo(2)));
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(31)));
+    }
+    
+    @Test
+    public void testFindAbilityById_getsClawSwipeAndRngIsNotSetToApplyBleed_dealsDirectOnly() throws NotAllPropertiesAreSetException {
+        BattleAbility clawSwipe = BattleAbilities.findAbilityById(2);
+        
+        IndividualExorion attacker = TestExorions.findExorionById(0);
+        IndividualExorion defender = TestExorions.findExorionById(1);      
+        
+        RandomNumberGeneratorMock rngMock = (RandomNumberGeneratorMock)(new MockCoreClassesFactory().getRandomNumberGeneratorSingletonInstance());
+        rngMock.setIntegerSequenceToUse(new int[] {1501, 199}); 
+        
+        BattleModifiedIndividualExorion modifiedDefender = clawSwipe.use(attacker, defender);
+        modifiedDefender.tick(attacker, modifiedDefender);
+        
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(47)));
     }    
 }

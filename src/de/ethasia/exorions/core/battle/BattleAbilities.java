@@ -16,6 +16,8 @@ public class BattleAbilities {
                 return createRam();
             case 1:
                 return createBite();
+            case 2:
+                return createClawSwipe();
         }
         
         return null;
@@ -71,6 +73,29 @@ public class BattleAbilities {
         ramDamageEffect.decorate(poisonRandomizer);        
         
         return ramDamageEffect;
+    }
+    
+    private static BattleAbility createClawSwipe() {
+        BattleAbilityBase clawSwipeBase = new BattleAbilityBase.Builder()
+            .setName("Claw Swipe")
+            .setDamageType(DamageTypes.CUT)
+            .setLearningRequirements(AbilityLearningRequirements.CLAWS)
+            .setDelayMultiplier(1.0f)
+            .setRequiredPowerPointsForStageTwo(2)
+            .build();
+        
+        Bleed bleed = new Bleed();
+        ApplyBattleModifierAbilityEffect applyBleed = new ApplyBattleModifierAbilityEffect(bleed);
+        applyBleed.decorate(clawSwipeBase);
+        
+        AbilityEffectApplicationRandomizer bleedRandomizer = new AbilityEffectApplicationRandomizer();
+        bleedRandomizer.setApplyChanceInPerTenThousand(1500);
+        bleedRandomizer.decorate(applyBleed);
+        
+        DirectDamageAbilityEffect clawSwipeDamage = new DirectDamageAbilityEffect();
+        clawSwipeDamage.decorate(bleedRandomizer);
+        
+        return clawSwipeDamage;
     }
     
     //</editor-fold>

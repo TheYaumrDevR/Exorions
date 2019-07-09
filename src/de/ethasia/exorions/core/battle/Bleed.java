@@ -7,7 +7,6 @@ public class Bleed extends IndividualExorionBattleModifier {
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
     private final BattleCalculator battleCalculator;
-    private int attackPowerToBaseDamageOn;
     private int defenseToBaseDamageOn;
     
     //</editor-fold>
@@ -51,7 +50,7 @@ public class Bleed extends IndividualExorionBattleModifier {
             return;
         }        
         
-        int bleedAttackPower = Math.round(attackPowerToBaseDamageOn / 4.f);
+        int bleedAttackPower = Math.round(attackerRoot.getModifiedAttackPower() / 4.f);
         int damage = battleCalculator.calculateDamageFromAttackAndDefense(bleedAttackPower, defenseToBaseDamageOn);
         modifiedExorion.takeDamage(damage);        
         
@@ -98,10 +97,6 @@ public class Bleed extends IndividualExorionBattleModifier {
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Methods">
-    
-    public void setAttackPowerToBaseDamageOn(int attackOrSpecialAttackValue) {
-        attackPowerToBaseDamageOn = attackOrSpecialAttackValue;
-    }
     
     public void setDefenseValueToBaseDamageOn(int defenseValue) {
         defenseToBaseDamageOn = defenseValue;
