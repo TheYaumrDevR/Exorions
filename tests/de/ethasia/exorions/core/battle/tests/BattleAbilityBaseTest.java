@@ -137,6 +137,24 @@ public class BattleAbilityBaseTest {
         assertThat(product.getMinimumLevelRequired(), is(equalTo(4)));
     }
     
+    @Test(expected = SetValueIsNotWithinLegalBoundsException.class)
+    public void testBuilderBuild_minimumRequiredLevelIsLowerThanOne_throwsException() {
+        BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();
+        
+        BattleAbilityBase product = testCandidate
+            .setMinimumLevelRequired(0)
+            .build();
+    }
+    
+    @Test(expected = SetValueIsNotWithinLegalBoundsException.class)
+    public void testBuilderBuild_minimumRequiredLevelIsHigherThanMax_throwsException() {
+        BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();
+        
+        BattleAbilityBase product = testCandidate
+            .setMinimumLevelRequired(51)
+            .build();
+    }    
+    
     @Test
     public void testBuilderBuild_setAbilityLevel_abilityLevelIsInProduct() {
         BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();

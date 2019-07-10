@@ -196,7 +196,14 @@ public class DirectDamageAbilityEffectTest {
         DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
         
         testCandidate.getMinimumLevelRequired();
-    }      
+    }  
+
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testGetAbilityLevel_decoratesNothing_throwsException() {
+        DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
+        
+        testCandidate.getAbilityLevel();
+    }
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     

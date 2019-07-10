@@ -2,6 +2,7 @@ package de.ethasia.exorions.core.battle;
 
 import de.ethasia.exorions.core.AbilityLearningRequirements;
 import de.ethasia.exorions.core.DamageTypes;
+import de.ethasia.exorions.core.ExorionSpecies;
 import de.ethasia.exorions.core.general.SetValueIsNotWithinLegalBoundsException;
 
 import java.util.HashSet;
@@ -48,6 +49,7 @@ public class BattleAbilityBase extends BattleAbility {
     }
     
     private final int abilityLevel;
+    @Override
     public int getAbilityLevel() {
         return abilityLevel;
     }
@@ -122,6 +124,10 @@ public class BattleAbilityBase extends BattleAbility {
         }
         
         public Builder setMinimumLevelRequired(int value) {
+            if (value < 1 || value > ExorionSpecies.MAXIMUM_LEVEL) {
+                throw new SetValueIsNotWithinLegalBoundsException(1, ExorionSpecies.MAXIMUM_LEVEL);
+            }
+            
             minimumLevelRequired = value;
             return this;
         }

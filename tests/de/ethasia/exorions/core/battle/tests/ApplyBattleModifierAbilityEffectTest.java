@@ -136,4 +136,11 @@ public class ApplyBattleModifierAbilityEffectTest {
         
         testCandidate.getMinimumLevelRequired();
     }    
+    
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testGetAbilityLevel_decoratesNothing_throwsException() {
+        ApplyBattleModifierAbilityEffect testCandidate = new ApplyBattleModifierAbilityEffect(null);
+        
+        testCandidate.getAbilityLevel();
+    }
 }

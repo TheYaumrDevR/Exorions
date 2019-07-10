@@ -43,6 +43,7 @@ public class BattleAbilities {
             .setDelayMultiplier(1.2f)
             .setRequiredPowerPointsForStageTwo(2)
             .setMinimumLevelRequired(1)
+            .setAbilityLevel(1)
             .build();
         
         Stagger stagger = new Stagger();
@@ -69,6 +70,7 @@ public class BattleAbilities {
             .setDelayMultiplier(1.1f)
             .setRequiredPowerPointsForStageTwo(2)
             .setMinimumLevelRequired(1)
+            .setAbilityLevel(1)
             .build();
         
         Poison poison = new Poison();
@@ -93,6 +95,7 @@ public class BattleAbilities {
             .setDelayMultiplier(1.0f)
             .setRequiredPowerPointsForStageTwo(2)
             .setMinimumLevelRequired(1)
+            .setAbilityLevel(1)
             .build();
         
         Bleed bleed = new Bleed();

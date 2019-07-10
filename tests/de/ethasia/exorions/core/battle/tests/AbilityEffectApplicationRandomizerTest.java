@@ -87,5 +87,12 @@ public class AbilityEffectApplicationRandomizerTest {
         AbilityEffectApplicationRandomizer testCandidate = new AbilityEffectApplicationRandomizer();
         
         testCandidate.getMinimumLevelRequired();
-    }    
+    }  
+    
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testGetAbilityLevel_decoratesNothing_throwsException() {
+        AbilityEffectApplicationRandomizer testCandidate = new AbilityEffectApplicationRandomizer();
+        
+        testCandidate.getAbilityLevel();
+    }
 }
