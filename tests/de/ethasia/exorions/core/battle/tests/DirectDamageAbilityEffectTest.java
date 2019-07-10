@@ -191,6 +191,13 @@ public class DirectDamageAbilityEffectTest {
         testCandidate.useDecoratedAbilitiesOnly(attacker, defender);
     }
     
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testGetMinimumLevelRequired_decoratesNothing_throwsException() {
+        DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
+        
+        testCandidate.getMinimumLevelRequired();
+    }      
+    
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
     private IndividualExorion createIndividualExorionForTesting() throws NotAllPropertiesAreSetException {

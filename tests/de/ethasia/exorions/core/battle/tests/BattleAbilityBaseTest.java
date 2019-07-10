@@ -3,6 +3,7 @@ package de.ethasia.exorions.core.battle.tests;
 import de.ethasia.exorions.core.AbilityLearningRequirements;
 import de.ethasia.exorions.core.battle.BattleAbilityBase;
 import de.ethasia.exorions.core.DamageTypes;
+import de.ethasia.exorions.core.general.SetValueIsNotWithinLegalBoundsException;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -124,4 +125,44 @@ public class BattleAbilityBaseTest {
         
         assertThat(product.getRequiredPowerPointsForStageTwo(), is(equalTo(2)));
     }
+    
+    @Test
+    public void testBuilderBuild_setMinimumLevelRequired_minimumLevelRequiredIsInProduct() {
+        BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();
+        
+        BattleAbilityBase product = testCandidate
+            .setMinimumLevelRequired(4)
+            .build();
+        
+        assertThat(product.getMinimumLevelRequired(), is(equalTo(4)));
+    }
+    
+    @Test
+    public void testBuilderBuild_setAbilityLevel_abilityLevelIsInProduct() {
+        BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();
+        
+        BattleAbilityBase product = testCandidate
+            .setAbilityLevel(7)
+            .build();
+        
+        assertThat(product.getAbilityLevel(), is(equalTo(7)));
+    }
+    
+    @Test(expected = SetValueIsNotWithinLegalBoundsException.class)
+    public void testBuilderBuild_setAbilityLevelIsOutsideLegalBounds_throwsException() {
+        BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();
+        
+        BattleAbilityBase product = testCandidate
+            .setAbilityLevel(21)
+            .build();        
+    }
+    
+    @Test(expected = SetValueIsNotWithinLegalBoundsException.class)
+    public void testBuilderBuild_setAbilityLevelIsNegative_throwsException() {
+        BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();
+        
+        BattleAbilityBase product = testCandidate
+            .setAbilityLevel(0)
+            .build();        
+    }    
 }

@@ -54,6 +54,15 @@ public abstract class BattleAbilityEffect extends BattleAbility {
         throw new DecoratorMustDecorateSomethingException();
     }    
     
+    @Override
+    public int getMinimumLevelRequired() {
+        if (null != decoratedAbility) {
+            return decoratedAbility.getMinimumLevelRequired();            
+        }
+        
+        throw new DecoratorMustDecorateSomethingException();
+    }
+    
     public void decorate(BattleAbility battleAbility) {
         decoratedAbility = battleAbility;
     }

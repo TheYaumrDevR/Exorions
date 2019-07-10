@@ -169,5 +169,5 @@ public class StaggerTest {
         
         secondStagger.applyTo(firstDecorator);
         assertThat(testCandidate.isActive(), is(equalTo(true)));
-    }    
+    } 
 }

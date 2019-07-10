@@ -11,6 +11,7 @@ public abstract class BattleAbility {
     public abstract Set<AbilityLearningRequirements> getLearningRequirements();
     public abstract float getDelayMultiplier();
     public abstract int getRequiredPowerPointsForStageTwo();
+    public abstract int getMinimumLevelRequired();
     
     public abstract BattleModifiedIndividualExorion use(BattleModifiedIndividualExorion attacker, BattleModifiedIndividualExorion defender);
 }

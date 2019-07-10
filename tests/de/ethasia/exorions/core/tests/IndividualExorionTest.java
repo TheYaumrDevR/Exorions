@@ -16,6 +16,7 @@ import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
 import de.ethasia.exorions.core.interfaces.RealCoreClassesFactory;
 import de.ethasia.exorions.core.mocks.MockGenome;
 import de.ethasia.exorions.core.mocks.TestExorions;
+import de.ethasia.exorions.ioadapters.repositories.BattleAbilities;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

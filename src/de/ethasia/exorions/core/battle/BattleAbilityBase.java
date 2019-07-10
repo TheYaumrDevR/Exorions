@@ -2,6 +2,7 @@ package de.ethasia.exorions.core.battle;
 
 import de.ethasia.exorions.core.AbilityLearningRequirements;
 import de.ethasia.exorions.core.DamageTypes;
+import de.ethasia.exorions.core.general.SetValueIsNotWithinLegalBoundsException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -40,6 +41,17 @@ public class BattleAbilityBase extends BattleAbility {
         return requiredPowerPointsForStageTwo;
     }
     
+    private final int minimumLevelRequired;
+    @Override
+    public int getMinimumLevelRequired() {
+        return minimumLevelRequired;
+    }
+    
+    private final int abilityLevel;
+    public int getAbilityLevel() {
+        return abilityLevel;
+    }
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Constructors">
@@ -50,6 +62,8 @@ public class BattleAbilityBase extends BattleAbility {
         learningRequirements = builder.learningRequirements;
         delayMultiplier = builder.delayMultiplier;
         requiredPowerPointsForStageTwo = builder.requiredPowerPointsForStageTwo;
+        minimumLevelRequired = builder.minimumLevelRequired;
+        abilityLevel = builder.abilityLevel;
     }
     
     //</editor-fold>
@@ -59,7 +73,7 @@ public class BattleAbilityBase extends BattleAbility {
     @Override
     public BattleModifiedIndividualExorion use(BattleModifiedIndividualExorion attacker, BattleModifiedIndividualExorion defender) { 
         return defender; 
-    }    
+    }   
     
     //</editor-fold>
     
@@ -67,11 +81,15 @@ public class BattleAbilityBase extends BattleAbility {
     
     public static class Builder {
         
+        private static final int MAXIMUM_ABILITY_LEVEL = 20;
+        
         private String name;
         private final Set<DamageTypes> damageTypes;
         private final Set<AbilityLearningRequirements> learningRequirements;
         private float delayMultiplier;
         private int requiredPowerPointsForStageTwo;
+        private int minimumLevelRequired;
+        private int abilityLevel;
         
         public Builder() {
             damageTypes = new HashSet<>();
@@ -100,6 +118,20 @@ public class BattleAbilityBase extends BattleAbility {
         
         public Builder setRequiredPowerPointsForStageTwo(int value) {
             requiredPowerPointsForStageTwo = value;
+            return this;
+        }
+        
+        public Builder setMinimumLevelRequired(int value) {
+            minimumLevelRequired = value;
+            return this;
+        }
+        
+        public Builder setAbilityLevel(int value) {
+            if (value > MAXIMUM_ABILITY_LEVEL || value < 1) {
+                throw new SetValueIsNotWithinLegalBoundsException(1, MAXIMUM_ABILITY_LEVEL);
+            }
+            
+            abilityLevel = value;
             return this;
         }
         

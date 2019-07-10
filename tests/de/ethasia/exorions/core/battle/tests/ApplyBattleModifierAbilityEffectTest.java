@@ -128,5 +128,12 @@ public class ApplyBattleModifierAbilityEffectTest {
         BattleModifiedIndividualExorion modifiedTarget = testCandidate.useDecoratedAbilitiesOnly(attacker, poison);
         
         assertThat(modifiedTarget, is(sameInstance(poison)));
-    }  
+    }
+    
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testGetMinimumLevelRequired_decoratesNothing_throwsException() {
+        ApplyBattleModifierAbilityEffect testCandidate = new ApplyBattleModifierAbilityEffect(null);
+        
+        testCandidate.getMinimumLevelRequired();
+    }    
 }

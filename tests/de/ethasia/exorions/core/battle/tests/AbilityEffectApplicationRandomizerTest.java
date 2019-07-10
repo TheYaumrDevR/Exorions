@@ -81,4 +81,11 @@ public class AbilityEffectApplicationRandomizerTest {
         result = testCandidate.use(source, target); 
         assertThat(result, is(sameInstance(poison)));
     }
+    
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testGetMinimumLevelRequired_decoratesNothing_throwsException() {
+        AbilityEffectApplicationRandomizer testCandidate = new AbilityEffectApplicationRandomizer();
+        
+        testCandidate.getMinimumLevelRequired();
+    }    
 }

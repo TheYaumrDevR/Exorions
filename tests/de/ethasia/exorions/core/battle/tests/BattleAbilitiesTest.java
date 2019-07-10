@@ -56,6 +56,7 @@ public class BattleAbilitiesTest {
         assertThat(ram.getLearningRequirements(), hasItems(AbilityLearningRequirements.LOCOMOTION, AbilityLearningRequirements.HORNS));
         assertThat(ram.getDelayMultiplier(), is(equalTo(1.2f)));
         assertThat(ram.getRequiredPowerPointsForStageTwo(), is(equalTo(2)));
+        assertThat(ram.getMinimumLevelRequired(), is(equalTo(1)));
         assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(47)));
         assertThat(modifiedDefender.getModifiedAccuracy(), is(equalTo(63)));
     }
@@ -99,6 +100,7 @@ public class BattleAbilitiesTest {
         assertThat(bite.getLearningRequirements(), hasItems(AbilityLearningRequirements.TEETH));
         assertThat(bite.getDelayMultiplier(), is(equalTo(1.1f)));
         assertThat(bite.getRequiredPowerPointsForStageTwo(), is(equalTo(2)));
+        assertThat(bite.getMinimumLevelRequired(), is(equalTo(1)));
         assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(47)));
     }
     
@@ -136,6 +138,7 @@ public class BattleAbilitiesTest {
         assertThat(clawSwipe.getLearningRequirements(), hasItems(AbilityLearningRequirements.CLAWS));
         assertThat(clawSwipe.getDelayMultiplier(), is(equalTo(1.0f)));
         assertThat(clawSwipe.getRequiredPowerPointsForStageTwo(), is(equalTo(2)));
+        assertThat(clawSwipe.getMinimumLevelRequired(), is(equalTo(1)));
         assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(31)));
     }
     
@@ -153,5 +156,5 @@ public class BattleAbilitiesTest {
         modifiedDefender.tick(attacker, modifiedDefender);
         
         assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(47)));
-    }    
+    }
 }
