@@ -46,7 +46,6 @@ public class BattleAbilityBase extends BattleAbility {
         return requiredPowerPointsForStageTwo;
     }
     
-    private final int minimumLevelRequired;
     @Override
     public int getMinimumLevelRequired() {
         return requiredLevelByAbilityLevel.get(abilityLevel);
@@ -68,7 +67,6 @@ public class BattleAbilityBase extends BattleAbility {
         learningRequirements = builder.learningRequirements;
         delayMultiplier = builder.delayMultiplier;
         requiredPowerPointsForStageTwo = builder.requiredPowerPointsForStageTwo;
-        minimumLevelRequired = builder.minimumLevelRequired;
         abilityLevel = builder.abilityLevel;
         requiredLevelByAbilityLevel = builder.requiredLevelByAbilityLevel;
     }
@@ -95,7 +93,6 @@ public class BattleAbilityBase extends BattleAbility {
         private final Set<AbilityLearningRequirements> learningRequirements;
         private float delayMultiplier;
         private int requiredPowerPointsForStageTwo;
-        private int minimumLevelRequired;
         private int abilityLevel;
         
         private Map<Integer, Integer> requiredLevelByAbilityLevel;
@@ -127,15 +124,6 @@ public class BattleAbilityBase extends BattleAbility {
         
         public Builder setRequiredPowerPointsForStageTwo(int value) {
             requiredPowerPointsForStageTwo = value;
-            return this;
-        }
-        
-        public Builder setMinimumLevelRequired(int value) {
-            if (value < 1 || value > ExorionSpecies.MAXIMUM_LEVEL) {
-                throw new SetValueIsNotWithinLegalBoundsException(1, ExorionSpecies.MAXIMUM_LEVEL);
-            }
-            
-            minimumLevelRequired = value;
             return this;
         }
         

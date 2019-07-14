@@ -66,6 +66,7 @@ public class BattleFieldTest {
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .setAbilityLevel(1)
             .build();
         directDamageEffect.decorate(ability);    
         
@@ -112,6 +113,7 @@ public class BattleFieldTest {
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .setAbilityLevel(1)
             .build();
         directDamageEffect.decorate(ability);
         
@@ -119,6 +121,7 @@ public class BattleFieldTest {
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.HORNS)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .setAbilityLevel(1)
             .build();         
         
         IndividualExorion teamOneExorionOne = TestExorions.findExorionById(1);
@@ -149,6 +152,7 @@ public class BattleFieldTest {
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .setAbilityLevel(1)
             .build();
         directDamageEffect.decorate(ability);
         
@@ -156,6 +160,7 @@ public class BattleFieldTest {
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.HORNS)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .setAbilityLevel(1)
             .build();         
         
         IndividualExorion firstExorionOfFirstTeam = TestExorions.findExorionById(1);
@@ -188,6 +193,7 @@ public class BattleFieldTest {
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .setAbilityLevel(1)
             .build();
         directDamageEffect.decorate(ability);
         
@@ -195,6 +201,7 @@ public class BattleFieldTest {
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.HORNS)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .setAbilityLevel(1)
             .build(); 
         
         firstExorionOfFirstTeam.learnAbilityOnSlotOne(abilityTwo);
@@ -225,6 +232,7 @@ public class BattleFieldTest {
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .setAbilityLevel(1)
             .build();
         directDamageEffect.decorate(ability);
         
@@ -232,6 +240,7 @@ public class BattleFieldTest {
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.HORNS)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .setAbilityLevel(1)
             .build(); 
         
         firstExorionOfFirstTeam.learnAbilityOnSlotOne(abilityTwo);
@@ -263,6 +272,7 @@ public class BattleFieldTest {
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .setAbilityLevel(1)
             .build();
         directDamageEffect.decorate(ability); 
         
@@ -298,6 +308,7 @@ public class BattleFieldTest {
             .setName("Bite")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .setAbilityLevel(1)
             .build();
         bite.decorate(biteBase); 
         teamOneExorionOne.learnAbilityOnSlotOne(bite);
@@ -307,6 +318,7 @@ public class BattleFieldTest {
             .setName("Ram")
             .setLearningRequirements(AbilityLearningRequirements.HORNS)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .setAbilityLevel(1)
             .build();
         ram.decorate(ramBase); 
         teamTwoExorionOne.learnAbilityOnSlotOne(ram);
@@ -509,6 +521,7 @@ public class BattleFieldTest {
             .setName("Bite")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .setAbilityLevel(1)
             .build();
         
         bite.decorate(biteBase); 
@@ -527,6 +540,7 @@ public class BattleFieldTest {
             .setName("Ram")
             .setLearningRequirements(AbilityLearningRequirements.HORNS)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .setAbilityLevel(1)
             .build();
         
         ram.decorate(ramBase); 

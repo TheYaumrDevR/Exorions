@@ -42,7 +42,6 @@ public class BattleAbilities {
             .setLearningRequirements(AbilityLearningRequirements.HORNS)
             .setDelayMultiplier(1.2f)
             .setRequiredPowerPointsForStageTwo(2)
-            .setMinimumLevelRequired(1)
             .setAbilityLevel(1)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
@@ -70,7 +69,6 @@ public class BattleAbilities {
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
             .setDelayMultiplier(1.1f)
             .setRequiredPowerPointsForStageTwo(2)
-            .setMinimumLevelRequired(1)
             .setAbilityLevel(1)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
@@ -96,7 +94,6 @@ public class BattleAbilities {
             .setLearningRequirements(AbilityLearningRequirements.CLAWS)
             .setDelayMultiplier(1.0f)
             .setRequiredPowerPointsForStageTwo(2)
-            .setMinimumLevelRequired(1)
             .setAbilityLevel(1)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();

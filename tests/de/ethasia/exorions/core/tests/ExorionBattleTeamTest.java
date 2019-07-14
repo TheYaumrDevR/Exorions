@@ -277,6 +277,7 @@ public class ExorionBattleTeamTest {
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .setAbilityLevel(1)
             .build();
         directDamageEffect.decorate(ability);
         
@@ -284,6 +285,7 @@ public class ExorionBattleTeamTest {
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.HORNS)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .setAbilityLevel(1)
             .build();
         directDamageEffect.decorate(ability);    
         
@@ -308,6 +310,7 @@ public class ExorionBattleTeamTest {
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .setAbilityLevel(1)
             .build();
         directDamageEffect.decorate(ability);  
         

@@ -96,7 +96,8 @@ public class IndividualExorion extends BattleModifiedIndividualExorion {
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
     public boolean canLearnAbility(BattleAbility ability) {
-        return species.getFulfilledLearningRequirements().containsAll(ability.getLearningRequirements());
+        return species.getFulfilledLearningRequirements().containsAll(ability.getLearningRequirements())
+            && level >= ability.getMinimumLevelRequired();
     }
     
     public void levelUpBy(int value) {
