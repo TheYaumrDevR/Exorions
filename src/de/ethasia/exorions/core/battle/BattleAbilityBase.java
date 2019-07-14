@@ -3,14 +3,18 @@ package de.ethasia.exorions.core.battle;
 import de.ethasia.exorions.core.AbilityLearningRequirements;
 import de.ethasia.exorions.core.DamageTypes;
 import de.ethasia.exorions.core.ExorionSpecies;
+import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.general.SetValueIsNotWithinLegalBoundsException;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class BattleAbilityBase extends BattleAbility {
     
     //<editor-fold defaultstate="collapsed" desc="Properties">
+    
+    private final Map<Integer, Integer> requiredLevelByAbilityLevel;    
     
     private final String name;
     @Override
@@ -45,7 +49,7 @@ public class BattleAbilityBase extends BattleAbility {
     private final int minimumLevelRequired;
     @Override
     public int getMinimumLevelRequired() {
-        return minimumLevelRequired;
+        return requiredLevelByAbilityLevel.get(abilityLevel);
     }
     
     private final int abilityLevel;
@@ -66,6 +70,7 @@ public class BattleAbilityBase extends BattleAbility {
         requiredPowerPointsForStageTwo = builder.requiredPowerPointsForStageTwo;
         minimumLevelRequired = builder.minimumLevelRequired;
         abilityLevel = builder.abilityLevel;
+        requiredLevelByAbilityLevel = builder.requiredLevelByAbilityLevel;
     }
     
     //</editor-fold>
@@ -92,6 +97,8 @@ public class BattleAbilityBase extends BattleAbility {
         private int requiredPowerPointsForStageTwo;
         private int minimumLevelRequired;
         private int abilityLevel;
+        
+        private Map<Integer, Integer> requiredLevelByAbilityLevel;
         
         public Builder() {
             damageTypes = new HashSet<>();
@@ -141,7 +148,16 @@ public class BattleAbilityBase extends BattleAbility {
             return this;
         }
         
+        public Builder setRequiredLevelByAbilityLevel(Map<Integer, Integer> value) {
+            requiredLevelByAbilityLevel = value;
+            return this;
+        }
+        
         public BattleAbilityBase build() {
+            if (null == requiredLevelByAbilityLevel) {
+                throw new NotAllPropertiesAreSetException();
+            }
+            
             return new BattleAbilityBase(this);
         }
     }

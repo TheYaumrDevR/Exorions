@@ -7,10 +7,11 @@ import de.ethasia.exorions.core.battle.DirectDamageAbilityEffect;
 import de.ethasia.exorions.core.ExorionSpecies;
 import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.IndividualExorionBaseStats;
-import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.general.DecoratorMustDecorateSomethingException;
 import de.ethasia.exorions.core.mocks.MockGenome;
 import de.ethasia.exorions.core.tests.IndividualExorionTest;
+import de.ethasia.exorions.ioadapters.repositories.BattleAbilityRequiredLevelTables;
 
 import java.util.Set;
 import org.junit.Test;
@@ -59,6 +60,7 @@ public class DirectDamageAbilityEffectTest {
         DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
         BattleAbilityBase decoratedAbility = new BattleAbilityBase.Builder()
             .setName("Foosh")
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         testCandidate.decorate(decoratedAbility);
@@ -75,6 +77,7 @@ public class DirectDamageAbilityEffectTest {
             .setDamageType(DamageTypes.DRYING)
             .setDamageType(DamageTypes.RIP)
             .setDamageType(DamageTypes.SHATTER)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         testCandidate.decorate(decoratedAbility);
@@ -89,6 +92,7 @@ public class DirectDamageAbilityEffectTest {
         DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
         BattleAbilityBase decoratedAbility = new BattleAbilityBase.Builder()
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         testCandidate.decorate(decoratedAbility);
@@ -103,6 +107,7 @@ public class DirectDamageAbilityEffectTest {
         DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
         BattleAbilityBase decoratedAbility = new BattleAbilityBase.Builder()
             .setDelayMultiplier(1.2f)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         testCandidate.decorate(decoratedAbility);
@@ -116,6 +121,7 @@ public class DirectDamageAbilityEffectTest {
         DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
         BattleAbilityBase decoratedAbility = new BattleAbilityBase.Builder()
             .setRequiredPowerPointsForStageTwo(2)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         testCandidate.decorate(decoratedAbility);
@@ -140,6 +146,7 @@ public class DirectDamageAbilityEffectTest {
         IndividualExorion defender = createIndividualExorionForTesting();
         
         BattleAbilityBase decoratedAbility = new BattleAbilityBase.Builder()
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         testCandidate.decorate(decoratedAbility);
         
@@ -156,6 +163,7 @@ public class DirectDamageAbilityEffectTest {
         IndividualExorion defender = createIndividualExorionForTesting();
         
         BattleAbilityBase decoratedAbility = new BattleAbilityBase.Builder()
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         decorated.decorate(decoratedAbility);
         testCandidate.decorate(decorated);
@@ -173,6 +181,7 @@ public class DirectDamageAbilityEffectTest {
         IndividualExorion defender = createIndividualExorionForTesting();
         
         BattleAbilityBase decoratedAbility = new BattleAbilityBase.Builder()
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         decorated.decorate(decoratedAbility);
         testCandidate.decorate(decorated);  

@@ -1,6 +1,6 @@
 package de.ethasia.exorions.core.breeding;
 
-import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.interfaces.AllelePairGeneValueCalculator;
 import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
 import de.ethasia.exorions.core.interfaces.RandomNumberGenerator;

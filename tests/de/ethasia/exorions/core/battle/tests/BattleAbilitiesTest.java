@@ -3,7 +3,7 @@ package de.ethasia.exorions.core.battle.tests;
 import de.ethasia.exorions.core.AbilityLearningRequirements;
 import de.ethasia.exorions.core.DamageTypes;
 import de.ethasia.exorions.core.IndividualExorion;
-import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.ioadapters.repositories.BattleAbilities;
 import de.ethasia.exorions.core.battle.BattleAbility;
 import de.ethasia.exorions.core.battle.BattleModifiedIndividualExorion;
@@ -146,7 +146,7 @@ public class BattleAbilitiesTest {
     }
     
     @Test
-    public void testFindAbilityById_getsClawSwipeAndRngIsNotSetToApplyBleed_dealsDirectOnly() throws NotAllPropertiesAreSetException {
+    public void testFindAbilityById_getsClawSwipeAndRngIsNotSetToApplyBleed_dealsDirectDamageOnly() throws NotAllPropertiesAreSetException {
         BattleAbility clawSwipe = BattleAbilities.findAbilityById(2);
         
         IndividualExorion attacker = TestExorions.findExorionById(0);

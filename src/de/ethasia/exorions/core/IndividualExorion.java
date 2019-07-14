@@ -1,5 +1,6 @@
 package de.ethasia.exorions.core;
 
+import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.battle.BattleAbility;
 import de.ethasia.exorions.core.battle.BattleModifiedIndividualExorion;
 import de.ethasia.exorions.core.battle.RequirementsToLearnAbilityAreNotFulfilledException;

@@ -2,7 +2,7 @@ package de.ethasia.exorions.core.battle.tests;
 
 import de.ethasia.exorions.core.BattleCalculator;
 import de.ethasia.exorions.core.IndividualExorion;
-import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.battle.Bleed;
 import de.ethasia.exorions.core.battle.Poison;
 import de.ethasia.exorions.core.battle.Stagger;

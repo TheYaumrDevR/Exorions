@@ -7,7 +7,7 @@ import java.util.Map;
 
 import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.IndividualExorionBaseStats;
-import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 
 import java.util.HashMap;
 

@@ -7,11 +7,12 @@ import de.ethasia.exorions.core.ExorionSpecies;
 import de.ethasia.exorions.core.ExorionSpeciesBaseStatsAtMaximumLevel;
 import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.IndividualExorionBaseStats;
-import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.battle.BattleAbilityBase;
 import de.ethasia.exorions.core.battle.DirectDamageAbilityEffect;
 import de.ethasia.exorions.core.mocks.MockGenome;
 import de.ethasia.exorions.core.mocks.TestExorions;
+import de.ethasia.exorions.ioadapters.repositories.BattleAbilityRequiredLevelTables;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -275,12 +276,14 @@ public class ExorionBattleTeamTest {
         BattleAbilityBase ability = new BattleAbilityBase.Builder()
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         directDamageEffect.decorate(ability);
         
         BattleAbilityBase abilityTwo = new BattleAbilityBase.Builder()
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.HORNS)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         directDamageEffect.decorate(ability);    
         
@@ -304,6 +307,7 @@ public class ExorionBattleTeamTest {
         BattleAbilityBase ability = new BattleAbilityBase.Builder()
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         directDamageEffect.decorate(ability);  
         

@@ -1,6 +1,6 @@
-package de.ethasia.exorions.core;
+package de.ethasia.exorions.core.general;
 
-public class NotAllPropertiesAreSetException extends Exception {
+public class NotAllPropertiesAreSetException extends RuntimeException {
     
     //<editor-fold defaultstate="collapsed" desc="Constants">
     

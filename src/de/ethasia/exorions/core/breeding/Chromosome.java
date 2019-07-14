@@ -1,6 +1,6 @@
 package de.ethasia.exorions.core.breeding;
 
-import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 
 public class Chromosome {
     

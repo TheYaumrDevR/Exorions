@@ -44,6 +44,7 @@ public class BattleAbilities {
             .setRequiredPowerPointsForStageTwo(2)
             .setMinimumLevelRequired(1)
             .setAbilityLevel(1)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         Stagger stagger = new Stagger();
@@ -71,6 +72,7 @@ public class BattleAbilities {
             .setRequiredPowerPointsForStageTwo(2)
             .setMinimumLevelRequired(1)
             .setAbilityLevel(1)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         Poison poison = new Poison();
@@ -96,6 +98,7 @@ public class BattleAbilities {
             .setRequiredPowerPointsForStageTwo(2)
             .setMinimumLevelRequired(1)
             .setAbilityLevel(1)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         Bleed bleed = new Bleed();

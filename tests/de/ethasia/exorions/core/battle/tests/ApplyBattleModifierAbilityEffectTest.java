@@ -1,7 +1,7 @@
 package de.ethasia.exorions.core.battle.tests;
 
 import de.ethasia.exorions.core.IndividualExorion;
-import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.battle.ApplyBattleModifierAbilityEffect;
 import de.ethasia.exorions.core.battle.BattleAbilityBase;
 import de.ethasia.exorions.core.battle.BattleModifiedIndividualExorion;
@@ -9,6 +9,7 @@ import de.ethasia.exorions.core.battle.DirectDamageAbilityEffect;
 import de.ethasia.exorions.core.battle.Poison;
 import de.ethasia.exorions.core.general.DecoratorMustDecorateSomethingException;
 import de.ethasia.exorions.core.mocks.TestExorions;
+import de.ethasia.exorions.ioadapters.repositories.BattleAbilityRequiredLevelTables;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -35,6 +36,7 @@ public class ApplyBattleModifierAbilityEffectTest {
         ApplyBattleModifierAbilityEffect testCandidate = new ApplyBattleModifierAbilityEffect(poison);
         BattleAbilityBase decoratedAbility = new BattleAbilityBase.Builder()
             .setName("Foosh")
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         testCandidate.decorate(decoratedAbility);
         
@@ -51,6 +53,7 @@ public class ApplyBattleModifierAbilityEffectTest {
         ApplyBattleModifierAbilityEffect testCandidate = new ApplyBattleModifierAbilityEffect(poison);
         BattleAbilityBase decoratedAbility = new BattleAbilityBase.Builder()
             .setName("Foosh")
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         testCandidate.decorate(decoratedAbility); 
         
@@ -75,6 +78,7 @@ public class ApplyBattleModifierAbilityEffectTest {
         ApplyBattleModifierAbilityEffect testCandidate = new ApplyBattleModifierAbilityEffect(newPoison);
         BattleAbilityBase decoratedAbility = new BattleAbilityBase.Builder()
             .setName("Foosh")
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         testCandidate.decorate(decoratedAbility); 
         
@@ -96,6 +100,7 @@ public class ApplyBattleModifierAbilityEffectTest {
         ApplyBattleModifierAbilityEffect testCandidate = new ApplyBattleModifierAbilityEffect(poison);
         BattleAbilityBase decoratedAbility = new BattleAbilityBase.Builder()
             .setName("Foosh")
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         directDamageAbility.decorate(decoratedAbility);
         testCandidate.decorate(directDamageAbility); 
@@ -117,6 +122,7 @@ public class ApplyBattleModifierAbilityEffectTest {
         ApplyBattleModifierAbilityEffect testCandidate = new ApplyBattleModifierAbilityEffect(newPoison);
         BattleAbilityBase decoratedAbility = new BattleAbilityBase.Builder()
             .setName("Foosh")
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         testCandidate.decorate(decoratedAbility); 
         

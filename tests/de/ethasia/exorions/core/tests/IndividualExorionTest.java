@@ -6,7 +6,7 @@ import de.ethasia.exorions.core.ExorionSpecies;
 import de.ethasia.exorions.core.ExorionSpeciesBaseStatsAtMaximumLevel;
 import de.ethasia.exorions.core.IndividualExorion;
 import de.ethasia.exorions.core.IndividualExorionBaseStats;
-import de.ethasia.exorions.core.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.OutOfLevelBoundsException;
 import de.ethasia.exorions.core.battle.BattleAbility;
 import de.ethasia.exorions.core.battle.DirectDamageAbilityEffect;
@@ -17,6 +17,7 @@ import de.ethasia.exorions.core.interfaces.RealCoreClassesFactory;
 import de.ethasia.exorions.core.mocks.MockGenome;
 import de.ethasia.exorions.core.mocks.TestExorions;
 import de.ethasia.exorions.ioadapters.repositories.BattleAbilities;
+import de.ethasia.exorions.ioadapters.repositories.BattleAbilityRequiredLevelTables;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -49,7 +50,9 @@ public class IndividualExorionTest {
             .build();
         
         BattleAbilityBase.Builder battleAbilityBuilder = new BattleAbilityBase.Builder();
-        BattleAbilityBase abilityToLearn = battleAbilityBuilder.build();
+        BattleAbilityBase abilityToLearn = battleAbilityBuilder
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .build();
         
         boolean result = testCandidate.canLearnAbility(abilityToLearn);
         
@@ -68,6 +71,7 @@ public class IndividualExorionTest {
         
         BattleAbilityBase abilityToLearn = new BattleAbilityBase.Builder()
             .setLearningRequirements(AbilityLearningRequirements.TAIL)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         boolean result = testCandidate.canLearnAbility(abilityToLearn);
@@ -88,6 +92,7 @@ public class IndividualExorionTest {
         
         BattleAbilityBase abilityToLearn = new BattleAbilityBase.Builder()
             .setLearningRequirements(AbilityLearningRequirements.NEEDLES)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         boolean result = testCandidate.canLearnAbility(abilityToLearn);
@@ -109,6 +114,7 @@ public class IndividualExorionTest {
         BattleAbilityBase abilityToLearn = new BattleAbilityBase.Builder()
             .setLearningRequirements(AbilityLearningRequirements.CLAWS)
             .setLearningRequirements(AbilityLearningRequirements.TAIL)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         boolean result = testCandidate.canLearnAbility(abilityToLearn);
@@ -131,6 +137,7 @@ public class IndividualExorionTest {
         BattleAbilityBase abilityToLearn = new BattleAbilityBase.Builder()
             .setLearningRequirements(AbilityLearningRequirements.CLAWS)
             .setLearningRequirements(AbilityLearningRequirements.TAIL)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         boolean result = testCandidate.canLearnAbility(abilityToLearn);
@@ -154,6 +161,7 @@ public class IndividualExorionTest {
         BattleAbilityBase abilityToLearn = new BattleAbilityBase.Builder()
             .setLearningRequirements(AbilityLearningRequirements.TAIL)
             .setLearningRequirements(AbilityLearningRequirements.TENTACLES)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         boolean result = testCandidate.canLearnAbility(abilityToLearn);
@@ -176,6 +184,7 @@ public class IndividualExorionTest {
         BattleAbilityBase abilityToLearn = new BattleAbilityBase.Builder()
             .setLearningRequirements(AbilityLearningRequirements.TAIL)
             .setLearningRequirements(AbilityLearningRequirements.TENTACLES)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         boolean result = testCandidate.canLearnAbility(abilityToLearn);
@@ -462,6 +471,7 @@ public class IndividualExorionTest {
         BattleAbilityBase ability = new BattleAbilityBase.Builder()
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         testCandidate.learnAbilityOnSlotOne(ability);
@@ -479,6 +489,7 @@ public class IndividualExorionTest {
         BattleAbilityBase ability = new BattleAbilityBase.Builder()
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         testCandidate.learnAbilityOnSlotTwo(ability);
@@ -496,6 +507,7 @@ public class IndividualExorionTest {
         BattleAbilityBase ability = new BattleAbilityBase.Builder()
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         testCandidate.learnAbilityOnSlotThree(ability);
@@ -513,6 +525,7 @@ public class IndividualExorionTest {
         BattleAbilityBase ability = new BattleAbilityBase.Builder()
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.SKELETON)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         testCandidate.learnAbilityOnSlotOne(ability);
@@ -524,6 +537,7 @@ public class IndividualExorionTest {
         BattleAbilityBase ability = new BattleAbilityBase.Builder()
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.SKELETON)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         testCandidate.learnAbilityOnSlotTwo(ability);
@@ -535,6 +549,7 @@ public class IndividualExorionTest {
         BattleAbilityBase ability = new BattleAbilityBase.Builder()
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.SKELETON)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         
         testCandidate.learnAbilityOnSlotThree(ability);
@@ -550,6 +565,7 @@ public class IndividualExorionTest {
         BattleAbilityBase ability = new BattleAbilityBase.Builder()
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         directDamageEffect.decorate(ability);
         
@@ -572,6 +588,7 @@ public class IndividualExorionTest {
         BattleAbilityBase ability = new BattleAbilityBase.Builder()
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         directDamageEffect.decorate(ability);
         
@@ -594,6 +611,7 @@ public class IndividualExorionTest {
         BattleAbilityBase ability = new BattleAbilityBase.Builder()
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         directDamageEffect.decorate(ability);
         
@@ -656,6 +674,7 @@ public class IndividualExorionTest {
         BattleAbilityBase ability = new BattleAbilityBase.Builder()
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
             .build();
         directDamageEffect.decorate(ability);
         
