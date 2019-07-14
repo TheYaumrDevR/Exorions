@@ -140,7 +140,18 @@ public class BattleAbilityBaseTest {
             .build();     
         
         assertThat(product.getRequiredPowerPointsForStageTwo(), is(equalTo(2)));
-    }  
+    } 
+    
+    @Test
+    public void testBuilderBuild_noAbilityLevelIsSet_abilityLevelIsOne() {
+       BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();
+        
+        BattleAbilityBase product = testCandidate
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .build();
+        
+        assertThat(product.getAbilityLevel(), is(equalTo(1)));        
+    }
     
     @Test
     public void testBuilderBuild_setAbilityLevel_abilityLevelIsInProduct() {

@@ -2,7 +2,6 @@ package de.ethasia.exorions.core.battle;
 
 import de.ethasia.exorions.core.AbilityLearningRequirements;
 import de.ethasia.exorions.core.DamageTypes;
-import de.ethasia.exorions.core.ExorionSpecies;
 import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.general.SetValueIsNotWithinLegalBoundsException;
 
@@ -98,6 +97,7 @@ public class BattleAbilityBase extends BattleAbility {
         private Map<Integer, Integer> requiredLevelByAbilityLevel;
         
         public Builder() {
+            abilityLevel = 1;
             damageTypes = new HashSet<>();
             learningRequirements = new HashSet<>();
         }
