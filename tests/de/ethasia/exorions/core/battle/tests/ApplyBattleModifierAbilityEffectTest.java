@@ -9,6 +9,7 @@ import de.ethasia.exorions.core.battle.DirectDamageAbilityEffect;
 import de.ethasia.exorions.core.battle.Poison;
 import de.ethasia.exorions.core.general.DecoratorMustDecorateSomethingException;
 import de.ethasia.exorions.core.mocks.TestExorions;
+import de.ethasia.exorions.ioadapters.repositories.BattleAbilityPowerByLevelTables;
 import de.ethasia.exorions.ioadapters.repositories.BattleAbilityRequiredLevelTables;
 
 import org.junit.Test;
@@ -97,6 +98,8 @@ public class ApplyBattleModifierAbilityEffectTest {
         Poison poison = new Poison();
         
         DirectDamageAbilityEffect directDamageAbility = new DirectDamageAbilityEffect();
+        directDamageAbility.setAbilityPowerByAbilityLevel(BattleAbilityPowerByLevelTables.getStandardAbilityPowerByLevelTable());
+        
         ApplyBattleModifierAbilityEffect testCandidate = new ApplyBattleModifierAbilityEffect(poison);
         BattleAbilityBase decoratedAbility = new BattleAbilityBase.Builder()
             .setName("Foosh")
@@ -110,7 +113,7 @@ public class ApplyBattleModifierAbilityEffectTest {
         
         BattleModifiedIndividualExorion modifiedTarget = testCandidate.use(attacker, defender);
         
-        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(47)));
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(51)));
         assertThat(modifiedTarget, is(sameInstance(poison)));
     }     
     

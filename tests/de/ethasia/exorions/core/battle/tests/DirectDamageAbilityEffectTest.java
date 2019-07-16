@@ -11,6 +11,7 @@ import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.general.DecoratorMustDecorateSomethingException;
 import de.ethasia.exorions.core.mocks.MockGenome;
 import de.ethasia.exorions.core.tests.IndividualExorionTest;
+import de.ethasia.exorions.ioadapters.repositories.BattleAbilityPowerByLevelTables;
 import de.ethasia.exorions.ioadapters.repositories.BattleAbilityRequiredLevelTables;
 
 import java.util.Set;
@@ -142,6 +143,8 @@ public class DirectDamageAbilityEffectTest {
     @Test
     public void testUse_decoratedAbilityIsSet_damageIsDoneToDefender() throws NotAllPropertiesAreSetException {
         DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
+        testCandidate.setAbilityPowerByAbilityLevel(BattleAbilityPowerByLevelTables.getStandardAbilityPowerByLevelTable());
+        
         IndividualExorion attacker = createIndividualExorionForTesting();
         IndividualExorion defender = createIndividualExorionForTesting();
         
@@ -152,13 +155,16 @@ public class DirectDamageAbilityEffectTest {
         
         testCandidate.use(attacker, defender);
         
-        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(32)));
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(36)));
     }   
     
     @Test
     public void testUse_decoratedAbilityIsDamageAbility_damageIsDoneTwice() throws NotAllPropertiesAreSetException {
         DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
         DirectDamageAbilityEffect decorated = new DirectDamageAbilityEffect();
+        testCandidate.setAbilityPowerByAbilityLevel(BattleAbilityPowerByLevelTables.getStandardAbilityPowerByLevelTable());
+        decorated.setAbilityPowerByAbilityLevel(BattleAbilityPowerByLevelTables.getStandardAbilityPowerByLevelTable());
+        
         IndividualExorion attacker = createIndividualExorionForTesting();
         IndividualExorion defender = createIndividualExorionForTesting();
         
@@ -170,13 +176,16 @@ public class DirectDamageAbilityEffectTest {
         
         testCandidate.use(attacker, defender);
         
-        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(1)));
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(9)));
     }
     
     @Test
     public void testUseDecoratedAbilitiesOnly_decoratedAbilityIsDamageAbility_damageIsDoneOnce() throws NotAllPropertiesAreSetException {
         DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
         DirectDamageAbilityEffect decorated = new DirectDamageAbilityEffect();
+        testCandidate.setAbilityPowerByAbilityLevel(BattleAbilityPowerByLevelTables.getStandardAbilityPowerByLevelTable());
+        decorated.setAbilityPowerByAbilityLevel(BattleAbilityPowerByLevelTables.getStandardAbilityPowerByLevelTable());
+        
         IndividualExorion attacker = createIndividualExorionForTesting();
         IndividualExorion defender = createIndividualExorionForTesting();
         
@@ -187,7 +196,7 @@ public class DirectDamageAbilityEffectTest {
         testCandidate.decorate(decorated);  
         
         testCandidate.useDecoratedAbilitiesOnly(attacker, defender);
-        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(32)));
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(36)));
     }
     
     @Test(expected = DecoratorMustDecorateSomethingException.class)
@@ -212,6 +221,25 @@ public class DirectDamageAbilityEffectTest {
         DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
         
         testCandidate.getAbilityLevel();
+    }
+    
+    @Test
+    public void testSetAbilityPowerByAbilityLevel_useAbility_damageIsDoneBasedOnPower() {
+        DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
+        
+        BattleAbilityBase decoratedAbility = new BattleAbilityBase.Builder()
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .setAbilityLevel(20)
+            .build();
+        testCandidate.decorate(decoratedAbility);
+        
+        testCandidate.setAbilityPowerByAbilityLevel(BattleAbilityPowerByLevelTables.getStandardAbilityPowerByLevelTable());
+        
+        IndividualExorion attacker = createIndividualExorionForTesting();
+        IndividualExorion defender = createIndividualExorionForTesting();
+        
+        testCandidate.use(attacker, defender);
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(27)));
     }
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">

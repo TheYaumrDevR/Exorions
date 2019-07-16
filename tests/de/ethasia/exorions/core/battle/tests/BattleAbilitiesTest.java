@@ -58,7 +58,7 @@ public class BattleAbilitiesTest {
         assertThat(ram.getRequiredPowerPointsForStageTwo(), is(equalTo(2)));
         assertThat(ram.getMinimumLevelRequired(), is(equalTo(1)));
         assertThat(ram.getAbilityLevel(), is(equalTo(1)));
-        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(47)));
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(51)));
         assertThat(modifiedDefender.getModifiedAccuracy(), is(equalTo(63)));
     }
     
@@ -79,7 +79,7 @@ public class BattleAbilitiesTest {
         assertThat(ram.getLearningRequirements(), hasItems(AbilityLearningRequirements.LOCOMOTION, AbilityLearningRequirements.HORNS));
         assertThat(ram.getDelayMultiplier(), is(equalTo(1.2f)));
         assertThat(ram.getRequiredPowerPointsForStageTwo(), is(equalTo(2)));
-        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(47)));
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(51)));
         assertThat(modifiedDefender.getModifiedAccuracy(), is(equalTo(50)));
     }   
     
@@ -103,7 +103,7 @@ public class BattleAbilitiesTest {
         assertThat(bite.getRequiredPowerPointsForStageTwo(), is(equalTo(2)));
         assertThat(bite.getMinimumLevelRequired(), is(equalTo(1)));
         assertThat(bite.getAbilityLevel(), is(equalTo(1)));
-        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(47)));
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(51)));
     }
     
     @Test
@@ -119,7 +119,7 @@ public class BattleAbilitiesTest {
         BattleModifiedIndividualExorion modifiedDefender = bite.use(attacker, defender);
         modifiedDefender.tick(attacker, modifiedDefender);
         
-        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(42)));
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(46)));
     }    
     
     @Test
@@ -142,7 +142,7 @@ public class BattleAbilitiesTest {
         assertThat(clawSwipe.getRequiredPowerPointsForStageTwo(), is(equalTo(2)));
         assertThat(clawSwipe.getMinimumLevelRequired(), is(equalTo(1)));
         assertThat(clawSwipe.getAbilityLevel(), is(equalTo(1)));
-        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(31)));
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(35)));
     }
     
     @Test
@@ -158,6 +158,6 @@ public class BattleAbilitiesTest {
         BattleModifiedIndividualExorion modifiedDefender = clawSwipe.use(attacker, defender);
         modifiedDefender.tick(attacker, modifiedDefender);
         
-        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(47)));
+        assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(51)));
     }
 }

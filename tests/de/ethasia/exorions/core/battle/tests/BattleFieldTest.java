@@ -13,6 +13,7 @@ import de.ethasia.exorions.core.battle.NoBattleInProgressException;
 import de.ethasia.exorions.core.battle.DirectDamageAbilityEffect;
 import de.ethasia.exorions.core.battle.TeamIdentifiers;
 import de.ethasia.exorions.core.mocks.TestExorions;
+import de.ethasia.exorions.ioadapters.repositories.BattleAbilityPowerByLevelTables;
 import de.ethasia.exorions.ioadapters.repositories.BattleAbilityRequiredLevelTables;
 
 import org.junit.Test;
@@ -517,11 +518,13 @@ public class BattleFieldTest {
         IndividualExorion result = TestExorions.findExorionById(0);
         
         DirectDamageAbilityEffect bite = new DirectDamageAbilityEffect();
+        bite.setAbilityPowerByAbilityLevel(BattleAbilityPowerByLevelTables.getStandardAbilityPowerByLevelTable());
+        
         BattleAbilityBase biteBase = new BattleAbilityBase.Builder()
             .setName("Bite")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
-            .setAbilityLevel(1)
+            .setAbilityLevel(10)
             .build();
         
         bite.decorate(biteBase); 
@@ -536,11 +539,13 @@ public class BattleFieldTest {
         IndividualExorion result = TestExorions.findExorionById(1); 
         
         DirectDamageAbilityEffect ram = new DirectDamageAbilityEffect();
+        ram.setAbilityPowerByAbilityLevel(BattleAbilityPowerByLevelTables.getStandardAbilityPowerByLevelTable());
+        
         BattleAbilityBase ramBase = new BattleAbilityBase.Builder()
             .setName("Ram")
             .setLearningRequirements(AbilityLearningRequirements.HORNS)
             .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
-            .setAbilityLevel(1)
+            .setAbilityLevel(10)
             .build();
         
         ram.decorate(ramBase); 

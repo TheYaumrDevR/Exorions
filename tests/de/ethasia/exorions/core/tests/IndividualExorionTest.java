@@ -16,6 +16,7 @@ import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
 import de.ethasia.exorions.core.interfaces.RealCoreClassesFactory;
 import de.ethasia.exorions.core.mocks.MockGenome;
 import de.ethasia.exorions.core.mocks.TestExorions;
+import de.ethasia.exorions.ioadapters.repositories.BattleAbilityPowerByLevelTables;
 import de.ethasia.exorions.ioadapters.repositories.BattleAbilityRequiredLevelTables;
 
 import org.junit.Test;
@@ -611,6 +612,8 @@ public class IndividualExorionTest {
         IndividualExorion defenderCopy = TestExorions.findExorionById(1);
         
         DirectDamageAbilityEffect directDamageEffect = new DirectDamageAbilityEffect();
+        directDamageEffect.setAbilityPowerByAbilityLevel(BattleAbilityPowerByLevelTables.getStandardAbilityPowerByLevelTable());
+        
         BattleAbilityBase ability = new BattleAbilityBase.Builder()
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
@@ -635,6 +638,8 @@ public class IndividualExorionTest {
         IndividualExorion defenderCopy = TestExorions.findExorionById(1);
         
         DirectDamageAbilityEffect directDamageEffect = new DirectDamageAbilityEffect();
+        directDamageEffect.setAbilityPowerByAbilityLevel(BattleAbilityPowerByLevelTables.getStandardAbilityPowerByLevelTable());
+        
         BattleAbilityBase ability = new BattleAbilityBase.Builder()
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)
@@ -659,6 +664,8 @@ public class IndividualExorionTest {
         IndividualExorion defenderCopy = TestExorions.findExorionById(1);
         
         DirectDamageAbilityEffect directDamageEffect = new DirectDamageAbilityEffect();
+        directDamageEffect.setAbilityPowerByAbilityLevel(BattleAbilityPowerByLevelTables.getStandardAbilityPowerByLevelTable());
+        
         BattleAbilityBase ability = new BattleAbilityBase.Builder()
             .setName("Foosh")
             .setLearningRequirements(AbilityLearningRequirements.TEETH)

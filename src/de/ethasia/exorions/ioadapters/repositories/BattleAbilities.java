@@ -54,7 +54,8 @@ public class BattleAbilities {
         staggerRandomizer.setApplyChanceInPerTenThousand(2000);    
         staggerRandomizer.decorate(applyStagger);        
         
-        DirectDamageAbilityEffect ramDamageEffect = new DirectDamageAbilityEffect();        
+        DirectDamageAbilityEffect ramDamageEffect = new DirectDamageAbilityEffect(); 
+        ramDamageEffect.setAbilityPowerByAbilityLevel(BattleAbilityPowerByLevelTables.getStandardAbilityPowerByLevelTable());
         ramDamageEffect.decorate(staggerRandomizer);
 
         return ramDamageEffect;
@@ -81,10 +82,11 @@ public class BattleAbilities {
         poisonRandomizer.setApplyChanceInPerTenThousand(2000);    
         poisonRandomizer.decorate(applyPoison);        
         
-        DirectDamageAbilityEffect ramDamageEffect = new DirectDamageAbilityEffect();        
-        ramDamageEffect.decorate(poisonRandomizer);        
+        DirectDamageAbilityEffect biteDamageEffect = new DirectDamageAbilityEffect();   
+        biteDamageEffect.setAbilityPowerByAbilityLevel(BattleAbilityPowerByLevelTables.getStandardAbilityPowerByLevelTable());
+        biteDamageEffect.decorate(poisonRandomizer);        
         
-        return ramDamageEffect;
+        return biteDamageEffect;
     }
     
     private static BattleAbility createClawSwipe() {
@@ -107,6 +109,7 @@ public class BattleAbilities {
         bleedRandomizer.decorate(applyBleed);
         
         DirectDamageAbilityEffect clawSwipeDamage = new DirectDamageAbilityEffect();
+        clawSwipeDamage.setAbilityPowerByAbilityLevel(BattleAbilityPowerByLevelTables.getStandardAbilityPowerByLevelTable());
         clawSwipeDamage.decorate(bleedRandomizer);
         
         return clawSwipeDamage;

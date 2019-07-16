@@ -2,12 +2,22 @@ package de.ethasia.exorions.core.battle;
 
 import de.ethasia.exorions.core.BattleCalculator;
 import de.ethasia.exorions.core.general.DecoratorMustDecorateSomethingException;
+import java.util.Map;
 
 public class DirectDamageAbilityEffect extends BattleAbilityEffect {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
     private final BattleCalculator battleCalculator;
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Properties">
+    
+    private Map<Integer, Float> abilityPowerByAbilityLevel;
+    public void setAbilityPowerByAbilityLevel(Map<Integer, Float> value) {
+        abilityPowerByAbilityLevel = value;
+    }
     
     //</editor-fold>
     
@@ -26,7 +36,7 @@ public class DirectDamageAbilityEffect extends BattleAbilityEffect {
         if (null != decoratedAbility) {
             BattleModifiedIndividualExorion modifiedDefender = decoratedAbility.use(attacker, defender);
             
-            int attack = attacker.getModifiedAttackPower();
+            int attack = Math.round(attacker.getModifiedAttackPower() * abilityPowerByAbilityLevel.get(getAbilityLevel()));
             int defense = defender.getModifiedDefense();
             
             int damage = battleCalculator.calculateDamageFromAttackAndDefense(attack, defense);
