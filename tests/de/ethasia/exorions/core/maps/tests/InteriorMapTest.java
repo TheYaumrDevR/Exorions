@@ -2,6 +2,7 @@ package de.ethasia.exorions.core.maps.tests;
 
 import de.ethasia.exorions.core.general.SetValueIsNotWithinLegalBoundsException;
 import de.ethasia.exorions.core.maps.InteriorMap;
+import de.ethasia.exorions.core.maps.MapTileTypes;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -87,7 +88,7 @@ public class InteriorMapTest {
     public void testTileAtIsColliding_tileIsAboveMaxHeight_returnsTrue() {
         InteriorMap testCandidate = new InteriorMap((short)10, (short)10);
         
-        boolean result = testCandidate.tileAtIsColliding((short)10, (short)26, (short)2);
+        boolean result = testCandidate.tileAtIsColliding((short)9, (short)26, (short)2);
         
         assertThat(result, is(true));
     }
@@ -105,8 +106,48 @@ public class InteriorMapTest {
     public void testTileAtIsColliding_tileIsWithinBounds_returnsTrue() {
         InteriorMap testCandidate = new InteriorMap((short)25, (short)25);
         
-        boolean result = testCandidate.tileAtIsColliding((short)25, (short)25, (short)25);
+        boolean result = testCandidate.tileAtIsColliding((short)24, (short)24, (short)24);
         
         assertThat(result, is(false));
+    }
+    
+    @Test
+    public void testSetTileTypeAt_tileIsCollisionTile_collides() {
+        InteriorMap testCandidate = new InteriorMap((short)25, (short)25);
+        
+        testCandidate.setTileTypeAt(MapTileTypes.COLLISION, (short)3, (short)6, (short)22);
+        
+        boolean collides = testCandidate.tileAtIsColliding((short)3, (short)6, (short)22);
+        
+        assertThat(collides, is(true));
+    }
+    
+    @Test
+    public void testSetTileTypeAt_tileIsWarpTile_doesNotCollide() {
+        InteriorMap testCandidate = new InteriorMap((short)25, (short)25);
+        
+        testCandidate.setTileTypeAt(MapTileTypes.WARP, (short)11, (short)0, (short)9);
+        
+        boolean collides = testCandidate.tileAtIsColliding((short)11, (short)0, (short)9);
+        
+        assertThat(collides, is(false));
+    }   
+    
+    @Test
+    public void testSetTileTypeAt_tileIsTriggerTile_doesNotCollide() {
+        InteriorMap testCandidate = new InteriorMap((short)25, (short)25);
+        
+        testCandidate.setTileTypeAt(MapTileTypes.TRIGGER, (short)17, (short)15, (short)23);
+        
+        boolean collides = testCandidate.tileAtIsColliding((short)17, (short)15, (short)23);
+        
+        assertThat(collides, is(false));
+    }    
+    
+    @Test(expected = SetValueIsNotWithinLegalBoundsException.class)
+    public void testSetTileTypeAt_dimensionsAreOutsideBounds_throwsException() {
+        InteriorMap testCandidate = new InteriorMap((short)25, (short)25);
+        
+        testCandidate.setTileTypeAt(MapTileTypes.COLLISION, (short)-1, (short)25, (short)29);        
     }
 }

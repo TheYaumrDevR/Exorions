@@ -14,6 +14,7 @@ public class InteriorMap {
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
     private short xDimension, zDimension;
+    private MapTileTypes[][][] tileGrid;
     
     //</editor-fold>
     
@@ -28,6 +29,8 @@ public class InteriorMap {
             throw new SetValueIsNotWithinLegalBoundsException(0, MAXIMUM_DIMENSION);
         }
         
+        tileGrid = new MapTileTypes[xDimension][MAXIMUM_HEIGHT][zDimension];
+        
         this.xDimension = xDimension;
         this.zDimension = zDimension;
     }
@@ -37,15 +40,39 @@ public class InteriorMap {
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
     public boolean tileAtIsColliding(short x, short y, short z) {
-        if (x > MAXIMUM_DIMENSION || x < 0 || x > xDimension) {
+        if (positionIsOutsideOfBounds(x, y, z)) {
             return true;
         }
         
-        if (y > MAXIMUM_HEIGHT || y < 0) {
+        if (null == tileGrid[x][y][z]) {
+            return false;
+        }
+        
+        return tileGrid[x][y][z].isCollidingTile();
+    }
+    
+    public void setTileTypeAt(MapTileTypes tileType, short xPos, short yPos, short zPos) {
+        if (positionIsOutsideOfBounds(xPos, yPos, zPos)) {
+            throw new SetValueIsNotWithinLegalBoundsException(0, MAXIMUM_DIMENSION);
+        }
+        
+        tileGrid[xPos][yPos][zPos] = tileType;
+    }
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Helper Methods">
+    
+    private boolean positionIsOutsideOfBounds(short x, short y, short z) {
+        if (x >= MAXIMUM_DIMENSION || x < 0 || x >= xDimension) {
             return true;
         }
         
-        return z > MAXIMUM_DIMENSION || z < 0 || z > zDimension;
+        if (y >= MAXIMUM_HEIGHT || y < 0) {
+            return true;
+        }
+        
+        return z >= MAXIMUM_DIMENSION || z < 0 || z >= zDimension;
     }
     
     //</editor-fold>
