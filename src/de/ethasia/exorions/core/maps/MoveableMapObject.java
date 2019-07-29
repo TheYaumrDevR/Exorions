@@ -12,10 +12,12 @@ public class MoveableMapObject {
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
     public void placeOnMapWithPosition(InteriorMap map, short x, short y, short z) {
-        currentMap = map;
-        posX = x;
-        posY = y;
-        posZ = z;
+        if (!map.tileAtIsColliding(x, y, z)) {
+            currentMap = map;
+            posX = x;
+            posY = y;
+            posZ = z;            
+        }
     }
     
     public void moveTo(MoveDirections direction) {
@@ -38,13 +40,17 @@ public class MoveableMapObject {
         return posZ;
     }
     
+    public InteriorMap getMapPlacedOn() {
+        return currentMap;
+    }
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Helpers">
     
     private void relocateBasedOnMapAndMoveDirection(MoveDirections direction) {
-        short newX = 0;
-        short newZ = 0;
+        short newX = posX;
+        short newZ = posZ;
         
         switch(direction) {
             case UP:
