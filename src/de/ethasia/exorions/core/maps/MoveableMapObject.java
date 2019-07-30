@@ -20,6 +20,32 @@ public class MoveableMapObject {
         }
     }
     
+    public boolean willMoveTo(MoveDirections direction) {
+        if (null == currentMap) {
+            return false;
+        }
+        
+        short newX = posX;
+        short newZ = posZ;
+        
+        switch(direction) {
+            case UP:
+                newZ = (short)(posZ - 1);
+                break;                
+            case RIGHT:
+                newX = (short)(posX + 1);
+                break;
+            case DOWN:
+                newZ = (short)(posZ + 1);
+                break;
+            case LEFT:
+                newX = (short)(posX - 1);
+                break;
+        }        
+        
+        return !currentMap.tileAtIsColliding(newX, posY, newZ);
+    }
+    
     public void moveTo(MoveDirections direction) {
         if (null == currentMap) {
             throw new NoMapToMoveOnException();

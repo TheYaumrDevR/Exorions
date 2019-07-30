@@ -185,5 +185,49 @@ public class MoveableMapObjectTest {
         assertThat(posX, is(1));
         assertThat(posY, is(7));
         assertThat(posZ, is(2));
-    }    
+    } 
+    
+    @Test
+    public void testWillMoveTo_tileIsFree_returnsTrue() {
+        MoveableMapObject testCandidate = new MoveableMapObject();
+        InteriorMap map = new InteriorMap((short)8, (short)6);
+        
+        testCandidate.placeOnMapWithPosition(map, (short)2, (short)0, (short)1);
+        boolean result = testCandidate.willMoveTo(MoveDirections.DOWN);
+        
+        assertThat(result, is(true));
+    }
+    
+    @Test
+    public void testWillMoveTo_tileIsBlocked_returnsFalse() {
+        MoveableMapObject testCandidate = new MoveableMapObject();
+        InteriorMap map = new InteriorMap((short)8, (short)6);
+        map.setTileTypeAt(MapTileTypes.COLLISION, (short)3, (short)0, (short)3);
+        
+        testCandidate.placeOnMapWithPosition(map, (short)4, (short)0, (short)3);
+        boolean result = testCandidate.willMoveTo(MoveDirections.LEFT);
+        
+        assertThat(result, is(false));
+    }
+    
+    @Test
+    public void testWillMoveTo_notOnMap_returnsFalse() {
+        MoveableMapObject testCandidate = new MoveableMapObject();
+        
+        boolean result = testCandidate.willMoveTo(MoveDirections.RIGHT);
+        
+        assertThat(result, is(false));
+    }
+    
+    @Test
+    public void testWillMoveTo_tileIsOutsideBounds_returnsFalse() {
+        MoveableMapObject testCandidate = new MoveableMapObject();
+        InteriorMap map = new InteriorMap((short)8, (short)6);
+        
+        testCandidate.placeOnMapWithPosition(map, (short)6, (short)0, (short)0);
+        
+        boolean result = testCandidate.willMoveTo(MoveDirections.UP);
+        
+        assertThat(result, is(false));
+    }
 }
