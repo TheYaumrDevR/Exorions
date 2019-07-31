@@ -271,4 +271,17 @@ public class MoveableMapObjectTest {
         assertThat(posY, is(0));
         assertThat(posZ, is(4));        
     }
+    
+    @Test
+    public void testWillMoveTo_isCurrentlyMoving_willNotMoveAgain() {
+        MoveableMapObject testCandidate = new MoveableMapObject();
+        InteriorMap map = new InteriorMap((short)8, (short)6);
+        
+        testCandidate.placeOnMapWithPosition(map, (short)3, (short)0, (short)2);
+        
+        testCandidate.moveTo(MoveDirections.UP);
+        
+        boolean result = testCandidate.willMoveTo(MoveDirections.LEFT);
+        assertThat(result, is(false));
+    }
 }

@@ -51,7 +51,12 @@ public class MoveableMapObject {
                 break;
         }        
         
-        return !currentMap.tileAtIsColliding(newX, posY, newZ);
+        if (!currentMap.tileAtIsColliding(newX, posY, newZ)) {
+            long currentTimeMillis = System.currentTimeMillis();
+            return lastMovementWasBackFurtherThanTheMinimumMovementTime(currentTimeMillis);
+        }
+        
+        return false;
     }
     
     public void moveTo(MoveDirections direction) {
