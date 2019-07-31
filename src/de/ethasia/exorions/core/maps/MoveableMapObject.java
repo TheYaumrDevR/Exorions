@@ -2,10 +2,18 @@ package de.ethasia.exorions.core.maps;
 
 public class MoveableMapObject {
     
+    //<editor-fold defaultstate="collapsed" desc="Constants">
+    
+    public static final int MINIMUM_TIME_BETWEEN_MOVEMENTS_MILLIS = 333;
+    
+    //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
     private short posX, posY, posZ;
     private InteriorMap currentMap;
+    
+    private long lastMovementTimeMillis;
     
     //</editor-fold>
     
@@ -49,9 +57,9 @@ public class MoveableMapObject {
     public void moveTo(MoveDirections direction) {
         if (null == currentMap) {
             throw new NoMapToMoveOnException();
-        }
+        } 
         
-        relocateBasedOnMapAndMoveDirection(direction);
+        moveToIfLastMovementWasLongEnoughInThePast(direction);
     }
     
     public short getPositionX() {
@@ -74,6 +82,18 @@ public class MoveableMapObject {
     
     //<editor-fold defaultstate="collapsed" desc="Helpers">
     
+    private void moveToIfLastMovementWasLongEnoughInThePast(MoveDirections direction) {
+        long currentTimeMillis = System.currentTimeMillis();
+        if (lastMovementWasBackFurtherThanTheMinimumMovementTime(currentTimeMillis)) {
+            lastMovementTimeMillis = currentTimeMillis;
+            relocateBasedOnMapAndMoveDirection(direction);
+        }        
+    }
+    
+    private boolean lastMovementWasBackFurtherThanTheMinimumMovementTime(long currentTimeMillis) {
+        return currentTimeMillis - lastMovementTimeMillis > MINIMUM_TIME_BETWEEN_MOVEMENTS_MILLIS;
+    }
+    
     private void relocateBasedOnMapAndMoveDirection(MoveDirections direction) {
         short newX = posX;
         short newZ = posZ;
@@ -94,7 +114,7 @@ public class MoveableMapObject {
         } 
         
         setPositionIfPositionIsNotColliding(newX, posY, newZ);
-    }
+    }    
     
     private void setPositionIfPositionIsNotColliding(short x, short y, short z) {
         if (!currentMap.tileAtIsColliding(x, y, z)) {
@@ -102,7 +122,7 @@ public class MoveableMapObject {
             posY = y;
             posZ = z;
         }        
-    }
+    }    
     
     //</editor-fold>
 }

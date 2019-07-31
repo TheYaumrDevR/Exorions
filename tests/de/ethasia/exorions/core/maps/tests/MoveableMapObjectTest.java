@@ -5,6 +5,8 @@ import de.ethasia.exorions.core.maps.MapTileTypes;
 import de.ethasia.exorions.core.maps.MoveDirections;
 import de.ethasia.exorions.core.maps.MoveableMapObject;
 import de.ethasia.exorions.core.maps.NoMapToMoveOnException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.junit.Test;
 
@@ -229,5 +231,44 @@ public class MoveableMapObjectTest {
         boolean result = testCandidate.willMoveTo(MoveDirections.UP);
         
         assertThat(result, is(false));
+    }
+    
+    @Test
+    public void testMoveTo_tryToMoveTwiceWithinOneThirdSecond_doesNotWork() {
+        MoveableMapObject testCandidate = new MoveableMapObject();
+        InteriorMap map = new InteriorMap((short)8, (short)6);
+        
+        testCandidate.placeOnMapWithPosition(map, (short)0, (short)0, (short)3);
+        
+        testCandidate.moveTo(MoveDirections.RIGHT);
+        testCandidate.moveTo(MoveDirections.DOWN);
+        
+        int posX = testCandidate.getPositionX();
+        int posY = testCandidate.getPositionY();
+        int posZ = testCandidate.getPositionZ();
+        
+        assertThat(posX, is(1));
+        assertThat(posY, is(0));
+        assertThat(posZ, is(3));
+    }
+    
+    @Test
+    public void testMoveTo_tryToMoveTwiceInHalfSecond_works() throws InterruptedException {
+        MoveableMapObject testCandidate = new MoveableMapObject();
+        InteriorMap map = new InteriorMap((short)8, (short)6);
+        
+        testCandidate.placeOnMapWithPosition(map, (short)0, (short)0, (short)3);
+        
+        testCandidate.moveTo(MoveDirections.RIGHT);
+        Thread.sleep(500);
+        testCandidate.moveTo(MoveDirections.DOWN);
+        
+        int posX = testCandidate.getPositionX();
+        int posY = testCandidate.getPositionY();
+        int posZ = testCandidate.getPositionZ();
+        
+        assertThat(posX, is(1));
+        assertThat(posY, is(0));
+        assertThat(posZ, is(4));        
     }
 }
