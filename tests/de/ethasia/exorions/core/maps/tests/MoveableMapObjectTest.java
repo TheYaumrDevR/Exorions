@@ -284,4 +284,54 @@ public class MoveableMapObjectTest {
         boolean result = testCandidate.willMoveTo(MoveDirections.LEFT);
         assertThat(result, is(false));
     }
+    
+    @Test
+    public void testIsCurrentlyMoving_noMoveWasCalled_returnsFalse() {
+        MoveableMapObject testCandidate = new MoveableMapObject();
+        InteriorMap map = new InteriorMap((short)9, (short)6);
+        testCandidate.placeOnMapWithPosition(map, (short)0, (short)0, (short)0);
+        
+        boolean result = testCandidate.isCurrentlyMoving();
+        
+        assertThat(result, is(false));
+    }
+    
+    @Test
+    public void testIsCurrentlyMoving_moveWasCalled_returnsTrue() {
+        MoveableMapObject testCandidate = new MoveableMapObject();
+        InteriorMap map = new InteriorMap((short)9, (short)6);
+        testCandidate.placeOnMapWithPosition(map, (short)4, (short)0, (short)3);
+        
+        testCandidate.moveTo(MoveDirections.RIGHT);
+        boolean result = testCandidate.isCurrentlyMoving();
+        
+        assertThat(result, is(true));
+    }
+    
+    @Test
+    public void testIsCurrentlyMoving_moveWasCalledOnCollision_returnsFalse() {
+        MoveableMapObject testCandidate = new MoveableMapObject();
+        InteriorMap map = new InteriorMap((short)10, (short)8);
+        map.setTileTypeAt(MapTileTypes.COLLISION, (short)4, (short)0, (short)2);
+        testCandidate.placeOnMapWithPosition(map, (short)4, (short)0, (short)3);
+        
+        testCandidate.moveTo(MoveDirections.UP);
+        boolean result = testCandidate.isCurrentlyMoving();
+        
+        assertThat(result, is(false));
+    }
+    
+    @Test
+    public void testIsCurrentlyMoving_moveWasCalledButEnded_returnsFalse() throws InterruptedException {
+        MoveableMapObject testCandidate = new MoveableMapObject();
+        InteriorMap map = new InteriorMap((short)10, (short)8);
+        testCandidate.placeOnMapWithPosition(map, (short)5, (short)0, (short)2);
+        
+        testCandidate.moveTo(MoveDirections.LEFT);
+        Thread.sleep(400);
+        
+        boolean result = testCandidate.isCurrentlyMoving();
+        
+        assertThat(result, is(false));
+    }
 }

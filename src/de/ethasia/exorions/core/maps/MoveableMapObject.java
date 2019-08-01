@@ -67,6 +67,11 @@ public class MoveableMapObject {
         moveToIfLastMovementWasLongEnoughInThePast(direction);
     }
     
+    public boolean isCurrentlyMoving() {
+        long currentTimeMillis = System.currentTimeMillis();
+        return !lastMovementWasBackFurtherThanTheMinimumMovementTime(currentTimeMillis);
+    }
+    
     public short getPositionX() {
         return posX;
     }
@@ -90,8 +95,9 @@ public class MoveableMapObject {
     private void moveToIfLastMovementWasLongEnoughInThePast(MoveDirections direction) {
         long currentTimeMillis = System.currentTimeMillis();
         if (lastMovementWasBackFurtherThanTheMinimumMovementTime(currentTimeMillis)) {
-            lastMovementTimeMillis = currentTimeMillis;
-            relocateBasedOnMapAndMoveDirection(direction);
+            if (relocateBasedOnMapAndMoveDirection(direction)) {
+                lastMovementTimeMillis = currentTimeMillis;
+            }
         }        
     }
     
@@ -99,7 +105,7 @@ public class MoveableMapObject {
         return currentTimeMillis - lastMovementTimeMillis > MINIMUM_TIME_BETWEEN_MOVEMENTS_MILLIS;
     }
     
-    private void relocateBasedOnMapAndMoveDirection(MoveDirections direction) {
+    private boolean relocateBasedOnMapAndMoveDirection(MoveDirections direction) {
         short newX = posX;
         short newZ = posZ;
         
@@ -118,15 +124,19 @@ public class MoveableMapObject {
                 break;
         } 
         
-        setPositionIfPositionIsNotColliding(newX, posY, newZ);
+        return setPositionIfPositionIsNotColliding(newX, posY, newZ);
     }    
     
-    private void setPositionIfPositionIsNotColliding(short x, short y, short z) {
+    private boolean setPositionIfPositionIsNotColliding(short x, short y, short z) {
         if (!currentMap.tileAtIsColliding(x, y, z)) {
             posX = x;
             posY = y;
             posZ = z;
-        }        
+            
+            return true;
+        }     
+        
+        return false;
     }    
     
     //</editor-fold>
