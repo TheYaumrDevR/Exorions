@@ -26,8 +26,16 @@ public class World {
         interiorMapsByIdentifier.put(identifier, toPlace);
     }
     
-    public void setActiveMap(String mapIdentifier) {
-        activeMap = interiorMapsByIdentifier.get(mapIdentifier);
+    public void setActiveMapWithPlayerPosition(String mapIdentifier, short posX, short posY, short posZ) {
+        Player player = Player.getInstance();
+        InteriorMap mapToPlaceOn = interiorMapsByIdentifier.get(mapIdentifier);
+        
+        player.placeOnMapWithPosition(mapToPlaceOn, posX, posY, posZ);
+        InteriorMap mapPlayerIsOn = player.getMapPlacedOn();
+        
+        if (mapPlayerIsOn == mapToPlaceOn) {
+            activeMap = mapToPlaceOn;          
+        }
     }
     
     public InteriorMap getActiveMap() {
