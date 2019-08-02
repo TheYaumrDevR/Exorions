@@ -404,6 +404,6 @@ public class MoveableMapObjectTest {
         
         assertThat(posX, is(equalTo((short)2)));
         assertThat(posY, is(equalTo((short)1)));
-        assertThat(posZ, is(equalTo((short)5)));        
+        assertThat(posZ, is(equalTo((short)5)));
     }
 }
