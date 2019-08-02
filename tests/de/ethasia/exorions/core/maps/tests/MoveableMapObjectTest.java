@@ -19,6 +19,7 @@ public class MoveableMapObjectTest {
     public void testPlaceOnMapWithPosition_getPosition_positionIsSameAsSetOn() {
         MoveableMapObject testCandidate = new MoveableMapObject();
         InteriorMap map = new InteriorMap((short)8, (short)6);
+        map.setTileTypeAt(MapTileTypes.FLOOR, (short)4, (short)3, (short)5);
         
         testCandidate.placeOnMapWithPosition(map, (short)4, (short)3, (short)5);
         
@@ -176,6 +177,7 @@ public class MoveableMapObjectTest {
         MoveableMapObject testCandidate = new MoveableMapObject();
         InteriorMap map = new InteriorMap((short)8, (short)6);
         map.setTileTypeAt(MapTileTypes.COLLISION, (short)0, (short)7, (short)2);
+        map.setTileTypeAt(MapTileTypes.FLOOR, (short)1, (short)7, (short)2);
         
         testCandidate.placeOnMapWithPosition(map, (short)1, (short)7, (short)2);
         testCandidate.moveTo(MoveDirections.LEFT);
@@ -333,5 +335,75 @@ public class MoveableMapObjectTest {
         boolean result = testCandidate.isCurrentlyMoving();
         
         assertThat(result, is(false));
+    }
+    
+    @Test
+    public void testPlaceOnMapWithPosition_isPlacedInAir_fallsDownToLowestLevel() {
+        MoveableMapObject testCandidate = new MoveableMapObject();
+        InteriorMap map = new InteriorMap((short)10, (short)8);
+        testCandidate.placeOnMapWithPosition(map, (short)4, (short)4, (short)6);
+        
+        short posX = testCandidate.getPositionX();
+        short posY = testCandidate.getPositionY();
+        short posZ = testCandidate.getPositionZ();
+        
+        assertThat(posX, is(equalTo((short)4)));
+        assertThat(posY, is(equalTo((short)0)));
+        assertThat(posZ, is(equalTo((short)6)));
+    }
+    
+    @Test
+    public void testPlaceOnMapWithPosition_isPlacedInAirWithCollisionAndFloorBelow_fallsOntoFloor() {
+        MoveableMapObject testCandidate = new MoveableMapObject();
+        InteriorMap map = new InteriorMap((short)10, (short)8);
+        map.setTileTypeAt(MapTileTypes.COLLISION, (short)4, (short)3, (short)6);
+        map.setTileTypeAt(MapTileTypes.FLOOR, (short)4, (short)1, (short)6);
+        
+        testCandidate.placeOnMapWithPosition(map, (short)4, (short)4, (short)6);
+        
+        short posX = testCandidate.getPositionX();
+        short posY = testCandidate.getPositionY();
+        short posZ = testCandidate.getPositionZ();
+        
+        assertThat(posX, is(equalTo((short)4)));
+        assertThat(posY, is(equalTo((short)1)));
+        assertThat(posZ, is(equalTo((short)6)));        
+    }
+    
+    @Test
+    public void testMoveTo_movesIntoAir_fallsDownToLowestLevel() {
+        MoveableMapObject testCandidate = new MoveableMapObject();
+        InteriorMap map = new InteriorMap((short)10, (short)8);
+        map.setTileTypeAt(MapTileTypes.FLOOR, (short)2, (short)2, (short)1);
+        
+        testCandidate.placeOnMapWithPosition(map, (short)2, (short)2, (short)1);
+        testCandidate.moveTo(MoveDirections.DOWN);
+        
+        short posX = testCandidate.getPositionX();
+        short posY = testCandidate.getPositionY();
+        short posZ = testCandidate.getPositionZ();   
+        
+        assertThat(posX, is(equalTo((short)2)));
+        assertThat(posY, is(equalTo((short)0)));
+        assertThat(posZ, is(equalTo((short)2)));          
+    }
+    
+    @Test
+    public void testMoveTo_movesIntoAirWithFloorBelow_fallsOntoFloor() {
+        MoveableMapObject testCandidate = new MoveableMapObject();
+        InteriorMap map = new InteriorMap((short)10, (short)8);
+        map.setTileTypeAt(MapTileTypes.FLOOR, (short)3, (short)2, (short)5);
+        map.setTileTypeAt(MapTileTypes.FLOOR, (short)2, (short)1, (short)5);
+        
+        testCandidate.placeOnMapWithPosition(map, (short)3, (short)2, (short)5);
+        testCandidate.moveTo(MoveDirections.LEFT);
+        
+        short posX = testCandidate.getPositionX();
+        short posY = testCandidate.getPositionY();
+        short posZ = testCandidate.getPositionZ();   
+        
+        assertThat(posX, is(equalTo((short)2)));
+        assertThat(posY, is(equalTo((short)1)));
+        assertThat(posZ, is(equalTo((short)5)));        
     }
 }

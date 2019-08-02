@@ -24,7 +24,9 @@ public class MoveableMapObject {
             currentMap = map;
             posX = x;
             posY = y;
-            posZ = z;            
+            posZ = z;  
+            
+            checkIfFloorIsBelowAndAdjustHorizontalPositionIfNot();
         }
     }
     
@@ -133,11 +135,25 @@ public class MoveableMapObject {
             posY = y;
             posZ = z;
             
+            checkIfFloorIsBelowAndAdjustHorizontalPositionIfNot();
+            
             return true;
         }     
         
         return false;
-    }    
+    }  
+    
+    private void checkIfFloorIsBelowAndAdjustHorizontalPositionIfNot() {
+        if (0 != posY && !currentMap.tileAtIsGround(posX, posY, posZ)) {
+            short currentPosY = (short)(posY - 1);
+            
+            while (currentPosY > 0 && !currentMap.tileAtIsGround(posX, currentPosY, posZ)) {
+                currentPosY--;
+            }
+            
+            posY = currentPosY;
+        }
+    }
     
     //</editor-fold>
 }

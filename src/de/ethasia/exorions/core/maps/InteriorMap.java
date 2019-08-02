@@ -51,6 +51,18 @@ public class InteriorMap {
         return tileGrid[x][y][z].isCollidingTile();
     }
     
+    public boolean tileAtIsGround(short x, short y, short z) {
+        if (positionIsOutsideOfBounds(x, y, z)) {
+            return false;
+        }
+        
+        if (null == tileGrid[x][y][z]) {
+            return false;
+        }
+        
+        return tileGrid[x][y][z].isGround();
+    }    
+    
     public void setTileTypeAt(MapTileTypes tileType, short xPos, short yPos, short zPos) {
         if (positionIsOutsideOfBounds(xPos, yPos, zPos)) {
             throw new SetValueIsNotWithinLegalBoundsException(0, MAXIMUM_DIMENSION);
