@@ -1,6 +1,7 @@
 package de.ethasia.exorions.core.holowatch;
 
 import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
+import java.util.Comparator;
 import java.util.Date;
 
 public class HoloWatchMessage {
@@ -36,6 +37,22 @@ public class HoloWatchMessage {
         messageText = builder.messageText;
         sender = builder.sender;
         dateTimeReceived = builder.dateTimeReceived;
+    }
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Static Methods">
+    
+    public static Comparator<HoloWatchMessage> getSortComparator() {
+        return (HoloWatchMessage messageOne, HoloWatchMessage messageTwo) -> {
+            if (messageOne.getDateTimeReceived().before(messageTwo.getDateTimeReceived())) {
+                return 1;
+            } else if (messageOne.getDateTimeReceived().after(messageTwo.getDateTimeReceived())) {
+                return -1;
+            }
+            
+            return 0;
+        };
     }
     
     //</editor-fold>

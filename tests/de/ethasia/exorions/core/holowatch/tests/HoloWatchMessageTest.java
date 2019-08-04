@@ -2,9 +2,10 @@ package de.ethasia.exorions.core.holowatch.tests;
 
 import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.holowatch.HoloWatchMessage;
-import java.util.Date;
-import org.junit.Test;
 
+import java.util.Date;
+
+import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
