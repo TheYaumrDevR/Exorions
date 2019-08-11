@@ -11,7 +11,7 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
-public class PlayerTests {
+public class PlayerTest {
 
     @Test
     public void testThatPlayerIsAMoveableMapObject() {
