@@ -21,6 +21,10 @@ public class HoloWatchMessageBox {
     
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
+    public void clear() {
+        messages.clear();
+    }
+    
     public void putMessage(HoloWatchMessage message) {
         messages.add(message);
         messages.sort(HoloWatchMessage.getSortComparator());
