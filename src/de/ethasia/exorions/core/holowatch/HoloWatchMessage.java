@@ -66,6 +66,12 @@ public class HoloWatchMessage {
         private String sender;
         private Date dateTimeReceived;
         
+        public Builder() {
+            title = "(No Title)";
+            messageText = "";
+            sender = "Unknown";
+        }
+        
         public Builder setTitle(String value) {
             title = value;
             return this;
@@ -87,21 +93,15 @@ public class HoloWatchMessage {
         }
     
         public HoloWatchMessage build() {
-            if (!allPropertiesAreSet()) {
+            if (!allRequiredPropertiesAreSet()) {
                 throw new NotAllPropertiesAreSetException();
             }
             
             return new HoloWatchMessage(this);
         }
         
-        private boolean allPropertiesAreSet() {
-            return null != title 
-                && !title.isEmpty()
-                && null != messageText
-                && !messageText.isEmpty()
-                && null != sender
-                && !sender.isEmpty()
-                && null != dateTimeReceived;       
+        private boolean allRequiredPropertiesAreSet() {
+            return null != dateTimeReceived;       
         }
     }
     

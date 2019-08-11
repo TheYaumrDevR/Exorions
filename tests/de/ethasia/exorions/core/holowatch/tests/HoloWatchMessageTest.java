@@ -29,9 +29,10 @@ public class HoloWatchMessageTest {
         assertThat(product.getDateTimeReceived(), is(dateTimeReceived));
     }
     
-    @Test(expected = NotAllPropertiesAreSetException.class)
-    public void testBuilderBuild_titleIsNotSet_throwsException() {
+    @Test
+    public void testBuilderBuild_titleIsNotSet_titleIsDefaultValue() {
         Date dateTimeReceived = new Date();
+        String titleDefaultValue = "(No Title)";
         
         HoloWatchMessage product = new HoloWatchMessage.Builder()
             .setMessageText("Lorem ipsum bar")
@@ -39,11 +40,14 @@ public class HoloWatchMessageTest {
             .setDateTimeReceived(dateTimeReceived)
             .build();
         
-        assertThat(product, is(notNullValue()));
+        assertThat(product.getTitle(), is(equalTo(titleDefaultValue)));
+        assertThat(product.getSender(), is(equalTo("Random Guy")));
+        assertThat(product.getMessageText(), is(equalTo("Lorem ipsum bar")));
+        assertThat(product.getDateTimeReceived(), is(dateTimeReceived));
     }
     
-    @Test(expected = NotAllPropertiesAreSetException.class)
-    public void testBuilderBuild_messageTextIsNotSet_throwsException() {
+    @Test
+    public void testBuilderBuild_messageTextIsNotSet_messageTextIsEmpty() {
         Date dateTimeReceived = new Date();
         
         HoloWatchMessage product = new HoloWatchMessage.Builder()
@@ -52,12 +56,16 @@ public class HoloWatchMessageTest {
             .setDateTimeReceived(dateTimeReceived)
             .build();
         
-        assertThat(product, is(notNullValue()));
+        assertThat(product.getTitle(), is(equalTo("Foo")));
+        assertThat(product.getSender(), is(equalTo("Random Guy")));
+        assertThat(product.getMessageText(), is(equalTo("")));
+        assertThat(product.getDateTimeReceived(), is(dateTimeReceived));
     }  
     
-    @Test(expected = NotAllPropertiesAreSetException.class)
-    public void testBuilderBuild_senderIsNotSet_throwsException() {
+    @Test
+    public void testBuilderBuild_senderIsNotSet_senderIsDefaultValue() {
         Date dateTimeReceived = new Date();
+        String defaultSender = "Unknown";
         
         HoloWatchMessage product = new HoloWatchMessage.Builder()
             .setTitle("Foo")
@@ -65,7 +73,10 @@ public class HoloWatchMessageTest {
             .setDateTimeReceived(dateTimeReceived)
             .build();
         
-        assertThat(product, is(notNullValue()));
+        assertThat(product.getTitle(), is(equalTo("Foo")));
+        assertThat(product.getSender(), is(equalTo(defaultSender)));
+        assertThat(product.getMessageText(), is(equalTo("Lorem ipsum bar")));
+        assertThat(product.getDateTimeReceived(), is(dateTimeReceived));
     }  
     
     @Test(expected = NotAllPropertiesAreSetException.class)
