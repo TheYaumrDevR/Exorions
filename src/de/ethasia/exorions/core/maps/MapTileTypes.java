@@ -1,6 +1,6 @@
 package de.ethasia.exorions.core.maps;
 
-public enum MapTileTypes {
+public enum MapTileTypes implements MapTile {
     FLOOR {
     
         @Override
@@ -12,6 +12,9 @@ public enum MapTileTypes {
         public boolean isGround() {
             return true;
         }
+        
+        @Override
+        public void onSteppedOn() {}
     },
     
     COLLISION {
@@ -24,7 +27,10 @@ public enum MapTileTypes {
         @Override
         public boolean isGround() {
             return false;
-        }        
+        }  
+        
+        @Override
+        public void onSteppedOn() {}        
     },
 
     WARP {
@@ -37,22 +43,9 @@ public enum MapTileTypes {
         @Override
         public boolean isGround() {
             return false;
-        }        
-    },
-
-    TRIGGER {
-
-        @Override
-        public boolean isCollidingTile() {
-            return false;
-        }
+        }  
         
         @Override
-        public boolean isGround() {
-            return false;
-        }        
+        public void onSteppedOn() {}        
     };
-    
-    public abstract boolean isCollidingTile();
-    public abstract boolean isGround();
 }

@@ -1,8 +1,14 @@
 package de.ethasia.exorions.core.maps.tests;
 
 import de.ethasia.exorions.core.general.SetValueIsNotWithinLegalBoundsException;
+import de.ethasia.exorions.core.holowatch.HoloWatchMessage;
+import de.ethasia.exorions.core.maps.AddHoloWatchMessageTileTrigger;
 import de.ethasia.exorions.core.maps.InteriorMap;
 import de.ethasia.exorions.core.maps.MapTileTypes;
+import de.ethasia.exorions.core.maps.Player;
+import de.ethasia.exorions.core.maps.TriggerTileType;
+import java.util.Date;
+import java.util.List;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -137,7 +143,7 @@ public class InteriorMapTest {
     public void testSetTileTypeAt_tileIsTriggerTile_doesNotCollide() {
         InteriorMap testCandidate = new InteriorMap((short)25, (short)25);
         
-        testCandidate.setTileTypeAt(MapTileTypes.TRIGGER, (short)17, (short)15, (short)23);
+        testCandidate.setTileTypeAt(new TriggerTileType(), (short)17, (short)15, (short)23);
         
         boolean collides = testCandidate.tileAtIsColliding((short)17, (short)15, (short)23);
         
@@ -149,5 +155,59 @@ public class InteriorMapTest {
         InteriorMap testCandidate = new InteriorMap((short)25, (short)25);
         
         testCandidate.setTileTypeAt(MapTileTypes.COLLISION, (short)-1, (short)25, (short)29);        
+    }
+    
+    @Test
+    public void stepOnTileAt_triggerTileWithHoloWatchMessageIsPresent_sendsMessage() {
+        Date now = new Date();
+        HoloWatchMessage message = new HoloWatchMessage.Builder()
+            .setTitle("Welcome to the world of Po... nevermind")
+            .setMessageText("Dear Citizen, please come to the townhall asap. Your Government.")
+            .setSender("Suriver City Governor")
+            .setDateTimeReceived(now)
+            .build();
+        AddHoloWatchMessageTileTrigger tileTrigger = new AddHoloWatchMessageTileTrigger(message);
+        TriggerTileType triggerTile = new TriggerTileType(tileTrigger);    
+        
+        Player player = Player.getInstance();
+        player.clearHoloWatchMessages();
+        
+        InteriorMap testCandidate = new InteriorMap((short)4, (short)4);
+       
+        testCandidate.setTileTypeAt(triggerTile, (short)2, (short)0, (short)3);   
+        testCandidate.stepOnTileAt((short)2, (short)0, (short)3);
+        
+        List<HoloWatchMessage> holoWatchMessages = player.getAllMessages();
+        
+        assertThat(holoWatchMessages, hasItems(message));
+    }
+    
+    @Test
+    public void stepOnTileAt_tileIsNull_nothingHappens() {  
+        InteriorMap testCandidate = new InteriorMap((short)4, (short)4);
+        
+        Player player = Player.getInstance();
+        player.clearHoloWatchMessages();
+        
+        testCandidate.stepOnTileAt((short)2, (short)0, (short)3);      
+        
+        assertThat(player.getAllMessages().size(), is(0));
+    }
+    
+    @Test
+    public void stepOnTileAt_positionIsOutsideBounds_nothingHappens() {
+        InteriorMap testCandidate = new InteriorMap((short)4, (short)4);
+        
+        Player player = Player.getInstance();
+        player.clearHoloWatchMessages();
+        
+        testCandidate.stepOnTileAt((short)5, (short)0, (short)0);   
+        testCandidate.stepOnTileAt((short)0, (short)1000, (short)0);  
+        testCandidate.stepOnTileAt((short)0, (short)0, (short)5);  
+        testCandidate.stepOnTileAt((short)-1, (short)0, (short)0);  
+        testCandidate.stepOnTileAt((short)0, (short)-2, (short)0);  
+        testCandidate.stepOnTileAt((short)0, (short)0, (short)-3);  
+        
+        assertThat(player.getAllMessages().size(), is(0));        
     }
 }

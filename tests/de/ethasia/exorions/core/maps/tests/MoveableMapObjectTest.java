@@ -5,8 +5,6 @@ import de.ethasia.exorions.core.maps.MapTileTypes;
 import de.ethasia.exorions.core.maps.MoveDirections;
 import de.ethasia.exorions.core.maps.MoveableMapObject;
 import de.ethasia.exorions.core.maps.NoMapToMoveOnException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.junit.Test;
 

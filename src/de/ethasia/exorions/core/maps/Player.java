@@ -15,7 +15,7 @@ public class Player extends MoveableMapObject {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
-    private HoloWatchMessageBox holoWatchMessageBox;
+    private final HoloWatchMessageBox holoWatchMessageBox;
     
     //</editor-fold>
     
@@ -51,6 +51,27 @@ public class Player extends MoveableMapObject {
     
     public List<HoloWatchMessage> getAllMessages() {
         return holoWatchMessageBox.getMessages();
+    }
+    
+    @Override
+    public void placeOnMapWithPosition(InteriorMap map, short x, short y, short z) {
+        super.placeOnMapWithPosition(map, x, y, z);
+        
+        if (null != currentMap) {
+            currentMap.stepOnTileAt(posX, posY, posZ);            
+        }
+    }    
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Helper Methods">
+    
+    @Override
+    protected boolean setPositionIfPositionIsNotColliding(short x, short y, short z) {    
+        boolean result = super.setPositionIfPositionIsNotColliding(x, y, z);
+        currentMap.stepOnTileAt(posX, posY, posZ);
+        
+        return result;
     }
     
     //</editor-fold>

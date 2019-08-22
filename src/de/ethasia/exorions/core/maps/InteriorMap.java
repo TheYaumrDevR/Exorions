@@ -14,7 +14,7 @@ public class InteriorMap {
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
     private short xDimension, zDimension;
-    private MapTileTypes[][][] tileGrid;
+    private MapTile[][][] tileGrid;
     
     //</editor-fold>
     
@@ -29,7 +29,7 @@ public class InteriorMap {
             throw new SetValueIsNotWithinLegalBoundsException(0, MAXIMUM_DIMENSION);
         }
         
-        tileGrid = new MapTileTypes[xDimension][MAXIMUM_HEIGHT][zDimension];
+        tileGrid = new MapTile[xDimension][MAXIMUM_HEIGHT][zDimension];
         
         this.xDimension = xDimension;
         this.zDimension = zDimension;
@@ -61,9 +61,17 @@ public class InteriorMap {
         }
         
         return tileGrid[x][y][z].isGround();
-    }    
+    } 
     
-    public void setTileTypeAt(MapTileTypes tileType, short xPos, short yPos, short zPos) {
+    public void stepOnTileAt(short x, short y, short z) {
+        if (!positionIsOutsideOfBounds(x, y, z)) {
+            if (null != tileGrid[x][y][z]) {
+                tileGrid[x][y][z].onSteppedOn();
+            }            
+        }
+    }
+    
+    public void setTileTypeAt(MapTile tileType, short xPos, short yPos, short zPos) {
         if (positionIsOutsideOfBounds(xPos, yPos, zPos)) {
             throw new SetValueIsNotWithinLegalBoundsException(0, MAXIMUM_DIMENSION);
         }

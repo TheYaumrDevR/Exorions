@@ -1,8 +1,12 @@
 package de.ethasia.exorions.core.maps.tests;
 
 import de.ethasia.exorions.core.holowatch.HoloWatchMessage;
+import de.ethasia.exorions.core.maps.AddHoloWatchMessageTileTrigger;
+import de.ethasia.exorions.core.maps.InteriorMap;
+import de.ethasia.exorions.core.maps.MoveDirections;
 import de.ethasia.exorions.core.maps.MoveableMapObject;
 import de.ethasia.exorions.core.maps.Player;
+import de.ethasia.exorions.core.maps.TriggerTileType;
 import java.util.Date;
 import java.util.List;
 
@@ -77,4 +81,57 @@ public class PlayerTest {
         assertThat(playerMessages.size(), is(2));
         assertThat(playerMessages.get(0), is(message));        
     }
+   
+    @Test
+    public void testMoveTo_movesIntoTriggerTile_triggerIsExecuted() {
+        // Arrange
+        Date now = new Date();
+        HoloWatchMessage message = new HoloWatchMessage.Builder()
+            .setTitle("Welcome to the world of Po... nevermind")
+            .setMessageText("Dear Citizen, please come to the townhall asap. Your Government.")
+            .setSender("Suriver City Governor")
+            .setDateTimeReceived(now)
+            .build();
+        AddHoloWatchMessageTileTrigger tileTrigger = new AddHoloWatchMessageTileTrigger(message);
+        TriggerTileType triggerTile = new TriggerTileType(tileTrigger);   
+        
+        InteriorMap map = new InteriorMap((short)4, (short)4);
+        map.setTileTypeAt(triggerTile, (short)1, (short)0, (short)0);
+        Player testCandidate = Player.getInstance();
+        testCandidate.clearHoloWatchMessages();
+        
+        // Act
+        testCandidate.placeOnMapWithPosition(map, (short)0, (short)0, (short)0);
+        testCandidate.moveTo(MoveDirections.RIGHT);
+
+        // Assert
+        List<HoloWatchMessage> holoWatchMessages = testCandidate.getAllMessages();
+        assertThat(holoWatchMessages, hasItems(message));        
+    }
+    
+    @Test
+    public void testPlaceOnMapWithPosition_placedIntoAirAndFallsOnTriggerTile_triggerIsExecuted() {
+        // Arrange
+        Date now = new Date();
+        HoloWatchMessage message = new HoloWatchMessage.Builder()
+            .setTitle("Welcome to the world of Po... nevermind")
+            .setMessageText("Dear Citizen, please come to the townhall asap. Your Government.")
+            .setSender("Suriver City Governor")
+            .setDateTimeReceived(now)
+            .build();
+        AddHoloWatchMessageTileTrigger tileTrigger = new AddHoloWatchMessageTileTrigger(message);
+        TriggerTileType triggerTile = new TriggerTileType(tileTrigger);   
+        
+        InteriorMap map = new InteriorMap((short)4, (short)4);
+        map.setTileTypeAt(triggerTile, (short)2, (short)0, (short)2);
+        Player testCandidate = Player.getInstance();
+        testCandidate.clearHoloWatchMessages(); 
+        
+        // Act
+        testCandidate.placeOnMapWithPosition(map, (short)2, (short)5, (short)2);
+        
+        // Assert
+        List<HoloWatchMessage> holoWatchMessages = testCandidate.getAllMessages();
+        assertThat(holoWatchMessages, hasItems(message));         
+    }    
 }

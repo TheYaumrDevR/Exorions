@@ -10,8 +10,8 @@ public class MoveableMapObject {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
-    private short posX, posY, posZ;
-    private InteriorMap currentMap;
+    protected short posX, posY, posZ;
+    protected InteriorMap currentMap;
     
     private long lastMovementTimeMillis;
     
@@ -129,7 +129,7 @@ public class MoveableMapObject {
         return setPositionIfPositionIsNotColliding(newX, posY, newZ);
     }    
     
-    private boolean setPositionIfPositionIsNotColliding(short x, short y, short z) {
+    protected boolean setPositionIfPositionIsNotColliding(short x, short y, short z) {
         if (!currentMap.tileAtIsColliding(x, y, z)) {
             posX = x;
             posY = y;
