@@ -26,6 +26,10 @@ public class Player extends MoveableMapObject {
         isBusy = value;
     }
     
+    public boolean isBusy() {
+        return isBusy;
+    }
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Constructors">

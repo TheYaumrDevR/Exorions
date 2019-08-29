@@ -5,6 +5,7 @@ import de.ethasia.exorions.core.maps.AddHoloWatchMessageTileTrigger;
 import de.ethasia.exorions.core.maps.InteriorMap;
 import de.ethasia.exorions.core.maps.MoveDirections;
 import de.ethasia.exorions.core.maps.Player;
+import de.ethasia.exorions.core.maps.ShowNotificationBoxTileTrigger;
 import de.ethasia.exorions.core.maps.TriggerTileType;
 import de.ethasia.exorions.core.maps.World;
 import java.util.Date;
@@ -115,5 +116,11 @@ public class TriggerTileTypeTest {
         // Assert
         List<HoloWatchMessage> holoWatchMessages = player.getAllMessages();
         assertThat(holoWatchMessages.size(), is(0));        
+    }
+    
+    @Test
+    public void testConstructor_canAddShowNotificationBoxTileTrigger() {
+        ShowNotificationBoxTileTrigger tileTrigger = new ShowNotificationBoxTileTrigger();
+        TriggerTileType testCandidate = new TriggerTileType(tileTrigger);
     }
 }

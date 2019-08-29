@@ -3,7 +3,7 @@ package de.ethasia.exorions.core.maps;
 import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.holowatch.HoloWatchMessage;
 
-public class AddHoloWatchMessageTileTrigger {
+public class AddHoloWatchMessageTileTrigger implements TileTrigger {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
@@ -21,6 +21,7 @@ public class AddHoloWatchMessageTileTrigger {
     
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
+    @Override
     public void execute() {
         if (null == messageToAdd) {
             throw new NotAllPropertiesAreSetException();

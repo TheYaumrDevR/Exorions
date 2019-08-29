@@ -4,7 +4,7 @@ public class TriggerTileType implements MapTile {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
-    private AddHoloWatchMessageTileTrigger tileTrigger;
+    private TileTrigger tileTrigger;
     
     //</editor-fold>
     
@@ -12,7 +12,7 @@ public class TriggerTileType implements MapTile {
     
     public TriggerTileType() {}
     
-    public TriggerTileType(AddHoloWatchMessageTileTrigger tileTrigger) {
+    public TriggerTileType(TileTrigger tileTrigger) {
         this.tileTrigger = tileTrigger;
     }
     
