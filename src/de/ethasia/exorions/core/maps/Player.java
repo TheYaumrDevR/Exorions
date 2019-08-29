@@ -16,6 +16,15 @@ public class Player extends MoveableMapObject {
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
     private final HoloWatchMessageBox holoWatchMessageBox;
+    private boolean isBusy;
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Getters / Setters">
+    
+    public void setIsBusy(boolean value) {
+        isBusy = value;
+    }
     
     //</editor-fold>
     
@@ -61,6 +70,22 @@ public class Player extends MoveableMapObject {
             currentMap.stepOnTileAt(posX, posY, posZ);            
         }
     }    
+    
+    @Override
+    public void moveTo(MoveDirections direction) {
+        if (!isBusy) {
+            super.moveTo(direction);
+        }
+    }
+    
+    @Override
+    public boolean willMoveTo(MoveDirections direction) {
+        if (isBusy) {
+            return false;
+        }
+        
+        return super.willMoveTo(direction);
+    }
     
     //</editor-fold>
     

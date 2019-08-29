@@ -83,7 +83,7 @@ public class PlayerTest {
     }
    
     @Test
-    public void testMoveTo_movesIntoTriggerTile_triggerIsExecuted() {
+    public void testMoveTo_movesIntoTriggerTile_triggerIsExecuted() throws InterruptedException {
         // Arrange
         Date now = new Date();
         HoloWatchMessage message = new HoloWatchMessage.Builder()
@@ -101,6 +101,7 @@ public class PlayerTest {
         testCandidate.clearHoloWatchMessages();
         
         // Act
+        Thread.sleep(400);
         testCandidate.placeOnMapWithPosition(map, (short)0, (short)0, (short)0);
         testCandidate.moveTo(MoveDirections.RIGHT);
 
@@ -134,4 +135,48 @@ public class PlayerTest {
         List<HoloWatchMessage> holoWatchMessages = testCandidate.getAllMessages();
         assertThat(holoWatchMessages, hasItems(message));         
     }    
+    
+    @Test
+    public void testMoveTo_playerIsBusy_moveToHasNoEffect() throws InterruptedException {
+        Player testCandidate = Player.getInstance();
+        testCandidate.setIsBusy(true);
+        InteriorMap map = new InteriorMap((short)4, (short)4);
+        testCandidate.placeOnMapWithPosition(map, (short)1, (short)0, (short)3);
+        
+        Thread.sleep(400);
+        testCandidate.moveTo(MoveDirections.UP);
+        
+        assertThat(testCandidate.getPositionX(), is((short)1));
+        assertThat(testCandidate.getPositionY(), is((short)0));
+        assertThat(testCandidate.getPositionZ(), is((short)3));
+    }
+    
+    @Test
+    public void testWillMoveTo_playerIsBusy_returnsFalse() throws InterruptedException {
+        Player testCandidate = Player.getInstance();
+        testCandidate.setIsBusy(true);
+        InteriorMap map = new InteriorMap((short)4, (short)4);
+        testCandidate.placeOnMapWithPosition(map, (short)1, (short)0, (short)0);
+
+        Thread.sleep(400);
+        boolean playerWillMoveTo = testCandidate.willMoveTo(MoveDirections.DOWN);
+        
+        assertThat(playerWillMoveTo, is(false));
+    }
+    
+    @Test
+    public void testSetIsBusy_busyStatusIsAddedAndRemoved_canMoveAgain() throws InterruptedException {
+        Player testCandidate = Player.getInstance();
+        testCandidate.setIsBusy(true);
+        testCandidate.setIsBusy(false);
+        InteriorMap map = new InteriorMap((short)4, (short)4);
+        testCandidate.placeOnMapWithPosition(map, (short)2, (short)0, (short)1);
+        
+        Thread.sleep(400);
+        testCandidate.moveTo(MoveDirections.RIGHT);
+        
+        assertThat(testCandidate.getPositionX(), is((short)3));
+        assertThat(testCandidate.getPositionY(), is((short)0));
+        assertThat(testCandidate.getPositionZ(), is((short)1));        
+    }
 }
