@@ -1,4 +1,10 @@
+HoloWatchMessages
+-----------------
+
+Give Trigger Tile the "add holowatch message" trigger type
+
 BattleUC
+--------
 
 startBattle
 teamOneHasToMove -> ask for user input
@@ -11,4 +17,62 @@ getEnergyLevel
 Roadmap
 -------
 
-- Refactor: Move common code of debuffs to super class
+- Fix nullpointers in DirectDamageAbilityEffect calculations
+
+Stories
+-------
+
+- The Player enters the game in the player's room
+- There is a computer which can be interacted with. When interacted with it says: 
+What would you like to do? 
+1. Browse the Interplanet for information. 
+2. Play Exorion Battle Simulator
+- When choosing option 1. it says:
+What would you wish to know?
+1. About this planet
+
+117 years ago a human colonization ship was on its way to colonize a newly discovered habitable planet.
+Due to technical failures on the colonization ship it emerged out of hyperspace near an unknown far-away star system.
+It had no energy left to make it to any known system.
+Luckily analysis showed that the nearby star system had a habitable planet so the colonists went for it.
+Once the ship got near the planet, however, multiple technical systems of the ship started failing.
+The captain chose to make an emergency landing on the planet.
+Trapped on the planet the humans established a settlement, hoping that one day they would be discovered.
+
+2. About Exorions
+
+The human colonists discovered that the planet was inhabited by hostile and aggressive animals.
+These are now known as Exorions.
+In addition to this they seemed to have been genetically enhanced, making them lethal.
+Due to the Exorions the human colonists could not spread much further from their initial settlement and, as their supplies ran out, were forced to confine themselves there.
+They errected tall and massive walls to prevent the creatures from invading the city in masses and bided their time.
+
+3. About Suriver City
+
+The first settlement the human colonists established is now Suriver City.
+It lies on Suriver, one of the large rivers on the continent.
+It has multiple apartment buildings, the town hall, a large shopping tower and the headquarters of Crystalis Corporation.
+
+4. About Controllers
+
+A few years ago an archeological expedition discovered ruins near Suriver City.
+These seem to have stemmed from a previous civilization.
+They contained advanced mind-controlling technology, designed to control the Exorions.
+With this the Exorions could be tamed and were no longer a threat.
+This technology was reverse-engineered and serial production of it began.
+Humans who learned how to bring Exorions under their control and use them for their purposes came to be known as Controllers.
+Some members of the expedition founded the Crystalis Corporation.
+It is the main producer and supplier of Controller technology.
+
+- When trying to leave the room the following happens:
+Window appears: You got a new HoloWatch Message.
+Main quest starts
+HoloWatch message is received
+
+- The Player leaves the room through a warp tile
+- Outside is Suriver City
+- Main junctions of the city contain "HoloWatch Information Panels"
+- Fat guy stands next to one panel and says:
+"Technology is incredible! These panels upload data directly to your wrist. Try it! Hold your HoloWatch next to them and you will see where you are! Oh wait, I am in the wrong game."
+- The character can scan them with the HoloWatch and a holobox pops up, showing directions
+- If the player tries to leave the city without becoming a Controller, the guards will stop him.
