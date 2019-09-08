@@ -2,7 +2,7 @@ package de.ethasia.exorions.core.dialogs;
 
 import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 
-public class ContinueDialogDialogOption {
+public class ContinueDialogDialogOption implements DialogOption {
     
     //<editor-fold defaultstate="collapsed" desc="Accessors">
     
@@ -12,6 +12,8 @@ public class ContinueDialogDialogOption {
     }
     
     private final String text;
+    
+    @Override
     public String getText() {
         return text;
     }
@@ -23,6 +25,15 @@ public class ContinueDialogDialogOption {
     private ContinueDialogDialogOption(Builder builder) {
         followUpNode = builder.followUpNode;
         text = builder.text;
+    }
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Implementation">
+    
+    @Override
+    public boolean endsCurrentDialog() {
+        return false;
     }
     
     //</editor-fold>
