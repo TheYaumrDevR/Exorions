@@ -2,7 +2,7 @@ package de.ethasia.exorions.usecases.maps.tests;
 
 import de.ethasia.exorions.core.crosslayerinterfaces.InteractionTileUseCase;
 import de.ethasia.exorions.core.dialogs.DialogEndnode;
-import de.ethasia.exorions.core.dialogs.DialogOption;
+import de.ethasia.exorions.core.dialogs.ContinueDialogDialogOption;
 import de.ethasia.exorions.core.dialogs.DialogWithOptions;
 import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.maps.Player;
@@ -60,12 +60,12 @@ public class DialogInteractionUseCaseTest {
     private DialogWithOptions createDialogWithOptionsForTesting() {
         DialogEndnode endnode = new DialogEndnode("Make your time.");
         
-        DialogOption followUpOptionOne = new DialogOption.Builder()
+        ContinueDialogDialogOption followUpOptionOne = new ContinueDialogDialogOption.Builder()
             .setFollowUpNode(endnode)
             .setText("About the Planet")
             .build(); 
         
-        DialogOption followUpOptionTwo = new DialogOption.Builder()
+        ContinueDialogDialogOption followUpOptionTwo = new ContinueDialogDialogOption.Builder()
             .setFollowUpNode(endnode)
             .setText("About Controllers")
             .build();          

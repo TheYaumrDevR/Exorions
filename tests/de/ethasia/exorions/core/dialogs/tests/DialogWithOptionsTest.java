@@ -2,7 +2,7 @@ package de.ethasia.exorions.core.dialogs.tests;
 
 import de.ethasia.exorions.core.dialogs.DialogEndnode;
 import de.ethasia.exorions.core.dialogs.DialogNode;
-import de.ethasia.exorions.core.dialogs.DialogOption;
+import de.ethasia.exorions.core.dialogs.ContinueDialogDialogOption;
 import de.ethasia.exorions.core.dialogs.DialogWithOptions;
 import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -18,12 +18,12 @@ public class DialogWithOptionsTest {
     public void testBuilder_setAllProperties_productContainsAllProperties() {
         DialogEndnode endnode = new DialogEndnode("Make your time.");
         
-        DialogOption followUpOptionOne = new DialogOption.Builder()
+        ContinueDialogDialogOption followUpOptionOne = new ContinueDialogDialogOption.Builder()
             .setFollowUpNode(endnode)
             .setText("About the Planet")
             .build(); 
         
-        DialogOption followUpOptionTwo = new DialogOption.Builder()
+        ContinueDialogDialogOption followUpOptionTwo = new ContinueDialogDialogOption.Builder()
             .setFollowUpNode(endnode)
             .setText("About Controllers")
             .build();          
@@ -43,12 +43,12 @@ public class DialogWithOptionsTest {
     public void testThatItImplementsDialogNode() {
         DialogEndnode endnode = new DialogEndnode("Make your time.");
         
-        DialogOption followUpOptionOne = new DialogOption.Builder()
+        ContinueDialogDialogOption followUpOptionOne = new ContinueDialogDialogOption.Builder()
             .setFollowUpNode(endnode)
             .setText("About the Planet")
             .build(); 
         
-        DialogOption followUpOptionTwo = new DialogOption.Builder()
+        ContinueDialogDialogOption followUpOptionTwo = new ContinueDialogDialogOption.Builder()
             .setFollowUpNode(endnode)
             .setText("About Controllers")
             .build();          
@@ -68,12 +68,12 @@ public class DialogWithOptionsTest {
     public void testIsLeaf_returnsFalse() {
         DialogEndnode endnode = new DialogEndnode("Make your time.");
         
-        DialogOption followUpOptionOne = new DialogOption.Builder()
+        ContinueDialogDialogOption followUpOptionOne = new ContinueDialogDialogOption.Builder()
             .setFollowUpNode(endnode)
             .setText("About the Planet")
             .build(); 
         
-        DialogOption followUpOptionTwo = new DialogOption.Builder()
+        ContinueDialogDialogOption followUpOptionTwo = new ContinueDialogDialogOption.Builder()
             .setFollowUpNode(endnode)
             .setText("About Controllers")
             .build();          
@@ -91,7 +91,7 @@ public class DialogWithOptionsTest {
     public void testBuilder_lessThanTwoOptionsAreGiven_throwsException() {
         DialogEndnode endnode = new DialogEndnode("Make your time.");
         
-        DialogOption followUpOptionOne = new DialogOption.Builder()
+        ContinueDialogDialogOption followUpOptionOne = new ContinueDialogDialogOption.Builder()
             .setFollowUpNode(endnode)
             .setText("About the Planet")
             .build();         
