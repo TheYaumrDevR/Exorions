@@ -6,7 +6,7 @@ import de.ethasia.exorions.core.maps.AddHoloWatchMessageTileTrigger;
 import de.ethasia.exorions.core.maps.InteriorMap;
 import de.ethasia.exorions.core.maps.MapTileTypes;
 import de.ethasia.exorions.core.maps.Player;
-import de.ethasia.exorions.core.maps.TriggerTileType;
+import de.ethasia.exorions.core.maps.TriggerTile;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
@@ -143,7 +143,7 @@ public class InteriorMapTest {
     public void testSetTileTypeAt_tileIsTriggerTile_doesNotCollide() {
         InteriorMap testCandidate = new InteriorMap((short)25, (short)25);
         
-        testCandidate.setTileTypeAt(new TriggerTileType(), (short)17, (short)15, (short)23);
+        testCandidate.setTileTypeAt(new TriggerTile(), (short)17, (short)15, (short)23);
         
         boolean collides = testCandidate.tileAtIsColliding((short)17, (short)15, (short)23);
         
@@ -167,7 +167,7 @@ public class InteriorMapTest {
             .setDateTimeReceived(now)
             .build();
         AddHoloWatchMessageTileTrigger tileTrigger = new AddHoloWatchMessageTileTrigger(message);
-        TriggerTileType triggerTile = new TriggerTileType(tileTrigger);    
+        TriggerTile triggerTile = new TriggerTile(tileTrigger);    
         
         Player player = Player.getInstance();
         player.clearHoloWatchMessages();

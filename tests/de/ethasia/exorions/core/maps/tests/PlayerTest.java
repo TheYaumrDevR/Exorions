@@ -6,7 +6,7 @@ import de.ethasia.exorions.core.maps.InteriorMap;
 import de.ethasia.exorions.core.maps.MoveDirections;
 import de.ethasia.exorions.core.maps.MoveableMapObject;
 import de.ethasia.exorions.core.maps.Player;
-import de.ethasia.exorions.core.maps.TriggerTileType;
+import de.ethasia.exorions.core.maps.TriggerTile;
 import java.util.Date;
 import java.util.List;
 
@@ -93,7 +93,7 @@ public class PlayerTest {
             .setDateTimeReceived(now)
             .build();
         AddHoloWatchMessageTileTrigger tileTrigger = new AddHoloWatchMessageTileTrigger(message);
-        TriggerTileType triggerTile = new TriggerTileType(tileTrigger);   
+        TriggerTile triggerTile = new TriggerTile(tileTrigger);   
         
         InteriorMap map = new InteriorMap((short)4, (short)4);
         map.setTileTypeAt(triggerTile, (short)1, (short)0, (short)0);
@@ -121,7 +121,7 @@ public class PlayerTest {
             .setDateTimeReceived(now)
             .build();
         AddHoloWatchMessageTileTrigger tileTrigger = new AddHoloWatchMessageTileTrigger(message);
-        TriggerTileType triggerTile = new TriggerTileType(tileTrigger);   
+        TriggerTile triggerTile = new TriggerTile(tileTrigger);   
         
         InteriorMap map = new InteriorMap((short)4, (short)4);
         map.setTileTypeAt(triggerTile, (short)2, (short)0, (short)2);
