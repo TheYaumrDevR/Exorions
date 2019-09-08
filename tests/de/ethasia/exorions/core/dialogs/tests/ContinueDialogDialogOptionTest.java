@@ -1,7 +1,7 @@
 package de.ethasia.exorions.core.dialogs.tests;
 
 import de.ethasia.exorions.core.dialogs.DialogEndnode;
-import de.ethasia.exorions.core.dialogs.DialogOption;
+import de.ethasia.exorions.core.dialogs.ContinueDialogDialogOption;
 import de.ethasia.exorions.core.dialogs.DialogWithOptions;
 import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 
@@ -9,13 +9,13 @@ import static org.hamcrest.CoreMatchers.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class DialogOptionTest {
+public class ContinueDialogDialogOptionTest {
 
     @Test
     public void testBuilder_getFollowUpNode_followUpDialogIsSameAsSet() {    
         DialogEndnode endnode = new DialogEndnode("Make your time.");
         
-        DialogOption testCandidate = new DialogOption.Builder()
+        ContinueDialogDialogOption testCandidate = new ContinueDialogDialogOption.Builder()
             .setFollowUpNode(endnode)
             .setText("About Exorions")
             .build();
@@ -27,7 +27,7 @@ public class DialogOptionTest {
     public void testBuilder_getText_textIsSameAsSet() {
         DialogEndnode endnode = new DialogEndnode("??? Profit!");
         
-        DialogOption testCandidate = new DialogOption.Builder()
+        ContinueDialogDialogOption testCandidate = new ContinueDialogDialogOption.Builder()
             .setFollowUpNode(endnode)
             .setText("About Suriver City")
             .build();
@@ -39,12 +39,12 @@ public class DialogOptionTest {
     public void testBuilder_setFollowUpNodeAsDialogWithOptions_works() {
         DialogEndnode endnode = new DialogEndnode("Make your time.");
         
-        DialogOption followUpOptionOne = new DialogOption.Builder()
+        ContinueDialogDialogOption followUpOptionOne = new ContinueDialogDialogOption.Builder()
             .setFollowUpNode(endnode)
             .setText("About the Planet")
             .build(); 
         
-        DialogOption followUpOptionTwo = new DialogOption.Builder()
+        ContinueDialogDialogOption followUpOptionTwo = new ContinueDialogDialogOption.Builder()
             .setFollowUpNode(endnode)
             .setText("About Controllers")
             .build();          
@@ -55,7 +55,7 @@ public class DialogOptionTest {
             .addDialogOption(followUpOptionTwo)
             .build();
         
-        DialogOption testCandidate = new DialogOption.Builder()
+        ContinueDialogDialogOption testCandidate = new ContinueDialogDialogOption.Builder()
             .setFollowUpNode(followUpNode)
             .setText("About Suriver City")
             .build();         
@@ -65,17 +65,17 @@ public class DialogOptionTest {
     
     @Test(expected = NotAllPropertiesAreSetException.class)
     public void testBuilder_followUpNodeIsNotSet_throwsException() {
-        DialogOption.Builder testCandidate = new DialogOption.Builder();
+        ContinueDialogDialogOption.Builder testCandidate = new ContinueDialogDialogOption.Builder();
         
-        DialogOption product = testCandidate.setText("About this planet").build();
+        ContinueDialogDialogOption product = testCandidate.setText("About this planet").build();
     }
     
     @Test(expected = NotAllPropertiesAreSetException.class)
     public void testBuilder_textIsNotSet_throwsException() {
-        DialogOption.Builder testCandidate = new DialogOption.Builder();
+        ContinueDialogDialogOption.Builder testCandidate = new ContinueDialogDialogOption.Builder();
         DialogEndnode endnode = new DialogEndnode("Make your time.");
         
-        DialogOption product = testCandidate
+        ContinueDialogDialogOption product = testCandidate
             .setFollowUpNode(endnode)
             .build();
     }    
