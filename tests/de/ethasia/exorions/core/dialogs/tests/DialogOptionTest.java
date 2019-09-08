@@ -1,5 +1,8 @@
-package de.ethasia.exorions.core.dialogs;
+package de.ethasia.exorions.core.dialogs.tests;
 
+import de.ethasia.exorions.core.dialogs.DialogEndnode;
+import de.ethasia.exorions.core.dialogs.DialogOption;
+import de.ethasia.exorions.core.dialogs.DialogWithOptions;
 import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 
 import static org.hamcrest.CoreMatchers.*;
