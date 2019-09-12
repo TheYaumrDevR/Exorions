@@ -14,8 +14,8 @@ public class DialogWithOptions implements DialogNode {
         return text;
     }
     
-    private final List<ContinueDialogDialogOption> options;
-    public List<ContinueDialogDialogOption> getOptions() {
+    private final List<DialogOption> options;
+    public List<DialogOption> getOptions() {
         return options;
     }
     
@@ -44,7 +44,7 @@ public class DialogWithOptions implements DialogNode {
     public static class Builder {
         
         private String text;
-        private final List<ContinueDialogDialogOption> dialogOptions;
+        private final List<DialogOption> dialogOptions;
         
         public Builder() {
             dialogOptions = new LinkedList<>();
@@ -55,7 +55,7 @@ public class DialogWithOptions implements DialogNode {
             return this;
         }
         
-        public Builder addDialogOption(ContinueDialogDialogOption value) {
+        public Builder addDialogOption(DialogOption value) {
             dialogOptions.add(value);
             return this;
         }        
