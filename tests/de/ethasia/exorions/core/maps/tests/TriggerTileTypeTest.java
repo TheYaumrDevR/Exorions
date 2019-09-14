@@ -6,7 +6,7 @@ import de.ethasia.exorions.core.maps.InteriorMap;
 import de.ethasia.exorions.core.maps.MoveDirections;
 import de.ethasia.exorions.core.maps.Player;
 import de.ethasia.exorions.core.maps.ShowNotificationBoxTileTrigger;
-import de.ethasia.exorions.core.maps.TriggerTileType;
+import de.ethasia.exorions.core.maps.TriggerTile;
 import de.ethasia.exorions.core.maps.World;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +19,7 @@ public class TriggerTileTypeTest {
         
     @Test
     public void testIsGround_returnsFalse() {
-        TriggerTileType testCandidate = new TriggerTileType();
+        TriggerTile testCandidate = new TriggerTile();
         boolean isGround = testCandidate.isGround();
         
         assertThat(isGround, is(false));
@@ -27,7 +27,7 @@ public class TriggerTileTypeTest {
     
     @Test
     public void testIsColliding_returnsFalse() {
-        TriggerTileType testCandidate = new TriggerTileType();
+        TriggerTile testCandidate = new TriggerTile();
         boolean isCollidingTile = testCandidate.isCollidingTile();
         
         assertThat(isCollidingTile, is(false));
@@ -44,7 +44,7 @@ public class TriggerTileTypeTest {
             .build();
         AddHoloWatchMessageTileTrigger tileTrigger = new AddHoloWatchMessageTileTrigger(message);
         
-        TriggerTileType testCandidate = new TriggerTileType(tileTrigger);
+        TriggerTile testCandidate = new TriggerTile(tileTrigger);
 
         Player player = Player.getInstance();
         player.clearHoloWatchMessages();
@@ -56,7 +56,7 @@ public class TriggerTileTypeTest {
     
     @Test
     public void testOnSteppedOn_noTileTriggerIsPresent_nothingHappens() {
-        TriggerTileType testCandidate = new TriggerTileType();
+        TriggerTile testCandidate = new TriggerTile();
         
         Player player = Player.getInstance();
         player.clearHoloWatchMessages();
@@ -78,7 +78,7 @@ public class TriggerTileTypeTest {
             .build();
         AddHoloWatchMessageTileTrigger tileTrigger = new AddHoloWatchMessageTileTrigger(message);
         
-        TriggerTileType testCandidate = new TriggerTileType(tileTrigger);         
+        TriggerTile testCandidate = new TriggerTile(tileTrigger);         
         
         World world = new World();
         InteriorMap map = new InteriorMap((short)10, (short)10);
@@ -99,7 +99,7 @@ public class TriggerTileTypeTest {
     
     @Test
     public void testParameterlessConstructor_playerWalksOver_nothingHappens() {
-        TriggerTileType testCandidate = new TriggerTileType();         
+        TriggerTile testCandidate = new TriggerTile();         
         
         World world = new World();
         InteriorMap map = new InteriorMap((short)10, (short)10);
@@ -121,6 +121,6 @@ public class TriggerTileTypeTest {
     @Test
     public void testConstructor_canAddShowNotificationBoxTileTrigger() {
         ShowNotificationBoxTileTrigger tileTrigger = new ShowNotificationBoxTileTrigger();
-        TriggerTileType testCandidate = new TriggerTileType(tileTrigger);
+        TriggerTile testCandidate = new TriggerTile(tileTrigger);
     }
 }

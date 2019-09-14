@@ -1,6 +1,6 @@
 package de.ethasia.exorions.core.maps;
 
-public class TriggerTileType implements MapTile {
+public class TriggerTile implements MapTile {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
@@ -10,9 +10,9 @@ public class TriggerTileType implements MapTile {
     
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     
-    public TriggerTileType() {}
+    public TriggerTile() {}
     
-    public TriggerTileType(TileTrigger tileTrigger) {
+    public TriggerTile(TileTrigger tileTrigger) {
         this.tileTrigger = tileTrigger;
     }
     
