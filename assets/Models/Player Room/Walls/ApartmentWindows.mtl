@@ -1,0 +1,46 @@
+# Blender MTL File: 'ApartmentWindows.blend'
+# Material Count: 4
+
+newmtl Frame
+Ns 297.562488
+Ka 0.841667 0.841667 0.841667
+Kd 0.800000 0.800000 0.800000
+Ks 0.508333 0.508333 0.508333
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd Textures\\ApartmentWalls\\WindowFrameColor.png
+
+newmtl Glass
+Ns 900.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Textures\\ApartmentWalls\\UpperWindowGlass.png
+
+newmtl Glass_Lower
+Ns 900.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Textures\\ApartmentWalls\\LowerWindowGlass.png
+
+newmtl Wall
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Textures\\ApartmentWalls\\NormalWallFront.png
