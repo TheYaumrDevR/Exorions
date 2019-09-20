@@ -1,15 +1,22 @@
 package de.ethasia.exorions.usecases.maps;
 
 import de.ethasia.exorions.core.crosslayerinterfaces.InteractionTileUseCase;
+import de.ethasia.exorions.core.dialogs.DialogOption;
 import de.ethasia.exorions.core.dialogs.DialogWithOptions;
 import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.maps.Player;
+import de.ethasia.exorions.usecases.crosslayerinterfaces.DialogWindowPresenter;
+import de.ethasia.exorions.usecases.interfaces.PresentersFactory;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class DialogInteractionUseCase implements InteractionTileUseCase {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
     private final DialogWithOptions dialogToManage;
+    private final DialogWindowPresenter dialogWindowPresenter;
     
     //</editor-fold>
     
@@ -17,6 +24,7 @@ public class DialogInteractionUseCase implements InteractionTileUseCase {
     
     public DialogInteractionUseCase(DialogWithOptions dialogToManage) {
         this.dialogToManage = dialogToManage;
+        dialogWindowPresenter = PresentersFactory.getInstance().createDialogWindowPresenter();
     }
     
     //</editor-fold>
@@ -30,6 +38,8 @@ public class DialogInteractionUseCase implements InteractionTileUseCase {
         }
         
         Player.getInstance().setIsBusy(true);
+        List<DialogOptionTextWithHandler> dialogOptionTextsWithHandlers = convertDialogOptionsToTextsWithHandlers(dialogToManage.getOptions());
+        dialogWindowPresenter.showDialogWindowWithTextsAndHandlers(dialogToManage.getText(), dialogOptionTextsWithHandlers);
     }
     
     //</editor-fold>
@@ -38,6 +48,25 @@ public class DialogInteractionUseCase implements InteractionTileUseCase {
     
     public void cancelInteraction() {
         Player.getInstance().setIsBusy(false);
+    }
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Helpers">
+    
+    private List<DialogOptionTextWithHandler> convertDialogOptionsToTextsWithHandlers(List<DialogOption> dialogOptions) {
+        List<DialogOptionTextWithHandler> result = dialogOptions.stream().map(dialogOption -> {
+            DialogOptionSelectionHandler dialogOptionSelectionHandler = () -> {
+                
+            };
+            
+            return new DialogOptionTextWithHandler.Builder()
+                .setText(dialogOption.getText())
+                .setSelectionHandler(dialogOptionSelectionHandler)
+                .build();
+        }).collect(Collectors.toList());
+        
+        return result;
     }
     
     //</editor-fold>

@@ -4,6 +4,7 @@ import de.ethasia.exorions.core.dialogs.DialogEndnode;
 import de.ethasia.exorions.core.dialogs.DialogNode;
 import de.ethasia.exorions.core.dialogs.ContinueDialogDialogOption;
 import de.ethasia.exorions.core.dialogs.DialogWithOptions;
+import de.ethasia.exorions.core.dialogs.StartBattleSimulatorDialogOption;
 import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -100,5 +101,28 @@ public class DialogWithOptionsTest {
             .setText("I really don't feel like talking.")
             .addDialogOption(followUpOptionOne)
             .build();        
+    }
+    
+    @Test
+    public void testBuilder_addStartBattleSimulatorDialogOption_works() {
+        DialogEndnode endnode = new DialogEndnode("Make your time.");
+        
+        ContinueDialogDialogOption followUpOptionOne = new ContinueDialogDialogOption.Builder()
+            .setFollowUpNode(endnode)
+            .setText("About the Planet")
+            .build();
+        
+        StartBattleSimulatorDialogOption followUpOptionTwo = new StartBattleSimulatorDialogOption.Builder()
+            .setText("Start battle simulator")
+            .build();
+        
+        DialogWithOptions testCandidate = new DialogWithOptions.Builder()
+            .setText("I really don't feel like talking.")
+            .addDialogOption(followUpOptionOne)
+            .addDialogOption(followUpOptionTwo)
+            .build();    
+        
+        assertThat(testCandidate.getOptions().size(), is(equalTo(2)));
+        assertThat(testCandidate.getOptions(), hasItems(followUpOptionOne, followUpOptionTwo));        
     }
 }
