@@ -1,0 +1,35 @@
+# Blender MTL File: 'Oven.blend'
+# Material Count: 3
+
+newmtl LargeBlackTile
+Ns 280.227598
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.033000 0.033000 0.033000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Textures\\Oven\\BigBlackTile.png
+
+newmtl OvenFront
+Ns 440.999609
+Ka 0.250000 0.250000 0.250000
+Kd 0.800000 0.800000 0.800000
+Ks 0.750000 0.750000 0.750000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd Textures\\Oven\\OvenFront.png
+
+newmtl SmallBlackTile
+Ns 280.562175
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.033333 0.033333 0.033333
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Textures\\Oven\\SmallBlackTile.png
