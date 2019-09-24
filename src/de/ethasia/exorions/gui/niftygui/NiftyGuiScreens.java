@@ -5,10 +5,12 @@ import com.jme3.audio.AudioRenderer;
 import com.jme3.input.InputManager;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.ViewPort;
-import de.ethasia.exorions.ioadapters.presenters.GuiScreens;
 import de.lessvoid.nifty.Nifty;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.ioadapters.presenters.GuiScreens;
 
 public class NiftyGuiScreens {
     
@@ -63,7 +65,18 @@ public class NiftyGuiScreens {
         }  
         
         public void initialize() {
+            if (!allNecessaryPropertiesAreInitialized()) {
+                throw new NotAllPropertiesAreSetException();
+            }
+            
             NiftyGuiScreens.fromBuilder(this);
+        }
+        
+        private boolean allNecessaryPropertiesAreInitialized() {
+            return null != assetManager 
+                && null != inputManager 
+                && null != audioRenderer 
+                && null != guiViewPort;
         }
     }
     

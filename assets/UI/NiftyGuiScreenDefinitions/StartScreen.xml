@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nifty>
-    <screen id="start" controller="de.ethasia.exorions.gui.niftyguiscreencontrollers.StartScreenController">
-        <layer id="menuLayer" backgroundColor="#404040" childLayout="center">
-            
+    <useStyles filename="nifty-default-styles.xml" />
+    <useControls filename="nifty-default-controls.xml" />    
+    
+    <screen id="start" controller="de.ethasia.exorions.gui.niftygui.screencontrollers.StartScreenController">
+        <layer id="backGroundLayer" backgroundColor="#404040" childLayout="center"/>
+        <layer id="menuLayer" childLayout="vertical">
+            <panel height="10%"/>
+            <image filename="UI/Images/EvocriLogo.png" align="center"/>
+            <panel width="128px" align="center" childLayout="vertical">
+                <panel childLayout="center" width="100%" height="21px" backgroundColor="#323232">
+                    <control name="label" text="Game" color="#ffffff"/>
+                </panel>
+                <panel height="1px" backgroundColor="#161616"/>
+                <panel backgroundColor="#1e1e1e" childLayout="vertical" width="100%">
+                    <panel height="4px"/>
+                    <control name="button" label="New" width="109px" align="center"/>
+                    <panel height="4px"/>
+                    <control name="button" label="Load" width="109px" align="center"/>
+                    <panel height="4px"/>
+                    <control name="button" label="Options" width="109px" align="center"/>
+                    <panel height="4px"/>
+                    <control name="button" label="Credits" width="109px" align="center"/>
+                    <panel height="4px"/>
+                    <control name="button" label="Quit" width="109px" align="center"/>
+                    <panel height="4px"/>
+                </panel>
+            </panel>
         </layer>
     </screen>
 </nifty>
