@@ -26,6 +26,8 @@ public class BattleAbilities {
                 return createBite();
             case 2:
                 return createClawSwipe();
+            case 3:
+                return createErosion();    
         }
         
         return null;
@@ -113,6 +115,27 @@ public class BattleAbilities {
         clawSwipeDamage.decorate(bleedRandomizer);
         
         return clawSwipeDamage;
+    }
+    
+    private static BattleAbility createErosion() {
+        // The Exorion burrows and erodes the ground under the enemy.
+        // Deals ground based damage and may lower evasiveness of opponent.
+        
+        BattleAbilityBase erosion = new BattleAbilityBase.Builder()
+            .setName("Erosion")
+            .setDamageType(DamageTypes.GROUND)
+            .setLearningRequirements(AbilityLearningRequirements.BURROWING_LOCOMOTION)
+            .setDelayMultiplier(1.1f)
+            .setRequiredPowerPointsForStageTwo(2)
+            .setAbilityLevel(1)
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .build();  
+        
+        DirectDamageAbilityEffect erosionDamage = new DirectDamageAbilityEffect();
+        erosionDamage.setAbilityPowerByAbilityLevel(BattleAbilityPowerByLevelTables.getStandardAbilityPowerByLevelTable());
+        erosionDamage.decorate(erosion);        
+        
+        return erosionDamage;
     }
     
     //</editor-fold>

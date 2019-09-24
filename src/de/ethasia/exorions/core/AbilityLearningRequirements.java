@@ -8,5 +8,6 @@ public enum AbilityLearningRequirements {
     TAIL,
     CLAWS,
     TEETH,
-    HORNS
+    HORNS,
+    BURROWING_LOCOMOTION
 }
