@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty-styles>
+    <!-- Evocri Button -->
+
+    <!-- +++++++++++++++++++++++++++++++++++++ -->
+    <!-- style for the button background panel -->
+    <!-- +++++++++++++++++++++++++++++++++++++ -->
+    <style id="evocri-button#panel">
+        <attributes backgroundImage="UI/Controls/Button/button.png" imageMode="sprite-resize:100,23,0,2,96,2,2,2,96,2,19,2,96,2,2"
+                paddingLeft="7px" paddingRight="7px" width="100px" height="23px" childLayout="center"
+                visibleToMouse="true"/>
+        <effect>
+                <onHover name="changeImage" 
+                    active="UI/Controls/Button/buttonHover.png" 
+                    inactive="UI/Controls/Button/button.png" 
+                    imageMode="sprite-resize:100,23,0,2,96,2,2,2,96,2,19,2,96,2,2" 
+                    post="true"/>
+                
+            	<onClick name="changeImage" 
+                    active="UI/Controls/Button/buttonClick.png" 
+                    inactive="UI/Controls/Button/button.png" 
+                    imageMode="sprite-resize:100,23,0,2,96,2,2,2,96,2,19,2,96,2,2" 
+                    post="true"/>
+                
+                <onFocus name="border" color="#25ab5a" post="true"/>
+                
+            	<onDisabled name="changeImage" 
+                    active="UI/Controls/Button/buttonDisabled.png" 
+                    inactive="UI/Controls/Button/button.png" 
+                    imageMode="sprite-resize:100,23,0,2,96,2,2,2,96,2,19,2,96,2,2" 
+                    post="true"/>
+        </effect>
+    </style>
+
+    <!-- +++++++++++++++++++++++++++++++++++++ -->
+    <!-- style for the button text -->
+    <!-- +++++++++++++++++++++++++++++++++++++ -->
+    <style id="evocri-button#text" base="button-font">
+        <attributes align="center" valign="center" textHAlign="center" textVAlign="center" visibleToMouse="false"/>
+        <effect>
+            	<onEnabled name="textColorAnimated" startColor="#535353" endColor="#eeef" post="false" length="150"/>
+            	<onDisabled name="textColorAnimated" startColor="#eeef" endColor="#535353" post="false" length="150"/>
+        </effect>
+    </style>
+
+    <!-- Evocri Button End -->    
+</nifty-styles>

@@ -29,6 +29,7 @@ public class NiftyGuiScreens {
         builder.guiViewPort.addProcessor(niftyDisplay);
         
         nifty.addXml("UI/NiftyGuiScreenDefinitions/StartScreen.xml");
+        nifty.addXml("UI/NiftyGuiScreenDefinitions/OverworldScreen.xml");
     }
     
     public static void gotoScreen(GuiScreens screen) {

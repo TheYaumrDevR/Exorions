@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty>
+    <screen id="overWorld" controller="de.ethasia.exorions.gui.niftygui.screencontrollers.OverworldScreenController">
+        
+    </screen>
+</nifty>

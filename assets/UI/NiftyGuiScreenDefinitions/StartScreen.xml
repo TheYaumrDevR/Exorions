@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nifty>
     <useStyles filename="nifty-default-styles.xml" />
+    <useStyles filename="UI/NiftyGuiScreenDefinitions/styleDefinitions.xml" />
     <useControls filename="nifty-default-controls.xml" />    
     
     <screen id="start" controller="de.ethasia.exorions.gui.niftygui.screencontrollers.StartScreenController">
@@ -15,15 +16,19 @@
                 <panel height="1px" backgroundColor="#161616"/>
                 <panel backgroundColor="#1e1e1e" childLayout="vertical" width="100%">
                     <panel height="4px"/>
-                    <control name="button" label="New" width="109px" align="center"/>
+                    <control id="#newGameButton" name="button" label="New" width="109px" align="center" style="evocri-button">
+                        <interact onClick="onNewGameButtonClicked()"/>
+                    </control>
                     <panel height="4px"/>
-                    <control name="button" label="Load" width="109px" align="center"/>
+                    <control id="#loadGameButton" name="button" label="Load" enabled="false" width="109px" align="center" style="evocri-button"/>
                     <panel height="4px"/>
-                    <control name="button" label="Options" width="109px" align="center"/>
+                    <control id="#openOptionsButton" name="button" label="Options" enabled="false" width="109px" align="center" style="evocri-button"/>
                     <panel height="4px"/>
-                    <control name="button" label="Credits" width="109px" align="center"/>
+                    <control id="#openCreditsButton" name="button" label="Credits" enabled="false" width="109px" align="center" style="evocri-button"/>
                     <panel height="4px"/>
-                    <control name="button" label="Quit" width="109px" align="center"/>
+                    <control id="#quitButton" name="button" label="Quit" width="109px" align="center" style="evocri-button">
+                        <interact onClick="onQuitButtonClicked()"/>
+                    </control>
                     <panel height="4px"/>
                 </panel>
             </panel>
