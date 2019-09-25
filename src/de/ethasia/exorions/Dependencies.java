@@ -7,7 +7,7 @@ public class Dependencies {
     
     //<editor-fold defaultstate="collapsed" desc="Public Methods">
     
-    public static void injectDependencies() {
+    public static void inject() {
         injectCoreDependencies();
     }
     

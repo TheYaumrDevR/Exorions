@@ -1,4 +1,4 @@
-package de.ethasia.exorions.gui.niftygui;
+package de.ethasia.exorions.ui.niftygui;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioRenderer;

@@ -1,13 +1,15 @@
-package de.ethasia.exorions.gui.niftygui.screencontrollers;
+package de.ethasia.exorions.ui.gamestates;
 
-import de.ethasia.exorions.gui.niftygui.NiftyGuiScreens;
+import com.jme3.app.Application;
+import com.jme3.app.FlyCamAppState;
+import com.jme3.app.state.AppStateManager;
+import de.ethasia.exorions.ui.niftygui.NiftyGuiScreens;
 import de.ethasia.exorions.ioadapters.presenters.GuiScreens;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.controls.Button;
 import de.lessvoid.nifty.screen.Screen;
-import de.lessvoid.nifty.screen.ScreenController;
 
-public class StartScreenController implements ScreenController {
+public class StartGameState extends EvocriGameState {
     
     //<editor-fold defaultstate="collapsed" desc="Control IDs">
     
@@ -24,6 +26,17 @@ public class StartScreenController implements ScreenController {
     private Button loadGameButton;
     private Button optionsButton;
     private Button creditsButton;
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="AbstractAppState Implementations">
+    
+    @Override
+    public void initialize(AppStateManager stateManager, Application app) {
+        super.initialize(stateManager, app);
+        NiftyGuiScreens.gotoScreen(GuiScreens.START);
+        flyCam.setEnabled(false);
+    }
     
     //</editor-fold>
 
@@ -64,7 +77,7 @@ public class StartScreenController implements ScreenController {
     }
     
     public void onNewGameButtonClicked() {
-        NiftyGuiScreens.gotoScreen(GuiScreens.OVERWORLD);
+        EvocriGameState.setGameState(new OverworldGameState());
     }
     
     //</editor-fold>

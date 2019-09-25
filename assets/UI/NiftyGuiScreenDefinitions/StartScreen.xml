@@ -4,7 +4,7 @@
     <useStyles filename="UI/NiftyGuiScreenDefinitions/styleDefinitions.xml" />
     <useControls filename="nifty-default-controls.xml" />    
     
-    <screen id="start" controller="de.ethasia.exorions.gui.niftygui.screencontrollers.StartScreenController">
+    <screen id="start" controller="de.ethasia.exorions.ui.gamestates.StartGameState">
         <layer id="backGroundLayer" backgroundColor="#404040" childLayout="center"/>
         <layer id="menuLayer" childLayout="vertical">
             <panel height="10%"/>
