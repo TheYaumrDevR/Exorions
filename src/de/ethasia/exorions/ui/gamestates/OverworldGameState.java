@@ -12,6 +12,7 @@ import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.shadow.PointLightShadowRenderer;
 import de.ethasia.exorions.ioadapters.presenters.GuiScreens;
 import de.ethasia.exorions.ui.niftygui.NiftyGuiScreens;
+import de.ethasia.exorions.ui.visuals.PlayerCharacterAvatar;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
 
@@ -23,9 +24,15 @@ public class OverworldGameState extends EvocriGameState {
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
         NiftyGuiScreens.gotoScreen(GuiScreens.OVERWORLD);
-        flyCam.setEnabled(true);
+        
+        PlayerCharacterAvatar playerAvatar = new PlayerCharacterAvatar.Builder()
+            .setCamera(mainGameState.getCamera())
+            .setCameraDistanceToAvatar(9.5f)
+            .setGameInstance(mainGameState)
+            .build();
+        playerAvatar.attachTo(stateRootnode);
+
         flyCam.setDragToRotate(false);
-        flyCam.setMoveSpeed(3);
         loadTestScene();
     }
     
