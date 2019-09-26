@@ -3,12 +3,16 @@ package de.ethasia.exorions.ui.visuals;
 import com.jme3.app.SimpleApplication;
 import com.jme3.input.ChaseCamera;
 import com.jme3.material.Material;
+import com.jme3.material.RenderState;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import com.jme3.scene.control.BillboardControl;
 import com.jme3.scene.shape.Quad;
+import com.jme3.shader.VarType;
+import com.jme3.texture.Texture;
 
 public class PlayerCharacterAvatar {
     
@@ -17,6 +21,7 @@ public class PlayerCharacterAvatar {
     private final SimpleApplication gameInstance;
     private final Node rootNode;
     private final ChaseCamera chaseCam;
+    private BillboardControl screenFacer;
     private Spatial characterSpriteHolder;
     
     //</editor-fold>
@@ -29,6 +34,8 @@ public class PlayerCharacterAvatar {
         gameInstance = source.gameInstance;
         setupChaseCam(source);
         setupSpriteHolder(source);
+        setupBillboardControl();
+        rootNode.setLocalTranslation(0.1f + 1.6f, 0.f, 0.4f + 2.4f);
     }    
     
     //</editor-fold>
@@ -50,14 +57,25 @@ public class PlayerCharacterAvatar {
     }
     
     private void setupSpriteHolder(Builder source) {
-        Material textureMat = new Material(gameInstance.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+        Texture testSprite = gameInstance.getAssetManager().loadTexture("CharacterSprites/StandardMale/Bases/0.png");
+        testSprite.setMagFilter(Texture.MagFilter.Nearest);
         
-        characterSpriteHolder = new Geometry("characterSpriteHolder", new Quad(0.8f, 0.8f));   
+        Material textureMat = new Material(gameInstance.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+        textureMat.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha);
+        textureMat.setFloat("AlphaDiscardThreshold", 1.f);
+        textureMat.setTexture("ColorMap", testSprite);
+        
+        characterSpriteHolder = new Geometry("characterSpriteHolder", new Quad(0.6f, 1.2f));   
         characterSpriteHolder.setQueueBucket(RenderQueue.Bucket.Transparent);
-        characterSpriteHolder.setLocalTranslation(1.6f, -0.4f, 0.4f + 2.4f);
         characterSpriteHolder.addControl(chaseCam);
         characterSpriteHolder.setMaterial(textureMat);
         rootNode.attachChild(characterSpriteHolder);
+    }
+    
+    private void setupBillboardControl() {
+        screenFacer = new BillboardControl();
+        screenFacer.setAlignment(BillboardControl.Alignment.Screen);
+        rootNode.addControl(screenFacer);        
     }
     
     //</editor-fold>
