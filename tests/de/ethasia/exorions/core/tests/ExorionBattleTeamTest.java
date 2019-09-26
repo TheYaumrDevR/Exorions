@@ -32,7 +32,7 @@ public class ExorionBattleTeamTest {
         
         testCandidate.addExorion(addedExorion);
         
-        IndividualExorion firstExorionInTeam = testCandidate.getExorionOnSlot(0);
+        IndividualExorion firstExorionInTeam = testCandidate.getExorionInSlot(0);
         assertThat(firstExorionInTeam, is(equalTo(addedExorion)));
     }
     
@@ -47,8 +47,8 @@ public class ExorionBattleTeamTest {
         testCandidate.addExorion(addedExorionOne);
         testCandidate.addExorion(addedExorionTwo);
         
-        IndividualExorion firstExorionInTeam = testCandidate.getExorionOnSlot(0);
-        IndividualExorion secondExorionInTeam = testCandidate.getExorionOnSlot(1);
+        IndividualExorion firstExorionInTeam = testCandidate.getExorionInSlot(0);
+        IndividualExorion secondExorionInTeam = testCandidate.getExorionInSlot(1);
         assertThat(firstExorionInTeam, is(equalTo(addedExorionOne)));
         assertThat(secondExorionInTeam, is(equalTo(addedExorionTwo)));
     } 
@@ -70,11 +70,11 @@ public class ExorionBattleTeamTest {
         testCandidate.addExorion(addedExorionFour);
         testCandidate.addExorion(addedExorionFive);
         
-        IndividualExorion firstExorionInTeam = testCandidate.getExorionOnSlot(0);
-        IndividualExorion secondExorionInTeam = testCandidate.getExorionOnSlot(1);
-        IndividualExorion thirdExorionInTeam = testCandidate.getExorionOnSlot(2);
-        IndividualExorion fourthExorionInTeam = testCandidate.getExorionOnSlot(3);
-        IndividualExorion fifthExorionInTeam = testCandidate.getExorionOnSlot(4);
+        IndividualExorion firstExorionInTeam = testCandidate.getExorionInSlot(0);
+        IndividualExorion secondExorionInTeam = testCandidate.getExorionInSlot(1);
+        IndividualExorion thirdExorionInTeam = testCandidate.getExorionInSlot(2);
+        IndividualExorion fourthExorionInTeam = testCandidate.getExorionInSlot(3);
+        IndividualExorion fifthExorionInTeam = testCandidate.getExorionInSlot(4);
         assertThat(firstExorionInTeam, is(equalTo(addedExorionOne)));
         assertThat(secondExorionInTeam, is(equalTo(addedExorionTwo)));
         assertThat(thirdExorionInTeam, is(equalTo(addedExorionThree)));
@@ -114,7 +114,7 @@ public class ExorionBattleTeamTest {
         testCandidate.addExorion(addedExorionOne);
         testCandidate.replaceExorionAtWith(0, addedExorionTwo);
         
-        IndividualExorion firstExorionInTeam = testCandidate.getExorionOnSlot(0);   
+        IndividualExorion firstExorionInTeam = testCandidate.getExorionInSlot(0);   
         assertThat(firstExorionInTeam, is(equalTo(addedExorionTwo)));
     }
     
@@ -140,7 +140,7 @@ public class ExorionBattleTeamTest {
         
         IndividualExorion addedExorion = new IndividualExorion.Builder().setSpecies(species).build();
         IndividualExorion removedExorion = testCandidate.replaceExorionAtWith(4, addedExorion);
-        IndividualExorion exorionAtSlotFour = testCandidate.getExorionOnSlot(4); 
+        IndividualExorion exorionAtSlotFour = testCandidate.getExorionInSlot(4); 
           
         assertThat(removedExorion, is(nullValue()));
         assertThat(exorionAtSlotFour, is(equalTo(addedExorion)));

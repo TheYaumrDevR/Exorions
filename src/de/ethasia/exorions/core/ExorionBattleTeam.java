@@ -47,7 +47,7 @@ public class ExorionBattleTeam {
         return removed;
     }
     
-    public IndividualExorion getExorionOnSlot(int slotIndex) {
+    public IndividualExorion getExorionInSlot(int slotIndex) {
         return teamMembers.get(slotIndex);
     }
     
