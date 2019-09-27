@@ -3,6 +3,10 @@ package de.ethasia.exorions.ui.gamestates;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
+import com.jme3.input.KeyInput;
+import com.jme3.input.controls.ActionListener;
+import com.jme3.input.controls.AnalogListener;
+import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.DirectionalLight;
 import com.jme3.light.PointLight;
 import com.jme3.math.Vector3f;
@@ -18,14 +22,22 @@ import de.lessvoid.nifty.screen.Screen;
 
 public class OverworldGameState extends EvocriGameState {
     
+    //<editor-fold defaultstate="collapsed" desc="Fields">
+    
+    private AnalogListener analogKeyInputListener;
+    private PlayerCharacterAvatar playerAvatar;
+    
+    //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="AbstractAppState Implementations">
     
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
         NiftyGuiScreens.gotoScreen(GuiScreens.OVERWORLD);
+        initKeys();
         
-        PlayerCharacterAvatar playerAvatar = new PlayerCharacterAvatar.Builder()
+        playerAvatar = new PlayerCharacterAvatar.Builder()
             .setCamera(mainGameState.getCamera())
             .setCameraDistanceToAvatar(9.5f)
             .setGameInstance(mainGameState)
@@ -35,6 +47,12 @@ public class OverworldGameState extends EvocriGameState {
         flyCam.setDragToRotate(false);
         loadTestScene();
     }
+    
+    @Override
+    public void stateDetached(AppStateManager stateManager) {
+        super.stateDetached(stateManager);
+        detachKeys();
+    }    
     
     //</editor-fold>
 
@@ -55,6 +73,62 @@ public class OverworldGameState extends EvocriGameState {
     //</editor-fold>  
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
+    
+    private void initKeys() {
+        analogKeyInputListener = createAnalogListenerForMovements();
+        
+        mainGameState.getInputManager().addMapping("MoveLeft", new KeyTrigger(KeyInput.KEY_A));
+        mainGameState.getInputManager().addMapping("MoveUp", new KeyTrigger(KeyInput.KEY_W));
+        mainGameState.getInputManager().addMapping("MoveDown", new KeyTrigger(KeyInput.KEY_S));
+        mainGameState.getInputManager().addMapping("MoveRight", new KeyTrigger(KeyInput.KEY_D));
+        
+        mainGameState.getInputManager().addListener(analogKeyInputListener, 
+                new String[]{"MoveLeft", "MoveUp", "MoveDown", "MoveRight"});        
+    }
+    
+    private void detachKeys() {
+        mainGameState.getInputManager().deleteMapping("MoveLeft");
+        mainGameState.getInputManager().deleteMapping("MoveUp");
+        mainGameState.getInputManager().deleteMapping("MoveDown");
+        mainGameState.getInputManager().deleteMapping("MoveRight");      
+        
+        mainGameState.getInputManager().removeListener(analogKeyInputListener);
+    }
+    
+    private AnalogListener createAnalogListenerForMovements() {
+        AnalogListener result = new AnalogListener() {
+            private float timeSinceLastAction = 0.333f;
+            
+            @Override
+            public void onAnalog(String name, float value, float tpf) {
+                if (timeSinceLastAction < 0.333f) {
+                    timeSinceLastAction += tpf;
+                    return;
+                }
+                
+                timeSinceLastAction -= 0.333f;
+                
+                switch (name) {
+                    case "MoveDown":
+                        playerAvatar.moveDown();
+                        break;
+                    case "MoveRight":
+                        playerAvatar.moveRight();
+                        break;
+                    case "MoveUp":
+                        playerAvatar.moveUp();
+                        break;
+                    case "MoveLeft":
+                        playerAvatar.moveLeft();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+        
+        return result;
+    }
     
     private void loadTestScene() {
         AssetManager assetManager = mainGameState.getAssetManager();

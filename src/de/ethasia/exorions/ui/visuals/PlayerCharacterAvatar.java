@@ -4,6 +4,7 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.input.ChaseCamera;
 import com.jme3.material.Material;
 import com.jme3.material.RenderState;
+import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Geometry;
@@ -11,7 +12,6 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.BillboardControl;
 import com.jme3.scene.shape.Quad;
-import com.jme3.shader.VarType;
 import com.jme3.texture.Texture;
 
 public class PlayerCharacterAvatar {
@@ -45,6 +45,26 @@ public class PlayerCharacterAvatar {
     public void attachTo(Node parentNode) {
         parentNode.attachChild(rootNode);
     }
+    
+    public void moveDown() {
+        Vector3f currentPosition = rootNode.getLocalTranslation();
+        rootNode.setLocalTranslation(currentPosition.x, currentPosition.y, currentPosition.z + 0.8f);
+    }
+    
+    public void moveRight() {
+        Vector3f currentPosition = rootNode.getLocalTranslation();
+        rootNode.setLocalTranslation(currentPosition.x + 0.8f, currentPosition.y, currentPosition.z);
+    } 
+    
+    public void moveUp() {
+        Vector3f currentPosition = rootNode.getLocalTranslation();
+        rootNode.setLocalTranslation(currentPosition.x, currentPosition.y, currentPosition.z - 0.8f);
+    }
+
+    public void moveLeft() {
+        Vector3f currentPosition = rootNode.getLocalTranslation();
+        rootNode.setLocalTranslation(currentPosition.x - 0.8f, currentPosition.y, currentPosition.z);
+    }     
     
     //</editor-fold>
     
