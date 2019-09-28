@@ -1,6 +1,7 @@
 package de.ethasia.exorions.usecases.interfaces;
 
 import de.ethasia.exorions.usecases.crosslayer.DialogWindowPresenter;
+import de.ethasia.exorions.usecases.crosslayer.FatalErrorPresenter;
 import de.ethasia.exorions.usecases.crosslayer.OverworldStatePresenter;
 
 public abstract class PresentersFactory {
@@ -27,6 +28,7 @@ public abstract class PresentersFactory {
     
     public abstract DialogWindowPresenter createDialogWindowPresenter();
     public abstract OverworldStatePresenter createOverworldStatePresenter();
+    public abstract FatalErrorPresenter createFatalErrorPresenter();
     
     //</editor-fold>
 }

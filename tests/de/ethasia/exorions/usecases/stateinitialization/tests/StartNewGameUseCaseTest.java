@@ -1,9 +1,12 @@
 package de.ethasia.exorions.usecases.stateinitialization.tests;
 
+import de.ethasia.exorions.usecases.crosslayer.InformationForMapsCouldNotBeLoadedException;
 import de.ethasia.exorions.usecases.interfaces.PresentersFactory;
+import de.ethasia.exorions.usecases.mocks.FatalErrorPresenterMock;
 import de.ethasia.exorions.usecases.mocks.MockPresentersFactory;
 import de.ethasia.exorions.usecases.mocks.OverworldStatePresenterMock;
 import de.ethasia.exorions.usecases.stateinitialization.StartNewGameUseCase;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -21,6 +24,7 @@ public class StartNewGameUseCaseTest {
     @Before
     public void resetSharedState() {
         OverworldStatePresenterMock.emptyLastSetFields();
+        FatalErrorPresenterMock.emptyLastSetFields();
     }
 
     @Test
@@ -35,6 +39,18 @@ public class StartNewGameUseCaseTest {
     
     @Test
     public void testStartNewGame_errorHappensWhenTryingToLoadMap_errorWindowIsShownAndStateIsNotChanged() {
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        InformationForMapsCouldNotBeLoadedException internalException = new InformationForMapsCouldNotBeLoadedException(
+            "Parsing the XML failed. It might be corrupted.", 
+            "Stacktrace blabla");  
         
+        OverworldStatePresenterMock.setNextExceptionThrownOnMethodCall(internalException);
+        
+        testCandidate.startNewGame();
+        
+        assertThat(OverworldStatePresenterMock.getPresentOverworldWithNewGameMapCallCounter(), is(0));
+        assertThat(FatalErrorPresenterMock.getLastShownError(), is(equalTo(internalException.getErrorMessage())));
+        assertThat(FatalErrorPresenterMock.getLastShownErrorCause(), is(equalTo(internalException.getErrorCause())));
+        assertThat(FatalErrorPresenterMock.getLastShownStackTrace(), is(equalTo(internalException.getStackTraceString())));
     }    
 }

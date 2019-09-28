@@ -8,10 +8,30 @@ public class InformationForMapsCouldNotBeLoadedException extends RuntimeExceptio
     
     //</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Getters">
+    
+    public String getErrorMessage() {
+        return BASIC_MESSAGE;
+    }
+    
+    private final String errorCause;
+    public String getErrorCause() {
+        return errorCause;
+    }
+    
+    private final String stackTrace;
+    public String getStackTraceString() {
+        return stackTrace;
+    }    
+    
+    //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     
     public InformationForMapsCouldNotBeLoadedException(String detailedReason, String stackTrace) {
-        super(BASIC_MESSAGE + "\n" + detailedReason + "\n\nStacktrace:\n" + stackTrace);        
+        super(BASIC_MESSAGE);
+        errorCause = detailedReason;       
+        this.stackTrace = stackTrace;
     }
     
     //</editor-fold>

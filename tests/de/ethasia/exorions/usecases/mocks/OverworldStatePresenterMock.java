@@ -15,6 +15,11 @@ public class OverworldStatePresenterMock implements OverworldStatePresenter {
     public static int getPresentOverworldWithNewGameMapCallCounter() {
         return presentOverworldWithNewGameMapCallCounter;
     }
+    
+    private static RuntimeException nextExceptionThrownOnMethodCall;
+    public static void setNextExceptionThrownOnMethodCall(RuntimeException value) {
+        nextExceptionThrownOnMethodCall = value;
+    }
         
     //</editor-fold>
     
@@ -23,6 +28,7 @@ public class OverworldStatePresenterMock implements OverworldStatePresenter {
     public static void emptyLastSetFields() {
         lastPresentedMapName = "";
         presentOverworldWithNewGameMapCallCounter = 0;
+        nextExceptionThrownOnMethodCall = null;
     }
     
     //</editor-fold>
@@ -31,6 +37,10 @@ public class OverworldStatePresenterMock implements OverworldStatePresenter {
     
     @Override
     public void presentOverworldWithNewGameMap() {
+        if (null != nextExceptionThrownOnMethodCall) {
+            throw nextExceptionThrownOnMethodCall;
+        }
+        
         presentOverworldWithNewGameMapCallCounter++;
     }    
     
