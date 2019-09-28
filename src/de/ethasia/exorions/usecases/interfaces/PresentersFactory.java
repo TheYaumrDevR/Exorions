@@ -1,6 +1,6 @@
 package de.ethasia.exorions.usecases.interfaces;
 
-import de.ethasia.exorions.usecases.crosslayerinterfaces.DialogWindowPresenter;
+import de.ethasia.exorions.usecases.crosslayer.DialogWindowPresenter;
 
 public abstract class PresentersFactory {
     

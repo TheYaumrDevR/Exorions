@@ -5,7 +5,7 @@ import de.ethasia.exorions.core.dialogs.DialogOption;
 import de.ethasia.exorions.core.dialogs.DialogWithOptions;
 import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.maps.Player;
-import de.ethasia.exorions.usecases.crosslayerinterfaces.DialogWindowPresenter;
+import de.ethasia.exorions.usecases.crosslayer.DialogWindowPresenter;
 import de.ethasia.exorions.usecases.interfaces.PresentersFactory;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package de.ethasia.exorions.usecases.crosslayerinterfaces;
+package de.ethasia.exorions.usecases.crosslayer;
 
 import de.ethasia.exorions.usecases.maps.DialogOptionTextWithHandler;
 import java.util.List;
