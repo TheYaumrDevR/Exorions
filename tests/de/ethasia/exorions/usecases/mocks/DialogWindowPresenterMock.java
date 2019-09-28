@@ -1,7 +1,7 @@
 package de.ethasia.exorions.usecases.mocks;
 
 import de.ethasia.exorions.usecases.crosslayer.DialogWindowPresenter;
-import de.ethasia.exorions.usecases.maps.DialogOptionTextWithHandler;
+import de.ethasia.exorions.usecases.overworld.DialogOptionTextWithHandler;
 import java.util.List;
 
 public class DialogWindowPresenterMock implements DialogWindowPresenter {

@@ -1,4 +1,4 @@
-package de.ethasia.exorions.usecases.maps.tests;
+package de.ethasia.exorions.usecases.overworld.tests;
 
 import de.ethasia.exorions.core.crosslayerinterfaces.InteractionTileUseCase;
 import de.ethasia.exorions.core.dialogs.DialogEndnode;
@@ -8,8 +8,8 @@ import de.ethasia.exorions.core.dialogs.StartBattleSimulatorDialogOption;
 import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.maps.Player;
 import de.ethasia.exorions.usecases.interfaces.PresentersFactory;
-import de.ethasia.exorions.usecases.maps.DialogInteractionUseCase;
-import de.ethasia.exorions.usecases.maps.DialogOptionTextWithHandler;
+import de.ethasia.exorions.usecases.overworld.DialogInteractionUseCase;
+import de.ethasia.exorions.usecases.overworld.DialogOptionTextWithHandler;
 import de.ethasia.exorions.usecases.mocks.DialogWindowPresenterMock;
 import de.ethasia.exorions.usecases.mocks.MockPresentersFactory;
 import java.util.List;

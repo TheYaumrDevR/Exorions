@@ -1,4 +1,4 @@
-package de.ethasia.exorions.usecases.maps;
+package de.ethasia.exorions.usecases.overworld;
 
 public interface DialogOptionSelectionHandler {
     

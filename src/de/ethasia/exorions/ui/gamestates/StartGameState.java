@@ -1,7 +1,6 @@
 package de.ethasia.exorions.ui.gamestates;
 
 import com.jme3.app.Application;
-import com.jme3.app.FlyCamAppState;
 import com.jme3.app.state.AppStateManager;
 import de.ethasia.exorions.ui.niftygui.NiftyGuiScreens;
 import de.ethasia.exorions.ioadapters.presenters.GuiScreens;

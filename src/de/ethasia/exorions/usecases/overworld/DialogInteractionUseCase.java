@@ -1,4 +1,4 @@
-package de.ethasia.exorions.usecases.maps;
+package de.ethasia.exorions.usecases.overworld;
 
 import de.ethasia.exorions.core.crosslayerinterfaces.InteractionTileUseCase;
 import de.ethasia.exorions.core.dialogs.DialogOption;
