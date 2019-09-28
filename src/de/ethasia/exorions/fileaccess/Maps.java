@@ -1,8 +1,7 @@
 package de.ethasia.exorions.fileaccess;
 
+import com.jme3.asset.AssetManager;
 import com.jme3.scene.Spatial;
-import de.ethasia.exorions.javautils.Utils;
-import de.ethasia.exorions.usecases.crosslayer.InformationForMapsCouldNotBeLoadedException;
 import java.io.File;
 import java.io.IOException;
 import javax.xml.parsers.DocumentBuilder;
@@ -11,20 +10,32 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import de.ethasia.exorions.javautils.Utils;
+import de.ethasia.exorions.usecases.crosslayer.InformationForMapsCouldNotBeLoadedException;
+import de.ethasia.exorions.usecases.crosslayer.MapLogicCouldNotBeLoadedException;
+
 public class Maps {
+    
+    //<editor-fold defaultstate="collapsed" desc="Fields">
+    
+    private static AssetManager assetManager;
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Setters">
+    
+    public static void setAssetManager(AssetManager value) {
+        assetManager = value;
+    }
+    
+    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Static Methods">
     
-    public static Document readMapList() {
-        DocumentBuilderFactory xmlParserFactory = DocumentBuilderFactory.newInstance();
-        
+    public static Document readMapList() {  
         try {
             String mapListPath = "assets/Maps/MapList.xml";
-            
-            DocumentBuilder xmlParser = xmlParserFactory.newDocumentBuilder();
-            Document mapList = xmlParser.parse(new File(mapListPath));
-            
-            return mapList;
+            return loadDocument(mapListPath);
         } catch (ParserConfigurationException ex) {
             InformationForMapsCouldNotBeLoadedException internalException = new InformationForMapsCouldNotBeLoadedException(
                 "Creating the XML parser failed.", 
@@ -44,11 +55,42 @@ public class Maps {
     }    
     
     public static Document readMapLogic(String path) {
-        return null;
+        try {       
+            return loadDocument(path);
+        } catch (ParserConfigurationException ex) {
+            MapLogicCouldNotBeLoadedException internalException = new MapLogicCouldNotBeLoadedException(
+                "Creating the XML parser failed. Affected map: " + path, 
+                Utils.convertExceptionStackTraceToString(ex));
+            throw internalException;
+        } catch (SAXException ex) {
+            MapLogicCouldNotBeLoadedException internalException = new MapLogicCouldNotBeLoadedException(
+                "Parsing the XML failed. It might be corrupted. Affected map: " + path, 
+                Utils.convertExceptionStackTraceToString(ex));  
+            throw internalException;            
+        } catch (IOException ex) {
+            MapLogicCouldNotBeLoadedException internalException = new MapLogicCouldNotBeLoadedException(
+                "Loading the file failed. It might not exist or the game might not have access. Affected map: " + path, 
+                Utils.convertExceptionStackTraceToString(ex));  
+            throw internalException;  
+        }
     }
     
     public static Spatial readMapVisuals(String path) {
-        return null;
+        Spatial result = assetManager.loadModel(path);
+        return result;
+    }
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Helper Methods">
+    
+    private static Document loadDocument(String filePath) throws SAXException, IOException, ParserConfigurationException {
+        DocumentBuilderFactory xmlParserFactory = DocumentBuilderFactory.newInstance();
+        
+        DocumentBuilder xmlParser = xmlParserFactory.newDocumentBuilder();
+        Document document = xmlParser.parse(new File(filePath));
+            
+        return document;        
     }
     
     //</editor-fold>

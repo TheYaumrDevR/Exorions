@@ -1,7 +1,12 @@
 package de.ethasia.exorions;
 
+import com.jme3.app.SimpleApplication;
+
 import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
 import de.ethasia.exorions.core.interfaces.RealCoreClassesFactory;
+import de.ethasia.exorions.fileaccess.Maps;
+import de.ethasia.exorions.ui.gamestates.EvocriGameState;
+import de.ethasia.exorions.ui.niftygui.NiftyGuiScreens;
 
 public class Dependencies {
     
@@ -9,6 +14,18 @@ public class Dependencies {
     
     public static void inject() {
         injectCoreDependencies();
+    }
+    
+    public static void injectEngineGlobals(SimpleApplication provider) {
+        new NiftyGuiScreens.With()
+            .assetManager(provider.getAssetManager())
+            .audioRenderer(provider.getAudioRenderer())
+            .inputManager(provider.getInputManager())
+            .guiViewPort(provider.getGuiViewPort())
+            .initialize();
+        
+        EvocriGameState.setStateManager(provider.getStateManager());      
+        Maps.setAssetManager(provider.getAssetManager());
     }
     
     //</editor-fold>
