@@ -1,6 +1,7 @@
 package de.ethasia.exorions.usecases.stateinitialization.tests;
 
 import de.ethasia.exorions.usecases.crosslayer.InformationForMapsCouldNotBeLoadedException;
+import de.ethasia.exorions.usecases.crosslayer.MapLogicCouldNotBeLoadedException;
 import de.ethasia.exorions.usecases.interfaces.PresentersFactory;
 import de.ethasia.exorions.usecases.mocks.FatalErrorPresenterMock;
 import de.ethasia.exorions.usecases.mocks.MockPresentersFactory;
@@ -38,7 +39,7 @@ public class StartNewGameUseCaseTest {
     }
     
     @Test
-    public void testStartNewGame_errorHappensWhenTryingToLoadMap_errorWindowIsShownAndStateIsNotChanged() {
+    public void testStartNewGame_errorHappensWhenTryingToLoadMapsMetadata_errorWindowIsShownAndStateIsNotChanged() {
         StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
         InformationForMapsCouldNotBeLoadedException internalException = new InformationForMapsCouldNotBeLoadedException(
             "Parsing the XML failed. It might be corrupted.", 
@@ -52,5 +53,22 @@ public class StartNewGameUseCaseTest {
         assertThat(FatalErrorPresenterMock.getLastShownError(), is(equalTo(internalException.getErrorMessage())));
         assertThat(FatalErrorPresenterMock.getLastShownErrorCause(), is(equalTo(internalException.getErrorCause())));
         assertThat(FatalErrorPresenterMock.getLastShownStackTrace(), is(equalTo(internalException.getStackTraceString())));
-    }    
+    }
+
+    @Test
+    public void testStartNewGame_errorHappensWhenTryingToLoadFirstMap_errorWindowIsShownAndStateIsNotChanged() {
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        MapLogicCouldNotBeLoadedException internalException = new MapLogicCouldNotBeLoadedException(
+                "Loading the file failed. It might not exist or the game might not have access. Affected map: None", 
+                "Stracktrace with methods"); 
+        
+        OverworldStatePresenterMock.setNextExceptionThrownOnMethodCall(internalException);
+        
+        testCandidate.startNewGame();
+        
+        assertThat(OverworldStatePresenterMock.getPresentOverworldWithNewGameMapCallCounter(), is(0));
+        assertThat(FatalErrorPresenterMock.getLastShownError(), is(equalTo(internalException.getErrorMessage())));
+        assertThat(FatalErrorPresenterMock.getLastShownErrorCause(), is(equalTo(internalException.getErrorCause())));
+        assertThat(FatalErrorPresenterMock.getLastShownStackTrace(), is(equalTo(internalException.getStackTraceString())));
+    }     
 }

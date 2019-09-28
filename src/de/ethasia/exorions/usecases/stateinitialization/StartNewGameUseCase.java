@@ -2,6 +2,7 @@ package de.ethasia.exorions.usecases.stateinitialization;
 
 import de.ethasia.exorions.usecases.crosslayer.FatalErrorPresenter;
 import de.ethasia.exorions.usecases.crosslayer.InformationForMapsCouldNotBeLoadedException;
+import de.ethasia.exorions.usecases.crosslayer.MapLogicCouldNotBeLoadedException;
 import de.ethasia.exorions.usecases.crosslayer.OverworldStatePresenter;
 import de.ethasia.exorions.usecases.interfaces.PresentersFactory;
 
@@ -29,6 +30,8 @@ public class StartNewGameUseCase {
         try {
             overworldStatePresenter.presentOverworldWithNewGameMap();  
         } catch (InformationForMapsCouldNotBeLoadedException ex) {
+            fatalErrorPresenter.showFatalError(ex.getErrorMessage(), ex.getErrorCause(), ex.getStackTraceString());
+        } catch (MapLogicCouldNotBeLoadedException ex) {
             fatalErrorPresenter.showFatalError(ex.getErrorMessage(), ex.getErrorCause(), ex.getStackTraceString());
         }
     }
