@@ -1,6 +1,8 @@
 package de.ethasia.exorions.ui.visuals;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
+import com.jme3.bullet.control.CharacterControl;
 import com.jme3.input.ChaseCamera;
 import com.jme3.material.Material;
 import com.jme3.material.RenderState;
@@ -16,13 +18,24 @@ import com.jme3.texture.Texture;
 
 public class PlayerCharacterAvatar {
     
+    //<editor-fold defaultstate="collapsed" desc="Constants">
+    
+    private static final Vector3f WALKING_VECTOR_DOWN = new Vector3f(0.f, 0.f, 0.04f);
+    private static final Vector3f WALKING_VECTOR_RIGHT = new Vector3f(0.04f, 0.f, 0.f);
+    private static final Vector3f WALKING_VECTOR_UP = new Vector3f(0.f, 0.f, -0.04f);
+    private static final Vector3f WALKING_VECTOR_LEFT = new Vector3f(-0.04f, 0.f, 0.f);
+    
+    //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
     private final SimpleApplication gameInstance;
     private final Node rootNode;
     private final ChaseCamera chaseCam;
+    private final CharacterControl characterPhysics;
     private BillboardControl screenFacer;
     private Spatial characterSpriteHolder;
+    private boolean isMoving;
     
     //</editor-fold>
     
@@ -31,11 +44,12 @@ public class PlayerCharacterAvatar {
     private PlayerCharacterAvatar(Builder source) {
         rootNode = new Node();
         chaseCam = new ChaseCamera(source.chaseCamBase);
+        characterPhysics = new CharacterControl(new CapsuleCollisionShape(0.4f, 0.f), 0.1f);
         gameInstance = source.gameInstance;
         setupChaseCam(source);
+        setupPhysics();
         setupSpriteHolder(source);
         setupBillboardControl();
-        rootNode.setLocalTranslation(0.1f + 1.6f, 0.f, 0.4f + 2.4f);
     }    
     
     //</editor-fold>
@@ -47,24 +61,41 @@ public class PlayerCharacterAvatar {
     }
     
     public void moveDown() {
-        Vector3f currentPosition = rootNode.getLocalTranslation();
-        rootNode.setLocalTranslation(currentPosition.x, currentPosition.y, currentPosition.z + 0.8f);
+        if (!isMoving) {
+            isMoving = true;
+            characterPhysics.setWalkDirection(WALKING_VECTOR_DOWN);
+            MovementStopRunnable.startMovementStopTimer(333, this);
+        }
     }
     
     public void moveRight() {
-        Vector3f currentPosition = rootNode.getLocalTranslation();
-        rootNode.setLocalTranslation(currentPosition.x + 0.8f, currentPosition.y, currentPosition.z);
+        if (!isMoving) {
+            isMoving = true;
+            characterPhysics.setWalkDirection(WALKING_VECTOR_RIGHT);
+            MovementStopRunnable.startMovementStopTimer(333, this);
+        }
     } 
     
     public void moveUp() {
-        Vector3f currentPosition = rootNode.getLocalTranslation();
-        rootNode.setLocalTranslation(currentPosition.x, currentPosition.y, currentPosition.z - 0.8f);
+        if (!isMoving) {
+            isMoving = true;
+            characterPhysics.setWalkDirection(WALKING_VECTOR_UP);
+            MovementStopRunnable.startMovementStopTimer(333, this);
+        }
     }
 
     public void moveLeft() {
-        Vector3f currentPosition = rootNode.getLocalTranslation();
-        rootNode.setLocalTranslation(currentPosition.x - 0.8f, currentPosition.y, currentPosition.z);
+        if (!isMoving) {
+            isMoving = true;
+            characterPhysics.setWalkDirection(WALKING_VECTOR_LEFT);
+            MovementStopRunnable.startMovementStopTimer(333, this);
+        }
     }     
+    
+    public void stopMoving() {
+        isMoving = false;
+        characterPhysics.setWalkDirection(Vector3f.ZERO);
+    }
     
     //</editor-fold>
     
@@ -74,6 +105,14 @@ public class PlayerCharacterAvatar {
         chaseCam.setDefaultDistance(source.cameraDistanceToAvatar);
         chaseCam.setDefaultHorizontalRotation(3.14f / 2.f);
         chaseCam.setDefaultVerticalRotation(3.14f / 6.f);
+    }
+    
+    private void setupPhysics() {
+        rootNode.addControl(characterPhysics);
+        characterPhysics.setPhysicsLocation(new Vector3f(0.1f + 1.6f, 0.f, 0.4f + 2.4f));
+        characterPhysics.setJumpSpeed(20);
+        characterPhysics.setFallSpeed(20);
+        characterPhysics.setGravity(new Vector3f(0.f, -9.8f, 0.f));
     }
     
     private void setupSpriteHolder(Builder source) {

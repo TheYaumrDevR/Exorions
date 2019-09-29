@@ -109,34 +109,22 @@ public class OverworldGameState extends EvocriGameState {
     }
     
     private AnalogListener createAnalogListenerForMovements() {
-        AnalogListener result = new AnalogListener() {
-            private float timeSinceLastAction = 0.333f;
-            
-            @Override
-            public void onAnalog(String name, float value, float tpf) {
-                if (timeSinceLastAction < 0.333f) {
-                    timeSinceLastAction += tpf;
-                    return;
-                }
-                
-                timeSinceLastAction -= 0.333f;
-                
-                switch (name) {
-                    case "MoveDown":
-                        playerAvatar.moveDown();
-                        break;
-                    case "MoveRight":
-                        playerAvatar.moveRight();
-                        break;
-                    case "MoveUp":
-                        playerAvatar.moveUp();
-                        break;
-                    case "MoveLeft":
-                        playerAvatar.moveLeft();
-                        break;
-                    default:
-                        break;
-                }
+        AnalogListener result = (String name, float value, float tpf) -> {
+            switch (name) {
+                case "MoveDown":
+                    playerAvatar.moveDown();
+                    break;
+                case "MoveRight":
+                    playerAvatar.moveRight();
+                    break;
+                case "MoveUp":
+                    playerAvatar.moveUp();
+                    break;
+                case "MoveLeft":
+                    playerAvatar.moveLeft();
+                    break;
+                default:
+                    break;
             }
         };
         
