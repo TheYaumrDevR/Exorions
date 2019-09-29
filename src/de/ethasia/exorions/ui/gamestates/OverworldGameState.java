@@ -3,6 +3,7 @@ package de.ethasia.exorions.ui.gamestates;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
+import com.jme3.bullet.BulletAppState;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
@@ -23,9 +24,10 @@ public class OverworldGameState extends EvocriGameState {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
+    private BulletAppState physics;
     private AnalogListener analogKeyInputListener;
     private PlayerCharacterAvatar playerAvatar;
-    private EngineMapData mapToShow;
+    private final EngineMapData mapToShow;
     
     //</editor-fold>
     
@@ -53,12 +55,15 @@ public class OverworldGameState extends EvocriGameState {
         playerAvatar.attachTo(stateRootnode);
         
         flyCam.setDragToRotate(false);
-        loadTestScene(mapToShow);
+        loadTestScene(mapToShow);    
+        initPhysics();
     }
     
     @Override
     public void stateDetached(AppStateManager stateManager) {
         super.stateDetached(stateManager);
+        physics.getPhysicsSpace().removeAll(stateRootnode);
+        mainGameState.getStateManager().detach(physics);
         detachKeys();
     }    
     
@@ -158,6 +163,12 @@ public class OverworldGameState extends EvocriGameState {
         DirectionalLightShadowRenderer sunShadow = new DirectionalLightShadowRenderer(assetManager, 4096, 4);
         sunShadow.setLight(sun);
         viewPort.addProcessor(sunShadow);                
+    }
+    
+    private void initPhysics() {
+        physics = new BulletAppState();
+        mainGameState.getStateManager().attach(physics);
+        physics.getPhysicsSpace().addAll(stateRootnode);          
     }
     
     //</editor-fold>
