@@ -1,10 +1,10 @@
 package de.ethasia.exorions.usecases.crosslayer;
 
-public class MapLogicCouldNotBeLoadedException extends RuntimeException {
+public class MapDataCouldNotBeLoadedException extends RuntimeException {
     
     //<editor-fold defaultstate="collapsed" desc="Constants">
     
-    private static final String BASIC_MESSAGE = "Could not load the logic for a map.";
+    private static final String BASIC_MESSAGE = "Could not load the data for a map.";
     
     //</editor-fold>    
     
@@ -28,7 +28,7 @@ public class MapLogicCouldNotBeLoadedException extends RuntimeException {
     
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     
-    public MapLogicCouldNotBeLoadedException(String detailedReason, String stackTrace) {
+    public MapDataCouldNotBeLoadedException(String detailedReason, String stackTrace) {
         super(BASIC_MESSAGE);
         errorCause = detailedReason;       
         this.stackTrace = stackTrace;

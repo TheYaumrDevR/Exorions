@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <maps>
     <interiors>
-        <newGameMap name="Player Starting Room" visuals="Scenes/Player Room/PlayerRoom.j3o" logic="Maps/Interior/StartingRoom.xml"/>
+        <newGameMap name="Player Starting Room" visuals="Scenes/Player Room/PlayerRoom.j3o" logic="assets/Maps/Interior/StartingRoom.xml"/>
     </interiors>
 </maps>

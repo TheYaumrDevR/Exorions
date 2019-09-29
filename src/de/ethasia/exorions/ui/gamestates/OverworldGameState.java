@@ -10,10 +10,10 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.light.PointLight;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.ViewPort;
-import com.jme3.scene.Spatial;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.shadow.PointLightShadowRenderer;
 import de.ethasia.exorions.ioadapters.presenters.GuiScreens;
+import de.ethasia.exorions.technical.engine.EngineMapData;
 import de.ethasia.exorions.ui.niftygui.NiftyGuiScreens;
 import de.ethasia.exorions.ui.visuals.PlayerCharacterAvatar;
 import de.lessvoid.nifty.Nifty;
@@ -25,6 +25,15 @@ public class OverworldGameState extends EvocriGameState {
     
     private AnalogListener analogKeyInputListener;
     private PlayerCharacterAvatar playerAvatar;
+    private EngineMapData mapToShow;
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
+    
+    public OverworldGameState(EngineMapData mapDataToShow) {
+        mapToShow = mapDataToShow;
+    }
     
     //</editor-fold>
     
@@ -42,9 +51,9 @@ public class OverworldGameState extends EvocriGameState {
             .setGameInstance(mainGameState)
             .build();
         playerAvatar.attachTo(stateRootnode);
-
+        
         flyCam.setDragToRotate(false);
-        loadTestScene();
+        loadTestScene(mapToShow);
     }
     
     @Override
@@ -129,14 +138,14 @@ public class OverworldGameState extends EvocriGameState {
         return result;
     }
     
-    private void loadTestScene() {
+    private void loadTestScene(EngineMapData mapDataToShow) {
         AssetManager assetManager = mainGameState.getAssetManager();
         ViewPort viewPort = mainGameState.getViewPort();
         
-        Spatial room = assetManager.loadModel("Scenes/Player Room/PlayerRoom.j3o");
+        mapDataToShow.attachTo(stateRootnode);
         
         PointLight lamp = new PointLight(new Vector3f(2.45f, 2.4f, 2.6f));
-        room.addLight(lamp);
+        stateRootnode.addLight(lamp);
         
         PointLightShadowRenderer pointLightShadow = new PointLightShadowRenderer(assetManager, 1024);
         pointLightShadow.setLight(lamp);
@@ -144,13 +153,11 @@ public class OverworldGameState extends EvocriGameState {
         
         DirectionalLight sun = new DirectionalLight();
         sun.setDirection(new Vector3f(0.5f, -0.7f, -0.3f));
-        room.addLight(sun);
+        stateRootnode.addLight(sun);
         
         DirectionalLightShadowRenderer sunShadow = new DirectionalLightShadowRenderer(assetManager, 4096, 4);
         sunShadow.setLight(sun);
-        viewPort.addProcessor(sunShadow);          
-        
-        stateRootnode.attachChild(room);          
+        viewPort.addProcessor(sunShadow);                
     }
     
     //</editor-fold>

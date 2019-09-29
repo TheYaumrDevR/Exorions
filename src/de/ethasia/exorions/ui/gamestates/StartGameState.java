@@ -4,6 +4,7 @@ import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import de.ethasia.exorions.ui.niftygui.NiftyGuiScreens;
 import de.ethasia.exorions.ioadapters.presenters.GuiScreens;
+import de.ethasia.exorions.usecases.stateinitialization.StartNewGameUseCase;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.controls.Button;
 import de.lessvoid.nifty.screen.Screen;
@@ -76,7 +77,8 @@ public class StartGameState extends EvocriGameState {
     }
     
     public void onNewGameButtonClicked() {
-        EvocriGameState.setGameState(new OverworldGameState());
+        StartNewGameUseCase startNewGame = new StartNewGameUseCase();
+        startNewGame.startNewGame();
     }
     
     //</editor-fold>

@@ -12,7 +12,7 @@ import org.xml.sax.SAXException;
 
 import de.ethasia.exorions.javautils.Utils;
 import de.ethasia.exorions.usecases.crosslayer.InformationForMapsCouldNotBeLoadedException;
-import de.ethasia.exorions.usecases.crosslayer.MapLogicCouldNotBeLoadedException;
+import de.ethasia.exorions.usecases.crosslayer.MapDataCouldNotBeLoadedException;
 
 public class Maps {
     
@@ -58,17 +58,17 @@ public class Maps {
         try {       
             return loadDocument(path);
         } catch (ParserConfigurationException ex) {
-            MapLogicCouldNotBeLoadedException internalException = new MapLogicCouldNotBeLoadedException(
+            MapDataCouldNotBeLoadedException internalException = new MapDataCouldNotBeLoadedException(
                 "Creating the XML parser failed. Affected map: " + path, 
                 Utils.convertExceptionStackTraceToString(ex));
             throw internalException;
         } catch (SAXException ex) {
-            MapLogicCouldNotBeLoadedException internalException = new MapLogicCouldNotBeLoadedException(
+            MapDataCouldNotBeLoadedException internalException = new MapDataCouldNotBeLoadedException(
                 "Parsing the XML failed. It might be corrupted. Affected map: " + path, 
                 Utils.convertExceptionStackTraceToString(ex));  
             throw internalException;            
         } catch (IOException ex) {
-            MapLogicCouldNotBeLoadedException internalException = new MapLogicCouldNotBeLoadedException(
+            MapDataCouldNotBeLoadedException internalException = new MapDataCouldNotBeLoadedException(
                 "Loading the file failed. It might not exist or the game might not have access. Affected map: " + path, 
                 Utils.convertExceptionStackTraceToString(ex));  
             throw internalException;  

@@ -5,8 +5,10 @@ import com.jme3.app.SimpleApplication;
 import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
 import de.ethasia.exorions.core.interfaces.RealCoreClassesFactory;
 import de.ethasia.exorions.fileaccess.Maps;
+import de.ethasia.exorions.ioadapters.presenters.RealPresentersFactory;
 import de.ethasia.exorions.ui.gamestates.EvocriGameState;
 import de.ethasia.exorions.ui.niftygui.NiftyGuiScreens;
+import de.ethasia.exorions.usecases.interfaces.PresentersFactory;
 
 public class Dependencies {
     
@@ -14,6 +16,7 @@ public class Dependencies {
     
     public static void inject() {
         injectCoreDependencies();
+        injectIoAdapterDependencies();
     }
     
     public static void injectEngineGlobals(SimpleApplication provider) {
@@ -34,6 +37,10 @@ public class Dependencies {
     
     private static void injectCoreDependencies() {
         CoreClassesFactory.setInstance(new RealCoreClassesFactory());
+    }
+    
+    private static void injectIoAdapterDependencies() {
+        PresentersFactory.setInstance(new RealPresentersFactory());
     }
     
     //</editor-fold>

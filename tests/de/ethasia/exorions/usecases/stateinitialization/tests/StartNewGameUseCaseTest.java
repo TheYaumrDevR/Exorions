@@ -1,7 +1,7 @@
 package de.ethasia.exorions.usecases.stateinitialization.tests;
 
 import de.ethasia.exorions.usecases.crosslayer.InformationForMapsCouldNotBeLoadedException;
-import de.ethasia.exorions.usecases.crosslayer.MapLogicCouldNotBeLoadedException;
+import de.ethasia.exorions.usecases.crosslayer.MapDataCouldNotBeLoadedException;
 import de.ethasia.exorions.usecases.interfaces.PresentersFactory;
 import de.ethasia.exorions.usecases.mocks.FatalErrorPresenterMock;
 import de.ethasia.exorions.usecases.mocks.MockPresentersFactory;
@@ -58,7 +58,7 @@ public class StartNewGameUseCaseTest {
     @Test
     public void testStartNewGame_errorHappensWhenTryingToLoadFirstMap_errorWindowIsShownAndStateIsNotChanged() {
         StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
-        MapLogicCouldNotBeLoadedException internalException = new MapLogicCouldNotBeLoadedException(
+        MapDataCouldNotBeLoadedException internalException = new MapDataCouldNotBeLoadedException(
                 "Loading the file failed. It might not exist or the game might not have access. Affected map: None", 
                 "Stracktrace with methods"); 
         
