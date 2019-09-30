@@ -9,6 +9,7 @@ import de.ethasia.exorions.ioadapters.presenters.RealPresentersFactory;
 import de.ethasia.exorions.technical.jmegamestates.EvocriGameState;
 import de.ethasia.exorions.technical.niftygui.NiftyGuiScreens;
 import de.ethasia.exorions.interactors.interfaces.PresentersFactory;
+import de.ethasia.exorions.technical.fileaccess.CharacterSprites;
 
 public class Dependencies {
     
@@ -29,6 +30,7 @@ public class Dependencies {
         
         EvocriGameState.setStateManager(provider.getStateManager());      
         Maps.setAssetManager(provider.getAssetManager());
+        CharacterSprites.setAssetManager(provider.getAssetManager());
     }
     
     //</editor-fold>
