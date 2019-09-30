@@ -1,9 +1,9 @@
 package de.ethasia.exorions.usecases.mocks;
 
-import de.ethasia.exorions.usecases.crosslayer.DialogWindowPresenter;
-import de.ethasia.exorions.usecases.crosslayer.FatalErrorPresenter;
-import de.ethasia.exorions.usecases.crosslayer.OverworldStatePresenter;
-import de.ethasia.exorions.usecases.interfaces.PresentersFactory;
+import de.ethasia.exorions.interactors.crosslayer.DialogWindowPresenter;
+import de.ethasia.exorions.interactors.crosslayer.FatalErrorPresenter;
+import de.ethasia.exorions.interactors.crosslayer.OverworldStatePresenter;
+import de.ethasia.exorions.interactors.interfaces.PresentersFactory;
 
 public class MockPresentersFactory extends PresentersFactory {
 

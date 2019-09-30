@@ -4,11 +4,11 @@ import com.jme3.app.SimpleApplication;
 
 import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
 import de.ethasia.exorions.core.interfaces.RealCoreClassesFactory;
-import de.ethasia.exorions.fileaccess.Maps;
+import de.ethasia.exorions.technical.fileaccess.Maps;
 import de.ethasia.exorions.ioadapters.presenters.RealPresentersFactory;
-import de.ethasia.exorions.ui.gamestates.EvocriGameState;
-import de.ethasia.exorions.ui.niftygui.NiftyGuiScreens;
-import de.ethasia.exorions.usecases.interfaces.PresentersFactory;
+import de.ethasia.exorions.technical.jmegamestates.EvocriGameState;
+import de.ethasia.exorions.technical.niftygui.NiftyGuiScreens;
+import de.ethasia.exorions.interactors.interfaces.PresentersFactory;
 
 public class Dependencies {
     

@@ -1,12 +1,12 @@
 package de.ethasia.exorions.usecases.stateinitialization.tests;
 
-import de.ethasia.exorions.usecases.crosslayer.InformationForMapsCouldNotBeLoadedException;
-import de.ethasia.exorions.usecases.crosslayer.MapDataCouldNotBeLoadedException;
-import de.ethasia.exorions.usecases.interfaces.PresentersFactory;
+import de.ethasia.exorions.interactors.crosslayer.InformationForMapsCouldNotBeLoadedException;
+import de.ethasia.exorions.interactors.crosslayer.MapDataCouldNotBeLoadedException;
+import de.ethasia.exorions.interactors.interfaces.PresentersFactory;
 import de.ethasia.exorions.usecases.mocks.FatalErrorPresenterMock;
 import de.ethasia.exorions.usecases.mocks.MockPresentersFactory;
 import de.ethasia.exorions.usecases.mocks.OverworldStatePresenterMock;
-import de.ethasia.exorions.usecases.stateinitialization.StartNewGameUseCase;
+import de.ethasia.exorions.interactors.stateinitialization.StartNewGameUseCase;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 import static org.hamcrest.CoreMatchers.is;

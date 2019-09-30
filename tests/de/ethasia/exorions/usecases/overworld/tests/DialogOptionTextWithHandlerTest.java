@@ -1,8 +1,8 @@
 package de.ethasia.exorions.usecases.overworld.tests;
 
 import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
-import de.ethasia.exorions.usecases.overworld.DialogOptionSelectionHandler;
-import de.ethasia.exorions.usecases.overworld.DialogOptionTextWithHandler;
+import de.ethasia.exorions.interactors.overworld.DialogOptionSelectionHandler;
+import de.ethasia.exorions.interactors.overworld.DialogOptionTextWithHandler;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;

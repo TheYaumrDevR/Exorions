@@ -1,6 +1,6 @@
 package de.ethasia.exorions.usecases.mocks;
 
-import de.ethasia.exorions.usecases.crosslayer.OverworldStatePresenter;
+import de.ethasia.exorions.interactors.crosslayer.OverworldStatePresenter;
 
 public class OverworldStatePresenterMock implements OverworldStatePresenter {
     

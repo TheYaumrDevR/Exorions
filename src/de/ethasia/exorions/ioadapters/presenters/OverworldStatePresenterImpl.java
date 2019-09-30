@@ -1,11 +1,11 @@
 package de.ethasia.exorions.ioadapters.presenters;
 
-import de.ethasia.exorions.fileaccess.Maps;
+import de.ethasia.exorions.technical.fileaccess.Maps;
 import de.ethasia.exorions.technical.engine.EngineMapData;
-import de.ethasia.exorions.ui.gamestates.EvocriGameState;
-import de.ethasia.exorions.ui.gamestates.OverworldGameState;
-import de.ethasia.exorions.usecases.crosslayer.MapDataCouldNotBeLoadedException;
-import de.ethasia.exorions.usecases.crosslayer.OverworldStatePresenter;
+import de.ethasia.exorions.technical.jmegamestates.EvocriGameState;
+import de.ethasia.exorions.technical.jmegamestates.OverworldGameState;
+import de.ethasia.exorions.interactors.crosslayer.MapDataCouldNotBeLoadedException;
+import de.ethasia.exorions.interactors.crosslayer.OverworldStatePresenter;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

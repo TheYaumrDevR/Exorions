@@ -2,8 +2,8 @@ package de.ethasia.exorions;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.renderer.RenderManager;
-import de.ethasia.exorions.ui.gamestates.EvocriGameState;
-import de.ethasia.exorions.ui.gamestates.StartGameState;
+import de.ethasia.exorions.technical.jmegamestates.EvocriGameState;
+import de.ethasia.exorions.technical.jmegamestates.StartGameState;
 
 public class Main extends SimpleApplication {
 

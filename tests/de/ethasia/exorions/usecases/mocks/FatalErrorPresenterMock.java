@@ -1,6 +1,6 @@
 package de.ethasia.exorions.usecases.mocks;
 
-import de.ethasia.exorions.usecases.crosslayer.FatalErrorPresenter;
+import de.ethasia.exorions.interactors.crosslayer.FatalErrorPresenter;
 
 public class FatalErrorPresenterMock implements FatalErrorPresenter {
     
