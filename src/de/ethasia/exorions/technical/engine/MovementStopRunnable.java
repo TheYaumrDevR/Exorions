@@ -44,7 +44,7 @@ public class MovementStopRunnable implements Runnable {
             Thread.sleep(sleepTime - 50);
         } catch (InterruptedException ex) {}
 
-        // TODO: Add code to change character image to standing.
+        characterAvatar.stopSpriteMovingAnimation();
         
         try {
             Thread.sleep(50);

@@ -1,6 +1,5 @@
 package de.ethasia.exorions.technical.engine;
 
-import de.ethasia.exorions.technical.engine.MovementStopRunnable;
 import com.jme3.app.SimpleApplication;
 import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.control.CharacterControl;
@@ -16,6 +15,9 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.control.BillboardControl;
 import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture;
+
+import de.ethasia.exorions.core.maps.MoveDirections;
+import de.ethasia.exorions.ioadapters.presenters.animations.CharacterWalkingAnimation;
 
 public class PlayerCharacterAvatar {
     
@@ -36,6 +38,10 @@ public class PlayerCharacterAvatar {
     private final CharacterControl characterPhysics;
     private BillboardControl screenFacer;
     private Spatial characterSpriteHolder;
+    private Material spriteMaterial;
+    private final CharacterSpriteAtlas spriteAtlas;
+    private final CharacterWalkingAnimation walkingAnimator;
+    
     private boolean isMoving;
     
     //</editor-fold>
@@ -47,6 +53,8 @@ public class PlayerCharacterAvatar {
         chaseCam = new ChaseCamera(source.chaseCamBase);
         characterPhysics = new CharacterControl(new CapsuleCollisionShape(0.4f, 0.f), 0.1f);
         gameInstance = source.gameInstance;
+        walkingAnimator = new CharacterWalkingAnimation();
+        spriteAtlas = source.spriteAtlas;
         setupChaseCam(source);
         setupPhysics();
         setupSpriteHolder(source);
@@ -64,6 +72,10 @@ public class PlayerCharacterAvatar {
     public void moveDown() {
         if (!isMoving) {
             isMoving = true;
+            walkingAnimator.setFacingDirection(MoveDirections.DOWN);
+            walkingAnimator.startWalking();
+            spriteMaterial.setTexture("ColorMap", spriteAtlas.getSpriteOn(walkingAnimator.getAnimationFrameId()));
+            
             characterPhysics.setWalkDirection(WALKING_VECTOR_DOWN);
             MovementStopRunnable.startMovementStopTimer(333, this);
         }
@@ -72,6 +84,10 @@ public class PlayerCharacterAvatar {
     public void moveRight() {
         if (!isMoving) {
             isMoving = true;
+            walkingAnimator.setFacingDirection(MoveDirections.RIGHT);
+            walkingAnimator.startWalking();
+            spriteMaterial.setTexture("ColorMap", spriteAtlas.getSpriteOn(walkingAnimator.getAnimationFrameId()));
+            
             characterPhysics.setWalkDirection(WALKING_VECTOR_RIGHT);
             MovementStopRunnable.startMovementStopTimer(333, this);
         }
@@ -80,6 +96,10 @@ public class PlayerCharacterAvatar {
     public void moveUp() {
         if (!isMoving) {
             isMoving = true;
+            walkingAnimator.setFacingDirection(MoveDirections.UP);
+            walkingAnimator.startWalking();
+            spriteMaterial.setTexture("ColorMap", spriteAtlas.getSpriteOn(walkingAnimator.getAnimationFrameId()));
+            
             characterPhysics.setWalkDirection(WALKING_VECTOR_UP);
             MovementStopRunnable.startMovementStopTimer(333, this);
         }
@@ -88,15 +108,24 @@ public class PlayerCharacterAvatar {
     public void moveLeft() {
         if (!isMoving) {
             isMoving = true;
+            walkingAnimator.setFacingDirection(MoveDirections.LEFT);
+            walkingAnimator.startWalking();
+            spriteMaterial.setTexture("ColorMap", spriteAtlas.getSpriteOn(walkingAnimator.getAnimationFrameId()));
+            
             characterPhysics.setWalkDirection(WALKING_VECTOR_LEFT);
             MovementStopRunnable.startMovementStopTimer(333, this);
         }
-    }     
+    }    
     
     public void stopMoving() {
         isMoving = false;
         characterPhysics.setWalkDirection(Vector3f.ZERO);
     }
+    
+    public void stopSpriteMovingAnimation() {
+        walkingAnimator.stopWalking();
+        spriteMaterial.setTexture("ColorMap", spriteAtlas.getSpriteOn(walkingAnimator.getAnimationFrameId()));        
+    }    
     
     //</editor-fold>
     
@@ -120,15 +149,15 @@ public class PlayerCharacterAvatar {
         Texture testSprite = gameInstance.getAssetManager().loadTexture("CharacterSprites/StandardMale/Bases/0.png");
         testSprite.setMagFilter(Texture.MagFilter.Nearest);
         
-        Material textureMat = new Material(gameInstance.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
-        textureMat.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha);
-        textureMat.setFloat("AlphaDiscardThreshold", 1.f);
-        textureMat.setTexture("ColorMap", testSprite);
+        spriteMaterial = new Material(gameInstance.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+        spriteMaterial.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha);
+        spriteMaterial.setFloat("AlphaDiscardThreshold", 1.f);
+        spriteMaterial.setTexture("ColorMap", testSprite);
         
         characterSpriteHolder = new Geometry("characterSpriteHolder", new Quad(0.6f, 1.2f));   
         characterSpriteHolder.setQueueBucket(RenderQueue.Bucket.Transparent);
         characterSpriteHolder.addControl(chaseCam);
-        characterSpriteHolder.setMaterial(textureMat);
+        characterSpriteHolder.setMaterial(spriteMaterial);
         rootNode.attachChild(characterSpriteHolder);
     }
     
@@ -147,6 +176,7 @@ public class PlayerCharacterAvatar {
         private Camera chaseCamBase;
         private float cameraDistanceToAvatar;
         private SimpleApplication gameInstance;
+        private CharacterSpriteAtlas spriteAtlas;
         
         public Builder setCamera(Camera value) {
             chaseCamBase = value;
@@ -162,6 +192,11 @@ public class PlayerCharacterAvatar {
             gameInstance = value;
             return this;
         }
+        
+        public Builder setCharacterSpriteAtlas(CharacterSpriteAtlas value) {
+            spriteAtlas = value;
+            return this;
+        }        
         
         public PlayerCharacterAvatar build() {
             return new PlayerCharacterAvatar(this);

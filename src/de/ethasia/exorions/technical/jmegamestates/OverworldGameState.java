@@ -14,6 +14,7 @@ import com.jme3.renderer.ViewPort;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.shadow.PointLightShadowRenderer;
 import de.ethasia.exorions.ioadapters.presenters.GuiScreens;
+import de.ethasia.exorions.technical.engine.CharacterSpriteAtlas;
 import de.ethasia.exorions.technical.engine.EngineMapData;
 import de.ethasia.exorions.technical.niftygui.NiftyGuiScreens;
 import de.ethasia.exorions.technical.engine.PlayerCharacterAvatar;
@@ -28,13 +29,15 @@ public class OverworldGameState extends EvocriGameState {
     private AnalogListener analogKeyInputListener;
     private PlayerCharacterAvatar playerAvatar;
     private final EngineMapData mapToShow;
+    private final CharacterSpriteAtlas playerSpriteAtlas;
     
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     
-    public OverworldGameState(EngineMapData mapDataToShow) {
+    public OverworldGameState(EngineMapData mapDataToShow, CharacterSpriteAtlas playerSpriteAtlas) {
         mapToShow = mapDataToShow;
+        this.playerSpriteAtlas = playerSpriteAtlas;
     }
     
     //</editor-fold>
@@ -51,6 +54,7 @@ public class OverworldGameState extends EvocriGameState {
             .setCamera(mainGameState.getCamera())
             .setCameraDistanceToAvatar(9.5f)
             .setGameInstance(mainGameState)
+            .setCharacterSpriteAtlas(playerSpriteAtlas)
             .build();
         playerAvatar.attachTo(stateRootnode);
         
