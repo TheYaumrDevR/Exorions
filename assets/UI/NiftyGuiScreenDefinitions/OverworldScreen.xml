@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nifty>
-    <screen id="overWorld" controller="de.ethasia.exorions.ui.gamestates.OverworldGameState">
+    <screen id="overWorld" controller="de.ethasia.exorions.technical.jmegamestates.OverworldGameState">
         
     </screen>
 </nifty>
