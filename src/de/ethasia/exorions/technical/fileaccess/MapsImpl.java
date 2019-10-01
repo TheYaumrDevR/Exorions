@@ -13,8 +13,9 @@ import org.xml.sax.SAXException;
 import de.ethasia.exorions.javautils.Utils;
 import de.ethasia.exorions.interactors.crosslayer.InformationForMapsCouldNotBeLoadedException;
 import de.ethasia.exorions.interactors.crosslayer.MapDataCouldNotBeLoadedException;
+import de.ethasia.exorions.ioadapters.crosslayer.Maps;
 
-public class Maps {
+public class MapsImpl implements Maps {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
@@ -30,9 +31,10 @@ public class Maps {
     
     //</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="Static Methods">
+    //<editor-fold defaultstate="collapsed" desc="Maps Overrides">
     
-    public static Document readMapList() {  
+    @Override
+    public Document readMapList() {  
         try {
             String mapListPath = "assets/Maps/MapList.xml";
             return loadDocument(mapListPath);
@@ -54,7 +56,8 @@ public class Maps {
         }
     }    
     
-    public static Document readMapLogic(String path) {
+    @Override
+    public Document readMapLogic(String path) {
         try {       
             return loadDocument(path);
         } catch (ParserConfigurationException ex) {
@@ -75,7 +78,8 @@ public class Maps {
         }
     }
     
-    public static Spatial readMapVisuals(String path) {
+    @Override
+    public Spatial readMapVisuals(String path) {
         Spatial result = assetManager.loadModel(path);
         return result;
     }
@@ -84,7 +88,7 @@ public class Maps {
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
-    private static Document loadDocument(String filePath) throws SAXException, IOException, ParserConfigurationException {
+    private Document loadDocument(String filePath) throws SAXException, IOException, ParserConfigurationException {
         DocumentBuilderFactory xmlParserFactory = DocumentBuilderFactory.newInstance();
         
         DocumentBuilder xmlParser = xmlParserFactory.newDocumentBuilder();
