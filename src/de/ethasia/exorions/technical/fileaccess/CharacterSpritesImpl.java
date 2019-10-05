@@ -2,10 +2,11 @@ package de.ethasia.exorions.technical.fileaccess;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.texture.Texture;
+import de.ethasia.exorions.ioadapters.crosslayer.CharacterSprites;
 import de.ethasia.exorions.ioadapters.presenters.DebugWarningLog;
 import de.ethasia.exorions.technical.engine.CharacterSpriteAtlas;
 
-public class CharacterSprites {
+public class CharacterSpritesImpl implements CharacterSprites {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
@@ -23,7 +24,8 @@ public class CharacterSprites {
     
     //<editor-fold defaultstate="collapsed" desc="Static Methods">
     
-    public static CharacterSpriteAtlas loadSpritesFrom(String path) {
+    @Override
+    public CharacterSpriteAtlas loadSpritesFrom(String path) {
         CharacterSpriteAtlas.Builder spriteAtlasBuilder = new CharacterSpriteAtlas.Builder();
         
         for (int i = 0; i < 12; i++) {

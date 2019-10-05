@@ -23,6 +23,7 @@ public abstract class TechnicalsFactory {
     //<editor-fold defaultstate="collapsed" desc="Abstract methods">    
     
     public abstract Maps createMaps();
+    public abstract CharacterSprites createCharacterSprites();
     
     //</editor-fold>     
 }

@@ -5,10 +5,10 @@ import de.ethasia.exorions.technical.jmegamestates.EvocriGameState;
 import de.ethasia.exorions.technical.jmegamestates.OverworldGameState;
 import de.ethasia.exorions.interactors.crosslayer.MapDataCouldNotBeLoadedException;
 import de.ethasia.exorions.interactors.crosslayer.OverworldStatePresenter;
+import de.ethasia.exorions.ioadapters.crosslayer.CharacterSprites;
 import de.ethasia.exorions.ioadapters.crosslayer.Maps;
 import de.ethasia.exorions.ioadapters.crosslayer.TechnicalsFactory;
 import de.ethasia.exorions.technical.engine.CharacterSpriteAtlas;
-import de.ethasia.exorions.technical.fileaccess.CharacterSprites;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -20,7 +20,10 @@ public class OverworldStatePresenterImpl implements OverworldStatePresenter {
     
     @Override
     public void presentOverworldWithNewGameMap() {
-        Maps maps = TechnicalsFactory.getInstance().createMaps();
+        TechnicalsFactory technicalsFactory = TechnicalsFactory.getInstance();
+        
+        Maps maps = technicalsFactory.createMaps();
+        CharacterSprites characterSprites = technicalsFactory.createCharacterSprites();
         
         Document mapList = maps.readMapList();
         MapMetaData startingMapData = tryToFindMapDataOfStartingMap(mapList);
@@ -30,7 +33,7 @@ public class OverworldStatePresenterImpl implements OverworldStatePresenter {
         
         mapDataForEngineBuilder.setMapVisuals(maps.readMapVisuals(startingMapData.visualFilePath));
         EngineMapData mapDataForEngine = mapDataForEngineBuilder.build();
-        CharacterSpriteAtlas playerSpriteAtlas = CharacterSprites.loadSpritesFrom("CharacterSprites/StandardMale/Bases");
+        CharacterSpriteAtlas playerSpriteAtlas = characterSprites.loadSpritesFrom("CharacterSprites/StandardMale/Bases");
         
         OverworldGameState overworldState = new OverworldGameState(mapDataForEngine, playerSpriteAtlas);
         EvocriGameState.setGameState(overworldState);

@@ -11,7 +11,7 @@ import de.ethasia.exorions.technical.niftygui.NiftyGuiScreens;
 import de.ethasia.exorions.interactors.interfaces.PresentersFactory;
 import de.ethasia.exorions.ioadapters.crosslayer.TechnicalsFactory;
 import de.ethasia.exorions.technical.RealTechnicalsFactory;
-import de.ethasia.exorions.technical.fileaccess.CharacterSprites;
+import de.ethasia.exorions.technical.fileaccess.CharacterSpritesImpl;
 
 public class Dependencies {
     
@@ -33,7 +33,7 @@ public class Dependencies {
         
         EvocriGameState.setStateManager(provider.getStateManager());      
         MapsImpl.setAssetManager(provider.getAssetManager());
-        CharacterSprites.setAssetManager(provider.getAssetManager());
+        CharacterSpritesImpl.setAssetManager(provider.getAssetManager());
     }
     
     //</editor-fold>
