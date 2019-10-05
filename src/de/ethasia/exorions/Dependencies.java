@@ -9,9 +9,11 @@ import de.ethasia.exorions.ioadapters.presenters.RealPresentersFactory;
 import de.ethasia.exorions.technical.jmegamestates.EvocriGameState;
 import de.ethasia.exorions.technical.niftygui.NiftyGuiScreens;
 import de.ethasia.exorions.interactors.interfaces.PresentersFactory;
+import de.ethasia.exorions.ioadapters.crosslayer.GameStatesFactory;
 import de.ethasia.exorions.ioadapters.crosslayer.TechnicalsFactory;
 import de.ethasia.exorions.technical.RealTechnicalsFactory;
 import de.ethasia.exorions.technical.fileaccess.CharacterSpritesImpl;
+import de.ethasia.exorions.technical.jmegamestates.RealGameStatesFactory;
 
 public class Dependencies {
     
@@ -50,6 +52,7 @@ public class Dependencies {
     
     private static void injectTechnicalDependencies() {
         TechnicalsFactory.setInstance(new RealTechnicalsFactory());
+        GameStatesFactory.setInstance(new RealGameStatesFactory());
     }
     
     //</editor-fold>

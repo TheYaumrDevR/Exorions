@@ -13,6 +13,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.ViewPort;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.shadow.PointLightShadowRenderer;
+import de.ethasia.exorions.ioadapters.crosslayer.OverworldGameState;
 import de.ethasia.exorions.ioadapters.presenters.GuiScreens;
 import de.ethasia.exorions.technical.engine.CharacterSpriteAtlas;
 import de.ethasia.exorions.technical.engine.EngineMapData;
@@ -21,7 +22,7 @@ import de.ethasia.exorions.technical.engine.PlayerCharacterAvatar;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
 
-public class OverworldGameState extends EvocriGameState {
+public class OverworldGameStateImpl extends OverworldGameState {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
@@ -35,7 +36,7 @@ public class OverworldGameState extends EvocriGameState {
     
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     
-    public OverworldGameState(EngineMapData mapDataToShow, CharacterSpriteAtlas playerSpriteAtlas) {
+    public OverworldGameStateImpl(EngineMapData mapDataToShow, CharacterSpriteAtlas playerSpriteAtlas) {
         mapToShow = mapDataToShow;
         this.playerSpriteAtlas = playerSpriteAtlas;
     }
