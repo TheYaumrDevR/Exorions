@@ -1,4 +1,4 @@
-package de.ethasia.exorions.usecases.overworld.tests;
+package de.ethasia.exorions.interactors.overworld.tests;
 
 import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.interactors.overworld.DialogOptionSelectionHandler;

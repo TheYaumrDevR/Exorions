@@ -1,4 +1,4 @@
-package de.ethasia.exorions.usecases.mocks;
+package de.ethasia.exorions.interactors.mocks;
 
 import de.ethasia.exorions.interactors.crosslayer.DialogWindowPresenter;
 import de.ethasia.exorions.interactors.overworld.DialogOptionTextWithHandler;

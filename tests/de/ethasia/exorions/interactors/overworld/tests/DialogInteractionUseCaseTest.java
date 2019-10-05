@@ -1,4 +1,4 @@
-package de.ethasia.exorions.usecases.overworld.tests;
+package de.ethasia.exorions.interactors.overworld.tests;
 
 import de.ethasia.exorions.core.crosslayerinterfaces.InteractionTileUseCase;
 import de.ethasia.exorions.core.dialogs.DialogEndnode;
@@ -10,8 +10,8 @@ import de.ethasia.exorions.core.maps.Player;
 import de.ethasia.exorions.interactors.interfaces.PresentersFactory;
 import de.ethasia.exorions.interactors.overworld.DialogInteractionUseCase;
 import de.ethasia.exorions.interactors.overworld.DialogOptionTextWithHandler;
-import de.ethasia.exorions.usecases.mocks.DialogWindowPresenterMock;
-import de.ethasia.exorions.usecases.mocks.MockPresentersFactory;
+import de.ethasia.exorions.interactors.mocks.DialogWindowPresenterMock;
+import de.ethasia.exorions.interactors.mocks.MockPresentersFactory;
 import java.util.List;
 import static org.hamcrest.CoreMatchers.equalTo;
 
