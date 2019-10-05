@@ -1,6 +1,5 @@
 package de.ethasia.exorions.ioadapters.presenters;
 
-import de.ethasia.exorions.technical.fileaccess.MapsImpl;
 import de.ethasia.exorions.technical.engine.EngineMapData;
 import de.ethasia.exorions.technical.jmegamestates.EvocriGameState;
 import de.ethasia.exorions.technical.jmegamestates.OverworldGameState;
