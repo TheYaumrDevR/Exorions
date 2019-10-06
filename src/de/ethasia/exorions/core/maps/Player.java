@@ -17,6 +17,7 @@ public class Player extends MoveableMapObject {
     
     private final HoloWatchMessageBox holoWatchMessageBox;
     private boolean isBusy;
+    private MoveDirections facingDirection;
     
     //</editor-fold>
     
@@ -28,6 +29,10 @@ public class Player extends MoveableMapObject {
     
     public boolean isBusy() {
         return isBusy;
+    }
+    
+    public MoveDirections getFacingDirection() {
+        return facingDirection;
     }
     
     //</editor-fold>
@@ -78,6 +83,7 @@ public class Player extends MoveableMapObject {
     @Override
     public void moveTo(MoveDirections direction) {
         if (!isBusy) {
+            facingDirection = direction;
             super.moveTo(direction);
         }
     }
@@ -89,6 +95,22 @@ public class Player extends MoveableMapObject {
         }
         
         return super.willMoveTo(direction);
+    }
+    
+    public void turnDown() {
+        facingDirection = MoveDirections.DOWN;
+    }
+    
+    public void turnRight() {
+        facingDirection = MoveDirections.RIGHT;
+    }
+    
+    public void turnUp() {
+        facingDirection = MoveDirections.UP;
+    }
+    
+    public void turnLeft() {
+        facingDirection = MoveDirections.LEFT;
     }
     
     //</editor-fold>
