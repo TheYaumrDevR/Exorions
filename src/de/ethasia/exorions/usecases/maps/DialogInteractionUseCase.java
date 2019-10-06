@@ -7,7 +7,6 @@ import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
 import de.ethasia.exorions.core.maps.Player;
 import de.ethasia.exorions.usecases.crosslayerinterfaces.DialogWindowPresenter;
 import de.ethasia.exorions.usecases.interfaces.PresentersFactory;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,15 +54,29 @@ public class DialogInteractionUseCase implements InteractionTileUseCase {
     //<editor-fold defaultstate="collapsed" desc="Helpers">
     
     private List<DialogOptionTextWithHandler> convertDialogOptionsToTextsWithHandlers(List<DialogOption> dialogOptions) {
-        List<DialogOptionTextWithHandler> result = dialogOptions.stream().map(dialogOption -> {
-            DialogOptionSelectionHandler dialogOptionSelectionHandler = () -> {
+        List<DialogOptionTextWithHandler> result = dialogOptions.stream().map((DialogOption dialogOption) -> {
+            DialogOptionSelectionHandler dialogOptionSelectionHandler;
+            
+            if (null != dialogOption.getFollowUpNode()) {
+                if (dialogOption.getFollowUpNode().isLeaf()) {
+                    dialogOptionSelectionHandler = () -> {
+                        dialogWindowPresenter.showDialogWindowWithDialogEndText(dialogOption.getFollowUpNode().getText());
+                    };                    
+                } else {
+                    dialogOptionSelectionHandler = () -> {
                 
-            };
+                    };                     
+                }
+            } else {
+                dialogOptionSelectionHandler = () -> {
+                    Player.getInstance().setIsBusy(true);
+                };                
+            }
             
             return new DialogOptionTextWithHandler.Builder()
-                .setText(dialogOption.getText())
-                .setSelectionHandler(dialogOptionSelectionHandler)
-                .build();
+                    .setText(dialogOption.getText())
+                    .setSelectionHandler(dialogOptionSelectionHandler)
+                    .build();
         }).collect(Collectors.toList());
         
         return result;

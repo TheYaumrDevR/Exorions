@@ -6,4 +6,5 @@ import java.util.List;
 public interface DialogWindowPresenter {
     
     public void showDialogWindowWithTextsAndHandlers(String currentDialogText, List<DialogOptionTextWithHandler> dialogOptionTextsWithHandlers);
+    public void showDialogWindowWithDialogEndText(String dialogEndText);
 }
