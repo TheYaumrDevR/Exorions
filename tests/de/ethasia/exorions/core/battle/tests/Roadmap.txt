@@ -18,7 +18,6 @@ Roadmap
 -------
 
 - Fix nullpointers in DirectDamageAbilityEffect calculations
-- Player object needs a facing direction
 
 Stories
 -------
