@@ -1,5 +1,7 @@
 package de.ethasia.exorions.ioadapters.crosslayer;
 
+import de.ethasia.exorions.interactors.crosslayer.EngineMapDataBuilder;
+
 public abstract class TechnicalsFactory {
   
     //<editor-fold defaultstate="collapsed" desc="Fields">
@@ -24,6 +26,7 @@ public abstract class TechnicalsFactory {
     
     public abstract Maps createMaps();
     public abstract CharacterSprites createCharacterSprites();
+    public abstract EngineMapDataBuilder createEngineMapDataBuilder();
     
     //</editor-fold>     
 }

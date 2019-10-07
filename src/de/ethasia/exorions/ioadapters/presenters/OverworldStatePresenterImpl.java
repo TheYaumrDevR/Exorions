@@ -1,8 +1,8 @@
 package de.ethasia.exorions.ioadapters.presenters;
 
+import de.ethasia.exorions.interactors.crosslayer.EngineMapDataBuilder;
 import de.ethasia.exorions.technical.engine.EngineMapData;
 import de.ethasia.exorions.technical.jmegamestates.EvocriGameState;
-import de.ethasia.exorions.technical.jmegamestates.OverworldGameStateImpl;
 import de.ethasia.exorions.interactors.crosslayer.MapDataCouldNotBeLoadedException;
 import de.ethasia.exorions.interactors.crosslayer.OverworldStatePresenter;
 import de.ethasia.exorions.ioadapters.crosslayer.CharacterSprites;
@@ -32,7 +32,7 @@ public class OverworldStatePresenterImpl implements OverworldStatePresenter {
         MapMetaData startingMapData = tryToFindMapDataOfStartingMap(mapList);
         
         Document mapLogic = maps.readMapLogic(startingMapData.logicFilePath);
-        EngineMapData.Builder mapDataForEngineBuilder = setupLogicalMapData(mapLogic);
+        EngineMapDataBuilder mapDataForEngineBuilder = setupLogicalMapData(mapLogic);
         
         mapDataForEngineBuilder.setMapVisuals(maps.readMapVisuals(startingMapData.visualFilePath));
         EngineMapData mapDataForEngine = mapDataForEngineBuilder.build();
@@ -67,8 +67,8 @@ public class OverworldStatePresenterImpl implements OverworldStatePresenter {
         return new MapMetaData(mapName, logicFilePath, visualFilePath);
     }
     
-    private EngineMapData.Builder setupLogicalMapData(Document mapLogic) {
-        EngineMapData.Builder result = new EngineMapData.Builder();
+    private EngineMapDataBuilder setupLogicalMapData(Document mapLogic) {
+        EngineMapDataBuilder result = TechnicalsFactory.getInstance().createEngineMapDataBuilder();
         
         NodeList floors = mapLogic.getElementsByTagName("floors");
         if (floors.getLength() > 0) {

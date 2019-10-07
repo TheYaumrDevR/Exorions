@@ -29,6 +29,25 @@ public class MapsMock implements Maps {
         mapLogicXml = value;
     }    
     
+    private static String lastReadMapLogicPath;
+    public static String getLastReadMapLogicPath() {
+        return lastReadMapLogicPath;
+    }
+    
+    private static String lastReadMapVisualsPath;
+    public static String getLastReadMapVisualsPath() {
+        return lastReadMapVisualsPath;
+    }
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Static Methods">
+    
+    public static void resetMock() {
+        lastReadMapLogicPath = "";
+        lastReadMapVisualsPath = "";
+    }
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Maps Overrides">
@@ -57,6 +76,8 @@ public class MapsMock implements Maps {
 
     @Override
     public Document readMapLogic(String path) {
+        lastReadMapLogicPath = path;
+        
         try {
             return convertStringToXmlDocument(mapLogicXml);
         } catch (ParserConfigurationException ex) {
@@ -79,6 +100,7 @@ public class MapsMock implements Maps {
 
     @Override
     public Spatial readMapVisuals(String path) {
+        lastReadMapVisualsPath = path;
         return new Node();
     }    
     
