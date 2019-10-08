@@ -76,6 +76,43 @@ public class OverworldStatePresenterImplTest {
     }
     
     @Test
+    public void testPresentOverworldWithNewGameMap_twoFloorsAreDefined_newFloorIsCalledTwice() {
+        OverworldStatePresenterImpl testCandidate = new OverworldStatePresenterImpl();
+        
+        String mapListXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<maps>" +
+                "<interiors>" +
+                    "<newGameMap name=\"Player Starting Room\" visuals=\"Scenes/Player Room/PlayerRoom.j3o\" logic=\"assets/Maps/Interior/StartingRoom.xml\"/>" +
+                "</interiors>" +
+            "</maps>";
+        
+        String startingMapXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<map>" +
+                "<floors>" +
+                    "<f w=\"4\" l=\"5\" x=\"1\" y=\"0\" z=\"1\"/>" +
+                    "<f w=\"4\" l=\"5\" x=\"1\" y=\"5\" z=\"1\"/>" +
+                "</floors>" +
+                "<collisions>" +
+                    "<c w=\"3\" l=\"1\" h=\"0\" x=\"1\" y=\"0\" z=\"1\"/>" +
+                    "<c w=\"1\" l=\"1\" h=\"0\" x=\"3\" y=\"0\" z=\"2\"/>" +
+                    "<c w=\"2\" l=\"1\" h=\"0\" x=\"3\" y=\"0\" z=\"4\"/>" +
+                    "<c w=\"1\" l=\"1\" h=\"0\" x=\"4\" y=\"0\" z=\"3\"/>" +
+                    "<c w=\"4\" l=\"1\" h=\"0\" x=\"1\" y=\"0\" z=\"0\"/>" +
+                    "<c w=\"3\" l=\"1\" h=\"0\" x=\"2\" y=\"0\" z=\"5\"/>" +
+                    "<c w=\"1\" l=\"5\" h=\"0\" x=\"0\" y=\"0\" z=\"1\"/>" +
+                    "<c w=\"1\" l=\"4\" h=\"0\" x=\"5\" y=\"0\" z=\"1\"/>" +
+                "</collisions>" +
+            "</map>";
+
+        MapsMock.setMapListXml(mapListXml);
+        MapsMock.setMapLogicXml(startingMapXml);
+            
+        testCandidate.presentOverworldWithNewGameMap();
+        
+        assertThat(EngineMapDataBuilderMock.getNewFloorCallCount(), is(2));
+    }
+    
+    @Test
     public void testPresentOverworldWithNewGameMap_newGameMapIsNotPresent_throwsException() {}
     
     @Test
