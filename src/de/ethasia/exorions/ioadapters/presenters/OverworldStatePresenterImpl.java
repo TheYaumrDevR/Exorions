@@ -11,7 +11,6 @@ import de.ethasia.exorions.ioadapters.crosslayer.Maps;
 import de.ethasia.exorions.ioadapters.crosslayer.OverworldGameState;
 import de.ethasia.exorions.ioadapters.crosslayer.TechnicalsFactory;
 import de.ethasia.exorions.technical.engine.CharacterSpriteAtlas;
-import org.w3c.dom.DOMException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
