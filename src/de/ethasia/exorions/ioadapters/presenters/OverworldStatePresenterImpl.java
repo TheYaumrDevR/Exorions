@@ -11,6 +11,7 @@ import de.ethasia.exorions.ioadapters.crosslayer.Maps;
 import de.ethasia.exorions.ioadapters.crosslayer.OverworldGameState;
 import de.ethasia.exorions.ioadapters.crosslayer.TechnicalsFactory;
 import de.ethasia.exorions.technical.engine.CharacterSpriteAtlas;
+import org.w3c.dom.DOMException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -76,19 +77,21 @@ public class OverworldStatePresenterImpl implements OverworldStatePresenter {
             NodeList floorsNodeChildren = firstFloorsNode.getElementsByTagName("f");
 
             for (int i = 0; i < floorsNodeChildren.getLength(); i++) {
-                int width = Integer.parseInt(floorsNodeChildren.item(i).getAttributes().getNamedItem("w").getNodeValue());
-                int depth = Integer.parseInt(floorsNodeChildren.item(i).getAttributes().getNamedItem("l").getNodeValue());
+                try {
+                    int width = Integer.parseInt(floorsNodeChildren.item(i).getAttributes().getNamedItem("w").getNodeValue());
+                    int depth = Integer.parseInt(floorsNodeChildren.item(i).getAttributes().getNamedItem("l").getNodeValue());
 
-                int posX = Integer.parseInt(floorsNodeChildren.item(i).getAttributes().getNamedItem("x").getNodeValue());
-                int posY = Integer.parseInt(floorsNodeChildren.item(i).getAttributes().getNamedItem("y").getNodeValue());
-                int posZ = Integer.parseInt(floorsNodeChildren.item(i).getAttributes().getNamedItem("z").getNodeValue()); 
+                    int posX = Integer.parseInt(floorsNodeChildren.item(i).getAttributes().getNamedItem("x").getNodeValue());
+                    int posY = Integer.parseInt(floorsNodeChildren.item(i).getAttributes().getNamedItem("y").getNodeValue());
+                    int posZ = Integer.parseInt(floorsNodeChildren.item(i).getAttributes().getNamedItem("z").getNodeValue()); 
                 
-                result.setFloorWidth(width)
-                    .setFloorDepth(depth)
-                    .setFloorX(posX)
-                    .setFloorY(posY)
-                    .setFloorZ(posZ)
-                    .newFloor();
+                    result.setFloorWidth(width)
+                        .setFloorDepth(depth)
+                        .setFloorX(posX)
+                        .setFloorY(posY)
+                        .setFloorZ(posZ)
+                        .newFloor();                    
+                } catch (NumberFormatException | NullPointerException ex) {}
             }
         }
         
