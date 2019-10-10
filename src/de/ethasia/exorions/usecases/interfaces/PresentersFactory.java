@@ -1,6 +1,7 @@
 package de.ethasia.exorions.usecases.interfaces;
 
 import de.ethasia.exorions.usecases.crosslayerinterfaces.DialogWindowPresenter;
+import de.ethasia.exorions.usecases.crosslayerinterfaces.PlayerAvatarMovementPresenter;
 
 public abstract class PresentersFactory {
     
@@ -25,6 +26,7 @@ public abstract class PresentersFactory {
     //<editor-fold defaultstate="collapsed" desc="Abstract methods">
     
     public abstract DialogWindowPresenter createDialogWindowPresenter();
+    public abstract PlayerAvatarMovementPresenter createPlayerAvatarMovementPresenter();
     
     //</editor-fold>
 }
