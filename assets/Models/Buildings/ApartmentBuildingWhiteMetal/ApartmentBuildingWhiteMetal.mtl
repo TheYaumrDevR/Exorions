@@ -1,0 +1,233 @@
+# Blender MTL File: 'ApartmentBuildingWhiteMetal.blend'
+# Material Count: 21
+
+newmtl BalkonyDoor
+Ns 900.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\BalkonyDoor.png
+
+newmtl BalkonyFrameHorizontal
+Ns 342.620115
+Ka 0.583000 0.583000 0.583000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\BalkonyFrameHorizontal.png
+
+newmtl BalkonyFrameHorizontalTop
+Ns 342.620115
+Ka 0.583000 0.583000 0.583000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\BalkonyFrameHorizontalTop.png
+
+newmtl BalkonyFrameVertical
+Ns 342.620115
+Ka 0.583000 0.583000 0.583000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\BalkonyVerticalFrames.png
+
+newmtl BalkonyFront
+Ns 342.620115
+Ka 0.583000 0.583000 0.583000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\BalkonyFront.png
+
+newmtl BalkonySide
+Ns 342.620115
+Ka 0.583000 0.583000 0.583000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\BalkonySide.png
+
+newmtl Door
+Ns 900.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\Door.png
+
+newmtl Lights
+Ns 900.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\Lights.png
+
+newmtl Roof
+Ns 506.250000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\Roof.png
+
+newmtl SmallHorizontalBar
+Ns 342.620115
+Ka 0.583000 0.583000 0.583000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\SmallHorizontalBarFrontWide.png
+
+newmtl SmallHorizontalBarFront
+Ns 342.620115
+Ka 0.583000 0.583000 0.583000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\SmallHorizontalBarFront.png
+
+newmtl VentSide
+Ns 342.620115
+Ka 0.583000 0.583000 0.583000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\VentSide.png
+
+newmtl VentTop
+Ns 342.620115
+Ka 0.583000 0.583000 0.583000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\VentTop.png
+
+newmtl VerticalBar
+Ns 342.620115
+Ka 0.583000 0.583000 0.583000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\VerticalMetalBar.png
+
+newmtl WhiteMetalBottomLeftFront
+Ns 342.620115
+Ka 0.583000 0.583000 0.583000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\GruondFloorLeftBarFront.png
+
+newmtl WhiteMetalFrontLong
+Ns 342.620115
+Ka 0.583000 0.583000 0.583000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\WhiteMetalBarBack.png
+
+newmtl WhiteMetalSideLong
+Ns 342.620115
+Ka 0.583000 0.583000 0.583000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\WhiteMetalBarLongSide.png
+
+newmtl WhiteMetalSideShort
+Ns 342.620115
+Ka 0.583000 0.583000 0.583000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\WhiteMetalBarSide.png
+
+newmtl WhiteMetalTop
+Ns 342.620115
+Ka 0.583000 0.583000 0.583000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\WhiteMetalBarTop.png
+
+newmtl WindowSides
+Ns 900.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\WindowSides.png
+
+newmtl WindowSmall
+Ns 900.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd Textures\\ApartmentBuildingWhiteMetal\\WindowFront.png
