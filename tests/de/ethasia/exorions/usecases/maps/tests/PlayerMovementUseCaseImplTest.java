@@ -197,23 +197,71 @@ public class PlayerMovementUseCaseImplTest {
     }
     
     @Test
-    public void testMoveDown_playerIsBusy_visualStateIsNotUpdated() {
+    public void testMoveDown_playerIsBusy_visualStateIsNotUpdated() throws InterruptedException {
+        Thread.sleep(350);
         
+        Player player = Player.getInstance();
+        player.placeOnMapWithPosition(map, (short)1, (short)0, (short)2);     
+        player.setIsBusy(true);
+        
+        PlayerMovementUseCaseImpl testCandidate = new PlayerMovementUseCaseImpl();
+        testCandidate.moveDown();
+        
+        player.setIsBusy(false);
+        
+        assertThat(PlayerAvatarMovementPresenterMock.getMoveDownCallCount(), is(0));
+        assertThat(PlayerAvatarMovementPresenterMock.getStepDownWithoutMovingCallCount(), is(0));
     }
     
     @Test
-    public void testMoveRight_playerIsBusy_visualStateIsNotUpdated() {
+    public void testMoveRight_playerIsBusy_visualStateIsNotUpdated() throws InterruptedException {
+        Thread.sleep(350);
         
+        Player player = Player.getInstance();
+        player.placeOnMapWithPosition(map, (short)1, (short)0, (short)2);     
+        player.setIsBusy(true);
+        
+        PlayerMovementUseCaseImpl testCandidate = new PlayerMovementUseCaseImpl();
+        testCandidate.moveRight();
+        
+        player.setIsBusy(false);        
+        
+        assertThat(PlayerAvatarMovementPresenterMock.getMoveRightCallCount(), is(0));
+        assertThat(PlayerAvatarMovementPresenterMock.getStepRightWithoutMovingCallCount(), is(0));     
     }
     
     @Test
-    public void testMoveUp_playerIsBusy_visualStateIsNotUpdated() {
+    public void testMoveUp_playerIsBusy_visualStateIsNotUpdated() throws InterruptedException {
+        Thread.sleep(350);
         
+        Player player = Player.getInstance();
+        player.placeOnMapWithPosition(map, (short)1, (short)0, (short)2);     
+        player.setIsBusy(true);
+        
+        PlayerMovementUseCaseImpl testCandidate = new PlayerMovementUseCaseImpl();
+        testCandidate.moveUp();
+        
+        player.setIsBusy(false);        
+        
+        assertThat(PlayerAvatarMovementPresenterMock.getMoveUpCallCount(), is(0));
+        assertThat(PlayerAvatarMovementPresenterMock.getStepUpWithoutMovingCallCount(), is(0));         
     }
     
     @Test
-    public void testMoveLeft_playerIsBusy_visualStateIsNotUpdated() {
+    public void testMoveLeft_playerIsBusy_visualStateIsNotUpdated() throws InterruptedException {
+        Thread.sleep(350);
         
+        Player player = Player.getInstance();
+        player.placeOnMapWithPosition(map, (short)1, (short)0, (short)2);     
+        player.setIsBusy(true);
+        
+        PlayerMovementUseCaseImpl testCandidate = new PlayerMovementUseCaseImpl();
+        testCandidate.moveLeft();
+        
+        player.setIsBusy(false);        
+        
+        assertThat(PlayerAvatarMovementPresenterMock.getMoveLeftCallCount(), is(0));
+        assertThat(PlayerAvatarMovementPresenterMock.getStepLeftWithoutMovingCallCount(), is(0));         
     }
     
     @Test

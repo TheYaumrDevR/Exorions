@@ -28,6 +28,10 @@ public class PlayerMovementUseCaseImpl implements PlayerMovementUseCase {
     public void moveDown() {
         Player player = Player.getInstance();
         
+        if (player.isBusy()) {
+            return;
+        }
+        
         if (player.willMoveTo(MoveDirections.DOWN)) {
             player.moveTo(MoveDirections.DOWN);
             playerAvatarMovementPresenter.movePlayerAvatarDown(player.getPositionX(), player.getPositionY(), player.getPositionZ());            
@@ -39,6 +43,10 @@ public class PlayerMovementUseCaseImpl implements PlayerMovementUseCase {
     @Override
     public void moveRight() {
         Player player = Player.getInstance();
+        
+        if (player.isBusy()) {
+            return;
+        }
         
         if (player.willMoveTo(MoveDirections.RIGHT)) {
             player.moveTo(MoveDirections.RIGHT);
@@ -52,6 +60,10 @@ public class PlayerMovementUseCaseImpl implements PlayerMovementUseCase {
     public void moveUp() {
         Player player = Player.getInstance();
         
+        if (player.isBusy()) {
+            return;
+        }
+        
         if (player.willMoveTo(MoveDirections.UP)) {
             player.moveTo(MoveDirections.UP);
             playerAvatarMovementPresenter.movePlayerAvatarUp(player.getPositionX(), player.getPositionY(), player.getPositionZ());            
@@ -63,6 +75,10 @@ public class PlayerMovementUseCaseImpl implements PlayerMovementUseCase {
     @Override
     public void moveLeft() {
         Player player = Player.getInstance();
+        
+        if (player.isBusy()) {
+            return;
+        }
         
         if (player.willMoveTo(MoveDirections.LEFT)) {
             player.moveTo(MoveDirections.LEFT);
