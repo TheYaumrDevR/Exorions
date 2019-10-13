@@ -10,14 +10,14 @@ public class PlayerMovementUseCaseImpl implements PlayerMovementUseCase {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
-    private final PlayerAvatarMovementPresenter playerAvatarMovementUc;
+    private final PlayerAvatarMovementPresenter playerAvatarMovementPresenter;
     
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     
     public PlayerMovementUseCaseImpl() {
-        playerAvatarMovementUc = PresentersFactory.getInstance().createPlayerAvatarMovementPresenter();
+        playerAvatarMovementPresenter = PresentersFactory.getInstance().createPlayerAvatarMovementPresenter();
     }
     
     //</editor-fold>
@@ -27,29 +27,49 @@ public class PlayerMovementUseCaseImpl implements PlayerMovementUseCase {
     @Override
     public void moveDown() {
         Player player = Player.getInstance();
-        player.moveTo(MoveDirections.DOWN);
-        playerAvatarMovementUc.movePlayerAvatarDown(player.getPositionX(), player.getPositionY(), player.getPositionZ());
+        
+        if (player.willMoveTo(MoveDirections.DOWN)) {
+            player.moveTo(MoveDirections.DOWN);
+            playerAvatarMovementPresenter.movePlayerAvatarDown(player.getPositionX(), player.getPositionY(), player.getPositionZ());            
+        } else {
+            playerAvatarMovementPresenter.stepDownWithoutMoving();
+        }
     }
     
     @Override
     public void moveRight() {
         Player player = Player.getInstance();
-        player.moveTo(MoveDirections.RIGHT);
-        playerAvatarMovementUc.movePlayerAvatarRight(player.getPositionX(), player.getPositionY(), player.getPositionZ());
+        
+        if (player.willMoveTo(MoveDirections.RIGHT)) {
+            player.moveTo(MoveDirections.RIGHT);
+            playerAvatarMovementPresenter.movePlayerAvatarRight(player.getPositionX(), player.getPositionY(), player.getPositionZ());            
+        } else {
+            playerAvatarMovementPresenter.stepRightWithoutMoving();
+        }
     }    
     
     @Override
     public void moveUp() {
         Player player = Player.getInstance();
-        player.moveTo(MoveDirections.UP);
-        playerAvatarMovementUc.movePlayerAvatarUp(player.getPositionX(), player.getPositionY(), player.getPositionZ());
+        
+        if (player.willMoveTo(MoveDirections.UP)) {
+            player.moveTo(MoveDirections.UP);
+            playerAvatarMovementPresenter.movePlayerAvatarUp(player.getPositionX(), player.getPositionY(), player.getPositionZ());            
+        } else {
+            playerAvatarMovementPresenter.stepUpWithoutMoving();
+        }
     }
     
     @Override
     public void moveLeft() {
         Player player = Player.getInstance();
-        player.moveTo(MoveDirections.LEFT);
-        playerAvatarMovementUc.movePlayerAvatarLeft(player.getPositionX(), player.getPositionY(), player.getPositionZ());
+        
+        if (player.willMoveTo(MoveDirections.LEFT)) {
+            player.moveTo(MoveDirections.LEFT);
+            playerAvatarMovementPresenter.movePlayerAvatarLeft(player.getPositionX(), player.getPositionY(), player.getPositionZ());            
+        } else {
+            playerAvatarMovementPresenter.stepLeftWithoutMoving();
+        }
     }    
     
     //</editor-fold>

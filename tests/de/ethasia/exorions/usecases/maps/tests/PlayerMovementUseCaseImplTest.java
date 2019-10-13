@@ -141,23 +141,59 @@ public class PlayerMovementUseCaseImplTest {
     }
     
     @Test
-    public void testMoveDown_playerCollides_presentsStepAnimationButPlayerDoesNotMove() {
+    public void testMoveDown_playerCollides_presentsStepAnimationButPlayerDoesNotMove() throws InterruptedException {
+        Thread.sleep(350);
         
+        Player player = Player.getInstance();
+        player.placeOnMapWithPosition(map, (short)3, (short)0, (short)3);   
+        
+        PlayerMovementUseCaseImpl testCandidate = new PlayerMovementUseCaseImpl();
+        testCandidate.moveDown();
+        
+        assertThat(player.getPositionZ(), is((short)3));
+        assertThat(PlayerAvatarMovementPresenterMock.getStepDownWithoutMovingCallCount(), is(1));
     }
     
     @Test
-    public void testMoveRight_playerCollides_presentsStepAnimationButPlayerDoesNotMove() {
+    public void testMoveRight_playerCollides_presentsStepAnimationButPlayerDoesNotMove() throws InterruptedException {
+        Thread.sleep(350);
         
+        Player player = Player.getInstance();
+        player.placeOnMapWithPosition(map, (short)3, (short)0, (short)3);   
+
+        PlayerMovementUseCaseImpl testCandidate = new PlayerMovementUseCaseImpl();
+        testCandidate.moveRight();
+        
+        assertThat(player.getPositionX(), is((short)3));
+        assertThat(PlayerAvatarMovementPresenterMock.getStepRightWithoutMovingCallCount(), is(1));
     }
     
     @Test
-    public void testMoveUp_playerCollides_presentsStepAnimationButPlayerDoesNotMove() {
+    public void testMoveUp_playerCollides_presentsStepAnimationButPlayerDoesNotMove() throws InterruptedException {
+        Thread.sleep(350);
         
+        Player player = Player.getInstance();
+        player.placeOnMapWithPosition(map, (short)2, (short)0, (short)2);       
+        
+        PlayerMovementUseCaseImpl testCandidate = new PlayerMovementUseCaseImpl();
+        testCandidate.moveUp();
+        
+        assertThat(player.getPositionZ(), is((short)2));
+        assertThat(PlayerAvatarMovementPresenterMock.getStepUpWithoutMovingCallCount(), is(1));
     }
     
     @Test
-    public void testMoveLeft_playerCollides_presentsStepAnimationButPlayerDoesNotMove() {
+    public void testMoveLeft_playerCollides_presentsStepAnimationButPlayerDoesNotMove() throws InterruptedException {
+        Thread.sleep(350);
         
+        Player player = Player.getInstance();
+        player.placeOnMapWithPosition(map, (short)1, (short)0, (short)2);       
+        
+        PlayerMovementUseCaseImpl testCandidate = new PlayerMovementUseCaseImpl();
+        testCandidate.moveLeft();
+        
+        assertThat(player.getPositionX(), is((short)1));
+        assertThat(PlayerAvatarMovementPresenterMock.getStepLeftWithoutMovingCallCount(), is(1));
     }
     
     @Test
