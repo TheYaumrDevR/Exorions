@@ -6,14 +6,22 @@ import de.ethasia.exorions.core.dialogs.ContinueDialogDialogOption;
 import de.ethasia.exorions.core.dialogs.DialogWithOptions;
 import de.ethasia.exorions.core.dialogs.StartBattleSimulatorDialogOption;
 import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.core.interfaces.UseCasesFactory;
+import de.ethasia.exorions.core.mocks.UseCasesMockFactory;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItems;
 
 import static org.hamcrest.CoreMatchers.is;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class DialogWithOptionsTest {
+    
+    @BeforeClass
+    public static void initDependencies() {
+        UseCasesFactory.setInstance(new UseCasesMockFactory());
+    }
 
     @Test
     public void testBuilder_setAllProperties_productContainsAllProperties() {

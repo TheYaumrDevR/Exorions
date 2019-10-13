@@ -10,6 +10,8 @@ public class DialogWithOptions implements DialogNode {
     //<editor-fold defaultstate="collapsed" desc="Properties">
     
     private final String text;
+    
+    @Override
     public String getText() {
         return text;
     }

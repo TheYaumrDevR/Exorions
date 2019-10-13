@@ -3,6 +3,7 @@ package de.ethasia.exorions.core.maps.tests;
 import de.ethasia.exorions.core.holowatch.HoloWatchMessage;
 import de.ethasia.exorions.core.maps.AddHoloWatchMessageTileTrigger;
 import de.ethasia.exorions.core.maps.InteriorMap;
+import de.ethasia.exorions.core.maps.MapTileTypes;
 import de.ethasia.exorions.core.maps.MoveDirections;
 import de.ethasia.exorions.core.maps.MoveableMapObject;
 import de.ethasia.exorions.core.maps.Player;
@@ -179,4 +180,216 @@ public class PlayerTest {
         assertThat(testCandidate.getPositionY(), is((short)0));
         assertThat(testCandidate.getPositionZ(), is((short)1));        
     }
+    
+    @Test
+    public void testGetFacingDirection_moveDownAndCanMove_facingDirectionIsDown() throws InterruptedException {
+        Player testCandidate = Player.getInstance();
+        InteriorMap map = new InteriorMap((short)6, (short)6);
+        testCandidate.placeOnMapWithPosition(map, (short)1, (short)0, (short)2);
+        
+        Thread.sleep(400);
+        testCandidate.moveTo(MoveDirections.DOWN);
+        MoveDirections facingDirection = testCandidate.getFacingDirection();
+        
+        assertThat(facingDirection, is(MoveDirections.DOWN));
+    }
+    
+    @Test
+    public void testGetFacingDirection_moveDownButCannotMove_facingDirectionIsDown() throws InterruptedException {
+        Player testCandidate = Player.getInstance();
+        InteriorMap map = new InteriorMap((short)6, (short)6);
+        map.setTileTypeAt(MapTileTypes.COLLISION, (short)3, (short)0, (short)4);
+        testCandidate.placeOnMapWithPosition(map, (short)3, (short)0, (short)3);
+        
+        Thread.sleep(400);
+        testCandidate.moveTo(MoveDirections.DOWN);
+        MoveDirections facingDirection = testCandidate.getFacingDirection();
+        
+        assertThat(facingDirection, is(MoveDirections.DOWN));        
+    }
+    
+    @Test
+    public void testGetFacingDirection_moveRightAndCanMove_facingDirectionIsRight() throws InterruptedException {
+        Player testCandidate = Player.getInstance();
+        InteriorMap map = new InteriorMap((short)6, (short)6);
+        testCandidate.placeOnMapWithPosition(map, (short)1, (short)0, (short)2);
+        
+        Thread.sleep(400);
+        testCandidate.moveTo(MoveDirections.RIGHT);
+        MoveDirections facingDirection = testCandidate.getFacingDirection();
+        
+        assertThat(facingDirection, is(MoveDirections.RIGHT));        
+    }
+    
+    @Test
+    public void testGetFacingDirection_moveRightButCannotMove_facingDirectionIsRight() throws InterruptedException {
+        Player testCandidate = Player.getInstance();
+        InteriorMap map = new InteriorMap((short)6, (short)6);
+        map.setTileTypeAt(MapTileTypes.COLLISION, (short)4, (short)0, (short)3);
+        testCandidate.placeOnMapWithPosition(map, (short)3, (short)0, (short)3);
+        
+        Thread.sleep(400);
+        testCandidate.moveTo(MoveDirections.RIGHT);
+        MoveDirections facingDirection = testCandidate.getFacingDirection();
+        
+        assertThat(facingDirection, is(MoveDirections.RIGHT));         
+    }    
+
+    @Test
+    public void testGetFacingDirection_moveUpAndCanMove_facingDirectionIsUp() throws InterruptedException {
+        Player testCandidate = Player.getInstance();
+        InteriorMap map = new InteriorMap((short)6, (short)6);
+        testCandidate.placeOnMapWithPosition(map, (short)1, (short)0, (short)3);
+        
+        Thread.sleep(400);
+        testCandidate.moveTo(MoveDirections.UP);
+        MoveDirections facingDirection = testCandidate.getFacingDirection();
+        
+        assertThat(facingDirection, is(MoveDirections.UP));         
+    }   
+    
+    @Test
+    public void testGetFacingDirection_moveUpButCannotMove_facingDirectionIsUp() throws InterruptedException {
+        Player testCandidate = Player.getInstance();
+        InteriorMap map = new InteriorMap((short)6, (short)6);
+        map.setTileTypeAt(MapTileTypes.COLLISION, (short)1, (short)0, (short)1);
+        testCandidate.placeOnMapWithPosition(map, (short)1, (short)0, (short)2);
+        
+        Thread.sleep(400);
+        testCandidate.moveTo(MoveDirections.UP);
+        MoveDirections facingDirection = testCandidate.getFacingDirection();
+        
+        assertThat(facingDirection, is(MoveDirections.UP));         
+    }    
+    
+    @Test
+    public void testGetFacingDirection_moveLeftAndCanMove_facingDirectionIsLeft() throws InterruptedException {
+        Player testCandidate = Player.getInstance();
+        InteriorMap map = new InteriorMap((short)6, (short)6);
+        testCandidate.placeOnMapWithPosition(map, (short)2, (short)0, (short)3);
+        
+        Thread.sleep(400);
+        testCandidate.moveTo(MoveDirections.LEFT);
+        MoveDirections facingDirection = testCandidate.getFacingDirection();
+        
+        assertThat(facingDirection, is(MoveDirections.LEFT));          
+    }
+
+    @Test
+    public void testGetFacingDirection_moveLeftButCannotMove_facingDirectionIsLeft() throws InterruptedException {
+        Player testCandidate = Player.getInstance();
+        InteriorMap map = new InteriorMap((short)6, (short)6);
+        map.setTileTypeAt(MapTileTypes.COLLISION, (short)0, (short)0, (short)2);
+        testCandidate.placeOnMapWithPosition(map, (short)1, (short)0, (short)2);
+        
+        Thread.sleep(400);
+        testCandidate.moveTo(MoveDirections.LEFT);
+        MoveDirections facingDirection = testCandidate.getFacingDirection();
+        
+        assertThat(facingDirection, is(MoveDirections.LEFT));         
+    } 
+    
+    @Test
+    public void testTurnDown_getFacingDirection_facingDirectionIsDown() {
+        Player testCandidate = Player.getInstance();
+        testCandidate.turnDown();
+        
+        MoveDirections facingDirection = testCandidate.getFacingDirection();
+        
+        assertThat(facingDirection, is(MoveDirections.DOWN));        
+    }
+    
+    @Test
+    public void testTurnRight_getFacingDirection_facingDirectionIsRight() {
+        Player testCandidate = Player.getInstance();
+        testCandidate.turnRight();
+        
+        MoveDirections facingDirection = testCandidate.getFacingDirection();
+        
+        assertThat(facingDirection, is(MoveDirections.RIGHT));
+    }
+    
+    @Test
+    public void testTurnUp_getFacingDirection_facingDirectionIsUp() {
+        Player testCandidate = Player.getInstance();
+        testCandidate.turnUp();
+        
+        MoveDirections facingDirection = testCandidate.getFacingDirection();
+        
+        assertThat(facingDirection, is(MoveDirections.UP));
+    }
+    
+    @Test
+    public void testTurnLeft_getFacingDirection_facingDirectionIsLeft() {
+        Player testCandidate = Player.getInstance();
+        testCandidate.turnLeft();
+        
+        MoveDirections facingDirection = testCandidate.getFacingDirection();
+        
+        assertThat(facingDirection, is(MoveDirections.LEFT));
+    }
+    
+    @Test
+    public void testGetFacingDirection_moveDownButIsBusy_facingDirectionDoesNotChange() {
+        Player testCandidate = Player.getInstance();
+        InteriorMap map = new InteriorMap((short)6, (short)6);
+        testCandidate.placeOnMapWithPosition(map, (short)1, (short)0, (short)2);
+        
+        testCandidate.setIsBusy(true);
+        testCandidate.turnLeft();
+        testCandidate.moveTo(MoveDirections.DOWN);
+        testCandidate.setIsBusy(false);
+        
+        MoveDirections facingDirection = testCandidate.getFacingDirection();
+        
+        assertThat(facingDirection, is(MoveDirections.LEFT));
+    }
+
+    @Test
+    public void testGetFacingDirection_moveRightButIsBusy_facingDirectionDoesNotChange() {
+        Player testCandidate = Player.getInstance();
+        InteriorMap map = new InteriorMap((short)6, (short)6);
+        testCandidate.placeOnMapWithPosition(map, (short)1, (short)0, (short)2);
+        
+        testCandidate.setIsBusy(true);
+        testCandidate.turnLeft();
+        testCandidate.moveTo(MoveDirections.RIGHT);
+        testCandidate.setIsBusy(false);
+        
+        MoveDirections facingDirection = testCandidate.getFacingDirection();
+        
+        assertThat(facingDirection, is(MoveDirections.LEFT));
+    }
+
+    @Test
+    public void testGetFacingDirection_moveUpButIsBusy_facingDirectionDoesNotChange() {
+        Player testCandidate = Player.getInstance();
+        InteriorMap map = new InteriorMap((short)6, (short)6);
+        testCandidate.placeOnMapWithPosition(map, (short)1, (short)0, (short)2);
+        
+        testCandidate.setIsBusy(true);
+        testCandidate.turnLeft();
+        testCandidate.moveTo(MoveDirections.UP);
+        testCandidate.setIsBusy(false);
+        
+        MoveDirections facingDirection = testCandidate.getFacingDirection();
+        
+        assertThat(facingDirection, is(MoveDirections.LEFT));
+    }
+
+    @Test
+    public void testGetFacingDirection_moveLeftButIsBusy_facingDirectionDoesNotChange() {
+        Player testCandidate = Player.getInstance();
+        InteriorMap map = new InteriorMap((short)6, (short)6);
+        testCandidate.placeOnMapWithPosition(map, (short)1, (short)0, (short)2);
+        
+        testCandidate.setIsBusy(true);
+        testCandidate.turnRight();
+        testCandidate.moveTo(MoveDirections.LEFT);
+        testCandidate.setIsBusy(false);
+        
+        MoveDirections facingDirection = testCandidate.getFacingDirection();
+        
+        assertThat(facingDirection, is(MoveDirections.RIGHT));
+    }    
 }

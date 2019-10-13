@@ -6,7 +6,9 @@ import de.ethasia.exorions.core.dialogs.ContinueDialogDialogOption;
 import de.ethasia.exorions.core.dialogs.DialogWithOptions;
 import de.ethasia.exorions.core.dialogs.StartBattleSimulatorDialogOption;
 import de.ethasia.exorions.core.general.NotAllPropertiesAreSetException;
+import de.ethasia.exorions.core.interfaces.UseCasesFactory;
 import de.ethasia.exorions.core.maps.Player;
+import de.ethasia.exorions.core.mocks.UseCasesMockFactory;
 import de.ethasia.exorions.interactors.interfaces.PresentersFactory;
 import de.ethasia.exorions.interactors.overworld.DialogInteractionUseCase;
 import de.ethasia.exorions.interactors.overworld.DialogOptionTextWithHandler;
@@ -27,6 +29,7 @@ public class DialogInteractionUseCaseTest {
     @BeforeClass
     public static void initDependencies() {
         PresentersFactory.setInstance(new MockPresentersFactory());
+        UseCasesFactory.setInstance(new UseCasesMockFactory());
     }   
     
     @Before
@@ -82,11 +85,24 @@ public class DialogInteractionUseCaseTest {
         String optionTextOne = optionTextsWithHandlers.get(0).getText();
         String optionTextTwo = optionTextsWithHandlers.get(1).getText();
         
+        optionTextsWithHandlers.get(0).getSelectionHandler().onLinkedDialogOptionSelected();
+        String lastDialogEndNodeTextShown = DialogWindowPresenterMock.getLastSetEndText();
+        
         assertThat(presenterDialogText, is(equalTo("Welcome. What would you like to do?")));
         assertThat(optionTextsWithHandlers.size(), is(2));
         assertThat(optionTextOne, is(equalTo("Browse the interplanet")));
         assertThat(optionTextTwo, is(equalTo("Start battle simulator")));
+        assertThat(lastDialogEndNodeTextShown, is(equalTo("Cannot connect to Interplanet right now.")));
+        
+        Player.getInstance().setIsBusy(false);
+        optionTextsWithHandlers.get(1).getSelectionHandler().onLinkedDialogOptionSelected();
+        assertThat(Player.getInstance().isBusy(), is(true));
     }
+    
+    @Test
+    public void testStartInteraction_dialogWithMultipleLevelsIsStarted_canTraverseThroughOptions() {
+        
+    }    
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     

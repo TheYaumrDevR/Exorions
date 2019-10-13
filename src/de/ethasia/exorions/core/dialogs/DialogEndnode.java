@@ -4,7 +4,9 @@ public class DialogEndnode implements DialogNode {
     
     //<editor-fold defaultstate="collapsed" desc="Properties">
     
-    private String text;
+    private final String text;
+    
+    @Override
     public String getText() {
         return text;
     }

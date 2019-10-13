@@ -7,6 +7,8 @@ public class ContinueDialogDialogOption implements DialogOption {
     //<editor-fold defaultstate="collapsed" desc="Accessors">
     
     private final DialogNode followUpNode;
+    
+    @Override
     public DialogNode getFollowUpNode() {
         return followUpNode;
     }
@@ -34,6 +36,11 @@ public class ContinueDialogDialogOption implements DialogOption {
     @Override
     public boolean endsCurrentDialog() {
         return false;
+    }
+    
+    @Override
+    public void executeAnyCustomUseCase() {
+        
     }
     
     //</editor-fold>

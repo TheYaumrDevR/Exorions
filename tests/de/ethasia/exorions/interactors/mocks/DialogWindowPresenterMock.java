@@ -18,6 +18,11 @@ public class DialogWindowPresenterMock implements DialogWindowPresenter {
         return lastSetOptionTextWithHandlers;
     }
     
+    private static String lastSetEndText;
+    public static String getLastSetEndText() {
+        return lastSetEndText;
+    }    
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Methods">
@@ -25,6 +30,7 @@ public class DialogWindowPresenterMock implements DialogWindowPresenter {
     public static void emptyLastSetFields() {
         lastSetDialogText = "";
         lastSetOptionTextWithHandlers = null;
+        lastSetEndText = "";
     }
     
     //</editor-fold>
@@ -36,6 +42,11 @@ public class DialogWindowPresenterMock implements DialogWindowPresenter {
         lastSetDialogText = currentDialogText;
         lastSetOptionTextWithHandlers = dialogOptionTextsWithHandlers;
     }    
+    
+    @Override
+    public void showDialogWindowWithDialogEndText(String dialogEndText) {
+        lastSetEndText = dialogEndText;
+    }      
     
     //</editor-fold>
 }
