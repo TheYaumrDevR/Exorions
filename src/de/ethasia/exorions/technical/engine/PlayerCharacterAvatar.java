@@ -30,6 +30,12 @@ public class PlayerCharacterAvatar {
     
     //</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Static Fields">
+    
+    private static PlayerCharacterAvatar currentInstance;
+    
+    //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
     private final SimpleApplication gameInstance;
@@ -51,6 +57,7 @@ public class PlayerCharacterAvatar {
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     
     private PlayerCharacterAvatar(Builder source) {
+        currentInstance = this;
         rootNode = new Node();
         chaseCam = new ChaseCamera(source.chaseCamBase);
         characterPhysics = new CharacterControl(new CapsuleCollisionShape(0.4f, 0.f), 0.1f);
@@ -62,6 +69,14 @@ public class PlayerCharacterAvatar {
         setupSpriteHolder(source);
         setupBillboardControl();
     }    
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Static Methods">
+
+    public static PlayerCharacterAvatar getCurrentInstance() {
+        return currentInstance;
+    }
     
     //</editor-fold>
     
