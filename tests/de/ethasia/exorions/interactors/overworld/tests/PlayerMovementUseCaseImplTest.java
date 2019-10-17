@@ -263,24 +263,4 @@ public class PlayerMovementUseCaseImplTest {
         assertThat(PlayerAvatarMovementPresenterMock.getMoveLeftCallCount(), is(0));
         assertThat(PlayerAvatarMovementPresenterMock.getStepLeftWithoutMovingCallCount(), is(0));         
     }
-    
-    @Test
-    public void testMoveDown_playerIsNotOnMap_throwsException() {
-        
-    }
-    
-    @Test
-    public void testMoveRight_playerIsNotOnMap_throwsException() {
-        
-    }
-    
-    @Test
-    public void testMoveUp_playerIsNotOnMap_throwsException() {
-        
-    }
-    
-    @Test
-    public void testMoveLeft_playerIsNotOnMap_throwsException() {
-        
-    }
 }
