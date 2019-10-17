@@ -43,6 +43,8 @@ public class PlayerCharacterAvatar {
     private final CharacterWalkingAnimation walkingAnimator;
     
     private boolean isMoving;
+    private boolean applyVisualPositionCorrectionAfterMovement;
+    private float correctionX, correctionY, correctionZ;
     
     //</editor-fold>
     
@@ -120,12 +122,24 @@ public class PlayerCharacterAvatar {
     public void stopMoving() {
         isMoving = false;
         characterPhysics.setWalkDirection(Vector3f.ZERO);
+        
+        if (applyVisualPositionCorrectionAfterMovement) {
+            applyVisualPositionCorrectionAfterMovement = false;
+            characterPhysics.setPhysicsLocation(new Vector3f(0.1f + correctionX, 0.f + correctionY, 0.4f + correctionZ));
+        }
     }
     
     public void stopSpriteMovingAnimation() {
         walkingAnimator.stopWalking();
         spriteMaterial.setTexture("ColorMap", spriteAtlas.getSpriteOn(walkingAnimator.getAnimationFrameId()));        
     }    
+    
+    public void setPositionToApplyAfterNextMovementForVisualCorrection(float x, float y, float z) {
+        applyVisualPositionCorrectionAfterMovement = true;
+        correctionX = x;
+        correctionY = y;
+        correctionZ = z;
+    }
     
     //</editor-fold>
     
