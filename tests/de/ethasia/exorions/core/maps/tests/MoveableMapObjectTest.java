@@ -1,10 +1,12 @@
 package de.ethasia.exorions.core.maps.tests;
 
+import de.ethasia.exorions.core.maps.AttemptToPlacePlayerOnNoMapException;
 import de.ethasia.exorions.core.maps.InteriorMap;
 import de.ethasia.exorions.core.maps.MapTileTypes;
 import de.ethasia.exorions.core.maps.MoveDirections;
 import de.ethasia.exorions.core.maps.MoveableMapObject;
 import de.ethasia.exorions.core.maps.NoMapToMoveOnException;
+import de.ethasia.exorions.core.maps.Player;
 
 import org.junit.Test;
 
@@ -404,4 +406,10 @@ public class MoveableMapObjectTest {
         assertThat(posY, is(equalTo((short)1)));
         assertThat(posZ, is(equalTo((short)5)));
     }
+    
+    @Test(expected = AttemptToPlacePlayerOnNoMapException.class)
+    public void testPlaceOnMapWithPosition_mapIsNull_throwsCustomException() {
+        MoveableMapObject testCandidate = new MoveableMapObject();
+        testCandidate.placeOnMapWithPosition(null, (short)0, (short)0, (short)0);
+    }    
 }

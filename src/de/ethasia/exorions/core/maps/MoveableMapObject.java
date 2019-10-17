@@ -20,6 +20,10 @@ public class MoveableMapObject {
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
     public void placeOnMapWithPosition(InteriorMap map, short x, short y, short z) {
+        if (null == map) {
+            throw new AttemptToPlacePlayerOnNoMapException();
+        }
+        
         if (!map.tileAtIsColliding(x, y, z)) {
             currentMap = map;
             posX = x;
