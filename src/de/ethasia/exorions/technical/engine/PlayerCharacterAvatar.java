@@ -87,52 +87,80 @@ public class PlayerCharacterAvatar {
     }
     
     public void moveDown() {
+        showStepDownAnimation();
+        
+        if (!isMoving) {
+            characterPhysics.setWalkDirection(WALKING_VECTOR_DOWN);
+        }
+    }
+    
+    public void showStepDownAnimation() {
         if (!isMoving) {
             isMoving = true;
             walkingAnimator.setFacingDirection(MoveDirections.DOWN);
             walkingAnimator.startWalking();
             spriteMaterial.setTexture("ColorMap", spriteAtlas.getSpriteOn(walkingAnimator.getAnimationFrameId()));
             
-            characterPhysics.setWalkDirection(WALKING_VECTOR_DOWN);
             MovementStopRunnable.startMovementStopTimer(333, this);
-        }
+        }        
     }
     
     public void moveRight() {
+        showStepRightAnimation();
+        
+        if (!isMoving) {
+            characterPhysics.setWalkDirection(WALKING_VECTOR_RIGHT);
+        }
+    } 
+    
+    public void showStepRightAnimation() {
         if (!isMoving) {
             isMoving = true;
             walkingAnimator.setFacingDirection(MoveDirections.RIGHT);
             walkingAnimator.startWalking();
             spriteMaterial.setTexture("ColorMap", spriteAtlas.getSpriteOn(walkingAnimator.getAnimationFrameId()));
             
-            characterPhysics.setWalkDirection(WALKING_VECTOR_RIGHT);
             MovementStopRunnable.startMovementStopTimer(333, this);
-        }
-    } 
+        }        
+    }    
     
     public void moveUp() {
+        showStepUpAnimation();
+        
+        if (!isMoving) {
+            characterPhysics.setWalkDirection(WALKING_VECTOR_UP);
+        }
+    }
+    
+    public void showStepUpAnimation() {
         if (!isMoving) {
             isMoving = true;
             walkingAnimator.setFacingDirection(MoveDirections.UP);
             walkingAnimator.startWalking();
             spriteMaterial.setTexture("ColorMap", spriteAtlas.getSpriteOn(walkingAnimator.getAnimationFrameId()));
             
-            characterPhysics.setWalkDirection(WALKING_VECTOR_UP);
             MovementStopRunnable.startMovementStopTimer(333, this);
-        }
-    }
+        }        
+    }     
 
     public void moveLeft() {
+        showStepLeftAnimation();
+        
+        if (!isMoving) {
+            characterPhysics.setWalkDirection(WALKING_VECTOR_LEFT);
+        }
+    }   
+    
+    public void showStepLeftAnimation() {
         if (!isMoving) {
             isMoving = true;
             walkingAnimator.setFacingDirection(MoveDirections.LEFT);
             walkingAnimator.startWalking();
             spriteMaterial.setTexture("ColorMap", spriteAtlas.getSpriteOn(walkingAnimator.getAnimationFrameId()));
             
-            characterPhysics.setWalkDirection(WALKING_VECTOR_LEFT);
             MovementStopRunnable.startMovementStopTimer(333, this);
-        }
-    }    
+        }        
+    }     
     
     public void stopMoving() {
         isMoving = false;
