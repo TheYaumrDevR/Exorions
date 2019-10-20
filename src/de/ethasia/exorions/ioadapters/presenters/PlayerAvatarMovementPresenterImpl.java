@@ -59,18 +59,30 @@ public class PlayerAvatarMovementPresenterImpl implements PlayerAvatarMovementPr
 
     @Override
     public void stepDownWithoutMoving() {
+        if (null != playerCharacterVisual) {
+            playerCharacterVisual.showStepLeftAnimation();
+        }
     }
 
     @Override
     public void stepRightWithoutMoving() {
+        if (null != playerCharacterVisual) {
+            playerCharacterVisual.showStepRightAnimation();
+        }
     }
 
     @Override
     public void stepUpWithoutMoving() {
+        if (null != playerCharacterVisual) {
+            playerCharacterVisual.showStepUpAnimation();
+        }
     }
 
     @Override
     public void stepLeftWithoutMoving() {
+        if (null != playerCharacterVisual) {
+            playerCharacterVisual.showStepLeftAnimation();
+        }
     }    
     
     //</editor-fold>
