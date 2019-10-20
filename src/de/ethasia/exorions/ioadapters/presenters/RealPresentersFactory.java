@@ -29,6 +29,6 @@ public class RealPresentersFactory extends PresentersFactory {
 
     @Override
     public PlayerAvatarMovementPresenter createPlayerAvatarMovementPresenter() {
-        return null;
+        return new PlayerAvatarMovementPresenterImpl();
     }
 }
