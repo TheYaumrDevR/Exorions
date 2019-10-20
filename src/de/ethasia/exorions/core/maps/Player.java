@@ -118,11 +118,9 @@ public class Player extends MoveableMapObject {
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
     @Override
-    protected boolean setPositionIfPositionIsNotColliding(short x, short y, short z) {    
-        boolean result = super.setPositionIfPositionIsNotColliding(x, y, z);
+    protected void setPositionIfPositionIsNotColliding(short x, short y, short z) {    
+        super.setPositionIfPositionIsNotColliding(x, y, z);
         currentMap.stepOnTileAt(posX, posY, posZ);
-        
-        return result;
     }
     
     //</editor-fold>

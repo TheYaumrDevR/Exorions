@@ -101,9 +101,8 @@ public class MoveableMapObject {
     private void moveToIfLastMovementWasLongEnoughInThePast(MoveDirections direction) {
         long currentTimeMillis = System.currentTimeMillis();
         if (lastMovementWasBackFurtherThanTheMinimumMovementTime(currentTimeMillis)) {
-            if (relocateBasedOnMapAndMoveDirection(direction)) {
-                lastMovementTimeMillis = currentTimeMillis;
-            }
+            relocateBasedOnMapAndMoveDirection(direction);
+            lastMovementTimeMillis = currentTimeMillis;
         }        
     }
     
@@ -111,7 +110,7 @@ public class MoveableMapObject {
         return currentTimeMillis - lastMovementTimeMillis > MINIMUM_TIME_BETWEEN_MOVEMENTS_MILLIS;
     }
     
-    private boolean relocateBasedOnMapAndMoveDirection(MoveDirections direction) {
+    private void relocateBasedOnMapAndMoveDirection(MoveDirections direction) {
         short newX = posX;
         short newZ = posZ;
         
@@ -130,21 +129,17 @@ public class MoveableMapObject {
                 break;
         } 
         
-        return setPositionIfPositionIsNotColliding(newX, posY, newZ);
+        setPositionIfPositionIsNotColliding(newX, posY, newZ);
     }    
     
-    protected boolean setPositionIfPositionIsNotColliding(short x, short y, short z) {
+    protected void setPositionIfPositionIsNotColliding(short x, short y, short z) {
         if (!currentMap.tileAtIsColliding(x, y, z)) {
             posX = x;
             posY = y;
             posZ = z;
             
             checkIfFloorIsBelowAndAdjustHorizontalPositionIfNot();
-            
-            return true;
-        }     
-        
-        return false;
+        }
     }  
     
     private void checkIfFloorIsBelowAndAdjustHorizontalPositionIfNot() {

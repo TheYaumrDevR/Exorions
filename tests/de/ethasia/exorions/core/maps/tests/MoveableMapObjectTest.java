@@ -6,7 +6,6 @@ import de.ethasia.exorions.core.maps.MapTileTypes;
 import de.ethasia.exorions.core.maps.MoveDirections;
 import de.ethasia.exorions.core.maps.MoveableMapObject;
 import de.ethasia.exorions.core.maps.NoMapToMoveOnException;
-import de.ethasia.exorions.core.maps.Player;
 
 import org.junit.Test;
 
@@ -311,7 +310,8 @@ public class MoveableMapObjectTest {
     }
     
     @Test
-    public void testIsCurrentlyMoving_moveWasCalledOnCollision_returnsFalse() {
+    public void testIsCurrentlyMoving_moveWasCalledOnCollision_returnsTrue() {
+        // returns true to block object and give attempted movement feedback
         MoveableMapObject testCandidate = new MoveableMapObject();
         InteriorMap map = new InteriorMap((short)10, (short)8);
         map.setTileTypeAt(MapTileTypes.COLLISION, (short)4, (short)0, (short)2);
@@ -320,7 +320,34 @@ public class MoveableMapObjectTest {
         testCandidate.moveTo(MoveDirections.UP);
         boolean result = testCandidate.isCurrentlyMoving();
         
-        assertThat(result, is(false));
+        assertThat(result, is(true));
+    }
+    
+    @Test
+    public void testMoveTo_collidedShortlyBefore_doesNotWork() {
+        MoveableMapObject testCandidate = new MoveableMapObject();
+        InteriorMap map = new InteriorMap((short)10, (short)8);
+        map.setTileTypeAt(MapTileTypes.COLLISION, (short)4, (short)0, (short)2);
+        testCandidate.placeOnMapWithPosition(map, (short)4, (short)0, (short)3);    
+        
+        testCandidate.moveTo(MoveDirections.UP);
+        testCandidate.moveTo(MoveDirections.DOWN);
+        
+        assertThat(testCandidate.getPositionZ(), is(equalTo((short)3)));
+    }
+    
+    @Test
+    public void testMoveTo_collidedHalfSecondInPast_works() throws InterruptedException {
+        MoveableMapObject testCandidate = new MoveableMapObject();
+        InteriorMap map = new InteriorMap((short)10, (short)8);
+        map.setTileTypeAt(MapTileTypes.COLLISION, (short)4, (short)0, (short)2);
+        testCandidate.placeOnMapWithPosition(map, (short)4, (short)0, (short)3);    
+        
+        testCandidate.moveTo(MoveDirections.UP);
+        Thread.sleep(500);
+        testCandidate.moveTo(MoveDirections.DOWN);
+        
+        assertThat(testCandidate.getPositionZ(), is(equalTo((short)4)));        
     }
     
     @Test
