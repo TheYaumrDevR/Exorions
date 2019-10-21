@@ -97,9 +97,7 @@ public class PlayerCharacterAvatar {
     public void showStepDownAnimation() {
         if (!isMoving) {
             isMoving = true;
-            walkingAnimator.setFacingDirection(MoveDirections.DOWN);
-            walkingAnimator.startWalking();
-            spriteMaterial.setTexture("ColorMap", spriteAtlas.getSpriteOn(walkingAnimator.getAnimationFrameId()));
+            playWalkingAnimation(MoveDirections.DOWN);
             
             MovementStopRunnable.startMovementStopTimer(333, this);
         }        
@@ -116,9 +114,7 @@ public class PlayerCharacterAvatar {
     public void showStepRightAnimation() {
         if (!isMoving) {
             isMoving = true;
-            walkingAnimator.setFacingDirection(MoveDirections.RIGHT);
-            walkingAnimator.startWalking();
-            spriteMaterial.setTexture("ColorMap", spriteAtlas.getSpriteOn(walkingAnimator.getAnimationFrameId()));
+            playWalkingAnimation(MoveDirections.RIGHT);
             
             MovementStopRunnable.startMovementStopTimer(333, this);
         }        
@@ -135,9 +131,7 @@ public class PlayerCharacterAvatar {
     public void showStepUpAnimation() {
         if (!isMoving) {
             isMoving = true;
-            walkingAnimator.setFacingDirection(MoveDirections.UP);
-            walkingAnimator.startWalking();
-            spriteMaterial.setTexture("ColorMap", spriteAtlas.getSpriteOn(walkingAnimator.getAnimationFrameId()));
+            playWalkingAnimation(MoveDirections.UP);
             
             MovementStopRunnable.startMovementStopTimer(333, this);
         }        
@@ -154,9 +148,7 @@ public class PlayerCharacterAvatar {
     public void showStepLeftAnimation() {
         if (!isMoving) {
             isMoving = true;
-            walkingAnimator.setFacingDirection(MoveDirections.LEFT);
-            walkingAnimator.startWalking();
-            spriteMaterial.setTexture("ColorMap", spriteAtlas.getSpriteOn(walkingAnimator.getAnimationFrameId()));
+            playWalkingAnimation(MoveDirections.LEFT);
             
             MovementStopRunnable.startMovementStopTimer(333, this);
         }        
@@ -222,6 +214,12 @@ public class PlayerCharacterAvatar {
         screenFacer = new BillboardControl();
         screenFacer.setAlignment(BillboardControl.Alignment.Screen);
         rootNode.addControl(screenFacer);        
+    }
+    
+    private void playWalkingAnimation(MoveDirections movementDirection) {
+        walkingAnimator.setFacingDirection(movementDirection);
+        walkingAnimator.startWalking();
+        spriteMaterial.setTexture("ColorMap", spriteAtlas.getSpriteOn(walkingAnimator.getAnimationFrameId()));        
     }
     
     //</editor-fold>
