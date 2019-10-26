@@ -2,8 +2,11 @@ package de.ethasia.exorions.interactors.stateinitialization.tests;
 
 import de.ethasia.exorions.interactors.crosslayer.InformationForMapsCouldNotBeLoadedException;
 import de.ethasia.exorions.interactors.crosslayer.MapDataCouldNotBeLoadedException;
+import de.ethasia.exorions.interactors.interfaces.GatewaysFactory;
 import de.ethasia.exorions.interactors.interfaces.PresentersFactory;
 import de.ethasia.exorions.interactors.mocks.FatalErrorPresenterMock;
+import de.ethasia.exorions.interactors.mocks.MapMetaDataGatewayMock;
+import de.ethasia.exorions.interactors.mocks.MockGatewaysFactory;
 import de.ethasia.exorions.interactors.mocks.MockPresentersFactory;
 import de.ethasia.exorions.interactors.mocks.OverworldStatePresenterMock;
 import de.ethasia.exorions.interactors.stateinitialization.StartNewGameUseCase;
@@ -20,6 +23,7 @@ public class StartNewGameUseCaseTest {
     @BeforeClass
     public static void initDependencies() {
         PresentersFactory.setInstance(new MockPresentersFactory());
+        GatewaysFactory.setInstance(new MockGatewaysFactory());
     }  
     
     @Before
@@ -32,10 +36,10 @@ public class StartNewGameUseCaseTest {
     public void testStartNewGame_initOverworldStateWithMapIsCalled() {
         StartNewGameUseCase testCandidate = new StartNewGameUseCase();   
         
-        assertThat(OverworldStatePresenterMock.getPresentOverworldWithNewGameMapCallCounter(), is(0));
+        assertThat(OverworldStatePresenterMock.getPresentOverworldWithMapFromMetaDataCallCounter(), is(0));
         testCandidate.startNewGame();
         
-        assertThat(OverworldStatePresenterMock.getPresentOverworldWithNewGameMapCallCounter(), is(1));
+        assertThat(OverworldStatePresenterMock.getPresentOverworldWithMapFromMetaDataCallCounter(), is(1));
     }
     
     @Test
@@ -49,7 +53,7 @@ public class StartNewGameUseCaseTest {
         
         testCandidate.startNewGame();
         
-        assertThat(OverworldStatePresenterMock.getPresentOverworldWithNewGameMapCallCounter(), is(0));
+        assertThat(OverworldStatePresenterMock.getPresentOverworldWithMapFromMetaDataCallCounter(), is(0));
         assertThat(FatalErrorPresenterMock.getLastShownError(), is(equalTo(internalException.getErrorMessage())));
         assertThat(FatalErrorPresenterMock.getLastShownErrorCause(), is(equalTo(internalException.getErrorCause())));
         assertThat(FatalErrorPresenterMock.getLastShownStackTrace(), is(equalTo(internalException.getStackTraceString())));
@@ -62,11 +66,11 @@ public class StartNewGameUseCaseTest {
                 "Loading the file failed. It might not exist or the game might not have access. Affected map: None", 
                 "Stracktrace with methods"); 
         
-        OverworldStatePresenterMock.setNextExceptionThrownOnMethodCall(internalException);
+        MapMetaDataGatewayMock.setNextExceptionToThrow(internalException);
         
         testCandidate.startNewGame();
         
-        assertThat(OverworldStatePresenterMock.getPresentOverworldWithNewGameMapCallCounter(), is(0));
+        assertThat(OverworldStatePresenterMock.getPresentOverworldWithMapFromMetaDataCallCounter(), is(0));
         assertThat(FatalErrorPresenterMock.getLastShownError(), is(equalTo(internalException.getErrorMessage())));
         assertThat(FatalErrorPresenterMock.getLastShownErrorCause(), is(equalTo(internalException.getErrorCause())));
         assertThat(FatalErrorPresenterMock.getLastShownStackTrace(), is(equalTo(internalException.getStackTraceString())));

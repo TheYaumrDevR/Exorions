@@ -1,6 +1,7 @@
 package de.ethasia.exorions.ioadapters.gateways;
 
 import de.ethasia.exorions.interactors.crosslayer.MapDataCouldNotBeLoadedException;
+import de.ethasia.exorions.interactors.crosslayer.MapMetaDataGateway;
 import de.ethasia.exorions.interactors.stateinitialization.MapMetaData;
 import de.ethasia.exorions.ioadapters.crosslayer.Maps;
 import de.ethasia.exorions.ioadapters.crosslayer.TechnicalsFactory;
@@ -8,10 +9,11 @@ import de.ethasia.exorions.ioadapters.crosslayer.TechnicalsFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-public class MapMetaDataGatewayImpl {
+public class MapMetaDataGatewayImpl implements MapMetaDataGateway {
     
     //<editor-fold defaultstate="collapsed" desc="MapMetaDataGateway Overrides">
     
+    @Override
     public MapMetaData tryToRetrieveMetaDataForNewGameMap() {
         TechnicalsFactory technicalsFactory = TechnicalsFactory.getInstance();
         

@@ -3,7 +3,9 @@ package de.ethasia.exorions.interactors.stateinitialization;
 import de.ethasia.exorions.interactors.crosslayer.FatalErrorPresenter;
 import de.ethasia.exorions.interactors.crosslayer.InformationForMapsCouldNotBeLoadedException;
 import de.ethasia.exorions.interactors.crosslayer.MapDataCouldNotBeLoadedException;
+import de.ethasia.exorions.interactors.crosslayer.MapMetaDataGateway;
 import de.ethasia.exorions.interactors.crosslayer.OverworldStatePresenter;
+import de.ethasia.exorions.interactors.interfaces.GatewaysFactory;
 import de.ethasia.exorions.interactors.interfaces.PresentersFactory;
 
 public class StartNewGameUseCase {
@@ -12,6 +14,7 @@ public class StartNewGameUseCase {
     
     private final OverworldStatePresenter overworldStatePresenter;
     private final FatalErrorPresenter fatalErrorPresenter;
+    private final MapMetaDataGateway mapMetaDataGateway;
     
     //</editor-fold>
     
@@ -20,6 +23,7 @@ public class StartNewGameUseCase {
     public StartNewGameUseCase() {
         overworldStatePresenter = PresentersFactory.getInstance().createOverworldStatePresenter();
         fatalErrorPresenter = PresentersFactory.getInstance().createFatalErrorPresenter();
+        mapMetaDataGateway = GatewaysFactory.getInstance().createMapMetaDataGateway();
     }
     
     //</editor-fold>
@@ -28,7 +32,8 @@ public class StartNewGameUseCase {
     
     public void startNewGame() {
         try {
-            overworldStatePresenter.presentOverworldWithNewGameMap();  
+            MapMetaData startingMapMetaData = mapMetaDataGateway.tryToRetrieveMetaDataForNewGameMap();
+            overworldStatePresenter.presentOverworldWithMapFromMetaData(startingMapMetaData);  
         } catch (InformationForMapsCouldNotBeLoadedException ex) {
             fatalErrorPresenter.showFatalError(ex.getErrorMessage(), ex.getErrorCause(), ex.getStackTraceString());
         } catch (MapDataCouldNotBeLoadedException ex) {

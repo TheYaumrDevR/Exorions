@@ -4,6 +4,7 @@ import com.jme3.app.SimpleApplication;
 
 import de.ethasia.exorions.core.interfaces.CoreClassesFactory;
 import de.ethasia.exorions.core.interfaces.RealCoreClassesFactory;
+import de.ethasia.exorions.interactors.interfaces.GatewaysFactory;
 import de.ethasia.exorions.technical.fileaccess.MapsImpl;
 import de.ethasia.exorions.ioadapters.presenters.RealPresentersFactory;
 import de.ethasia.exorions.technical.jmegamestates.EvocriGameState;
@@ -11,6 +12,7 @@ import de.ethasia.exorions.technical.niftygui.NiftyGuiScreens;
 import de.ethasia.exorions.interactors.interfaces.PresentersFactory;
 import de.ethasia.exorions.ioadapters.crosslayer.GameStatesFactory;
 import de.ethasia.exorions.ioadapters.crosslayer.TechnicalsFactory;
+import de.ethasia.exorions.ioadapters.presenters.RealGatewaysFactory;
 import de.ethasia.exorions.technical.RealTechnicalsFactory;
 import de.ethasia.exorions.technical.fileaccess.CharacterSpritesImpl;
 import de.ethasia.exorions.technical.jmegamestates.RealGameStatesFactory;
@@ -48,6 +50,7 @@ public class Dependencies {
     
     private static void injectIoAdapterDependencies() {
         PresentersFactory.setInstance(new RealPresentersFactory());
+        GatewaysFactory.setInstance(new RealGatewaysFactory());
     }
     
     private static void injectTechnicalDependencies() {
