@@ -87,10 +87,9 @@ public class PlayerCharacterAvatar {
     }
     
     public void moveDown() {
-        showStepDownAnimation();
-        
         if (!isMoving) {
-            characterPhysics.setWalkDirection(WALKING_VECTOR_DOWN);
+            showStepDownAnimation();
+            characterPhysics.setWalkDirection(WALKING_VECTOR_DOWN);            
         }
     }
     
@@ -104,10 +103,9 @@ public class PlayerCharacterAvatar {
     }
     
     public void moveRight() {
-        showStepRightAnimation();
-        
         if (!isMoving) {
-            characterPhysics.setWalkDirection(WALKING_VECTOR_RIGHT);
+            showStepRightAnimation();
+            characterPhysics.setWalkDirection(WALKING_VECTOR_RIGHT);            
         }
     } 
     
@@ -121,9 +119,8 @@ public class PlayerCharacterAvatar {
     }    
     
     public void moveUp() {
-        showStepUpAnimation();
-        
         if (!isMoving) {
+            showStepUpAnimation();
             characterPhysics.setWalkDirection(WALKING_VECTOR_UP);
         }
     }
@@ -138,9 +135,8 @@ public class PlayerCharacterAvatar {
     }     
 
     public void moveLeft() {
-        showStepLeftAnimation();
-        
         if (!isMoving) {
+            showStepLeftAnimation();
             characterPhysics.setWalkDirection(WALKING_VECTOR_LEFT);
         }
     }   
