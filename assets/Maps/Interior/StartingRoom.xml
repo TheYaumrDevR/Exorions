@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map>
+<map dimX="6" dimZ="7">
     <floors>
         <f w="4" l="5" x="1" y="0" z="1"/>
     </floors>
