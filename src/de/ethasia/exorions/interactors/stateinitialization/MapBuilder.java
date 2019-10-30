@@ -20,6 +20,24 @@ public class MapBuilder {
     }
     
     public MapBuilder withCollisionDefinitions(DefinitionsForUndistinguishableMapTiles value) {
+        setTileTypesBasedOnDefinitionsTo(value, MapTileTypes.COLLISION);
+        return this;
+    }
+    
+    public MapBuilder withFloorDefinitions(DefinitionsForUndistinguishableMapTiles value) {
+        setTileTypesBasedOnDefinitionsTo(value, MapTileTypes.FLOOR);
+        return this;
+    }
+    
+    public InteriorMap build() {
+        return product;
+    }
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Helper Methods">
+    
+    private void setTileTypesBasedOnDefinitionsTo(DefinitionsForUndistinguishableMapTiles value, MapTileTypes tileType) {
         while (value.hasNextDefinition()) {
             value.moveToNextDefinition();
 
@@ -34,20 +52,14 @@ public class MapBuilder {
                     int upperBoundZ = k + value.getCurrentDefinitionLength();
                     
                     while (k < upperBoundZ) {
-                        product.setTileTypeAt(MapTileTypes.COLLISION, (short)i, (short)j, (short)k);
+                        product.setTileTypeAt(tileType, (short)i, (short)j, (short)k);
                         k++;
                     }
                     j++;
                 }
                 i++;
             }
-        }
-        
-        return this;
-    }
-    
-    public InteriorMap build() {
-        return product;
+        }        
     }
     
     //</editor-fold>
