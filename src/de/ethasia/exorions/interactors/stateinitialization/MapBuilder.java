@@ -2,7 +2,7 @@ package de.ethasia.exorions.interactors.stateinitialization;
 
 import de.ethasia.exorions.core.maps.InteriorMap;
 import de.ethasia.exorions.core.maps.MapTileTypes;
-import de.ethasia.exorions.interactors.crosslayer.MapCollisionDefinitions;
+import de.ethasia.exorions.interactors.crosslayer.DefinitionsForUndistinguishableMapTiles;
 
 public class MapBuilder {
     
@@ -19,9 +19,9 @@ public class MapBuilder {
         return this;
     }
     
-    public MapBuilder withCollisionDefinitions(MapCollisionDefinitions value) {
-        while (value.hasNextCollisionDefinition()) {
-            value.moveToNextCollisionDefinition();
+    public MapBuilder withCollisionDefinitions(DefinitionsForUndistinguishableMapTiles value) {
+        while (value.hasNextDefinition()) {
+            value.moveToNextDefinition();
 
             int i = value.getCurrentDefinitionX();
             int upperBoundX = i + value.getCurrentDefinitionWidth();

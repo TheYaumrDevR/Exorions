@@ -1,7 +1,7 @@
 package de.ethasia.exorions.interactors.stateinitialization.tests;
 
 import de.ethasia.exorions.core.maps.InteriorMap;
-import de.ethasia.exorions.interactors.crosslayer.MapCollisionDefinitions;
+import de.ethasia.exorions.interactors.crosslayer.DefinitionsForUndistinguishableMapTiles;
 import de.ethasia.exorions.interactors.stateinitialization.MapBuilder;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -14,9 +14,9 @@ public class MapBuilderTest {
     
     @Test
     public void testBuild_createdMapHasCorrectProperties() {
-        MapCollisionDefinitions definitions = new MapCollisionDefinitions();
-        definitions.addNewCollisionDefinitionWidthLengthHeightXyz(3, 1, 1, 1, 0, 1);
-        definitions.addNewCollisionDefinitionWidthLengthHeightXyz(1, 1, 5, 3, 0, 2);
+        DefinitionsForUndistinguishableMapTiles definitions = new DefinitionsForUndistinguishableMapTiles();
+        definitions.addNewDefinitionWidthLengthHeightXyz(3, 1, 1, 1, 0, 1);
+        definitions.addNewDefinitionWidthLengthHeightXyz(1, 1, 5, 3, 0, 2);
         
         MapBuilder testCandidate = new MapBuilder();
         InteriorMap result = testCandidate
