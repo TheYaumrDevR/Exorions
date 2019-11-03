@@ -59,9 +59,13 @@ public class MapDefinitionsGatewayImpl implements MapDefinitionsGateway {
         
         NodeList newGameMap = mapList.getElementsByTagName("newGameMap");
         if (newGameMap.getLength() > 0) {
-            mapName = newGameMap.item(0).getAttributes().getNamedItem("name").getNodeValue();
-            logicFilePath = newGameMap.item(0).getAttributes().getNamedItem("logic").getNodeValue();
-            visualFilePath = newGameMap.item(0).getAttributes().getNamedItem("visuals").getNodeValue();
+            try {
+                mapName = newGameMap.item(0).getAttributes().getNamedItem("name").getNodeValue();
+                logicFilePath = newGameMap.item(0).getAttributes().getNamedItem("logic").getNodeValue();
+                visualFilePath = newGameMap.item(0).getAttributes().getNamedItem("visuals").getNodeValue();                
+            } catch (NullPointerException ex) {
+                throw new MapDataCouldNotBeLoadedException("The name or the file paths for the starting game map are not readable. Thus it cannot be loaded.", "");                
+            }
         } else {
             throw new MapDataCouldNotBeLoadedException("Information for the starting game map was not found. The maplist is corrupted.", "");
         }

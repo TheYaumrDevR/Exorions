@@ -29,6 +29,11 @@ public class MapsMock implements Maps {
         mapLogicXml = value;
     }    
     
+    private static int readMapListCallCount;
+    public static int getReadMapListCallCount() {
+        return readMapListCallCount;
+    }
+    
     private static String lastReadMapLogicPath;
     public static String getLastReadMapLogicPath() {
         return lastReadMapLogicPath;
@@ -44,6 +49,7 @@ public class MapsMock implements Maps {
     //<editor-fold defaultstate="collapsed" desc="Static Methods">
     
     public static void resetMock() {
+        readMapListCallCount = 0;
         lastReadMapLogicPath = "";
         lastReadMapVisualsPath = "";
     }
@@ -54,6 +60,8 @@ public class MapsMock implements Maps {
     
     @Override
     public Document readMapList() {
+        readMapListCallCount++;
+        
         try {
             return convertStringToXmlDocument(mapListXml);
         } catch (ParserConfigurationException ex) {
