@@ -3,7 +3,6 @@ package de.ethasia.exorions.ioadapters.presenters;
 import de.ethasia.exorions.interactors.crosslayer.EngineMapDataBuilder;
 import de.ethasia.exorions.technical.engine.EngineMapData;
 import de.ethasia.exorions.technical.jmegamestates.EvocriGameState;
-import de.ethasia.exorions.interactors.crosslayer.MapDataCouldNotBeLoadedException;
 import de.ethasia.exorions.interactors.crosslayer.OverworldStatePresenter;
 import de.ethasia.exorions.interactors.stateinitialization.MapMetaData;
 import de.ethasia.exorions.ioadapters.crosslayer.CharacterSprites;

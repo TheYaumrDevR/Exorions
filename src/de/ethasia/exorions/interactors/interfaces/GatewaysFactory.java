@@ -1,6 +1,6 @@
 package de.ethasia.exorions.interactors.interfaces;
 
-import de.ethasia.exorions.interactors.crosslayer.MapMetaDataGateway;
+import de.ethasia.exorions.interactors.crosslayer.MapDefinitionsGateway;
 
 public abstract class GatewaysFactory {
     
@@ -24,7 +24,7 @@ public abstract class GatewaysFactory {
     
     //<editor-fold defaultstate="collapsed" desc="Abstract Methods">
     
-    public abstract MapMetaDataGateway createMapMetaDataGateway();    
+    public abstract MapDefinitionsGateway createMapMetaDataGateway();    
     
     //</editor-fold>
 }

@@ -3,10 +3,10 @@ package de.ethasia.exorions.interactors.stateinitialization;
 import de.ethasia.exorions.interactors.crosslayer.FatalErrorPresenter;
 import de.ethasia.exorions.interactors.crosslayer.InformationForMapsCouldNotBeLoadedException;
 import de.ethasia.exorions.interactors.crosslayer.MapDataCouldNotBeLoadedException;
-import de.ethasia.exorions.interactors.crosslayer.MapMetaDataGateway;
 import de.ethasia.exorions.interactors.crosslayer.OverworldStatePresenter;
 import de.ethasia.exorions.interactors.interfaces.GatewaysFactory;
 import de.ethasia.exorions.interactors.interfaces.PresentersFactory;
+import de.ethasia.exorions.interactors.crosslayer.MapDefinitionsGateway;
 
 public class StartNewGameUseCase {
     
@@ -14,7 +14,7 @@ public class StartNewGameUseCase {
     
     private final OverworldStatePresenter overworldStatePresenter;
     private final FatalErrorPresenter fatalErrorPresenter;
-    private final MapMetaDataGateway mapMetaDataGateway;
+    private final MapDefinitionsGateway mapMetaDataGateway;
     
     //</editor-fold>
     

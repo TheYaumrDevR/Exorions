@@ -5,7 +5,7 @@ import de.ethasia.exorions.interactors.crosslayer.MapDataCouldNotBeLoadedExcepti
 import de.ethasia.exorions.interactors.interfaces.GatewaysFactory;
 import de.ethasia.exorions.interactors.interfaces.PresentersFactory;
 import de.ethasia.exorions.interactors.mocks.FatalErrorPresenterMock;
-import de.ethasia.exorions.interactors.mocks.MapMetaDataGatewayMock;
+import de.ethasia.exorions.interactors.mocks.MapDefinitionsGatewayMock;
 import de.ethasia.exorions.interactors.mocks.MockGatewaysFactory;
 import de.ethasia.exorions.interactors.mocks.MockPresentersFactory;
 import de.ethasia.exorions.interactors.mocks.OverworldStatePresenterMock;
@@ -66,7 +66,7 @@ public class StartNewGameUseCaseTest {
                 "Loading the file failed. It might not exist or the game might not have access. Affected map: None", 
                 "Stracktrace with methods"); 
         
-        MapMetaDataGatewayMock.setNextExceptionToThrow(internalException);
+        MapDefinitionsGatewayMock.setNextExceptionToThrow(internalException);
         
         testCandidate.startNewGame();
         
