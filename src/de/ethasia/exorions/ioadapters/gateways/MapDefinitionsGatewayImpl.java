@@ -9,6 +9,7 @@ import de.ethasia.exorions.ioadapters.crosslayer.TechnicalsFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import de.ethasia.exorions.interactors.crosslayer.MapDefinitionsGateway;
+import de.ethasia.exorions.interactors.crosslayer.MapTileDataMalformedException;
 import org.w3c.dom.NamedNodeMap;
 
 public class MapDefinitionsGatewayImpl implements MapDefinitionsGateway {
@@ -88,7 +89,7 @@ public class MapDefinitionsGatewayImpl implements MapDefinitionsGateway {
                 
                 result.addNewDefinitionWidthLengthHeightXyz(floorWidth, floorDepth, 1, floorPosX, floorPosY, floorPosZ);
             } catch (NumberFormatException | NullPointerException ex) {
-            
+                throw new MapTileDataMalformedException("Floor data must have attributes w, l, x, y, z of type integer.");
             }
         }        
         
@@ -112,7 +113,7 @@ public class MapDefinitionsGatewayImpl implements MapDefinitionsGateway {
                 
                 result.addNewDefinitionWidthLengthHeightXyz(collisionWidth, collisionDepth, collisionHeight, collisionPosX, collisionPosY, collisionPosZ);
             } catch (NumberFormatException | NullPointerException ex) {
-            
+                throw new MapTileDataMalformedException("Collision data must have attributes w, l, h, x, y, z of type integer.");
             }
         }
 
