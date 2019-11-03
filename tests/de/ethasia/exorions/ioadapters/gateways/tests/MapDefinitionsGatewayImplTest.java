@@ -309,6 +309,137 @@ public class MapDefinitionsGatewayImplTest {
         testCandidate.findFloorTileDefinitions("test floors");
     }    
     
+    @Test
+    public void testFindCollisionTileDefinitions_dependenciesAreCalled() {
+        MapsMock.setMapLogicXml(getStandardMapLogicXml());
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.findCollisionTileDefinitions("test collisions");
+        
+        assertThat(MapsMock.getLastReadMapLogicPath(), is(equalTo("test collisions")));
+    }
+    
+    @Test
+    public void testFindCollisionTileDefinitions_sourceXmlIsCorrect_resultHasCorrectProperties() {
+        MapsMock.setMapLogicXml(getStandardMapLogicXml());
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        DefinitionsForUndistinguishableMapTiles result = testCandidate.findCollisionTileDefinitions("test collisions");
+        DefinitionsForUndistinguishableMapTiles expected = new DefinitionsForUndistinguishableMapTiles();
+        expected.addNewDefinitionWidthLengthHeightXyz(3, 1, 1, 1, 0, 1);
+        expected.addNewDefinitionWidthLengthHeightXyz(1, 1, 1, 3, 0, 2);
+        
+        assertThat(expected, is(equalTo(result)));
+    }   
+    
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testFindCollisionTileDefinitions_widthAttributeIsNotPresent_throwsException() {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimX=\"6\" dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" l=\"5\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                    "<collisions>\n" +
+                        "<c l=\"1\" h=\"1\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                        "<c w=\"1\" l=\"1\" h=\"1\" x=\"3\" y=\"0\" z=\"2\"/>\n" +
+                    "</collisions>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(xml);
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.findCollisionTileDefinitions("test collisions");
+    }    
+    
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testFindCollisionTileDefinitions_lengthAttributeIsNotPresent_throwsException() {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimX=\"6\" dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" l=\"5\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                    "<collisions>\n" +
+                        "<c w=\"3\" l=\"1\" h=\"1\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                        "<c w=\"1\" h=\"1\" x=\"3\" y=\"0\" z=\"2\"/>\n" +
+                    "</collisions>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(xml);
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.findCollisionTileDefinitions("test collisions");
+    }
+    
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testFindCollisionTileDefinitions_heightAttributeIsNotPresent_throwsException() {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimX=\"6\" dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" l=\"5\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                    "<collisions>\n" +
+                        "<c w=\"3\" l=\"1\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                        "<c w=\"1\" l=\"1\" h=\"1\" x=\"3\" y=\"0\" z=\"2\"/>\n" +
+                    "</collisions>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(xml);
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.findCollisionTileDefinitions("test collisions");
+    }    
+
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testFindCollisionTileDefinitions_xAttributeIsNotPresent_throwsException() {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimX=\"6\" dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" l=\"5\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                    "<collisions>\n" +
+                        "<c w=\"3\" l=\"1\" h=\"1\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                        "<c w=\"1\" l=\"1\" h=\"1\" y=\"0\" z=\"2\"/>\n" +
+                    "</collisions>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(xml);
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.findCollisionTileDefinitions("test collisions");
+    }
+    
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testFindCollisionTileDefinitions_yAttributeIsNotPresent_throwsException() {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimX=\"6\" dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" l=\"5\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                    "<collisions>\n" +
+                        "<c w=\"3\" l=\"1\" h=\"1\" x=\"1\" z=\"1\"/>\n" +
+                        "<c w=\"1\" l=\"1\" h=\"1\" x=\"3\" y=\"0\" z=\"2\"/>\n" +
+                    "</collisions>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(xml);
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.findCollisionTileDefinitions("test collisions");
+    }
+
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testFindCollisionTileDefinitions_zAttributeIsNotPresent_throwsException() {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimX=\"6\" dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" l=\"5\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                    "<collisions>\n" +
+                        "<c w=\"3\" l=\"1\" h=\"1\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                        "<c w=\"1\" l=\"1\" h=\"1\" x=\"3\" y=\"0\" />\n" +
+                    "</collisions>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(xml);
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.findCollisionTileDefinitions("test collisions");
+    }    
+    
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
     private String getStandardMapListXml() {
@@ -329,12 +460,6 @@ public class MapDefinitionsGatewayImplTest {
                     "<collisions>\n" +
                         "<c w=\"3\" l=\"1\" h=\"1\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
                         "<c w=\"1\" l=\"1\" h=\"1\" x=\"3\" y=\"0\" z=\"2\"/>\n" +
-                        "<c w=\"2\" l=\"1\" h=\"1\" x=\"3\" y=\"0\" z=\"4\"/>\n" +
-                        "<c w=\"1\" l=\"1\" h=\"1\" x=\"4\" y=\"0\" z=\"3\"/>\n" +
-                        "<c w=\"4\" l=\"1\" h=\"1\" x=\"1\" y=\"0\" z=\"0\"/>\n" +
-                        "<c w=\"3\" l=\"1\" h=\"1\" x=\"2\" y=\"0\" z=\"5\"/>\n" +
-                        "<c w=\"1\" l=\"5\" h=\"1\" x=\"0\" y=\"0\" z=\"1\"/>\n" +
-                        "<c w=\"1\" l=\"4\" h=\"1\" x=\"5\" y=\"0\" z=\"1\"/>\n" +
                     "</collisions>\n" +
                 "</map>";
     }
