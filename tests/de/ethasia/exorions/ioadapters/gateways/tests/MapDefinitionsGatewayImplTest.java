@@ -1,6 +1,8 @@
 package de.ethasia.exorions.ioadapters.gateways.tests;
 
+import de.ethasia.exorions.interactors.crosslayer.DefinitionsForUndistinguishableMapTiles;
 import de.ethasia.exorions.interactors.crosslayer.MapDataCouldNotBeLoadedException;
+import de.ethasia.exorions.interactors.crosslayer.MapTileDataMalformedException;
 import de.ethasia.exorions.interactors.stateinitialization.MapMetaData;
 import de.ethasia.exorions.ioadapters.crosslayer.TechnicalsFactory;
 import de.ethasia.exorions.ioadapters.gateways.MapDefinitionsGatewayImpl;
@@ -143,6 +145,168 @@ public class MapDefinitionsGatewayImplTest {
         MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
         
         testCandidate.tryToRetrieveMetaDataForNewGameMap();        
+    }  
+    
+    @Test
+    public void testFindFloorTileDefinitions_dependenciesAreCalled() {
+        MapsMock.setMapLogicXml(getStandardMapLogicXml());
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.findFloorTileDefinitions("test floors");
+        
+        assertThat(MapsMock.getLastReadMapLogicPath(), is(equalTo("test floors")));
+    }
+    
+    @Test
+    public void testFindFloorTileDefinitions_sourceXmlIsCorrect_resultHasCorrectProperties() {
+        MapsMock.setMapLogicXml(getStandardMapLogicXml());
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        DefinitionsForUndistinguishableMapTiles result = testCandidate.findFloorTileDefinitions("test floors");
+        DefinitionsForUndistinguishableMapTiles expected = new DefinitionsForUndistinguishableMapTiles();
+        expected.addNewDefinitionWidthLengthHeightXyz(4, 5, 1, 1, 0, 1);
+        
+        assertThat(expected, is(equalTo(result)));
+    }
+
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testFindFloorTileDefinitions_widthAttributeIsNotPresent_throwsException() {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimX=\"6\" dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f l=\"5\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(xml);
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.findFloorTileDefinitions("test floors");
+    }    
+    
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testFindFloorTileDefinitions_lengthAttributeIsNotPresent_throwsException() {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimX=\"6\" dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(xml);
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.findFloorTileDefinitions("test floors");
+    }
+
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testFindFloorTileDefinitions_xAttributeIsNotPresent_throwsException() {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimX=\"6\" dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" l=\"5\" y=\"0\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(xml);
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.findFloorTileDefinitions("test floors");
+    }
+    
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testFindFloorTileDefinitions_yAttributeIsNotPresent_throwsException() {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimX=\"6\" dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" l=\"5\" x=\"1\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(xml);
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.findFloorTileDefinitions("test floors");
+    }
+
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testFindFloorTileDefinitions_zAttributeIsNotPresent_throwsException() {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimX=\"6\" dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" l=\"5\" x=\"1\" y=\"0\"/>\n" +
+                    "</floors>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(xml);
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.findFloorTileDefinitions("test floors");
+    } 
+    
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testFindFloorTileDefinitions_widthAttributeHasIncorrectValue_throwsException() {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimX=\"6\" dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"ac\" l=\"5\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(xml);
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.findFloorTileDefinitions("test floors");
+    }  
+    
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testFindFloorTileDefinitions_lengthAttributeHasIncorrectValue_throwsException() {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimX=\"6\" dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" l=\"gz\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(xml);
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.findFloorTileDefinitions("test floors");
+    }
+
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testFindFloorTileDefinitions_xAttributeHasIncorrectValue_throwsException() {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimX=\"6\" dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" l=\"5\" x=\"svre\" y=\"0\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(xml);
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.findFloorTileDefinitions("test floors");
+    }
+
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testFindFloorTileDefinitions_yAttributeHasIncorrectValue_throwsException() {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimX=\"6\" dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" l=\"5\" x=\"1\" y=\"ggs4w2\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(xml);
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.findFloorTileDefinitions("test floors");
+    }
+
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testFindFloorTileDefinitions_zAttributeHasIncorrectValue_throwsException() {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimX=\"6\" dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" l=\"5\" x=\"1\" y=\"0\" z=\"3123.0\"/>\n" +
+                    "</floors>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(xml);
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.findFloorTileDefinitions("test floors");
     }    
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">

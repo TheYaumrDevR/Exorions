@@ -2,6 +2,7 @@ package de.ethasia.exorions.interactors.crosslayer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DefinitionsForUndistinguishableMapTiles {
     
@@ -93,12 +94,54 @@ public class DefinitionsForUndistinguishableMapTiles {
     
     //</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Object Overrides">
+    
+    @Override
+    public boolean equals(Object other) {
+        if (null == other) {
+            return false;
+        }
+        
+        if (!(other instanceof DefinitionsForUndistinguishableMapTiles)) {
+            return false;
+        }
+        
+        return equals((DefinitionsForUndistinguishableMapTiles)other);
+    }
+    
+    @Override
+    public int hashCode() {
+        int hashCode = 0;
+        
+        for (int i = 0; i < definitions.size(); i++) {
+            hashCode += definitions.get(i);
+        }
+        
+        return hashCode;
+    }
+    
+    //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
-    public void throwExceptionIfRetrievalPointerIsAtNegativePosition() {
+    private void throwExceptionIfRetrievalPointerIsAtNegativePosition() {
         if (currentDefinitionPointer < 0) {
             throw new IllegalStateException("You need to move the data retrieval pointer of DefinitionsForUndistinguishableMapTiles to at least the first position before calling the data accessors.");
         }        
+    }
+    
+    private boolean equals(DefinitionsForUndistinguishableMapTiles other) {
+        if (definitions.size() != other.definitions.size()) {
+            return false;
+        }
+        
+        for (int i = 0; i < definitions.size(); i++) {
+            if (!Objects.equals(definitions.get(i), other.definitions.get(i))) {
+                return false;
+            }
+        }
+        
+        return true;
     }
     
     //</editor-fold>
