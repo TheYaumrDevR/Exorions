@@ -702,6 +702,32 @@ public class MapDefinitionsGatewayImplTest {
         testCandidate.getMapDimensionZ("mapDefinitionPath");
     }    
     
+    @Test
+    public void testCaching_worksAsExpected() {
+        MapsMock.setMapLogicXml(getStandardMapLogicXml());
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        DefinitionsForUndistinguishableMapTiles floorTileDefinitions = testCandidate.findFloorTileDefinitions("mapDefinitionPath");
+        DefinitionsForUndistinguishableMapTiles collisionTileDefinitions = testCandidate.findCollisionTileDefinitions("mapDefinitionPath");
+        int mapDimensionX = testCandidate.getMapDimensionX("mapDefinitionPath");
+        int mapDimensionZ = testCandidate.getMapDimensionZ("mapDefinitionPath");
+        
+        DefinitionsForUndistinguishableMapTiles expectedFloors = new DefinitionsForUndistinguishableMapTiles();
+        expectedFloors.addNewDefinitionWidthLengthHeightXyz(4, 5, 1, 1, 0, 1);   
+        
+        DefinitionsForUndistinguishableMapTiles expectedCollisions = new DefinitionsForUndistinguishableMapTiles();
+        expectedCollisions.addNewDefinitionWidthLengthHeightXyz(3, 1, 1, 1, 0, 1);      
+        expectedCollisions.addNewDefinitionWidthLengthHeightXyz(1, 1, 1, 3, 0, 2); 
+        
+        DefinitionsForUndistinguishableMapTiles floorTileDefinitionsAfterCacheReset = testCandidate.findFloorTileDefinitions("cacheReset");
+        
+        assertThat(mapDimensionX, is(6));
+        assertThat(mapDimensionZ, is(7));
+        assertThat(expectedFloors, is(equalTo(floorTileDefinitions)));
+        assertThat(expectedCollisions, is(equalTo(collisionTileDefinitions)));
+        assertThat(expectedFloors, is(equalTo(floorTileDefinitionsAfterCacheReset)));
+    }    
+    
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
     private String getStandardMapListXml() {

@@ -14,26 +14,56 @@ import org.w3c.dom.NamedNodeMap;
 
 public class MapDefinitionsGatewayImpl implements MapDefinitionsGateway {
     
+    //<editor-fold defaultstate="collapsed" desc="Fields">
+    
+    private String lastPathToMapDefinitionRead;
+    private Document lastDocumentRead;
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
+    
+    public MapDefinitionsGatewayImpl() {
+        lastPathToMapDefinitionRead = "";
+        lastDocumentRead = null;
+    }
+     
+    //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="MapDefinitionsGateway Overrides">
     
     @Override
     public int getMapDimensionX(String pathToMapDefinition) {
-        TechnicalsFactory technicalsFactory = TechnicalsFactory.getInstance();
-        Maps maps = technicalsFactory.createMaps();  
+        if (!lastPathToMapDefinitionRead.equals(pathToMapDefinition)) {
+            TechnicalsFactory technicalsFactory = TechnicalsFactory.getInstance();
+            Maps maps = technicalsFactory.createMaps();  
         
-        Document mapLogic = maps.readMapLogic(pathToMapDefinition);
+            Document mapLogic = maps.readMapLogic(pathToMapDefinition);
+            
+            lastPathToMapDefinitionRead = pathToMapDefinition;
+            lastDocumentRead = mapLogic;
         
-        return tryParseMapDimensionFromAttributeNameFromDocument("dimX", mapLogic);
+            return tryParseMapDimensionFromAttributeNameFromDocument("dimX", mapLogic);            
+        }
+        
+        return tryParseMapDimensionFromAttributeNameFromDocument("dimX", lastDocumentRead); 
     }
     
     @Override
     public int getMapDimensionZ(String pathToMapDefinition) {
-        TechnicalsFactory technicalsFactory = TechnicalsFactory.getInstance();
-        Maps maps = technicalsFactory.createMaps();  
+        if (!lastPathToMapDefinitionRead.equals(pathToMapDefinition)) {
+            TechnicalsFactory technicalsFactory = TechnicalsFactory.getInstance();
+            Maps maps = technicalsFactory.createMaps();  
         
-        Document mapLogic = maps.readMapLogic(pathToMapDefinition);
+            Document mapLogic = maps.readMapLogic(pathToMapDefinition);
         
-        return tryParseMapDimensionFromAttributeNameFromDocument("dimZ", mapLogic);
+            lastPathToMapDefinitionRead = pathToMapDefinition;
+            lastDocumentRead = mapLogic;            
+            
+            return tryParseMapDimensionFromAttributeNameFromDocument("dimZ", mapLogic);            
+        }
+
+        return tryParseMapDimensionFromAttributeNameFromDocument("dimZ", lastDocumentRead); 
     }    
     
     @Override
@@ -50,22 +80,36 @@ public class MapDefinitionsGatewayImpl implements MapDefinitionsGateway {
     
     @Override
     public DefinitionsForUndistinguishableMapTiles findFloorTileDefinitions(String pathToMapDefinition) {
-        TechnicalsFactory technicalsFactory = TechnicalsFactory.getInstance();
-        Maps maps = technicalsFactory.createMaps();  
+        if (!lastPathToMapDefinitionRead.equals(pathToMapDefinition)) {
+            TechnicalsFactory technicalsFactory = TechnicalsFactory.getInstance();
+            Maps maps = technicalsFactory.createMaps();  
         
-        Document mapLogic = maps.readMapLogic(pathToMapDefinition);
+            Document mapLogic = maps.readMapLogic(pathToMapDefinition);
+            
+            lastPathToMapDefinitionRead = pathToMapDefinition;
+            lastDocumentRead = mapLogic;             
         
-        return convertDocumentToFloorTileDefinitions(mapLogic);
+            return convertDocumentToFloorTileDefinitions(mapLogic);            
+        }
+
+        return convertDocumentToFloorTileDefinitions(lastDocumentRead); 
     }
     
     @Override
     public DefinitionsForUndistinguishableMapTiles findCollisionTileDefinitions(String pathToMapDefinition) {
-        TechnicalsFactory technicalsFactory = TechnicalsFactory.getInstance();
-        Maps maps = technicalsFactory.createMaps();  
+        if (!lastPathToMapDefinitionRead.equals(pathToMapDefinition)) {
+            TechnicalsFactory technicalsFactory = TechnicalsFactory.getInstance();
+            Maps maps = technicalsFactory.createMaps();  
         
-        Document mapLogic = maps.readMapLogic(pathToMapDefinition);
+            Document mapLogic = maps.readMapLogic(pathToMapDefinition);
+            
+            lastPathToMapDefinitionRead = pathToMapDefinition;
+            lastDocumentRead = mapLogic;             
         
-        return convertDocumentToCollisionTileDefinitions(mapLogic);
+            return convertDocumentToCollisionTileDefinitions(mapLogic);                    
+        }
+        
+        return convertDocumentToCollisionTileDefinitions(lastDocumentRead);        
     }    
     
     //</editor-fold>
