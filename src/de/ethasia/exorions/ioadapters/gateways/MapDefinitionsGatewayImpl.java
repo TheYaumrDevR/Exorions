@@ -17,6 +17,26 @@ public class MapDefinitionsGatewayImpl implements MapDefinitionsGateway {
     //<editor-fold defaultstate="collapsed" desc="MapDefinitionsGateway Overrides">
     
     @Override
+    public int getMapDimensionX(String pathToMapDefinition) {
+        TechnicalsFactory technicalsFactory = TechnicalsFactory.getInstance();
+        Maps maps = technicalsFactory.createMaps();  
+        
+        Document mapLogic = maps.readMapLogic(pathToMapDefinition);
+        
+        return tryParseMapDimensionFromAttributeNameFromDocument("dimX", mapLogic);
+    }
+    
+    @Override
+    public int getMapDimensionZ(String pathToMapDefinition) {
+        TechnicalsFactory technicalsFactory = TechnicalsFactory.getInstance();
+        Maps maps = technicalsFactory.createMaps();  
+        
+        Document mapLogic = maps.readMapLogic(pathToMapDefinition);
+        
+        return tryParseMapDimensionFromAttributeNameFromDocument("dimZ", mapLogic);
+    }    
+    
+    @Override
     public MapMetaData tryToRetrieveMetaDataForNewGameMap() {
         TechnicalsFactory technicalsFactory = TechnicalsFactory.getInstance();
         
@@ -51,6 +71,26 @@ public class MapDefinitionsGatewayImpl implements MapDefinitionsGateway {
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
+    
+    private int tryParseMapDimensionFromAttributeNameFromDocument(String dimensionAttributeName, Document source) {
+        int result = 0;
+        
+        NodeList mapNodes = source.getElementsByTagName("map");
+        
+        if (mapNodes.getLength() > 0) {
+            NamedNodeMap mapNodeAttributes = mapNodes.item(0).getAttributes();
+            
+            try {
+                result = Integer.parseInt(mapNodeAttributes.getNamedItem(dimensionAttributeName).getNodeValue());
+            } catch (NumberFormatException | NullPointerException ex) {
+                throw new MapTileDataMalformedException("A map must have a dimX and dimZ attribute in its definition.");
+            }
+        } else {
+            throw new MapDataCouldNotBeLoadedException("Information for the map could not be loaded, because the map node is missing.", "");
+        }
+        
+        return result;
+    }
     
     private MapMetaData tryToFindMapDataOfStartingMap(Document mapList) {
         String mapName = "";

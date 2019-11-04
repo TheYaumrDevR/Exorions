@@ -23,6 +23,18 @@ public class MapDefinitionsGatewayMock implements MapDefinitionsGateway {
     //<editor-fold defaultstate="collapsed" desc="MapDefinitionsGateway Overrides">
     
     @Override
+    public int getMapDimensionX(String pathToMapDefinition) {
+        throwExceptionIfSet();
+        return 0;
+    }
+
+    @Override
+    public int getMapDimensionZ(String pathToMapDefinition) {
+        throwExceptionIfSet();
+        return 0;
+    }    
+    
+    @Override
     public MapMetaData tryToRetrieveMetaDataForNewGameMap() {
         throwExceptionIfSet();
         return new MapMetaData("", "", "");

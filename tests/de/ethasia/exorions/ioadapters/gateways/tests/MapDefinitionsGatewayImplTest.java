@@ -548,6 +548,160 @@ public class MapDefinitionsGatewayImplTest {
         testCandidate.findCollisionTileDefinitions("test collisions");
     }    
     
+    @Test
+    public void testGetMapDimensionX_dimensionIsPresent_isReadProperly() {
+        MapsMock.setMapLogicXml(getStandardMapLogicXml());
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        int mapDimensionX = testCandidate.getMapDimensionX("mapDefinitionPath");
+        
+        assertThat(mapDimensionX, is(6));
+    }
+    
+    @Test
+    public void testGetMapDimensionX_callsMapInterfaceWithMapPath() {
+        MapsMock.setMapLogicXml(getStandardMapLogicXml());
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.getMapDimensionX("mapDefinitionPath");
+        
+        assertThat(MapsMock.getLastReadMapLogicPath(), is(equalTo("mapDefinitionPath")));
+    }  
+    
+    @Test(expected = MapDataCouldNotBeLoadedException.class)
+    public void testGetMapDimensionX_mapNodeIsNotPresent_throwsException() {
+        String mapLogicXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<noMap dimX=\"6\" dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" l=\"5\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                    "<collisions>\n" +
+                        "<c w=\"3\" l=\"1\" h=\"1\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                        "<c w=\"1\" l=\"1\" h=\"1\" x=\"3\" y=\"0\" z=\"2\"/>\n" +
+                    "</collisions>\n" +
+                "</noMap>";
+        MapsMock.setMapLogicXml(mapLogicXml);
+        
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.getMapDimensionX("mapDefinitionPath");        
+    }    
+    
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testGetMapDimensionX_dimensionIsNotPresent_throwsException() {
+        String mapLogicXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" l=\"5\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                    "<collisions>\n" +
+                        "<c w=\"3\" l=\"1\" h=\"1\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                        "<c w=\"1\" l=\"1\" h=\"1\" x=\"3\" y=\"0\" z=\"2\"/>\n" +
+                    "</collisions>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(mapLogicXml);
+        
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.getMapDimensionX("mapDefinitionPath");
+    }
+
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testGetMapDimensionX_dimensionDefinitionIsMalformed_throwsException() {
+        String mapLogicXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimX=\"6asd\" dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" l=\"5\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                    "<collisions>\n" +
+                        "<c w=\"3\" l=\"1\" h=\"1\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                        "<c w=\"1\" l=\"1\" h=\"1\" x=\"3\" y=\"0\" z=\"2\"/>\n" +
+                    "</collisions>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(mapLogicXml);
+        
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.getMapDimensionX("mapDefinitionPath");
+    }      
+    
+    @Test
+    public void testGetMapDimensionZ_dimensionIsPresent_isReadProperly() {
+        MapsMock.setMapLogicXml(getStandardMapLogicXml());
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        int mapDimensionZ = testCandidate.getMapDimensionZ("mapDefinitionPath");
+        
+        assertThat(mapDimensionZ, is(7));
+    }
+    
+    @Test
+    public void testGetMapDimensionZ_callsMapInterfaceWithMapPath() {
+        MapsMock.setMapLogicXml(getStandardMapLogicXml());
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.getMapDimensionZ("mapDefinitionPath");
+        
+        assertThat(MapsMock.getLastReadMapLogicPath(), is(equalTo("mapDefinitionPath")));
+    } 
+    
+    @Test(expected = MapDataCouldNotBeLoadedException.class)
+    public void testGetMapDimensionZ_mapNodeIsNotPresent_throwsException() {
+        String mapLogicXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<noMap dimX=\"6\" dimZ=\"7\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" l=\"5\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                    "<collisions>\n" +
+                        "<c w=\"3\" l=\"1\" h=\"1\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                        "<c w=\"1\" l=\"1\" h=\"1\" x=\"3\" y=\"0\" z=\"2\"/>\n" +
+                    "</collisions>\n" +
+                "</noMap>";
+        MapsMock.setMapLogicXml(mapLogicXml);
+        
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.getMapDimensionZ("mapDefinitionPath");        
+    }    
+    
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testGetMapDimensionZ_dimensionIsNotPresent_throwsException() {
+        String mapLogicXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimX=\"6\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" l=\"5\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                    "<collisions>\n" +
+                        "<c w=\"3\" l=\"1\" h=\"1\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                        "<c w=\"1\" l=\"1\" h=\"1\" x=\"3\" y=\"0\" z=\"2\"/>\n" +
+                    "</collisions>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(mapLogicXml);
+        
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.getMapDimensionZ("mapDefinitionPath");
+    }    
+
+    @Test(expected = MapTileDataMalformedException.class)
+    public void testGetMapDimensionZ_dimensionDefinitionIsMalformed_throwsException() {
+        String mapLogicXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<map dimX=\"6\" dimZ=\"fasdg\">\n" +
+                    "<floors>\n" +
+                        "<f w=\"4\" l=\"5\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                    "</floors>\n" +
+                    "<collisions>\n" +
+                        "<c w=\"3\" l=\"1\" h=\"1\" x=\"1\" y=\"0\" z=\"1\"/>\n" +
+                        "<c w=\"1\" l=\"1\" h=\"1\" x=\"3\" y=\"0\" z=\"2\"/>\n" +
+                    "</collisions>\n" +
+                "</map>";
+        MapsMock.setMapLogicXml(mapLogicXml);
+        
+        MapDefinitionsGatewayImpl testCandidate = new MapDefinitionsGatewayImpl();
+        
+        testCandidate.getMapDimensionZ("mapDefinitionPath");
+    }    
+    
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
     private String getStandardMapListXml() {
