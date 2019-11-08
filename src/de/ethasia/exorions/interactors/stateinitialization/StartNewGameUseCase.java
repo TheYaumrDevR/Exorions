@@ -33,6 +33,11 @@ public class StartNewGameUseCase {
     public void startNewGame() {
         try {
             MapMetaData startingMapMetaData = mapMetaDataGateway.tryToRetrieveMetaDataForNewGameMap();
+            mapMetaDataGateway.getMapDimensionX(startingMapMetaData.getLogicFilePath());
+            mapMetaDataGateway.getMapDimensionZ(startingMapMetaData.getLogicFilePath());
+            mapMetaDataGateway.findFloorTileDefinitions(startingMapMetaData.getLogicFilePath());
+            mapMetaDataGateway.findCollisionTileDefinitions(startingMapMetaData.getLogicFilePath());
+            
             overworldStatePresenter.presentOverworldWithMapFromMetaData(startingMapMetaData);  
         } catch (InformationForMapsCouldNotBeLoadedException ex) {
             fatalErrorPresenter.showFatalError(ex.getErrorMessage(), ex.getErrorCause(), ex.getStackTraceString());

@@ -79,6 +79,37 @@ public class StartNewGameUseCaseTest {
     
     @Test
     public void testStartNewGame_noErrorHappens_getMapDimensionXIsCalledOnMock() {
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
         
+        testCandidate.startNewGame();
+        
+        assertThat(MapDefinitionsGatewayMock.getLastPassedGetMapDimensionXPath(), is(equalTo("Maps/Exterior/SuriverCityNE.xml")));
+    }
+    
+    @Test
+    public void testStartNewGame_noErrorHappens_getMapDimensionZIsCalledOnMock() {
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        
+        testCandidate.startNewGame();
+        
+        assertThat(MapDefinitionsGatewayMock.getLastPassedGetMapDimensionZPath(), is(equalTo("Maps/Exterior/SuriverCityNE.xml")));
+    } 
+    
+    @Test
+    public void testStartNewGame_noErrorHappens_findFloorTileDefinitionsIsCalledOnMock() {
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        
+        testCandidate.startNewGame();
+        
+        assertThat(MapDefinitionsGatewayMock.getLastPassedFindFloorTileDefinitionsPath(), is(equalTo("Maps/Exterior/SuriverCityNE.xml")));
+    }
+    
+    @Test
+    public void testStartNewGame_noErrorHappens_findCollisionTileDefinitionsIsCalledOnMock() {
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        
+        testCandidate.startNewGame();
+        
+        assertThat(MapDefinitionsGatewayMock.getLastPassedFindCollisionTileDefinitionsPath(), is(equalTo("Maps/Exterior/SuriverCityNE.xml")));
     }
 }
