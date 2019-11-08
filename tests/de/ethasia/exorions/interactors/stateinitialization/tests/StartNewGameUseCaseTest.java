@@ -30,6 +30,7 @@ public class StartNewGameUseCaseTest {
     public void resetSharedState() {
         OverworldStatePresenterMock.emptyLastSetFields();
         FatalErrorPresenterMock.emptyLastSetFields();
+        MapDefinitionsGatewayMock.resetMocks();
     }
 
     @Test
@@ -74,5 +75,10 @@ public class StartNewGameUseCaseTest {
         assertThat(FatalErrorPresenterMock.getLastShownError(), is(equalTo(internalException.getErrorMessage())));
         assertThat(FatalErrorPresenterMock.getLastShownErrorCause(), is(equalTo(internalException.getErrorCause())));
         assertThat(FatalErrorPresenterMock.getLastShownStackTrace(), is(equalTo(internalException.getStackTraceString())));
-    }     
+    }
+    
+    @Test
+    public void testStartNewGame_noErrorHappens_getMapDimensionXIsCalledOnMock() {
+        
+    }
 }
