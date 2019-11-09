@@ -9,4 +9,7 @@ public interface MapDefinitionsGateway {
     public MapMetaData tryToRetrieveMetaDataForNewGameMap();
     public DefinitionsForUndistinguishableMapTiles findFloorTileDefinitions(String pathToMapDefinition);
     public DefinitionsForUndistinguishableMapTiles findCollisionTileDefinitions(String pathToMapDefinition);
+    public int getInitialPlayerPositionX(String pathToMapDefinition);
+    public int getInitialPlayerPositionY(String pathToMapDefinition);
+    public int getInitialPlayerPositionZ(String pathToMapDefinition);    
 }

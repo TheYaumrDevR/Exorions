@@ -13,6 +13,9 @@ public class MapDefinitionsGatewayMock implements MapDefinitionsGateway {
     private static String lastPassedFindCollisionTileDefinitionsPath;
     private static String lastPassedGetMapDimensionXPath;
     private static String lastPassedGetMapDimensionZPath;
+    private static String lastPassedGetInitialPlayerPositionXPath;    
+    private static String lastPassedGetInitialPlayerPositionYPath;
+    private static String lastPassedGetInitialPlayerPositionZPath;
     
     //</editor-fold>
     
@@ -23,6 +26,9 @@ public class MapDefinitionsGatewayMock implements MapDefinitionsGateway {
         lastPassedFindCollisionTileDefinitionsPath = "";
         lastPassedGetMapDimensionXPath = "";
         lastPassedGetMapDimensionZPath = "";
+        lastPassedGetInitialPlayerPositionXPath = "";    
+        lastPassedGetInitialPlayerPositionYPath = "";
+        lastPassedGetInitialPlayerPositionZPath = "";        
     }
     
     public static void setNextExceptionToThrow(RuntimeException value) {
@@ -44,6 +50,18 @@ public class MapDefinitionsGatewayMock implements MapDefinitionsGateway {
     public static String getLastPassedGetMapDimensionZPath() {
         return lastPassedGetMapDimensionZPath;
     }
+    
+    public static String getlastPassedGetInitialPlayerPositionXPath() {
+        return lastPassedGetInitialPlayerPositionXPath;
+    }    
+    
+    public static String getlastPassedGetInitialPlayerPositionYPath() {
+        return lastPassedGetInitialPlayerPositionYPath;
+    }    
+    
+    public static String getlastPassedGetInitialPlayerPositionZPath() {
+        return lastPassedGetInitialPlayerPositionZPath;
+    }    
     
     //</editor-fold>
 
@@ -81,6 +99,27 @@ public class MapDefinitionsGatewayMock implements MapDefinitionsGateway {
         throwExceptionIfSet();
         lastPassedFindCollisionTileDefinitionsPath = pathToMapDefinition;
         return new DefinitionsForUndistinguishableMapTiles();
+    }    
+    
+    @Override
+    public int getInitialPlayerPositionX(String pathToMapDefinition) {
+        throwExceptionIfSet();
+        lastPassedGetInitialPlayerPositionXPath = pathToMapDefinition;
+        return 0;
+    }
+
+    @Override
+    public int getInitialPlayerPositionY(String pathToMapDefinition) {
+        throwExceptionIfSet();
+        lastPassedGetInitialPlayerPositionYPath = pathToMapDefinition;
+        return 0;
+    }
+
+    @Override
+    public int getInitialPlayerPositionZ(String pathToMapDefinition) {
+        throwExceptionIfSet();
+        lastPassedGetInitialPlayerPositionZPath = pathToMapDefinition;
+        return 0;
     }    
     
     //</editor-fold>

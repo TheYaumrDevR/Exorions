@@ -43,10 +43,10 @@ public class MapDefinitionsGatewayImpl implements MapDefinitionsGateway {
             lastPathToMapDefinitionRead = pathToMapDefinition;
             lastDocumentRead = mapLogic;
         
-            return tryParseMapDimensionFromAttributeNameFromDocument("dimX", mapLogic);            
+            return tryParseMapAttributeWithNameFromDocument("dimX", mapLogic);            
         }
         
-        return tryParseMapDimensionFromAttributeNameFromDocument("dimX", lastDocumentRead); 
+        return tryParseMapAttributeWithNameFromDocument("dimX", lastDocumentRead); 
     }
     
     @Override
@@ -60,10 +60,10 @@ public class MapDefinitionsGatewayImpl implements MapDefinitionsGateway {
             lastPathToMapDefinitionRead = pathToMapDefinition;
             lastDocumentRead = mapLogic;            
             
-            return tryParseMapDimensionFromAttributeNameFromDocument("dimZ", mapLogic);            
+            return tryParseMapAttributeWithNameFromDocument("dimZ", mapLogic);            
         }
 
-        return tryParseMapDimensionFromAttributeNameFromDocument("dimZ", lastDocumentRead); 
+        return tryParseMapAttributeWithNameFromDocument("dimZ", lastDocumentRead); 
     }    
     
     @Override
@@ -112,11 +112,62 @@ public class MapDefinitionsGatewayImpl implements MapDefinitionsGateway {
         return convertDocumentToCollisionTileDefinitions(lastDocumentRead);        
     }    
     
+    @Override
+    public int getInitialPlayerPositionX(String pathToMapDefinition) {
+        if (!lastPathToMapDefinitionRead.equals(pathToMapDefinition)) {
+            TechnicalsFactory technicalsFactory = TechnicalsFactory.getInstance();
+            Maps maps = technicalsFactory.createMaps();  
+        
+            Document mapLogic = maps.readMapLogic(pathToMapDefinition);   
+        
+            lastPathToMapDefinitionRead = pathToMapDefinition;
+            lastDocumentRead = mapLogic;      
+            
+            return tryParseMapAttributeWithNameFromDocument("initialX", mapLogic);             
+        }
+ 
+        return tryParseMapAttributeWithNameFromDocument("initialX", lastDocumentRead);  
+    }
+    
+    @Override
+    public int getInitialPlayerPositionY(String pathToMapDefinition) {
+        if (!lastPathToMapDefinitionRead.equals(pathToMapDefinition)) {    
+            TechnicalsFactory technicalsFactory = TechnicalsFactory.getInstance();
+            Maps maps = technicalsFactory.createMaps();              
+            
+            Document mapLogic = maps.readMapLogic(pathToMapDefinition);  
+            
+            lastPathToMapDefinitionRead = pathToMapDefinition;
+            lastDocumentRead = mapLogic;            
+            
+            return tryParseMapAttributeWithNameFromDocument("initialY", mapLogic);              
+        }  
+        
+        return tryParseMapAttributeWithNameFromDocument("initialY", lastDocumentRead);
+    }
+    
+    @Override
+    public int getInitialPlayerPositionZ(String pathToMapDefinition) {
+        if (!lastPathToMapDefinitionRead.equals(pathToMapDefinition)) {   
+            TechnicalsFactory technicalsFactory = TechnicalsFactory.getInstance();
+            Maps maps = technicalsFactory.createMaps();  
+        
+            Document mapLogic = maps.readMapLogic(pathToMapDefinition);  
+            
+            lastPathToMapDefinitionRead = pathToMapDefinition;
+            lastDocumentRead = mapLogic;              
+            
+            return tryParseMapAttributeWithNameFromDocument("initialZ", mapLogic);             
+        }        
+        
+        return tryParseMapAttributeWithNameFromDocument("initialZ", lastDocumentRead);
+    }
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
-    private int tryParseMapDimensionFromAttributeNameFromDocument(String dimensionAttributeName, Document source) {
+    private int tryParseMapAttributeWithNameFromDocument(String dimensionAttributeName, Document source) {
         int result = 0;
         
         NodeList mapNodes = source.getElementsByTagName("map");
@@ -127,7 +178,7 @@ public class MapDefinitionsGatewayImpl implements MapDefinitionsGateway {
             try {
                 result = Integer.parseInt(mapNodeAttributes.getNamedItem(dimensionAttributeName).getNodeValue());
             } catch (NumberFormatException | NullPointerException ex) {
-                throw new MapTileDataMalformedException("A map must have a dimX and dimZ attribute in its definition.");
+                throw new MapTileDataMalformedException("A map must have a dimX, dimZ, initialX, initialY and initialZ attribute in its definition.");
             }
         } else {
             throw new MapDataCouldNotBeLoadedException("Information for the map could not be loaded, because the map node is missing.", "");
