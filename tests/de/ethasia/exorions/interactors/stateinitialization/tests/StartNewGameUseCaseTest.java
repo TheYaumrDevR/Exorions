@@ -1,5 +1,6 @@
 package de.ethasia.exorions.interactors.stateinitialization.tests;
 
+import de.ethasia.exorions.core.maps.Player;
 import de.ethasia.exorions.interactors.crosslayer.InformationForMapsCouldNotBeLoadedException;
 import de.ethasia.exorions.interactors.crosslayer.MapDataCouldNotBeLoadedException;
 import de.ethasia.exorions.interactors.interfaces.GatewaysFactory;
@@ -111,5 +112,82 @@ public class StartNewGameUseCaseTest {
         testCandidate.startNewGame();
         
         assertThat(MapDefinitionsGatewayMock.getLastPassedFindCollisionTileDefinitionsPath(), is(equalTo("Maps/Exterior/SuriverCityNE.xml")));
+    }
+    
+    @Test
+    public void testStartNewGame_noErrorHappens_getInitialPlayerPositionXIsCalledOnMock() {
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        
+        testCandidate.startNewGame();
+        
+        assertThat(MapDefinitionsGatewayMock.getlastPassedGetInitialPlayerPositionXPath(), is(equalTo("Maps/Exterior/SuriverCityNE.xml")));
+    }
+ 
+    @Test
+    public void testStartNewGame_noErrorHappens_getInitialPlayerPositionYIsCalledOnMock() {
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        
+        testCandidate.startNewGame();
+        
+        assertThat(MapDefinitionsGatewayMock.getlastPassedGetInitialPlayerPositionYPath(), is(equalTo("Maps/Exterior/SuriverCityNE.xml")));
+    } 
+    
+    @Test
+    public void testStartNewGame_noErrorHappens_getInitialPlayerPositionZIsCalledOnMock() {
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        
+        testCandidate.startNewGame();
+        
+        assertThat(MapDefinitionsGatewayMock.getlastPassedGetInitialPlayerPositionZPath(), is(equalTo("Maps/Exterior/SuriverCityNE.xml")));
+    } 
+
+    @Test
+    public void testStartNewGame_noErrorHappens_playerIsPlacedOnCorrectPosition() {
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        
+        testCandidate.startNewGame();
+
+        assertThat(Player.getInstance().getPositionX(), is((short)1));
+        assertThat(Player.getInstance().getPositionY(), is((short)1));
+        assertThat(Player.getInstance().getPositionZ(), is((short)2));
+    }  
+    
+    @Test
+    public void testStartNewGame_noErrorHappens_playerIsPlacedOnMapWithCorrectSize() {
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        
+        testCandidate.startNewGame();  
+        
+        assertThat(Player.getInstance().getMapPlacedOn().tileAtIsColliding((short)4, (short)0, (short)4), is(false));
+        assertThat(Player.getInstance().getMapPlacedOn().tileAtIsColliding((short)5, (short)0, (short)5), is(true));
+    }  
+    
+    @Test
+    public void testStartNewGame_noErrorHappens_mapPlayerIsOnHasFloor() {
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        
+        testCandidate.startNewGame();   
+        
+        assertThat(Player.getInstance().getMapPlacedOn().tileAtIsGround((short)1, (short)1, (short)0), is(true));
+        assertThat(Player.getInstance().getMapPlacedOn().tileAtIsGround((short)3, (short)1, (short)3), is(true));    
+        assertThat(Player.getInstance().getMapPlacedOn().tileAtIsGround((short)4, (short)1, (short)4), is(true));  
+        assertThat(Player.getInstance().getMapPlacedOn().tileAtIsGround((short)5, (short)1, (short)4), is(false)); 
+        assertThat(Player.getInstance().getMapPlacedOn().tileAtIsGround((short)4, (short)1, (short)5), is(false));
+        assertThat(Player.getInstance().getMapPlacedOn().tileAtIsGround((short)2, (short)2, (short)2), is(false)); 
+    }
+    
+    @Test
+    public void testStartNewGame_noErrorHappens_mapPlayerIsOnHasCollisionTiles() {
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        
+        testCandidate.startNewGame();  
+        
+        assertThat(Player.getInstance().getMapPlacedOn().tileAtIsColliding((short)0, (short)1, (short)0), is(true));
+        assertThat(Player.getInstance().getMapPlacedOn().tileAtIsColliding((short)0, (short)1, (short)1), is(true));
+        assertThat(Player.getInstance().getMapPlacedOn().tileAtIsColliding((short)0, (short)1, (short)2), is(true));
+        assertThat(Player.getInstance().getMapPlacedOn().tileAtIsColliding((short)0, (short)1, (short)3), is(true));
+        assertThat(Player.getInstance().getMapPlacedOn().tileAtIsColliding((short)0, (short)1, (short)4), is(true));
+        assertThat(Player.getInstance().getMapPlacedOn().tileAtIsColliding((short)0, (short)0, (short)0), is(false));
+        assertThat(Player.getInstance().getMapPlacedOn().tileAtIsColliding((short)3, (short)1, (short)2), is(false));
     }
 }

@@ -71,14 +71,14 @@ public class MapDefinitionsGatewayMock implements MapDefinitionsGateway {
     public int getMapDimensionX(String pathToMapDefinition) {
         throwExceptionIfSet();
         lastPassedGetMapDimensionXPath = pathToMapDefinition;
-        return 0;
+        return 5;
     }
 
     @Override
     public int getMapDimensionZ(String pathToMapDefinition) {
         throwExceptionIfSet();
         lastPassedGetMapDimensionZPath = pathToMapDefinition;
-        return 0;
+        return 5;
     }    
     
     @Override
@@ -91,35 +91,41 @@ public class MapDefinitionsGatewayMock implements MapDefinitionsGateway {
     public DefinitionsForUndistinguishableMapTiles findFloorTileDefinitions(String pathToMapDefinition) {
         throwExceptionIfSet();
         lastPassedFindFloorTileDefinitionsPath = pathToMapDefinition;
-        return new DefinitionsForUndistinguishableMapTiles();
+        DefinitionsForUndistinguishableMapTiles floorTileDefinitions = new DefinitionsForUndistinguishableMapTiles();
+        floorTileDefinitions.addNewDefinitionWidthLengthHeightXyz(4, 5, 1, 1, 1, 0);
+        
+        return floorTileDefinitions;
     }  
     
     @Override
     public DefinitionsForUndistinguishableMapTiles findCollisionTileDefinitions(String pathToMapDefinition) {
         throwExceptionIfSet();
         lastPassedFindCollisionTileDefinitionsPath = pathToMapDefinition;
-        return new DefinitionsForUndistinguishableMapTiles();
+        DefinitionsForUndistinguishableMapTiles collisionTileDefinitions = new DefinitionsForUndistinguishableMapTiles();
+        collisionTileDefinitions.addNewDefinitionWidthLengthHeightXyz(1, 5, 1, 0, 1, 0);
+        
+        return collisionTileDefinitions;
     }    
     
     @Override
     public int getInitialPlayerPositionX(String pathToMapDefinition) {
         throwExceptionIfSet();
         lastPassedGetInitialPlayerPositionXPath = pathToMapDefinition;
-        return 0;
+        return 1;
     }
 
     @Override
     public int getInitialPlayerPositionY(String pathToMapDefinition) {
         throwExceptionIfSet();
         lastPassedGetInitialPlayerPositionYPath = pathToMapDefinition;
-        return 0;
+        return 1;
     }
 
     @Override
     public int getInitialPlayerPositionZ(String pathToMapDefinition) {
         throwExceptionIfSet();
         lastPassedGetInitialPlayerPositionZPath = pathToMapDefinition;
-        return 0;
+        return 2;
     }    
     
     //</editor-fold>

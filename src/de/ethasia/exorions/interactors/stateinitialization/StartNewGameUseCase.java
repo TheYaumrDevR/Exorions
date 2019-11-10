@@ -1,5 +1,9 @@
 package de.ethasia.exorions.interactors.stateinitialization;
 
+import de.ethasia.exorions.core.maps.InteriorMap;
+import de.ethasia.exorions.core.maps.MapTileTypes;
+import de.ethasia.exorions.core.maps.Player;
+import de.ethasia.exorions.interactors.crosslayer.DefinitionsForUndistinguishableMapTiles;
 import de.ethasia.exorions.interactors.crosslayer.FatalErrorPresenter;
 import de.ethasia.exorions.interactors.crosslayer.InformationForMapsCouldNotBeLoadedException;
 import de.ethasia.exorions.interactors.crosslayer.MapDataCouldNotBeLoadedException;
@@ -33,10 +37,8 @@ public class StartNewGameUseCase {
     public void startNewGame() {
         try {
             MapMetaData startingMapMetaData = mapMetaDataGateway.tryToRetrieveMetaDataForNewGameMap();
-            mapMetaDataGateway.getMapDimensionX(startingMapMetaData.getLogicFilePath());
-            mapMetaDataGateway.getMapDimensionZ(startingMapMetaData.getLogicFilePath());
-            mapMetaDataGateway.findFloorTileDefinitions(startingMapMetaData.getLogicFilePath());
-            mapMetaDataGateway.findCollisionTileDefinitions(startingMapMetaData.getLogicFilePath());
+            InteriorMap map = createStartingMap(startingMapMetaData);
+            placePlayerOnMapAfterReadingTheStartingPosition(map, startingMapMetaData);
             
             overworldStatePresenter.presentOverworldWithMapFromMetaData(startingMapMetaData);  
         } catch (InformationForMapsCouldNotBeLoadedException ex) {
@@ -44,6 +46,33 @@ public class StartNewGameUseCase {
         } catch (MapDataCouldNotBeLoadedException ex) {
             fatalErrorPresenter.showFatalError(ex.getErrorMessage(), ex.getErrorCause(), ex.getStackTraceString());
         }
+    }
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Helper Methods">
+    
+    private InteriorMap createStartingMap(MapMetaData startingMapMetaData) {
+        MapBuilder mapBuilder = new MapBuilder();
+        
+        int mapDimensionX = mapMetaDataGateway.getMapDimensionX(startingMapMetaData.getLogicFilePath());
+        int mapDimensionZ = mapMetaDataGateway.getMapDimensionZ(startingMapMetaData.getLogicFilePath());  
+        DefinitionsForUndistinguishableMapTiles floorTileDefinitions = mapMetaDataGateway.findFloorTileDefinitions(startingMapMetaData.getLogicFilePath());
+        DefinitionsForUndistinguishableMapTiles collisionTileDefinitions = mapMetaDataGateway.findCollisionTileDefinitions(startingMapMetaData.getLogicFilePath());
+        
+        mapBuilder.withDimensions((short)mapDimensionX, (short)mapDimensionZ);
+        mapBuilder.withFloorDefinitions(floorTileDefinitions);   
+        mapBuilder.withCollisionDefinitions(collisionTileDefinitions);
+        
+        return mapBuilder.build();
+    }
+    
+    private void placePlayerOnMapAfterReadingTheStartingPosition(InteriorMap map, MapMetaData startingMapMetaData) {
+        int playerPositionX = mapMetaDataGateway.getInitialPlayerPositionX(startingMapMetaData.getLogicFilePath());
+        int playerPositionY = mapMetaDataGateway.getInitialPlayerPositionY(startingMapMetaData.getLogicFilePath());
+        int playerPositionZ = mapMetaDataGateway.getInitialPlayerPositionZ(startingMapMetaData.getLogicFilePath()); 
+
+        Player.getInstance().placeOnMapWithPosition(map, (short)playerPositionX, (short)playerPositionY, (short)playerPositionZ);
     }
     
     //</editor-fold>
