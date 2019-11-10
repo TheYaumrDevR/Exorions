@@ -258,5 +258,25 @@ public class StartNewGameUseCaseTest {
         testCandidate.startNewGame(); 
         
         assertThat(DebugWarningLogPresenterMock.getLastAddedLogEntry(), is(equalTo("Some initial position coordinate for the player was not found in map definition Maps/Exterior/SuriverCityNE.xml due to an XML error or the coordinate is missing.")));
+    } 
+    
+    @Test
+    public void testStartNewGame_findFloorTileDefinitionsThrowsError_debugWarningLogIsExtended() {
+        MapDefinitionsGatewayMock.setNextExceptionToThrowOnFindFloorTileDefinitions(new MapDataCouldNotBeLoadedException("", ""));
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        
+        testCandidate.startNewGame();
+        
+        assertThat(DebugWarningLogPresenterMock.getLastAddedLogEntry(), is(equalTo("Some tile definitions from Maps/Exterior/SuriverCityNE.xml could not be loaded due to XML schema malformation.")));        
+    }
+    
+    @Test
+    public void testStartNewGame_findCollisionTileDefinitionsThrowsError_debugWarningLogIsExtended() {
+        MapDefinitionsGatewayMock.setNextExceptionToThrowOnFindCollisionTileDefinitions(new MapDataCouldNotBeLoadedException("", ""));
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        
+        testCandidate.startNewGame();
+        
+        assertThat(DebugWarningLogPresenterMock.getLastAddedLogEntry(), is(equalTo("Some tile definitions from Maps/Exterior/SuriverCityNE.xml could not be loaded due to XML schema malformation.")));        
     }    
 }

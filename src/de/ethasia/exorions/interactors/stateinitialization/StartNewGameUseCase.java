@@ -56,17 +56,41 @@ public class StartNewGameUseCase {
     
     private InteriorMap createStartingMap(MapMetaData startingMapMetaData) {
         MapBuilder mapBuilder = new MapBuilder();
-        
-        int mapDimensionX = mapMetaDataGateway.getMapDimensionX(startingMapMetaData.getLogicFilePath());
-        int mapDimensionZ = mapMetaDataGateway.getMapDimensionZ(startingMapMetaData.getLogicFilePath());  
-        DefinitionsForUndistinguishableMapTiles floorTileDefinitions = mapMetaDataGateway.findFloorTileDefinitions(startingMapMetaData.getLogicFilePath());
-        DefinitionsForUndistinguishableMapTiles collisionTileDefinitions = mapMetaDataGateway.findCollisionTileDefinitions(startingMapMetaData.getLogicFilePath());
-        
-        mapBuilder.withDimensions((short)mapDimensionX, (short)mapDimensionZ);
-        mapBuilder.withFloorDefinitions(floorTileDefinitions);   
-        mapBuilder.withCollisionDefinitions(collisionTileDefinitions);
+
+        readAndSetDimensionsForStartingMap(startingMapMetaData, mapBuilder);
+        readAndSetTilesForStartingMap(startingMapMetaData, mapBuilder);
         
         return mapBuilder.build();
+    }
+    
+    private void readAndSetDimensionsForStartingMap(MapMetaData startingMapMetaData, MapBuilder startingMapBuilder) {
+        int mapDimensionX = mapMetaDataGateway.getMapDimensionX(startingMapMetaData.getLogicFilePath());
+        int mapDimensionZ = mapMetaDataGateway.getMapDimensionZ(startingMapMetaData.getLogicFilePath());  
+        
+        startingMapBuilder.withDimensions((short)mapDimensionX, (short)mapDimensionZ);        
+    }
+    
+    private void readAndSetTilesForStartingMap(MapMetaData startingMapMetaData, MapBuilder startingMapBuilder) {
+        DefinitionsForUndistinguishableMapTiles floorTileDefinitions = null;
+        DefinitionsForUndistinguishableMapTiles collisionTileDefinitions = null;
+
+        try {
+            floorTileDefinitions = mapMetaDataGateway.findFloorTileDefinitions(startingMapMetaData.getLogicFilePath());
+            collisionTileDefinitions = mapMetaDataGateway.findCollisionTileDefinitions(startingMapMetaData.getLogicFilePath());
+        } catch (MapDataCouldNotBeLoadedException ex) {
+            debugLogPresenter.addLogEntry("Some tile definitions from " + startingMapMetaData.getLogicFilePath() + " could not be loaded due to XML schema malformation.");
+            
+            if (null == floorTileDefinitions) {
+                floorTileDefinitions = new DefinitionsForUndistinguishableMapTiles();
+            }
+            
+            if (null == collisionTileDefinitions) {
+                collisionTileDefinitions = new DefinitionsForUndistinguishableMapTiles();
+            }            
+        }
+        
+        startingMapBuilder.withFloorDefinitions(floorTileDefinitions);
+        startingMapBuilder.withCollisionDefinitions(collisionTileDefinitions);
     }
     
     private void placePlayerOnMapAfterReadingTheStartingPosition(InteriorMap map, MapMetaData startingMapMetaData) {

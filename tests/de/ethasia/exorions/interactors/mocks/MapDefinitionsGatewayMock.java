@@ -12,6 +12,8 @@ public class MapDefinitionsGatewayMock implements MapDefinitionsGateway {
     private static RuntimeException nextExceptionToThrowOnGetInitialPlayerPositionX;
     private static RuntimeException nextExceptionToThrowOnGetInitialPlayerPositionY;
     private static RuntimeException nextExceptionToThrowOnGetInitialPlayerPositionZ;
+    private static RuntimeException nextExceptionToThrowOnFindFloorTileDefinitions;
+    private static RuntimeException nextExceptionToThrowOnFindCollisionTileDefinitions;    
     
     private static DefinitionsForUndistinguishableMapTiles collisionTileDefinitionsToReturn;
     
@@ -53,10 +55,18 @@ public class MapDefinitionsGatewayMock implements MapDefinitionsGateway {
 
     public static void setNextExceptionToThrowOnGetInitialPlayerPositionZ(RuntimeException value) {
         nextExceptionToThrowOnGetInitialPlayerPositionZ = value;
-    }    
+    }  
     
     public static void setNextExceptionToThrow(RuntimeException value) {
         nextExceptionToThrow = value;
+    }    
+    
+    public static void setNextExceptionToThrowOnFindFloorTileDefinitions(RuntimeException value) {
+        nextExceptionToThrowOnFindFloorTileDefinitions = value;
+    }
+    
+    public static void setNextExceptionToThrowOnFindCollisionTileDefinitions(RuntimeException value) {
+        nextExceptionToThrowOnFindCollisionTileDefinitions = value;
     }
     
     public static String getLastPassedFindFloorTileDefinitionsPath() {
@@ -114,6 +124,13 @@ public class MapDefinitionsGatewayMock implements MapDefinitionsGateway {
     @Override
     public DefinitionsForUndistinguishableMapTiles findFloorTileDefinitions(String pathToMapDefinition) {
         throwExceptionIfSet();
+        
+        if (null !=  nextExceptionToThrowOnFindFloorTileDefinitions) {
+            RuntimeException exceptionToThrow = nextExceptionToThrowOnFindFloorTileDefinitions;
+            nextExceptionToThrowOnFindFloorTileDefinitions = null;
+            throw exceptionToThrow;
+        }        
+        
         lastPassedFindFloorTileDefinitionsPath = pathToMapDefinition;
         DefinitionsForUndistinguishableMapTiles floorTileDefinitions = new DefinitionsForUndistinguishableMapTiles();
         floorTileDefinitions.addNewDefinitionWidthLengthHeightXyz(4, 5, 1, 1, 1, 0);
@@ -124,6 +141,13 @@ public class MapDefinitionsGatewayMock implements MapDefinitionsGateway {
     @Override
     public DefinitionsForUndistinguishableMapTiles findCollisionTileDefinitions(String pathToMapDefinition) {
         throwExceptionIfSet();
+        
+        if (null !=  nextExceptionToThrowOnFindCollisionTileDefinitions) {
+            RuntimeException exceptionToThrow = nextExceptionToThrowOnFindCollisionTileDefinitions;
+            nextExceptionToThrowOnFindCollisionTileDefinitions = null;
+            throw exceptionToThrow;
+        }        
+        
         lastPassedFindCollisionTileDefinitionsPath = pathToMapDefinition;
         if (null != collisionTileDefinitionsToReturn) {
             return collisionTileDefinitionsToReturn;
