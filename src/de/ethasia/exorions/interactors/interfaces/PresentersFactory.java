@@ -1,5 +1,6 @@
 package de.ethasia.exorions.interactors.interfaces;
 
+import de.ethasia.exorions.interactors.crosslayer.DebugWarningLogPresenter;
 import de.ethasia.exorions.interactors.crosslayer.DialogWindowPresenter;
 import de.ethasia.exorions.interactors.crosslayer.FatalErrorPresenter;
 import de.ethasia.exorions.interactors.crosslayer.OverworldStatePresenter;
@@ -30,6 +31,7 @@ public abstract class PresentersFactory {
     public abstract DialogWindowPresenter createDialogWindowPresenter();
     public abstract OverworldStatePresenter createOverworldStatePresenter();
     public abstract FatalErrorPresenter createFatalErrorPresenter();
+    public abstract DebugWarningLogPresenter getDebugWarningLogPresenterSingletonInstance();
     public abstract PlayerAvatarMovementPresenter createPlayerAvatarMovementPresenter();
     
     //</editor-fold>

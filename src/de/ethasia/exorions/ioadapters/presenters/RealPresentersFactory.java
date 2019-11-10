@@ -1,5 +1,6 @@
 package de.ethasia.exorions.ioadapters.presenters;
 
+import de.ethasia.exorions.interactors.crosslayer.DebugWarningLogPresenter;
 import de.ethasia.exorions.interactors.crosslayer.DialogWindowPresenter;
 import de.ethasia.exorions.interactors.crosslayer.FatalErrorPresenter;
 import de.ethasia.exorions.interactors.crosslayer.OverworldStatePresenter;
@@ -22,6 +23,11 @@ public class RealPresentersFactory extends PresentersFactory {
 
     @Override
     public FatalErrorPresenter createFatalErrorPresenter() {
+        return null;
+    }   
+    
+    @Override
+    public DebugWarningLogPresenter getDebugWarningLogPresenterSingletonInstance() {
         return null;
     }    
     

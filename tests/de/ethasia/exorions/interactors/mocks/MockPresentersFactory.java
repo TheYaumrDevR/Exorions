@@ -1,5 +1,6 @@
 package de.ethasia.exorions.interactors.mocks;
 
+import de.ethasia.exorions.interactors.crosslayer.DebugWarningLogPresenter;
 import de.ethasia.exorions.interactors.crosslayer.DialogWindowPresenter;
 import de.ethasia.exorions.interactors.crosslayer.FatalErrorPresenter;
 import de.ethasia.exorions.interactors.crosslayer.OverworldStatePresenter;
@@ -27,4 +28,9 @@ public class MockPresentersFactory extends PresentersFactory {
     public PlayerAvatarMovementPresenter createPlayerAvatarMovementPresenter() {
         return new PlayerAvatarMovementPresenterMock();
     }    
+
+    @Override
+    public DebugWarningLogPresenter getDebugWarningLogPresenterSingletonInstance() {
+        return new DebugWarningLogPresenterMock();
+    }
 }

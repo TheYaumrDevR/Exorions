@@ -27,7 +27,7 @@ public class MapDefinitionsGatewayMock implements MapDefinitionsGateway {
     
     //<editor-fold defaultstate="collapsed" desc="Static Methods">
     
-    public static void resetMocks() {
+    public static void resetMock() {
         lastPassedFindFloorTileDefinitionsPath = "";
         lastPassedFindCollisionTileDefinitionsPath = "";
         lastPassedGetMapDimensionXPath = "";

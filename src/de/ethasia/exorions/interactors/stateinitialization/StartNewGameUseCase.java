@@ -2,6 +2,7 @@ package de.ethasia.exorions.interactors.stateinitialization;
 
 import de.ethasia.exorions.core.maps.InteriorMap;
 import de.ethasia.exorions.core.maps.Player;
+import de.ethasia.exorions.interactors.crosslayer.DebugWarningLogPresenter;
 import de.ethasia.exorions.interactors.crosslayer.DefinitionsForUndistinguishableMapTiles;
 import de.ethasia.exorions.interactors.crosslayer.FatalErrorPresenter;
 import de.ethasia.exorions.interactors.crosslayer.InformationForMapsCouldNotBeLoadedException;
@@ -17,6 +18,7 @@ public class StartNewGameUseCase {
     
     private final OverworldStatePresenter overworldStatePresenter;
     private final FatalErrorPresenter fatalErrorPresenter;
+    private final DebugWarningLogPresenter debugLogPresenter;
     private final MapDefinitionsGateway mapMetaDataGateway;
     
     //</editor-fold>
@@ -27,6 +29,7 @@ public class StartNewGameUseCase {
         overworldStatePresenter = PresentersFactory.getInstance().createOverworldStatePresenter();
         fatalErrorPresenter = PresentersFactory.getInstance().createFatalErrorPresenter();
         mapMetaDataGateway = GatewaysFactory.getInstance().createMapMetaDataGateway();
+        debugLogPresenter = PresentersFactory.getInstance().getDebugWarningLogPresenterSingletonInstance();
     }
     
     //</editor-fold>
@@ -75,7 +78,9 @@ public class StartNewGameUseCase {
             playerPositionX = mapMetaDataGateway.getInitialPlayerPositionX(startingMapMetaData.getLogicFilePath());
             playerPositionY = mapMetaDataGateway.getInitialPlayerPositionY(startingMapMetaData.getLogicFilePath());
             playerPositionZ = mapMetaDataGateway.getInitialPlayerPositionZ(startingMapMetaData.getLogicFilePath()); 
-        } catch (MapDataCouldNotBeLoadedException ex) {}
+        } catch (MapDataCouldNotBeLoadedException ex) {
+            debugLogPresenter.addLogEntry("Some initial position coordinate for the player was not found in map definition " + startingMapMetaData.getLogicFilePath() + " due to an XML error or the coordinate is missing.");
+        }
         
         Player.getInstance().placeOnMapWithPosition(map, (short)playerPositionX, (short)playerPositionY, (short)playerPositionZ);
     }

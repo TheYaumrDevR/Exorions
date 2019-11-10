@@ -6,6 +6,7 @@ import de.ethasia.exorions.interactors.crosslayer.InformationForMapsCouldNotBeLo
 import de.ethasia.exorions.interactors.crosslayer.MapDataCouldNotBeLoadedException;
 import de.ethasia.exorions.interactors.interfaces.GatewaysFactory;
 import de.ethasia.exorions.interactors.interfaces.PresentersFactory;
+import de.ethasia.exorions.interactors.mocks.DebugWarningLogPresenterMock;
 import de.ethasia.exorions.interactors.mocks.FatalErrorPresenterMock;
 import de.ethasia.exorions.interactors.mocks.MapDefinitionsGatewayMock;
 import de.ethasia.exorions.interactors.mocks.MockGatewaysFactory;
@@ -32,7 +33,8 @@ public class StartNewGameUseCaseTest {
     public void resetSharedState() {
         OverworldStatePresenterMock.emptyLastSetFields();
         FatalErrorPresenterMock.emptyLastSetFields();
-        MapDefinitionsGatewayMock.resetMocks();
+        MapDefinitionsGatewayMock.resetMock();
+        DebugWarningLogPresenterMock.resetMock();
     }
 
     @Test
@@ -226,5 +228,35 @@ public class StartNewGameUseCaseTest {
         
         assertThat(FatalErrorPresenterMock.getLastShownError(), is(equalTo("")));
         assertThat(Player.getInstance().getPositionZ(), is((short)0));
+    } 
+    
+    @Test
+    public void testStartNewGame_getInitialPositionXThrowsError_debugWarningLogIsExtended() {
+        MapDefinitionsGatewayMock.setNextExceptionToThrowOnGetInitialPlayerPositionX(new MapDataCouldNotBeLoadedException("", ""));
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        
+        testCandidate.startNewGame(); 
+        
+        assertThat(DebugWarningLogPresenterMock.getLastAddedLogEntry(), is(equalTo("Some initial position coordinate for the player was not found in map definition Maps/Exterior/SuriverCityNE.xml due to an XML error or the coordinate is missing.")));
+    }
+
+    @Test
+    public void testStartNewGame_getInitialPositionYThrowsError_debugWarningLogIsExtended() {
+        MapDefinitionsGatewayMock.setNextExceptionToThrowOnGetInitialPlayerPositionY(new MapDataCouldNotBeLoadedException("", ""));
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        
+        testCandidate.startNewGame(); 
+        
+        assertThat(DebugWarningLogPresenterMock.getLastAddedLogEntry(), is(equalTo("Some initial position coordinate for the player was not found in map definition Maps/Exterior/SuriverCityNE.xml due to an XML error or the coordinate is missing.")));
+    }
+    
+    @Test
+    public void testStartNewGame_getInitialPositionZThrowsError_debugWarningLogIsExtended() {
+        MapDefinitionsGatewayMock.setNextExceptionToThrowOnGetInitialPlayerPositionZ(new MapDataCouldNotBeLoadedException("", ""));
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        
+        testCandidate.startNewGame(); 
+        
+        assertThat(DebugWarningLogPresenterMock.getLastAddedLogEntry(), is(equalTo("Some initial position coordinate for the player was not found in map definition Maps/Exterior/SuriverCityNE.xml due to an XML error or the coordinate is missing.")));
     }    
 }
