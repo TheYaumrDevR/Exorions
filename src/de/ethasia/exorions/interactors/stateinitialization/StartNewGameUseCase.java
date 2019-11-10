@@ -1,7 +1,6 @@
 package de.ethasia.exorions.interactors.stateinitialization;
 
 import de.ethasia.exorions.core.maps.InteriorMap;
-import de.ethasia.exorions.core.maps.MapTileTypes;
 import de.ethasia.exorions.core.maps.Player;
 import de.ethasia.exorions.interactors.crosslayer.DefinitionsForUndistinguishableMapTiles;
 import de.ethasia.exorions.interactors.crosslayer.FatalErrorPresenter;
@@ -68,10 +67,16 @@ public class StartNewGameUseCase {
     }
     
     private void placePlayerOnMapAfterReadingTheStartingPosition(InteriorMap map, MapMetaData startingMapMetaData) {
-        int playerPositionX = mapMetaDataGateway.getInitialPlayerPositionX(startingMapMetaData.getLogicFilePath());
-        int playerPositionY = mapMetaDataGateway.getInitialPlayerPositionY(startingMapMetaData.getLogicFilePath());
-        int playerPositionZ = mapMetaDataGateway.getInitialPlayerPositionZ(startingMapMetaData.getLogicFilePath()); 
-
+        int playerPositionX = 0;
+        int playerPositionY = 0;
+        int playerPositionZ = 0;
+        
+        try {
+            playerPositionX = mapMetaDataGateway.getInitialPlayerPositionX(startingMapMetaData.getLogicFilePath());
+            playerPositionY = mapMetaDataGateway.getInitialPlayerPositionY(startingMapMetaData.getLogicFilePath());
+            playerPositionZ = mapMetaDataGateway.getInitialPlayerPositionZ(startingMapMetaData.getLogicFilePath()); 
+        } catch (MapDataCouldNotBeLoadedException ex) {}
+        
         Player.getInstance().placeOnMapWithPosition(map, (short)playerPositionX, (short)playerPositionY, (short)playerPositionZ);
     }
     

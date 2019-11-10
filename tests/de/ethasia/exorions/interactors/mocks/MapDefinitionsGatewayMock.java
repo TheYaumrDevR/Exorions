@@ -9,6 +9,12 @@ public class MapDefinitionsGatewayMock implements MapDefinitionsGateway {
     //<editor-fold defaultstate="collapsed" desc="Static Fields">
     
     private static RuntimeException nextExceptionToThrow;
+    private static RuntimeException nextExceptionToThrowOnGetInitialPlayerPositionX;
+    private static RuntimeException nextExceptionToThrowOnGetInitialPlayerPositionY;
+    private static RuntimeException nextExceptionToThrowOnGetInitialPlayerPositionZ;
+    
+    private static DefinitionsForUndistinguishableMapTiles collisionTileDefinitionsToReturn;
+    
     private static String lastPassedFindFloorTileDefinitionsPath;
     private static String lastPassedFindCollisionTileDefinitionsPath;
     private static String lastPassedGetMapDimensionXPath;
@@ -28,8 +34,26 @@ public class MapDefinitionsGatewayMock implements MapDefinitionsGateway {
         lastPassedGetMapDimensionZPath = "";
         lastPassedGetInitialPlayerPositionXPath = "";    
         lastPassedGetInitialPlayerPositionYPath = "";
-        lastPassedGetInitialPlayerPositionZPath = "";        
+        lastPassedGetInitialPlayerPositionZPath = "";     
+        
+        collisionTileDefinitionsToReturn = null;
     }
+    
+    public static void setCollisionTileDefinitionsToReturn(DefinitionsForUndistinguishableMapTiles value) {
+        collisionTileDefinitionsToReturn = value;
+    }
+    
+    public static void setNextExceptionToThrowOnGetInitialPlayerPositionX(RuntimeException value) {
+        nextExceptionToThrowOnGetInitialPlayerPositionX = value;
+    }
+    
+    public static void setNextExceptionToThrowOnGetInitialPlayerPositionY(RuntimeException value) {
+        nextExceptionToThrowOnGetInitialPlayerPositionY = value;
+    }
+
+    public static void setNextExceptionToThrowOnGetInitialPlayerPositionZ(RuntimeException value) {
+        nextExceptionToThrowOnGetInitialPlayerPositionZ = value;
+    }    
     
     public static void setNextExceptionToThrow(RuntimeException value) {
         nextExceptionToThrow = value;
@@ -101,15 +125,26 @@ public class MapDefinitionsGatewayMock implements MapDefinitionsGateway {
     public DefinitionsForUndistinguishableMapTiles findCollisionTileDefinitions(String pathToMapDefinition) {
         throwExceptionIfSet();
         lastPassedFindCollisionTileDefinitionsPath = pathToMapDefinition;
+        if (null != collisionTileDefinitionsToReturn) {
+            return collisionTileDefinitionsToReturn;
+        }
+        
         DefinitionsForUndistinguishableMapTiles collisionTileDefinitions = new DefinitionsForUndistinguishableMapTiles();
         collisionTileDefinitions.addNewDefinitionWidthLengthHeightXyz(1, 5, 1, 0, 1, 0);
         
         return collisionTileDefinitions;
-    }    
+    }
     
     @Override
     public int getInitialPlayerPositionX(String pathToMapDefinition) {
         throwExceptionIfSet();
+        
+        if (null != nextExceptionToThrowOnGetInitialPlayerPositionX) {
+            RuntimeException exceptionToThrow = nextExceptionToThrowOnGetInitialPlayerPositionX;
+            nextExceptionToThrowOnGetInitialPlayerPositionX = null;
+            throw exceptionToThrow;
+        }
+        
         lastPassedGetInitialPlayerPositionXPath = pathToMapDefinition;
         return 1;
     }
@@ -117,6 +152,13 @@ public class MapDefinitionsGatewayMock implements MapDefinitionsGateway {
     @Override
     public int getInitialPlayerPositionY(String pathToMapDefinition) {
         throwExceptionIfSet();
+        
+        if (null != nextExceptionToThrowOnGetInitialPlayerPositionY) {
+            RuntimeException exceptionToThrow = nextExceptionToThrowOnGetInitialPlayerPositionY;
+            nextExceptionToThrowOnGetInitialPlayerPositionY = null;
+            throw exceptionToThrow;
+        }
+        
         lastPassedGetInitialPlayerPositionYPath = pathToMapDefinition;
         return 1;
     }
@@ -124,6 +166,13 @@ public class MapDefinitionsGatewayMock implements MapDefinitionsGateway {
     @Override
     public int getInitialPlayerPositionZ(String pathToMapDefinition) {
         throwExceptionIfSet();
+        
+        if (null != nextExceptionToThrowOnGetInitialPlayerPositionZ) {
+            RuntimeException exceptionToThrow = nextExceptionToThrowOnGetInitialPlayerPositionZ;
+            nextExceptionToThrowOnGetInitialPlayerPositionZ = null;
+            throw exceptionToThrow;
+        }
+        
         lastPassedGetInitialPlayerPositionZPath = pathToMapDefinition;
         return 2;
     }    

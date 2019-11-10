@@ -1,6 +1,7 @@
 package de.ethasia.exorions.interactors.stateinitialization.tests;
 
 import de.ethasia.exorions.core.maps.Player;
+import de.ethasia.exorions.interactors.crosslayer.DefinitionsForUndistinguishableMapTiles;
 import de.ethasia.exorions.interactors.crosslayer.InformationForMapsCouldNotBeLoadedException;
 import de.ethasia.exorions.interactors.crosslayer.MapDataCouldNotBeLoadedException;
 import de.ethasia.exorions.interactors.interfaces.GatewaysFactory;
@@ -190,4 +191,40 @@ public class StartNewGameUseCaseTest {
         assertThat(Player.getInstance().getMapPlacedOn().tileAtIsColliding((short)0, (short)0, (short)0), is(false));
         assertThat(Player.getInstance().getMapPlacedOn().tileAtIsColliding((short)3, (short)1, (short)2), is(false));
     }
+    
+    @Test
+    public void testStartNewGame_getInitialPositionXThrowsError_playerIsPlacedOnZeroPositionX() {
+        MapDefinitionsGatewayMock.setNextExceptionToThrowOnGetInitialPlayerPositionX(new MapDataCouldNotBeLoadedException("", ""));
+        MapDefinitionsGatewayMock.setCollisionTileDefinitionsToReturn(new DefinitionsForUndistinguishableMapTiles());
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        
+        testCandidate.startNewGame(); 
+        
+        assertThat(FatalErrorPresenterMock.getLastShownError(), is(equalTo("")));
+        assertThat(Player.getInstance().getPositionX(), is((short)0));
+    }
+
+    @Test
+    public void testStartNewGame_getInitialPositionYThrowsError_playerIsPlacedOnZeroPositionX() {
+        MapDefinitionsGatewayMock.setNextExceptionToThrowOnGetInitialPlayerPositionY(new MapDataCouldNotBeLoadedException("", ""));
+        MapDefinitionsGatewayMock.setCollisionTileDefinitionsToReturn(new DefinitionsForUndistinguishableMapTiles());
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        
+        testCandidate.startNewGame(); 
+        
+        assertThat(FatalErrorPresenterMock.getLastShownError(), is(equalTo("")));
+        assertThat(Player.getInstance().getPositionY(), is((short)0));
+    }
+
+    @Test
+    public void testStartNewGame_getInitialPositionZThrowsError_playerIsPlacedOnZeroPositionX() {
+        MapDefinitionsGatewayMock.setNextExceptionToThrowOnGetInitialPlayerPositionZ(new MapDataCouldNotBeLoadedException("", ""));
+        MapDefinitionsGatewayMock.setCollisionTileDefinitionsToReturn(new DefinitionsForUndistinguishableMapTiles());
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        
+        testCandidate.startNewGame(); 
+        
+        assertThat(FatalErrorPresenterMock.getLastShownError(), is(equalTo("")));
+        assertThat(Player.getInstance().getPositionZ(), is((short)0));
+    }    
 }
