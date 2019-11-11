@@ -10,6 +10,8 @@ import de.ethasia.exorions.ioadapters.presenters.RealPresentersFactory;
 import de.ethasia.exorions.technical.jmegamestates.EvocriGameState;
 import de.ethasia.exorions.technical.niftygui.NiftyGuiScreens;
 import de.ethasia.exorions.interactors.interfaces.PresentersFactory;
+import de.ethasia.exorions.ioadapters.UseCasesFactoryIoAdapters;
+import de.ethasia.exorions.ioadapters.UseCasesFactoryIoAdaptersImpl;
 import de.ethasia.exorions.ioadapters.crosslayer.GameStatesFactory;
 import de.ethasia.exorions.ioadapters.crosslayer.TechnicalsFactory;
 import de.ethasia.exorions.ioadapters.presenters.RealGatewaysFactory;
@@ -23,6 +25,7 @@ public class Dependencies {
     
     public static void inject() {
         injectCoreDependencies();
+        injectInteractorDependencies();
         injectIoAdapterDependencies();
         injectTechnicalDependencies();
     }
@@ -46,6 +49,10 @@ public class Dependencies {
     
     private static void injectCoreDependencies() {
         CoreClassesFactory.setInstance(new RealCoreClassesFactory());
+    }
+    
+    private static void injectInteractorDependencies() {
+        UseCasesFactoryIoAdapters.setInstance(new UseCasesFactoryIoAdaptersImpl());
     }
     
     private static void injectIoAdapterDependencies() {
