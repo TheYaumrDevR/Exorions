@@ -13,6 +13,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.ViewPort;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.shadow.PointLightShadowRenderer;
+import de.ethasia.exorions.ioadapters.controllers.PlayerMovementController;
 import de.ethasia.exorions.ioadapters.crosslayer.OverworldGameState;
 import de.ethasia.exorions.ioadapters.presenters.GuiScreens;
 import de.ethasia.exorions.technical.engine.CharacterSpriteAtlas;
@@ -28,7 +29,7 @@ public class OverworldGameStateImpl extends OverworldGameState {
     
     private BulletAppState physics;
     private AnalogListener analogKeyInputListener;
-    private PlayerCharacterAvatar playerAvatar;
+    private PlayerMovementController playerMovementController;
     private final EngineMapData mapToShow;
     private final CharacterSpriteAtlas playerSpriteAtlas;
     
@@ -51,7 +52,7 @@ public class OverworldGameStateImpl extends OverworldGameState {
         NiftyGuiScreens.gotoScreen(GuiScreens.OVERWORLD);
         initKeys();
         
-        playerAvatar = new PlayerCharacterAvatar.Builder()
+        PlayerCharacterAvatar playerAvatar = new PlayerCharacterAvatar.Builder()
             .setCamera(mainGameState.getCamera())
             .setCameraDistanceToAvatar(9.5f)
             .setGameInstance(mainGameState)
@@ -62,6 +63,7 @@ public class OverworldGameStateImpl extends OverworldGameState {
         flyCam.setDragToRotate(false);
         loadTestScene(mapToShow);    
         initPhysics();
+        playerMovementController = new PlayerMovementController();
     }
     
     @Override
@@ -117,16 +119,16 @@ public class OverworldGameStateImpl extends OverworldGameState {
         AnalogListener result = (String name, float value, float tpf) -> {
             switch (name) {
                 case "MoveDown":
-                    playerAvatar.moveDown();
+                    playerMovementController.moveDown();
                     break;
                 case "MoveRight":
-                    playerAvatar.moveRight();
+                    playerMovementController.moveRight();
                     break;
                 case "MoveUp":
-                    playerAvatar.moveUp();
+                    playerMovementController.moveUp();
                     break;
                 case "MoveLeft":
-                    playerAvatar.moveLeft();
+                    playerMovementController.moveLeft();
                     break;
                 default:
                     break;
