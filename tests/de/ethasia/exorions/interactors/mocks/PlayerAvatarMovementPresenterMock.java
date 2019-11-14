@@ -61,6 +61,11 @@ public class PlayerAvatarMovementPresenterMock implements PlayerAvatarMovementPr
         return stepLeftWithoutMovingCallCount;
     }
     
+    private static boolean canShowNextMovementValueToReturn;
+    public static void setCanShowNextMovementValueToReturn(boolean value) {
+        canShowNextMovementValueToReturn = value;
+    }
+    
     public static void resetCallData() {
         lastPosX = 0;
         lastPosY = 0;
@@ -73,11 +78,12 @@ public class PlayerAvatarMovementPresenterMock implements PlayerAvatarMovementPr
         stepRightWithoutMovingCallCount = 0;
         stepUpWithoutMovingCallCount = 0;
         stepLeftWithoutMovingCallCount = 0;
+        canShowNextMovementValueToReturn = true;
     }
     
     //</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="PlayerAvatarMovementPresenterOverrides">
+    //<editor-fold defaultstate="collapsed" desc="PlayerAvatarMovementPresenter Overrides">
     
     @Override
     public void movePlayerAvatarDown(short newX, short newY, short newZ) {
@@ -129,6 +135,11 @@ public class PlayerAvatarMovementPresenterMock implements PlayerAvatarMovementPr
     @Override
     public void stepLeftWithoutMoving() {
         stepLeftWithoutMovingCallCount++;
+    }    
+    
+    @Override
+    public boolean canShowNextMovement() {
+        return canShowNextMovementValueToReturn;
     }    
     
     //</editor-fold>

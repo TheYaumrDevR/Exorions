@@ -438,5 +438,5 @@ public class MoveableMapObjectTest {
     public void testPlaceOnMapWithPosition_mapIsNull_throwsCustomException() {
         MoveableMapObject testCandidate = new MoveableMapObject();
         testCandidate.placeOnMapWithPosition(null, (short)0, (short)0, (short)0);
-    }    
+    }
 }

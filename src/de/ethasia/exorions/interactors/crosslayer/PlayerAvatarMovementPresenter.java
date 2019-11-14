@@ -10,4 +10,5 @@ public interface PlayerAvatarMovementPresenter {
     public void stepRightWithoutMoving();
     public void stepUpWithoutMoving();
     public void stepLeftWithoutMoving();
+    public boolean canShowNextMovement();
 }

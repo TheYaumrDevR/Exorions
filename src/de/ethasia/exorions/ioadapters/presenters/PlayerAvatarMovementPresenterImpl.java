@@ -85,6 +85,15 @@ public class PlayerAvatarMovementPresenterImpl implements PlayerAvatarMovementPr
         }
     }    
     
+    @Override
+    public boolean canShowNextMovement() {
+        if (null != playerCharacterVisual) {
+            return !playerCharacterVisual.isShowingAnimation();
+        }
+        
+        return true;
+    }    
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">

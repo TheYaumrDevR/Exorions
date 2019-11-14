@@ -172,6 +172,10 @@ public class PlayerCharacterAvatar {
         correctionZ = z;
     }
     
+    public boolean isShowingAnimation() {
+        return isMoving;
+    }
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">

@@ -263,4 +263,136 @@ public class PlayerMovementUseCaseImplTest {
         assertThat(PlayerAvatarMovementPresenterMock.getMoveLeftCallCount(), is(0));
         assertThat(PlayerAvatarMovementPresenterMock.getStepLeftWithoutMovingCallCount(), is(0));         
     }
+    
+    @Test
+    public void testMoveDown_movesShortlyTwiceInRow_playerMovesOnceAndPresenterIsCalledOnce() throws InterruptedException {
+        Thread.sleep(350);
+        
+        Player player = Player.getInstance();
+        player.placeOnMapWithPosition(map, (short)1, (short)0, (short)2);    
+        
+        PlayerMovementUseCaseImpl testCandidate = new PlayerMovementUseCaseImpl();
+        testCandidate.moveDown();
+        testCandidate.moveDown();
+        
+        assertThat(player.getPositionZ(), is((short)3));
+        assertThat(PlayerAvatarMovementPresenterMock.getStepDownWithoutMovingCallCount(), is(0));
+        assertThat(PlayerAvatarMovementPresenterMock.getMoveDownCallCount(), is(1));        
+    }
+    
+    @Test
+    public void testMoveRight_movesShortlyTwiceInRow_playerMovesOnceAndPresenterIsCalledOnce() throws InterruptedException {
+        Thread.sleep(350);
+        
+        Player player = Player.getInstance();
+        player.placeOnMapWithPosition(map, (short)1, (short)0, (short)2);    
+        
+        PlayerMovementUseCaseImpl testCandidate = new PlayerMovementUseCaseImpl();
+        testCandidate.moveRight();
+        testCandidate.moveRight();
+        
+        assertThat(player.getPositionX(), is((short)2));
+        assertThat(PlayerAvatarMovementPresenterMock.getStepRightWithoutMovingCallCount(), is(0));
+        assertThat(PlayerAvatarMovementPresenterMock.getMoveRightCallCount(), is(1));        
+    } 
+    
+    @Test
+    public void testMoveUp_movesShortlyTwiceInRow_playerMovesOnceAndPresenterIsCalledOnce() throws InterruptedException {
+        Thread.sleep(350);
+        
+        Player player = Player.getInstance();
+        player.placeOnMapWithPosition(map, (short)2, (short)0, (short)3);    
+        
+        PlayerMovementUseCaseImpl testCandidate = new PlayerMovementUseCaseImpl();
+        testCandidate.moveUp();
+        testCandidate.moveUp();
+        
+        assertThat(player.getPositionZ(), is((short)2));
+        assertThat(PlayerAvatarMovementPresenterMock.getStepUpWithoutMovingCallCount(), is(0));
+        assertThat(PlayerAvatarMovementPresenterMock.getMoveUpCallCount(), is(1));        
+    }
+
+    @Test
+    public void testMoveLeft_movesShortlyTwiceInRow_playerMovesOnceAndPresenterIsCalledOnce() throws InterruptedException {
+        Thread.sleep(350);
+        
+        Player player = Player.getInstance();
+        player.placeOnMapWithPosition(map, (short)2, (short)0, (short)3);    
+        
+        PlayerMovementUseCaseImpl testCandidate = new PlayerMovementUseCaseImpl();
+        testCandidate.moveLeft();
+        testCandidate.moveLeft();
+        
+        assertThat(player.getPositionX(), is((short)1));
+        assertThat(PlayerAvatarMovementPresenterMock.getStepLeftWithoutMovingCallCount(), is(0));
+        assertThat(PlayerAvatarMovementPresenterMock.getMoveLeftCallCount(), is(1));        
+    }
+
+    @Test
+    public void testMoveDown_movementAnimationPresenterIsNotReadyYet_doesNotMove() throws InterruptedException {
+        Thread.sleep(350);
+        
+        Player player = Player.getInstance();
+        player.placeOnMapWithPosition(map, (short)1, (short)0, (short)2);  
+        
+        PlayerAvatarMovementPresenterMock.setCanShowNextMovementValueToReturn(false);
+        
+        PlayerMovementUseCaseImpl testCandidate = new PlayerMovementUseCaseImpl();
+        testCandidate.moveDown();
+        
+        assertThat(player.getPositionZ(), is((short)2));
+        assertThat(PlayerAvatarMovementPresenterMock.getStepDownWithoutMovingCallCount(), is(0));
+        assertThat(PlayerAvatarMovementPresenterMock.getMoveDownCallCount(), is(0));        
+    }
+    
+    @Test
+    public void testMoveRight_movementAnimationPresenterIsNotReadyYet_doesNotMove() throws InterruptedException {
+        Thread.sleep(350);
+        
+        Player player = Player.getInstance();
+        player.placeOnMapWithPosition(map, (short)1, (short)0, (short)2);  
+        
+        PlayerAvatarMovementPresenterMock.setCanShowNextMovementValueToReturn(false);
+        
+        PlayerMovementUseCaseImpl testCandidate = new PlayerMovementUseCaseImpl();
+        testCandidate.moveRight();
+        
+        assertThat(player.getPositionX(), is((short)1));
+        assertThat(PlayerAvatarMovementPresenterMock.getStepRightWithoutMovingCallCount(), is(0));
+        assertThat(PlayerAvatarMovementPresenterMock.getMoveRightCallCount(), is(0));        
+    }
+
+    @Test
+    public void testMoveUp_movementAnimationPresenterIsNotReadyYet_doesNotMove() throws InterruptedException {
+        Thread.sleep(350);
+        
+        Player player = Player.getInstance();
+        player.placeOnMapWithPosition(map, (short)1, (short)0, (short)3);  
+        
+        PlayerAvatarMovementPresenterMock.setCanShowNextMovementValueToReturn(false);
+        
+        PlayerMovementUseCaseImpl testCandidate = new PlayerMovementUseCaseImpl();
+        testCandidate.moveUp();
+        
+        assertThat(player.getPositionZ(), is((short)3));
+        assertThat(PlayerAvatarMovementPresenterMock.getStepUpWithoutMovingCallCount(), is(0));
+        assertThat(PlayerAvatarMovementPresenterMock.getMoveUpCallCount(), is(0));        
+    } 
+    
+    @Test
+    public void testMoveLeft_movementAnimationPresenterIsNotReadyYet_doesNotMove() throws InterruptedException {
+        Thread.sleep(350);
+        
+        Player player = Player.getInstance();
+        player.placeOnMapWithPosition(map, (short)1, (short)0, (short)3);  
+        
+        PlayerAvatarMovementPresenterMock.setCanShowNextMovementValueToReturn(false);
+        
+        PlayerMovementUseCaseImpl testCandidate = new PlayerMovementUseCaseImpl();
+        testCandidate.moveLeft();
+        
+        assertThat(player.getPositionX(), is((short)1));
+        assertThat(PlayerAvatarMovementPresenterMock.getStepLeftWithoutMovingCallCount(), is(0));
+        assertThat(PlayerAvatarMovementPresenterMock.getMoveLeftCallCount(), is(0));        
+    }    
 }
