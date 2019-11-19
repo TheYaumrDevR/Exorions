@@ -3,6 +3,7 @@ package de.ethasia.exorions.ioadapters.mocks;
 import de.ethasia.exorions.interactors.crosslayer.EngineMapDataBuilder;
 import de.ethasia.exorions.ioadapters.crosslayer.CharacterSprites;
 import de.ethasia.exorions.ioadapters.crosslayer.Maps;
+import de.ethasia.exorions.ioadapters.crosslayer.SoundEffects;
 import de.ethasia.exorions.ioadapters.crosslayer.TechnicalsFactory;
 
 public class MockTechnicalsFactory extends TechnicalsFactory {
@@ -22,6 +23,11 @@ public class MockTechnicalsFactory extends TechnicalsFactory {
     @Override
     public EngineMapDataBuilder createEngineMapDataBuilder() {
         return new EngineMapDataBuilderMock();
+    }    
+    
+    @Override
+    public SoundEffects createSoundEffects() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }    
     
     //</editor-fold>    

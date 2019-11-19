@@ -27,6 +27,7 @@ public abstract class TechnicalsFactory {
     public abstract Maps createMaps();
     public abstract CharacterSprites createCharacterSprites();
     public abstract EngineMapDataBuilder createEngineMapDataBuilder();
+    public abstract SoundEffects createSoundEffects();
     
     //</editor-fold>     
 }

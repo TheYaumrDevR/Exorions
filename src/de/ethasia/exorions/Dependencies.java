@@ -16,6 +16,7 @@ import de.ethasia.exorions.ioadapters.crosslayer.GameStatesFactory;
 import de.ethasia.exorions.ioadapters.crosslayer.TechnicalsFactory;
 import de.ethasia.exorions.ioadapters.presenters.RealGatewaysFactory;
 import de.ethasia.exorions.technical.RealTechnicalsFactory;
+import de.ethasia.exorions.technical.engine.SoundEffectsImpl;
 import de.ethasia.exorions.technical.fileaccess.CharacterSpritesImpl;
 import de.ethasia.exorions.technical.jmegamestates.RealGameStatesFactory;
 
@@ -41,6 +42,7 @@ public class Dependencies {
         EvocriGameState.setStateManager(provider.getStateManager());      
         MapsImpl.setAssetManager(provider.getAssetManager());
         CharacterSpritesImpl.setAssetManager(provider.getAssetManager());
+        SoundEffectsImpl.setAssetManager(provider.getAssetManager());
     }
     
     //</editor-fold>

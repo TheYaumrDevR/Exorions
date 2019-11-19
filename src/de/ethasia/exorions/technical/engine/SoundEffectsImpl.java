@@ -3,13 +3,14 @@ package de.ethasia.exorions.technical.engine;
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioData;
 import com.jme3.audio.AudioNode;
+import de.ethasia.exorions.ioadapters.crosslayer.SoundEffects;
 
-public class SoundEffects {
+public class SoundEffectsImpl implements SoundEffects {
     
     //<editor-fold defaultstate="collapsed" desc="Static Properties">
     
     private static AssetManager assetManager;
-    public void setAssetManager(AssetManager value) {
+    public static void setAssetManager(AssetManager value) {
         assetManager = value;
     }
     
@@ -23,7 +24,7 @@ public class SoundEffects {
     
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     
-    public SoundEffects() {
+    public SoundEffectsImpl() {
         if (null != assetManager) {
             initAudioNodes();
         }
@@ -31,8 +32,9 @@ public class SoundEffects {
     
     //</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="Methods">
+    //<editor-fold defaultstate="collapsed" desc="SoundEffects Overrides">
     
+    @Override
     public void playCollisionSoundEffect() {
         if (null != collisionSound) {
             collisionSound.play();            
