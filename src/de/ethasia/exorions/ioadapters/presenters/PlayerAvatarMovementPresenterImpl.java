@@ -60,7 +60,7 @@ public class PlayerAvatarMovementPresenterImpl implements PlayerAvatarMovementPr
     @Override
     public void stepDownWithoutMoving() {
         if (null != playerCharacterVisual) {
-            playerCharacterVisual.showStepLeftAnimation();
+            playerCharacterVisual.showStepDownAnimation();
         }
     }
 
