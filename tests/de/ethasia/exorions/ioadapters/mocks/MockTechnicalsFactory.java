@@ -27,7 +27,7 @@ public class MockTechnicalsFactory extends TechnicalsFactory {
     
     @Override
     public SoundEffects createSoundEffects() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new SoundEffectsMock();
     }    
     
     //</editor-fold>    

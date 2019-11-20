@@ -37,7 +37,7 @@ public class SoundEffectsImpl implements SoundEffects {
     @Override
     public void playCollisionSoundEffect() {
         if (null != collisionSound) {
-            collisionSound.play();            
+            collisionSound.playInstance();
         }
     }
     
