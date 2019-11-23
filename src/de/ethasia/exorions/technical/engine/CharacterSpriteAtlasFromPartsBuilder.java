@@ -75,6 +75,7 @@ public class CharacterSpriteAtlasFromPartsBuilder {
     
     private void extractBaseSpriteByteData(int imageIndexInAtlas) {
         combinedSpriteData = new byte[4];
+        baseSpriteData = new byte[4];
         createdSpritesWidth = 1;
         createdSpritesHeight = 1;
         
