@@ -78,13 +78,18 @@ public class CharacterSpriteAtlasFromPartsBuilder {
         if (null != baseSprites) {
             Texture baseSprite = baseSprites.getSpriteOn(imageIndexInAtlas);
             
-            if (null != baseSprite && baseSprite.getImage().getData().get(0).hasRemaining()) {
-                createdSpritesWidth = baseSprite.getImage().getWidth();
-                createdSpritesHeight = baseSprite.getImage().getHeight();
-            
-                combinedSpriteData = new byte[createdSpritesWidth * createdSpritesHeight * 4];                
+            boolean baseSpriteImageExists = baseSprite != null && baseSprite.getImage() != null;
+            if (baseSpriteImageExists) {
+                baseSprite.getImage().getData().get(0).rewind();
                 
-                baseSprite.getImage().getData().get(0).get(combinedSpriteData);   
+                if (baseSprite.getImage().getData().get(0).hasRemaining()) {
+                    createdSpritesWidth = baseSprite.getImage().getWidth();
+                    createdSpritesHeight = baseSprite.getImage().getHeight();
+            
+                    combinedSpriteData = new byte[createdSpritesWidth * createdSpritesHeight * 4];                
+                
+                    baseSprite.getImage().getData().get(0).get(combinedSpriteData);   
+                }                
             }
         }
     }
@@ -113,13 +118,18 @@ public class CharacterSpriteAtlasFromPartsBuilder {
     private byte[] extractSpriteByteDataFrom(Texture sprite) {
         byte[] result = new byte[createdSpritesWidth * createdSpritesHeight * 4];
         
-        if (sprite != null && sprite.getImage().getData().get(0).hasRemaining()) {
-            int spriteWidth = sprite.getImage().getWidth();
-            int spriteHeight = sprite.getImage().getHeight();
+        boolean spriteImageExists = sprite != null && sprite.getImage() != null;
+        if (spriteImageExists) {
+            sprite.getImage().getData().get(0).rewind();
+            
+            if (sprite.getImage().getData().get(0).hasRemaining()) {
+                int spriteWidth = sprite.getImage().getWidth();
+                int spriteHeight = sprite.getImage().getHeight();
                 
-            if (spriteWidthAndHeightAreMatchingBaseSprite(spriteWidth, spriteHeight)) {
-                sprite.getImage().getData().get(0).get(result); 
-            }
+                if (spriteWidthAndHeightAreMatchingBaseSprite(spriteWidth, spriteHeight)) {
+                    sprite.getImage().getData().get(0).get(result); 
+                }
+            }            
         }
 
         return result;
