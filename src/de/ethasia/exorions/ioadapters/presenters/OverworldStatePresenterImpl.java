@@ -11,6 +11,7 @@ import de.ethasia.exorions.ioadapters.crosslayer.Maps;
 import de.ethasia.exorions.ioadapters.crosslayer.OverworldGameState;
 import de.ethasia.exorions.ioadapters.crosslayer.TechnicalsFactory;
 import de.ethasia.exorions.technical.engine.CharacterSpriteAtlas;
+import de.ethasia.exorions.technical.engine.CharacterSpriteAtlasFromPartsBuilder;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -26,14 +27,13 @@ public class OverworldStatePresenterImpl implements OverworldStatePresenter {
         GameStatesFactory gameStatesFactory = GameStatesFactory.getInstance();
         
         Maps maps = technicalsFactory.createMaps();
-        CharacterSprites characterSprites = technicalsFactory.createCharacterSprites();
         
         Document mapLogic = maps.readMapLogic(newGameMapMetaData.getLogicFilePath());
         EngineMapDataBuilder mapDataForEngineBuilder = setupLogicalMapData(mapLogic);
         
         mapDataForEngineBuilder.setMapVisuals(maps.readMapVisuals(newGameMapMetaData.getVisualFilePath()));
         EngineMapData mapDataForEngine = mapDataForEngineBuilder.build();
-        CharacterSpriteAtlas playerSpriteAtlas = characterSprites.loadSpritesFrom("CharacterSprites/StandardMale/Bases");
+        CharacterSpriteAtlas playerSpriteAtlas = createPlayerSprites(technicalsFactory);
         
         OverworldGameState overworldState = gameStatesFactory.createOverworldGameState(mapDataForEngine, playerSpriteAtlas);
         EvocriGameState.setGameState(overworldState);
@@ -71,6 +71,23 @@ public class OverworldStatePresenterImpl implements OverworldStatePresenter {
         }
         
         return result;
+    }
+    
+    private CharacterSpriteAtlas createPlayerSprites(TechnicalsFactory technicalsFactory) {
+        CharacterSprites characterSprites = technicalsFactory.createCharacterSprites();
+        
+        CharacterSpriteAtlas baseSprites = characterSprites.loadSpritesFrom("CharacterSprites/StandardMale/Bases");
+        CharacterSpriteAtlas bottomSprites = characterSprites.loadSpritesFrom("CharacterSprites/StandardMale/Bottoms/Jeans/Blue");
+        CharacterSpriteAtlas shoeSprites = characterSprites.loadSpritesFrom("CharacterSprites/StandardMale/Shoes/SneakerTwoColor/Black");
+        CharacterSpriteAtlas topSprites = characterSprites.loadSpritesFrom("CharacterSprites/StandardMale/Tops/OpenHoodie/Black");    
+        
+        CharacterSpriteAtlasFromPartsBuilder spritePartsCombiner = new CharacterSpriteAtlasFromPartsBuilder();
+        spritePartsCombiner.withBaseSprites(baseSprites)
+            .withBottomSprites(bottomSprites)
+            .withShoeSprites(shoeSprites)
+            .withTopSprites(topSprites);
+        
+        return spritePartsCombiner.build();
     }
     
     //</editor-fold>

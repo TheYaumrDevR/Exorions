@@ -16,6 +16,7 @@ public class CharacterSpriteAtlasFromPartsBuilder {
     private CharacterSpriteAtlas bottomSprites;
     private CharacterSpriteAtlas shoeSprites;
     
+    private byte[] baseSpriteData;
     private byte[] topSpritesData;
     private byte[] bottomSpritesData;
     private byte[] shoeSpritesData;
@@ -90,7 +91,8 @@ public class CharacterSpriteAtlasFromPartsBuilder {
             
                     combinedSpriteData = new byte[createdSpritesWidth * createdSpritesHeight * 4];                
                 
-                    baseSprite.getImage().getData().get(0).get(combinedSpriteData);   
+                    baseSpriteData = new byte[createdSpritesWidth * createdSpritesHeight * 4];
+                    baseSprite.getImage().getData().get(0).get(baseSpriteData);   
                 }                
             }
         }
@@ -146,20 +148,33 @@ public class CharacterSpriteAtlasFromPartsBuilder {
             for (int j = 0; j < createdSpritesWidth; j++) {
                 int pixelIndex = (j + i * createdSpritesWidth) * 4;
                 
-                combinedSpriteData[pixelIndex] = shoeSpritesData[pixelIndex + 3];
-                combinedSpriteData[pixelIndex + 1] = shoeSpritesData[pixelIndex + 2];
-                combinedSpriteData[pixelIndex + 2] = shoeSpritesData[pixelIndex + 1];
-                combinedSpriteData[pixelIndex + 3] = shoeSpritesData[pixelIndex];
+                if (baseSpriteData[pixelIndex] != 0) {
+                    combinedSpriteData[pixelIndex] = baseSpriteData[pixelIndex + 3];
+                    combinedSpriteData[pixelIndex + 1] = baseSpriteData[pixelIndex + 2];
+                    combinedSpriteData[pixelIndex + 2] = baseSpriteData[pixelIndex + 1];
+                    combinedSpriteData[pixelIndex + 3] = baseSpriteData[pixelIndex];                    
+                }                
                 
-                combinedSpriteData[pixelIndex] = bottomSpritesData[pixelIndex + 3];
-                combinedSpriteData[pixelIndex + 1] = bottomSpritesData[pixelIndex + 2];
-                combinedSpriteData[pixelIndex + 2] = bottomSpritesData[pixelIndex + 1];
-                combinedSpriteData[pixelIndex + 3] = bottomSpritesData[pixelIndex]; 
+                if (shoeSpritesData[pixelIndex] != 0) {
+                    combinedSpriteData[pixelIndex] = shoeSpritesData[pixelIndex + 3];
+                    combinedSpriteData[pixelIndex + 1] = shoeSpritesData[pixelIndex + 2];
+                    combinedSpriteData[pixelIndex + 2] = shoeSpritesData[pixelIndex + 1];
+                    combinedSpriteData[pixelIndex + 3] = shoeSpritesData[pixelIndex];                    
+                }
                 
-                combinedSpriteData[pixelIndex] = topSpritesData[pixelIndex + 3];
-                combinedSpriteData[pixelIndex + 1] = topSpritesData[pixelIndex + 2];
-                combinedSpriteData[pixelIndex + 2] = topSpritesData[pixelIndex + 1];
-                combinedSpriteData[pixelIndex + 3] = topSpritesData[pixelIndex];                 
+                if (bottomSpritesData[pixelIndex] != 0) {
+                    combinedSpriteData[pixelIndex] = bottomSpritesData[pixelIndex + 3];
+                    combinedSpriteData[pixelIndex + 1] = bottomSpritesData[pixelIndex + 2];
+                    combinedSpriteData[pixelIndex + 2] = bottomSpritesData[pixelIndex + 1];
+                    combinedSpriteData[pixelIndex + 3] = bottomSpritesData[pixelIndex];                     
+                }
+                
+                if (topSpritesData[pixelIndex] != 0) {
+                    combinedSpriteData[pixelIndex] = topSpritesData[pixelIndex + 3];
+                    combinedSpriteData[pixelIndex + 1] = topSpritesData[pixelIndex + 2];
+                    combinedSpriteData[pixelIndex + 2] = topSpritesData[pixelIndex + 1];
+                    combinedSpriteData[pixelIndex + 3] = topSpritesData[pixelIndex];                    
+                }                 
             }
         }
         
