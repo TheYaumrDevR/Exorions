@@ -195,13 +195,13 @@ public class PlayerCharacterAvatar {
     }
     
     private void setupSpriteHolder(Builder source) {
-        Texture testSprite = gameInstance.getAssetManager().loadTexture("CharacterSprites/StandardMale/Bases/0.png");
-        testSprite.setMagFilter(Texture.MagFilter.Nearest);
+        Texture initialSprite = spriteAtlas.getSpriteOn(walkingAnimator.getAnimationFrameId());
+        initialSprite.setMagFilter(Texture.MagFilter.Nearest);
         
         spriteMaterial = new Material(gameInstance.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
         spriteMaterial.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha);
         spriteMaterial.setFloat("AlphaDiscardThreshold", 1.f);
-        spriteMaterial.setTexture("ColorMap", testSprite);
+        spriteMaterial.setTexture("ColorMap", initialSprite);
         
         characterSpriteHolder = new Geometry("characterSpriteHolder", new Quad(0.6f, 1.2f));   
         characterSpriteHolder.setQueueBucket(RenderQueue.Bucket.Transparent);
