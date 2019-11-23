@@ -7,7 +7,7 @@ public class CharacterSpriteAtlas {
     
     //<editor-fold defaultstate="collapsed" desc="Constants">
     
-    private static final int NUMBER_OF_ANIMATION_FRAMES_PER_CHARACTER = 12;
+    public static final int NUMBER_OF_ANIMATION_FRAMES_PER_CHARACTER = 12;
     
     //</editor-fold>
     
