@@ -11,12 +11,14 @@ import de.ethasia.exorions.interactors.crosslayer.OverworldStatePresenter;
 import de.ethasia.exorions.interactors.interfaces.GatewaysFactory;
 import de.ethasia.exorions.interactors.interfaces.PresentersFactory;
 import de.ethasia.exorions.interactors.crosslayer.MapDefinitionsGateway;
+import de.ethasia.exorions.interactors.crosslayer.PlayerAvatarMovementPresenter;
 
 public class StartNewGameUseCase {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
     private final OverworldStatePresenter overworldStatePresenter;
+    private final PlayerAvatarMovementPresenter playerMovementPresenter;
     private final FatalErrorPresenter fatalErrorPresenter;
     private final DebugWarningLogPresenter debugLogPresenter;
     private final MapDefinitionsGateway mapMetaDataGateway;
@@ -27,6 +29,7 @@ public class StartNewGameUseCase {
     
     public StartNewGameUseCase() {
         overworldStatePresenter = PresentersFactory.getInstance().createOverworldStatePresenter();
+        playerMovementPresenter = PresentersFactory.getInstance().createPlayerAvatarMovementPresenter();
         fatalErrorPresenter = PresentersFactory.getInstance().createFatalErrorPresenter();
         mapMetaDataGateway = GatewaysFactory.getInstance().createMapMetaDataGateway();
         debugLogPresenter = PresentersFactory.getInstance().getDebugWarningLogPresenterSingletonInstance();
@@ -40,9 +43,9 @@ public class StartNewGameUseCase {
         try {
             MapMetaData startingMapMetaData = mapMetaDataGateway.tryToRetrieveMetaDataForNewGameMap();
             InteriorMap map = createStartingMap(startingMapMetaData);
-            placePlayerOnMapAfterReadingTheStartingPosition(map, startingMapMetaData);
             
             overworldStatePresenter.presentOverworldWithMapFromMetaData(startingMapMetaData);  
+            placePlayerOnMapAfterReadingTheStartingPosition(map, startingMapMetaData);
         } catch (InformationForMapsCouldNotBeLoadedException ex) {
             fatalErrorPresenter.showFatalError(ex.getErrorMessage(), ex.getErrorCause(), ex.getStackTraceString());
         } catch (MapDataCouldNotBeLoadedException ex) {
@@ -107,6 +110,7 @@ public class StartNewGameUseCase {
         }
         
         Player.getInstance().placeOnMapWithPosition(map, (short)playerPositionX, (short)playerPositionY, (short)playerPositionZ);
+        playerMovementPresenter.teleportTo((short)playerPositionX, (short)playerPositionY, (short)playerPositionZ);
     }
     
     //</editor-fold>

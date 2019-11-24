@@ -95,7 +95,23 @@ public class PlayerAvatarMovementPresenterImpl implements PlayerAvatarMovementPr
         }
         
         playCollisionSoundEffect();      
-    }    
+    }  
+    
+    @Override
+    public void teleportTo(short newX, short newY, short newZ) {
+        float engineX = transformTilePositionToJmePosition(newX);
+        float engineY = transformTilePositionToJmePosition(newY);
+        float engineZ = transformTilePositionToJmePosition(newZ);
+        
+        if (null != playerCharacterVisual) {
+            playerCharacterVisual.teleportTo(engineX, engineY, engineZ);
+        } else {
+             PlayerCharacterAvatar.Builder.getCurrentInstance()
+                    .setPositionX(engineX)
+                    .setPositionY(engineY)
+                    .setPositionZ(engineZ);
+        }      
+    }
     
     @Override
     public boolean canShowNextMovement() {

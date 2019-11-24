@@ -12,6 +12,7 @@ import de.ethasia.exorions.interactors.mocks.MapDefinitionsGatewayMock;
 import de.ethasia.exorions.interactors.mocks.MockGatewaysFactory;
 import de.ethasia.exorions.interactors.mocks.MockPresentersFactory;
 import de.ethasia.exorions.interactors.mocks.OverworldStatePresenterMock;
+import de.ethasia.exorions.interactors.mocks.PlayerAvatarMovementPresenterMock;
 import de.ethasia.exorions.interactors.stateinitialization.StartNewGameUseCase;
 import static org.hamcrest.CoreMatchers.equalTo;
 
@@ -153,7 +154,18 @@ public class StartNewGameUseCaseTest {
         assertThat(Player.getInstance().getPositionX(), is((short)1));
         assertThat(Player.getInstance().getPositionY(), is((short)1));
         assertThat(Player.getInstance().getPositionZ(), is((short)2));
-    }  
+    } 
+    
+    @Test
+    public void testStartNewGame_noErrorHappens_playerAvatarIsPlacedOnCorrectInitialPosition() {
+        StartNewGameUseCase testCandidate = new StartNewGameUseCase();  
+        
+        testCandidate.startNewGame();
+
+        assertThat(PlayerAvatarMovementPresenterMock.getLastTeleportToParameterX(), is(1));
+        assertThat(PlayerAvatarMovementPresenterMock.getLastTeleportToParameterY(), is(1));
+        assertThat(PlayerAvatarMovementPresenterMock.getLastTeleportToParameterZ(), is(2));
+    }     
     
     @Test
     public void testStartNewGame_noErrorHappens_playerIsPlacedOnMapWithCorrectSize() {

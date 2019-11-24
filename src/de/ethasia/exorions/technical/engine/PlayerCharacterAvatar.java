@@ -65,7 +65,7 @@ public class PlayerCharacterAvatar {
         walkingAnimator = new CharacterWalkingAnimation();
         spriteAtlas = source.spriteAtlas;
         setupChaseCam(source);
-        setupPhysics();
+        setupPhysics(source);
         setupSpriteHolder(source);
         setupBillboardControl();
     }    
@@ -148,7 +148,13 @@ public class PlayerCharacterAvatar {
             
             MovementStopRunnable.startMovementStopTimer(333, this);
         }        
-    }     
+    }  
+    
+    public void teleportTo(float x, float y, float z) {
+        if (!isMoving) {
+            characterPhysics.setPhysicsLocation(new Vector3f(0.1f + x, y, 0.4f + z));            
+        }
+    }
     
     public void stopMoving() {
         isMoving = false;
@@ -186,9 +192,9 @@ public class PlayerCharacterAvatar {
         chaseCam.setDefaultVerticalRotation(3.14f / 6.f);
     }
     
-    private void setupPhysics() {
+    private void setupPhysics(Builder source) {
         rootNode.addControl(characterPhysics);
-        characterPhysics.setPhysicsLocation(new Vector3f(0.1f + 1.6f, 0.f, 0.4f + 2.4f));
+        teleportTo(source.positionX, source.positionY, source.positionZ);
         characterPhysics.setJumpSpeed(20);
         characterPhysics.setFallSpeed(20);
         characterPhysics.setGravity(new Vector3f(0.f, -9.8f, 0.f));
@@ -228,10 +234,25 @@ public class PlayerCharacterAvatar {
     
     public static class Builder {
         
+        private static Builder currentInstance;
+        
         private Camera chaseCamBase;
         private float cameraDistanceToAvatar;
         private SimpleApplication gameInstance;
         private CharacterSpriteAtlas spriteAtlas;
+        private float positionX;
+        private float positionY;
+        private float positionZ;
+        
+        private Builder() {}
+        
+        public static Builder getCurrentInstance() {
+            if (null == currentInstance) {
+                currentInstance = new Builder();
+            }
+            
+            return currentInstance;
+        }
         
         public Builder setCamera(Camera value) {
             chaseCamBase = value;
@@ -251,9 +272,25 @@ public class PlayerCharacterAvatar {
         public Builder setCharacterSpriteAtlas(CharacterSpriteAtlas value) {
             spriteAtlas = value;
             return this;
+        }  
+        
+        public Builder setPositionX(float value) {
+            positionX = value;
+            return this;
+        }
+        
+        public Builder setPositionY(float value) {
+            positionY = value;
+            return this;
+        }
+
+        public Builder setPositionZ(float value) {
+            positionZ = value;
+            return this;
         }        
         
         public PlayerCharacterAvatar build() {
+            currentInstance = null;
             return new PlayerCharacterAvatar(this);
         }
     }

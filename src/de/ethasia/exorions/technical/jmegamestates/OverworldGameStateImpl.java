@@ -52,7 +52,7 @@ public class OverworldGameStateImpl extends OverworldGameState {
         NiftyGuiScreens.gotoScreen(GuiScreens.OVERWORLD);
         initKeys();
         
-        PlayerCharacterAvatar playerAvatar = new PlayerCharacterAvatar.Builder()
+        PlayerCharacterAvatar playerAvatar = PlayerCharacterAvatar.Builder.getCurrentInstance()
             .setCamera(mainGameState.getCamera())
             .setCameraDistanceToAvatar(9.5f)
             .setGameInstance(mainGameState)

@@ -61,6 +61,21 @@ public class PlayerAvatarMovementPresenterMock implements PlayerAvatarMovementPr
         return stepLeftWithoutMovingCallCount;
     }
     
+    private static int lastTeleportToParameterX;
+    public static int getLastTeleportToParameterX() {
+        return lastTeleportToParameterX;
+    }    
+    
+    private static int lastTeleportToParameterY;
+    public static int getLastTeleportToParameterY() {
+        return lastTeleportToParameterY;
+    }      
+    
+    private static int lastTeleportToParameterZ;
+    public static int getLastTeleportToParameterZ() {
+        return lastTeleportToParameterZ;
+    }      
+    
     private static boolean canShowNextMovementValueToReturn;
     public static void setCanShowNextMovementValueToReturn(boolean value) {
         canShowNextMovementValueToReturn = value;
@@ -70,6 +85,9 @@ public class PlayerAvatarMovementPresenterMock implements PlayerAvatarMovementPr
         lastPosX = 0;
         lastPosY = 0;
         lastPosZ = 0;
+        lastTeleportToParameterX = 0;
+        lastTeleportToParameterY = 0;
+        lastTeleportToParameterZ = 0;
         moveDownCallCount = 0;
         moveRightCallCount = 0;
         moveUpCallCount = 0;
@@ -140,6 +158,13 @@ public class PlayerAvatarMovementPresenterMock implements PlayerAvatarMovementPr
     @Override
     public boolean canShowNextMovement() {
         return canShowNextMovementValueToReturn;
+    }    
+    
+    @Override
+    public void teleportTo(short newX, short newY, short newZ) {
+        lastTeleportToParameterX = newX;
+        lastTeleportToParameterY = newY;
+        lastTeleportToParameterZ = newZ;
     }    
     
     //</editor-fold>
