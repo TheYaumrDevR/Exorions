@@ -209,7 +209,7 @@ public class PlayerCharacterAvatar {
         spriteMaterial.setFloat("AlphaDiscardThreshold", 1.f);
         spriteMaterial.setTexture("ColorMap", initialSprite);
         
-        characterSpriteHolder = new Geometry("characterSpriteHolder", new Quad(0.6f, 1.2f));   
+        characterSpriteHolder = new Geometry("characterSpriteHolder", new Quad(0.6f, 1.35f));   
         characterSpriteHolder.setQueueBucket(RenderQueue.Bucket.Transparent);
         characterSpriteHolder.addControl(chaseCam);
         characterSpriteHolder.setMaterial(spriteMaterial);
