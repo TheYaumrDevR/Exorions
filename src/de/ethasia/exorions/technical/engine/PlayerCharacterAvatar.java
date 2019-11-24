@@ -162,7 +162,7 @@ public class PlayerCharacterAvatar {
         
         if (applyVisualPositionCorrectionAfterMovement) {
             applyVisualPositionCorrectionAfterMovement = false;
-            characterPhysics.setPhysicsLocation(new Vector3f(0.1f + correctionX, 0.f + correctionY, 0.4f + correctionZ));
+            characterPhysics.setPhysicsLocation(new Vector3f(0.1f + correctionX, characterPhysics.getPhysicsLocation().y, 0.4f + correctionZ));
         }
     }
     
