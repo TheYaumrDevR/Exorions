@@ -80,12 +80,14 @@ public class OverworldStatePresenterImpl implements OverworldStatePresenter {
         CharacterSpriteAtlas bottomSprites = characterSprites.loadSpritesFrom("CharacterSprites/StandardMale/Bottoms/Jeans/Blue");
         CharacterSpriteAtlas shoeSprites = characterSprites.loadSpritesFrom("CharacterSprites/StandardMale/Shoes/SneakerTwoColor/Black");
         CharacterSpriteAtlas topSprites = characterSprites.loadSpritesFrom("CharacterSprites/StandardMale/Tops/OpenHoodie/Black");    
+        CharacterSpriteAtlas hairSprites = characterSprites.loadSpritesFrom("CharacterSprites/StandardMale/Hair/FrontalSpikes/Black");    
         
         CharacterSpriteAtlasFromPartsBuilder spritePartsCombiner = new CharacterSpriteAtlasFromPartsBuilder();
         spritePartsCombiner.withBaseSprites(baseSprites)
             .withBottomSprites(bottomSprites)
             .withShoeSprites(shoeSprites)
-            .withTopSprites(topSprites);
+            .withTopSprites(topSprites)
+            .withHairSprites(hairSprites);
         
         return spritePartsCombiner.build();
     }

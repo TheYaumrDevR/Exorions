@@ -12,11 +12,13 @@ public class CharacterSpriteAtlasFromPartsBuilder {
     //<editor-fold defaultstate="collapsed" desc="Private Fields">
     
     private CharacterSpriteAtlas baseSprites;
+    private CharacterSpriteAtlas hairSprites;
     private CharacterSpriteAtlas topSprites;
     private CharacterSpriteAtlas bottomSprites;
     private CharacterSpriteAtlas shoeSprites;
     
     private byte[] baseSpriteData;
+    private byte[] hairSpriteData;
     private byte[] topSpritesData;
     private byte[] bottomSpritesData;
     private byte[] shoeSpritesData;
@@ -34,6 +36,11 @@ public class CharacterSpriteAtlasFromPartsBuilder {
         baseSprites = value;
         return this;
     }
+    
+    public CharacterSpriteAtlasFromPartsBuilder withHairSprites(CharacterSpriteAtlas value) {
+        hairSprites = value;
+        return this;
+    }    
     
     public CharacterSpriteAtlasFromPartsBuilder withTopSprites(CharacterSpriteAtlas value) {
         topSprites = value;
@@ -66,6 +73,7 @@ public class CharacterSpriteAtlasFromPartsBuilder {
             extractShoeSpriteByteData(i);
             extractBottomSpriteByteData(i);
             extractTopSpriteByteData(i);
+            extractHairSpriteByteData(i);
             
             resultBuilder.setSpriteOn(combineSubImagesOnIndexIntoSprite(), i);
         }
@@ -119,6 +127,13 @@ public class CharacterSpriteAtlasFromPartsBuilder {
             topSpritesData = extractSpriteByteDataFrom(topSprite);
         }        
     } 
+    
+    private void extractHairSpriteByteData(int imageIndexInAtlas) {
+        if (null != hairSprites) {
+            Texture hairSprite = hairSprites.getSpriteOn(imageIndexInAtlas);
+            hairSpriteData = extractSpriteByteDataFrom(hairSprite);
+        }        
+    }
     
     private byte[] extractSpriteByteDataFrom(Texture sprite) {
         byte[] result = new byte[createdSpritesWidth * createdSpritesHeight * 4];
@@ -175,6 +190,13 @@ public class CharacterSpriteAtlasFromPartsBuilder {
                     combinedSpriteData[pixelIndex + 1] = topSpritesData[pixelIndex + 2];
                     combinedSpriteData[pixelIndex + 2] = topSpritesData[pixelIndex + 1];
                     combinedSpriteData[pixelIndex + 3] = topSpritesData[pixelIndex];                    
+                }
+                
+                if (hairSpriteData[pixelIndex] != 0) {
+                    combinedSpriteData[pixelIndex] = hairSpriteData[pixelIndex + 3];
+                    combinedSpriteData[pixelIndex + 1] = hairSpriteData[pixelIndex + 2];
+                    combinedSpriteData[pixelIndex + 2] = hairSpriteData[pixelIndex + 1];
+                    combinedSpriteData[pixelIndex + 3] = hairSpriteData[pixelIndex];                    
                 }                 
             }
         }
