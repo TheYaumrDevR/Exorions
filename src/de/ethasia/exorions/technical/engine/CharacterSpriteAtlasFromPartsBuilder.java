@@ -164,44 +164,24 @@ public class CharacterSpriteAtlasFromPartsBuilder {
             for (int j = 0; j < createdSpritesWidth; j++) {
                 int pixelIndex = (j + i * createdSpritesWidth) * 4;
                 
-                if (baseSpriteData[pixelIndex] != 0) {
-                    combinedSpriteData[pixelIndex] = baseSpriteData[pixelIndex + 3];
-                    combinedSpriteData[pixelIndex + 1] = baseSpriteData[pixelIndex + 2];
-                    combinedSpriteData[pixelIndex + 2] = baseSpriteData[pixelIndex + 1];
-                    combinedSpriteData[pixelIndex + 3] = baseSpriteData[pixelIndex];                    
-                }                
-                
-                if (shoeSpritesData[pixelIndex] != 0) {
-                    combinedSpriteData[pixelIndex] = shoeSpritesData[pixelIndex + 3];
-                    combinedSpriteData[pixelIndex + 1] = shoeSpritesData[pixelIndex + 2];
-                    combinedSpriteData[pixelIndex + 2] = shoeSpritesData[pixelIndex + 1];
-                    combinedSpriteData[pixelIndex + 3] = shoeSpritesData[pixelIndex];                    
-                }
-                
-                if (bottomSpritesData[pixelIndex] != 0) {
-                    combinedSpriteData[pixelIndex] = bottomSpritesData[pixelIndex + 3];
-                    combinedSpriteData[pixelIndex + 1] = bottomSpritesData[pixelIndex + 2];
-                    combinedSpriteData[pixelIndex + 2] = bottomSpritesData[pixelIndex + 1];
-                    combinedSpriteData[pixelIndex + 3] = bottomSpritesData[pixelIndex];                     
-                }
-                
-                if (topSpritesData[pixelIndex] != 0) {
-                    combinedSpriteData[pixelIndex] = topSpritesData[pixelIndex + 3];
-                    combinedSpriteData[pixelIndex + 1] = topSpritesData[pixelIndex + 2];
-                    combinedSpriteData[pixelIndex + 2] = topSpritesData[pixelIndex + 1];
-                    combinedSpriteData[pixelIndex + 3] = topSpritesData[pixelIndex];                    
-                }
-                
-                if (hairSpriteData[pixelIndex] != 0) {
-                    combinedSpriteData[pixelIndex] = hairSpriteData[pixelIndex + 3];
-                    combinedSpriteData[pixelIndex + 1] = hairSpriteData[pixelIndex + 2];
-                    combinedSpriteData[pixelIndex + 2] = hairSpriteData[pixelIndex + 1];
-                    combinedSpriteData[pixelIndex + 3] = hairSpriteData[pixelIndex];                    
-                }                 
+                blendGivenPixelOntoCombinedImage(baseSpriteData, pixelIndex); 
+                blendGivenPixelOntoCombinedImage(shoeSpritesData, pixelIndex);              
+                blendGivenPixelOntoCombinedImage(bottomSpritesData, pixelIndex); 
+                blendGivenPixelOntoCombinedImage(topSpritesData, pixelIndex); 
+                blendGivenPixelOntoCombinedImage(hairSpriteData, pixelIndex);                
             }
         }
         
         return convertCurrentCombinedSpriteDataToImage();
+    }
+    
+    private void blendGivenPixelOntoCombinedImage(byte[] pixelToBlend, int pixelIndexToBlend) {
+        if (pixelToBlend[pixelIndexToBlend] != 0) {
+            combinedSpriteData[pixelIndexToBlend] = pixelToBlend[pixelIndexToBlend + 3];
+            combinedSpriteData[pixelIndexToBlend + 1] = pixelToBlend[pixelIndexToBlend + 2];
+            combinedSpriteData[pixelIndexToBlend + 2] = pixelToBlend[pixelIndexToBlend + 1];
+            combinedSpriteData[pixelIndexToBlend + 3] = pixelToBlend[pixelIndexToBlend];                    
+        }         
     }
     
     private Texture convertCurrentCombinedSpriteDataToImage() {
