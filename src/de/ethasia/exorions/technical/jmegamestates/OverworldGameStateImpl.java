@@ -5,6 +5,7 @@ import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.input.KeyInput;
+import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.DirectionalLight;
@@ -13,6 +14,8 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.ViewPort;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.shadow.PointLightShadowRenderer;
+
+import de.ethasia.exorions.ioadapters.controllers.PlayerInteractionController;
 import de.ethasia.exorions.ioadapters.controllers.PlayerMovementController;
 import de.ethasia.exorions.ioadapters.crosslayer.OverworldGameState;
 import de.ethasia.exorions.ioadapters.presenters.GuiScreens;
@@ -28,8 +31,10 @@ public class OverworldGameStateImpl extends OverworldGameState {
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
     private BulletAppState physics;
+    private ActionListener interactionKeysInputListener;
     private AnalogListener analogKeyInputListener;
     private PlayerMovementController playerMovementController;
+    private PlayerInteractionController playerInteractionController;
     private final EngineMapData mapToShow;
     private final CharacterSpriteAtlas playerSpriteAtlas;
     
@@ -64,6 +69,7 @@ public class OverworldGameStateImpl extends OverworldGameState {
         loadTestScene(mapToShow);    
         initPhysics();
         playerMovementController = new PlayerMovementController();
+        playerInteractionController = new PlayerInteractionController();
     }
     
     @Override
@@ -96,23 +102,39 @@ public class OverworldGameStateImpl extends OverworldGameState {
     
     private void initKeys() {
         analogKeyInputListener = createAnalogListenerForMovements();
+        interactionKeysInputListener = createInteractionKeysInputListener();
         
+        mapMovementKeys();
+        
+        mainGameState.getInputManager().addMapping("GlobalInteractionKeyHit", new KeyTrigger(KeyInput.KEY_SPACE));
+        
+        mainGameState.getInputManager().addListener(analogKeyInputListener, 
+                new String[]{"MoveLeft", "MoveUp", "MoveDown", "MoveRight"}); 
+        mainGameState.getInputManager().addListener(interactionKeysInputListener, 
+                new String[]{"GlobalInteractionKeyHit"});
+    }
+    
+    private void mapMovementKeys() {
         mainGameState.getInputManager().addMapping("MoveLeft", new KeyTrigger(KeyInput.KEY_A));
         mainGameState.getInputManager().addMapping("MoveUp", new KeyTrigger(KeyInput.KEY_W));
         mainGameState.getInputManager().addMapping("MoveDown", new KeyTrigger(KeyInput.KEY_S));
-        mainGameState.getInputManager().addMapping("MoveRight", new KeyTrigger(KeyInput.KEY_D));
-        
-        mainGameState.getInputManager().addListener(analogKeyInputListener, 
-                new String[]{"MoveLeft", "MoveUp", "MoveDown", "MoveRight"});        
+        mainGameState.getInputManager().addMapping("MoveRight", new KeyTrigger(KeyInput.KEY_D));        
     }
     
     private void detachKeys() {
+        detachMovementKeys();
+        
+        mainGameState.getInputManager().deleteMapping("GlobalInteractionKeyHit");
+        
+        mainGameState.getInputManager().removeListener(analogKeyInputListener);
+        mainGameState.getInputManager().removeListener(interactionKeysInputListener);
+    }
+    
+    private void detachMovementKeys() {
         mainGameState.getInputManager().deleteMapping("MoveLeft");
         mainGameState.getInputManager().deleteMapping("MoveUp");
         mainGameState.getInputManager().deleteMapping("MoveDown");
-        mainGameState.getInputManager().deleteMapping("MoveRight");      
-        
-        mainGameState.getInputManager().removeListener(analogKeyInputListener);
+        mainGameState.getInputManager().deleteMapping("MoveRight");         
     }
     
     private AnalogListener createAnalogListenerForMovements() {
@@ -132,6 +154,24 @@ public class OverworldGameStateImpl extends OverworldGameState {
                     break;
                 default:
                     break;
+            }
+        };
+        
+        return result;
+    }
+    
+    private ActionListener createInteractionKeysInputListener() {
+        ActionListener result = new ActionListener() {
+            
+            @Override
+            public void onAction(String name, boolean isPressed, float tpf) {
+                switch (name) {
+                    case "GlobalInteractionKeyHit":
+                        playerInteractionController.interactWithEntityInfrontOfPlayer();
+                        break;
+                    default:
+                        break;
+                }
             }
         };
         
