@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty-controls>
+    <controlDefinition name="textarea" controller="de.ethasia.exorions.technical.niftygui.TextAreaControl">
+        <panel id="#outerPanel" childLayout="center" height="$height" width="$width" backgroundColor="#00000000">
+            <control name="scrollPanel" id="#textScrollPanel" horizontal="false" style="#panelcolor" vertical="$scroll" height="100%" width="100%">
+                <panel id="#textPanel" childLayout="horizontal" style="#panelColor" height="100%" width="100%">
+                    <text id="#areaText" style="#textFont" width="94%" />
+                </panel>
+            </control>
+        </panel>
+    </controlDefinition>
+</nifty-controls>
