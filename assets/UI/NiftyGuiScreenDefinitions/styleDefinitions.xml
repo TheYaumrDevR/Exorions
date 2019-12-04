@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nifty-styles>
+    
+    <!-- Fonts -->
+    
+    <style id="text-font">
+	<attributes color="#ffffffff" font="UI/Fonts/DejaVuSans_Bold_16.fnt"/>
+    </style>
+    
+    <!-- Fonts End -->
+    
     <!-- Evocri Button -->
 
     <!-- +++++++++++++++++++++++++++++++++++++ -->
@@ -44,4 +53,14 @@
     </style>
 
     <!-- Evocri Button End -->    
+    
+    <!-- Evocri Textarea -->
+
+    <style id="evocri-textarea#textfont" base="text-font" />
+
+    <style id="evocri-textarea#panelcolor">
+	<attributes backgroundColor="#1e1e1eff"/>
+    </style>
+
+    <!-- Evocri Textarea End -->    
 </nifty-styles>
