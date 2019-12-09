@@ -197,6 +197,20 @@ public class BattleAbilityBaseTest {
     }
     
     @Test
+    public void testBuilderBuild_setVelocityCost_correctVelocityCostIsContained() {
+        Map<Integer, Integer> requiredLevelByAbilityLevel = BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility();
+        BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();
+        
+        BattleAbilityBase product = testCandidate
+            .setRequiredLevelByAbilityLevel(requiredLevelByAbilityLevel)
+            .setLearningRequirements(AbilityLearningRequirements.NEEDLES)
+            .setVelocityCost(35)
+            .build();
+        
+        assertThat(product.getVelocityCost(), is(35));
+    }
+    
+    @Test
     public void testGetMinimumLevelRequired_basicLevelRequirementTableIsSet_valueIsTakenFromTable() {
         Map<Integer, Integer> requiredLevelByAbilityLevel = BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility();
         BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();

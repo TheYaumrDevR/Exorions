@@ -72,6 +72,15 @@ public abstract class BattleAbilityEffect extends BattleAbility {
         throw new DecoratorMustDecorateSomethingException();
     }
     
+    @Override
+    public int getVelocityCost() {
+        if (null != decoratedAbility) {
+            return decoratedAbility.getVelocityCost();
+        }
+        
+        throw new DecoratorMustDecorateSomethingException();        
+    }
+    
     public void decorate(BattleAbility battleAbility) {
         decoratedAbility = battleAbility;
     }

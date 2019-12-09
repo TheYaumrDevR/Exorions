@@ -56,6 +56,12 @@ public class BattleAbilityBase extends BattleAbility {
         return abilityLevel;
     }
     
+    private final int velocityCost;
+    @Override
+    public int getVelocityCost() {
+        return velocityCost;
+    }
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Constructors">
@@ -68,6 +74,7 @@ public class BattleAbilityBase extends BattleAbility {
         requiredPowerPointsForStageTwo = builder.requiredPowerPointsForStageTwo;
         abilityLevel = builder.abilityLevel;
         requiredLevelByAbilityLevel = builder.requiredLevelByAbilityLevel;
+        velocityCost = builder.velocityCost;
     }
     
     //</editor-fold>
@@ -93,6 +100,7 @@ public class BattleAbilityBase extends BattleAbility {
         private float delayMultiplier;
         private int requiredPowerPointsForStageTwo;
         private int abilityLevel;
+        private int velocityCost;
         
         private Map<Integer, Integer> requiredLevelByAbilityLevel;
         
@@ -138,6 +146,11 @@ public class BattleAbilityBase extends BattleAbility {
         
         public Builder setRequiredLevelByAbilityLevel(Map<Integer, Integer> value) {
             requiredLevelByAbilityLevel = value;
+            return this;
+        }
+        
+        public Builder setVelocityCost(int value) {
+            velocityCost = value;
             return this;
         }
         
