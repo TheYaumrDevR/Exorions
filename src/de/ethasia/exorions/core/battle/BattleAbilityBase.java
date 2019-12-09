@@ -33,12 +33,6 @@ public class BattleAbilityBase extends BattleAbility {
         return new HashSet<>(learningRequirements);
     }
     
-    private final float delayMultiplier;
-    @Override
-    public float getDelayMultiplier() {
-        return delayMultiplier;
-    }
-    
     private final int requiredPowerPointsForStageTwo;
     @Override
     public int getRequiredPowerPointsForStageTwo() {
@@ -70,7 +64,6 @@ public class BattleAbilityBase extends BattleAbility {
         name = builder.name;
         damageTypes = builder.damageTypes;
         learningRequirements = builder.learningRequirements;
-        delayMultiplier = builder.delayMultiplier;
         requiredPowerPointsForStageTwo = builder.requiredPowerPointsForStageTwo;
         abilityLevel = builder.abilityLevel;
         requiredLevelByAbilityLevel = builder.requiredLevelByAbilityLevel;

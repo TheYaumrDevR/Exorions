@@ -54,7 +54,6 @@ public class BattleAbilitiesTest {
         assertThat(ram.getName(), is(equalTo("Ram")));
         assertThat(ram.getDamageTypes(), hasItems(DamageTypes.BLUNT, DamageTypes.SHATTER));
         assertThat(ram.getLearningRequirements(), hasItems(AbilityLearningRequirements.LOCOMOTION, AbilityLearningRequirements.HORNS));
-        assertThat(ram.getDelayMultiplier(), is(equalTo(1.2f)));
         assertThat(ram.getRequiredPowerPointsForStageTwo(), is(equalTo(2)));
         assertThat(ram.getMinimumLevelRequired(), is(equalTo(1)));
         assertThat(ram.getAbilityLevel(), is(equalTo(1)));
@@ -77,7 +76,6 @@ public class BattleAbilitiesTest {
         assertThat(ram.getName(), is(equalTo("Ram")));
         assertThat(ram.getDamageTypes(), hasItems(DamageTypes.BLUNT, DamageTypes.SHATTER));
         assertThat(ram.getLearningRequirements(), hasItems(AbilityLearningRequirements.LOCOMOTION, AbilityLearningRequirements.HORNS));
-        assertThat(ram.getDelayMultiplier(), is(equalTo(1.2f)));
         assertThat(ram.getRequiredPowerPointsForStageTwo(), is(equalTo(2)));
         assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(51)));
         assertThat(modifiedDefender.getModifiedAccuracy(), is(equalTo(50)));
@@ -99,7 +97,6 @@ public class BattleAbilitiesTest {
         assertThat(bite.getName(), is(equalTo("Bite")));
         assertThat(bite.getDamageTypes(), hasItems(DamageTypes.SQUEEZE, DamageTypes.RIP, DamageTypes.INFECTION));
         assertThat(bite.getLearningRequirements(), hasItems(AbilityLearningRequirements.TEETH));
-        assertThat(bite.getDelayMultiplier(), is(equalTo(1.1f)));
         assertThat(bite.getRequiredPowerPointsForStageTwo(), is(equalTo(2)));
         assertThat(bite.getMinimumLevelRequired(), is(equalTo(1)));
         assertThat(bite.getAbilityLevel(), is(equalTo(1)));
@@ -138,7 +135,6 @@ public class BattleAbilitiesTest {
         assertThat(clawSwipe.getName(), is(equalTo("Claw Swipe")));
         assertThat(clawSwipe.getDamageTypes(), hasItems(DamageTypes.CUT));
         assertThat(clawSwipe.getLearningRequirements(), hasItems(AbilityLearningRequirements.CLAWS));
-        assertThat(clawSwipe.getDelayMultiplier(), is(equalTo(1.0f)));
         assertThat(clawSwipe.getRequiredPowerPointsForStageTwo(), is(equalTo(2)));
         assertThat(clawSwipe.getMinimumLevelRequired(), is(equalTo(1)));
         assertThat(clawSwipe.getAbilityLevel(), is(equalTo(1)));

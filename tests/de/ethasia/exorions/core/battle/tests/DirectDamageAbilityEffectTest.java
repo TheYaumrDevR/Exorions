@@ -40,14 +40,7 @@ public class DirectDamageAbilityEffectTest {
         DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
         
         Set<AbilityLearningRequirements> learningRequirements = testCandidate.getLearningRequirements();          
-    }   
-    
-    @Test(expected = DecoratorMustDecorateSomethingException.class)
-    public void testGetDelayMultiplier_doesNotDecorateAnything_throwsException() {
-        DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
-        
-        float delayMultiplier = testCandidate.getDelayMultiplier();      
-    } 
+    }
 
     @Test(expected = DecoratorMustDecorateSomethingException.class)
     public void testGetRequiredPowerPointsForStageTwo_doesNotDecorateAnything_throwsException() {
@@ -101,21 +94,7 @@ public class DirectDamageAbilityEffectTest {
         Set<AbilityLearningRequirements> learningRequirements = testCandidate.getLearningRequirements();  
         assertThat(learningRequirements.size(), is(1));
         assertThat(learningRequirements, hasItems(AbilityLearningRequirements.TEETH));        
-    }   
-    
-    @Test
-    public void testDecorate_decoratesBaseAbility_delayMultiplierIsTakenFromBaseAbility() {
-        DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
-        BattleAbilityBase decoratedAbility = new BattleAbilityBase.Builder()
-            .setDelayMultiplier(1.2f)
-            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
-            .build();
-        
-        testCandidate.decorate(decoratedAbility);
-        
-        float delayMultiplier = testCandidate.getDelayMultiplier(); 
-        assertThat(delayMultiplier, is(equalTo(1.2f)));
-    }   
+    }  
     
     @Test
     public void testDecorate_decoratesBaseAbility_requiredPowerPointsForStageTwoAreTakenFromBaseAbility() {
@@ -241,6 +220,27 @@ public class DirectDamageAbilityEffectTest {
         testCandidate.use(attacker, defender);
         assertThat(defender.getBaseStats().getCurrentHealthPoints(), is(equalTo(27)));
     }
+    
+    @Test
+    public void testGetVelocityCost_decoratesBaseAbility_velocityCostIsTakenFromBase() {
+        DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect();
+        
+        BattleAbilityBase decoratedAbility = new BattleAbilityBase.Builder()
+            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
+            .setAbilityLevel(20)
+            .setVelocityCost(35)
+            .build();
+        testCandidate.decorate(decoratedAbility);  
+        
+        assertThat(testCandidate.getVelocityCost(), is(35));
+    }
+    
+    @Test(expected = DecoratorMustDecorateSomethingException.class)
+    public void testGetVelocityCost_decoratesNoAbility_throwsException() {
+        DirectDamageAbilityEffect testCandidate = new DirectDamageAbilityEffect(); 
+        
+        assertThat(testCandidate.getVelocityCost(), is(0));
+    }    
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     

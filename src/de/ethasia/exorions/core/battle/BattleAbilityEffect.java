@@ -37,15 +37,6 @@ public abstract class BattleAbilityEffect extends BattleAbility {
     }
     
     @Override
-    public float getDelayMultiplier() {
-        if (null != decoratedAbility) {
-            return decoratedAbility.getDelayMultiplier();
-        }        
-        
-        throw new DecoratorMustDecorateSomethingException();
-    }
-    
-    @Override
     public int getRequiredPowerPointsForStageTwo() {
         if (null != decoratedAbility) {
             return decoratedAbility.getRequiredPowerPointsForStageTwo();

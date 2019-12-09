@@ -104,18 +104,6 @@ public class BattleAbilityBaseTest {
             AbilityLearningRequirements.TENTACLES,
             AbilityLearningRequirements.CLAWS,
             AbilityLearningRequirements.NEEDLES));
-    } 
-
-    @Test
-    public void testBattleAbilityBuilderBuild_delayMultiplierIsSet_valueIsInProduct() {
-        BattleAbilityBase.Builder testCandidate = new BattleAbilityBase.Builder();
-        
-        BattleAbilityBase product = testCandidate
-            .setDelayMultiplier(1.0f)
-            .setRequiredLevelByAbilityLevel(BattleAbilityRequiredLevelTables.getRequiredLevelTableForBasicLevelOneAbility())
-            .build();
-        
-        assertThat(product.getDelayMultiplier(), is(equalTo(1.0f)));
     }
     
     @Test
